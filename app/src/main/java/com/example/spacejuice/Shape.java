@@ -1,7 +1,9 @@
 package com.example.spacejuice;
 
 public abstract class Shape {
-    String color = "red"
+
+    String colour = "Blue";
+
 
     private int x;
     private int y;
