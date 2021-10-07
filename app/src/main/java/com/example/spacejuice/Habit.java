@@ -10,7 +10,7 @@ public class Habit {
     private int id;
     private String title;
     private String reason;
-    Date startDate;
+    private Date startDate;
     //Schedule schedule;
 
     public Habit(String title, String reason) {
@@ -45,7 +45,7 @@ public class Habit {
 
     public void newSchedule() {
         //todo: create Schedule Type
-        //this.scheulde = new Schedule();
+        //this.schedule = new Schedule();
     }
 
     public String getTitle() {
