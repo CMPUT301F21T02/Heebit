@@ -1,0 +1,19 @@
+Tasks:
+
+Create Habit class with constrained attributes
+Create User class with constrained attributes
+Create Schedule class
+Create Link class
+Create Progress class
+Create Event class
+Create Main Activity
+Create View all Habits Activity
+-	Add functionality to create event within this view (by clicking on habit)
+Create View today’s Habits Activity
+-	Add functionality to create event within this view (by clicking on habit)
+Create View Habit Details Activity
+Create View User Details Activity
+Create “Take a picture” Activity
+Create “Add Location” method
+Create User Account Creation (Firebase)
+Create Login and retrieval of Data (Firebase)
