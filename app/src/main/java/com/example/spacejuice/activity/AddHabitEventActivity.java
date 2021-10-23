@@ -1,6 +1,8 @@
 package com.example.spacejuice.activity;
 
-public class AddHabitEventActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class AddHabitEventActivity extends AppCompatActivity {
       /*
    This Activity is used to add and enter the details of a new habit event
     */

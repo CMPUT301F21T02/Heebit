@@ -1,6 +1,8 @@
 package com.example.spacejuice.activity;
 
-public class LoginActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class LoginActivity extends AppCompatActivity {
    /*
    This Activity is used to display the login screen
     */
