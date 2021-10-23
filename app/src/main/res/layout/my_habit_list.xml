@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_habit_list"
         android:layout_width="316dp"
         android:layout_height="506dp"
         android:textSize="24sp"
