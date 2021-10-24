@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.spacejuice">
+    package="com.example.spacejuice" >
 
     <application
         android:allowBackup="true"
@@ -8,10 +8,44 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.SpaceJuice">
+        android:theme="@style/Theme.SpaceJuice" >
+        <activity
+            android:name=".activity.AllHabitsActivity"
+            android:exported="true"
+            android:label="@string/title_all_habits" />
+        <activity
+            android:name=".activity.AddHabitEventActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.AddHabitActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.FollowerRequestsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.FollowersActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.FollowingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.HabitDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.MemberProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.MyProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.OverviewActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

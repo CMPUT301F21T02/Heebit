@@ -1,6 +1,8 @@
 package com.example.spacejuice.activity;
 
-public class FollowersActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class FollowersActivity extends AppCompatActivity {
    /*
    This Activity is used to display my followers
     */

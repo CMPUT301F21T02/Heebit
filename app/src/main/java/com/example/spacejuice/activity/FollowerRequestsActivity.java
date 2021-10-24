@@ -1,6 +1,8 @@
 package com.example.spacejuice.activity;
 
-public class FollowerRequestsActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class FollowerRequestsActivity extends AppCompatActivity {
    /*
    This Activity is used to display all my pending incoming follow requests
     */

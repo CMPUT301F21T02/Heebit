@@ -2,6 +2,7 @@ package com.example.spacejuice.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,6 +26,7 @@ public class AllHabitsActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      Log.d("debugInfo", "All My Habits View Created");
       setContentView(R.layout.my_habit_list);
       habitList = findViewById(R.id.my_habit_list);
       this.member = member.getInstance(this, R.layout.habit_content);
