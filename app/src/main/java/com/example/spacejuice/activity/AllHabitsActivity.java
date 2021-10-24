@@ -14,7 +14,7 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 
-// Going to work on this
+// Going to work on this!
 public class AllHabitsActivity extends AppCompatActivity {
    /*
    This Activity is used to view all of my habits
