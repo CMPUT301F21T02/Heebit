@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.spacejuice.activity.AllHabitsActivity;
 
 public class MainActivity extends AppCompatActivity {
     public Member user;
@@ -14,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (user == null) { // user references the Member class for the user
-            user = new Member(this, 0);
+            user = new Member(this, R.layout.activity_main);
         }
 
         setContentView(R.layout.activity_main);
@@ -22,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
         Habit testHabit_1 = new Habit("Brush Teeth", "Prevent cavities");
         Habit testHabit_2 = new Habit("Walk Dog", "Exercise");
 
-        user.ViewAllHabits(this);
+        Intent intent = new Intent(this, AllHabitsActivity.class);
+        startActivity(intent);
     }
 
 }
