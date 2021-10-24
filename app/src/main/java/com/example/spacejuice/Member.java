@@ -32,21 +32,4 @@ public class Member extends AppCompatActivity {
       return instance;
    }
 
-   public static Member getInstance() {
-      return instance;
-   }
-
-   public void ViewAllHabits(Context context) {
-      Log.d("debugInfo", "Member.ViewAllHabits() was run");
-      if (context == null) {
-         Log.d("debugInfo", "Context is Null");
-      }
-      else {
-         Log.d("debugInfo", "Context: " + context);
-         Intent intent = new Intent(context, AllHabitsActivity.class);
-         // THIS IS GIVING A NULL REFERENCE ERROR - STILL LOOKING AT HOW TO FIX THIS - Brad
-         // COMMENTED OUT FOR NOW
-         //startActivity(intent);
-      }
-   }
 }
