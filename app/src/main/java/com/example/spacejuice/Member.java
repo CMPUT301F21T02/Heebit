@@ -13,7 +13,64 @@ import com.example.spacejuice.activity.AllHabitsActivity;
 
 import java.util.ArrayList;
 
-public class Member extends AppCompatActivity {
+public class Member {
+   // Might need to redo accesses for these cuz i dunno shit abt private vs public - Harish
+   public String memberName;
+   private final String memberPassword;
+   private int id; // Needs to be the primary id on Firestore
+   public int score;
+   public int followers;
+   public int followings;
+
+   public Member(String name, String password) {
+      // Set login name and password to the arguments
+      this.memberName = name;
+      this.memberPassword = password;
+
+      //Set the score and social stats to 0
+      this.score = 0;
+      this.followers = 0;
+      this.followings = 0;
+   }
+
+
+   // Getters -- Need to figure out how to compare password in login so we can access the private password
+   //            and return true or false whether it matches or not during login.
+
+   public String getMemberName() {
+      return memberName;
+   }
+
+   public int getScore() {
+      return score;
+   }
+
+   public int getFollowers() {
+      return followers;
+   }
+
+   public int getFollowings() {
+      return followings;
+   }
+
+
+   // Setters
+
+   public void setScore(int score) {
+      this.score = score;
+   }
+
+   public void setFollowers(int followers) {
+      this.followers = followers;
+   }
+
+   public void setFollowings(int followings) {
+      this.followings = followings;
+   }
+}
+
+
+        /*extends AppCompatActivity {
    private static Member instance;
    public static ArrayAdapter<Habit> habitAdapter;
    public static ArrayList<Habit> habitList;
@@ -33,3 +90,4 @@ public class Member extends AppCompatActivity {
    }
 
 }
+*/

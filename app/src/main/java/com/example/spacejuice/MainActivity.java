@@ -17,16 +17,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (user == null) { // user references the Member class for the user
+        /*if (user == null) { // user references the Member class for the user
             user = new Member(this, R.layout.activity_main);
-        }
+        }*/
 
         setContentView(R.layout.activity_main);
 
         Habit testHabit_1 = new Habit("Brush Teeth", "Prevent cavities");
         Habit testHabit_2 = new Habit("Walk Dog", "Exercise");
 
-        // Feel free to change to whatever
+        // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
         Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
     }
