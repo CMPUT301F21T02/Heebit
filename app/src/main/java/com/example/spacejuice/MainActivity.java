@@ -29,4 +29,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public Member getUser() {
+        // Getter to get the Member class for the User
+        return user;
+    }
+
 }
