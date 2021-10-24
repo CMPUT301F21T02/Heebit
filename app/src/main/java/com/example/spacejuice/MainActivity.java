@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.spacejuice.activity.AllHabitsActivity;
+import com.example.spacejuice.activity.OverviewActivity;
 
 public class MainActivity extends AppCompatActivity {
     public Member user;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
         Habit testHabit_1 = new Habit("Brush Teeth", "Prevent cavities");
         Habit testHabit_2 = new Habit("Walk Dog", "Exercise");
 
-        Intent intent = new Intent(this, AllHabitsActivity.class);
+        // Feel free to change to whatever
+        Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
     }
 
