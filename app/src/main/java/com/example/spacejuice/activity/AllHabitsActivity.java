@@ -1,19 +1,18 @@
 package com.example.spacejuice.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.HabitListItem;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
+
+import java.util.ArrayList;
 
 // Going to work on this!
 public class AllHabitsActivity extends AppCompatActivity {
@@ -28,13 +27,19 @@ public class AllHabitsActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      Log.d("debugInfo", "All My Habits View Created");
+      Log.d("debugInfo", "All My Habits View Created from AllHabitsActivity.java");
       setContentView(R.layout.my_habit_list);
+      habitList = findViewById(R.id.list_of_my_habits);
 
-      // Hey brad these don't work now as i redid member.java - harish
-      /*habitList = findViewById(R.id.my_habit_list);
-      this.member = member.getInstance(this, R.layout.habit_content);
-      habitList.setAdapter(habitAdapter);*/
+      ArrayList<HabitListItem> items = new ArrayList<>();
+      items.add(new HabitListItem("Text Habit #1", R.drawable.habit_empty));
+      items.add(new HabitListItem("Test Habit #2", R.drawable.habit_bronze));
+      items.add(new HabitListItem("Test Habit #3", R.drawable.habit_silver));
+      items.add(new HabitListItem("Test Habit #4", R.drawable.habit_gold));
+
+      habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, items));
+
+
    }
 
 }
