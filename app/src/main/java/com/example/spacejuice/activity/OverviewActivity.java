@@ -2,7 +2,6 @@ package com.example.spacejuice.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,6 +25,8 @@ public class OverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today_habits);
 
+        go_to_profile_imageView = findViewById(R.id.profile_imageView);
+
         go_to_all_habits_button = (Button) findViewById(R.id.all_habits_button);
 
 
@@ -37,7 +38,25 @@ public class OverviewActivity extends AppCompatActivity {
             }
         });
 
+        // Apply OnClickListener  to imageView to
+        // switch from one activity to another
+        go_to_profile_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Intent class will help to go to next activity using
+                // it's object named intent.
+                // SecondActivty is the name of new created EmptyActivity.
+                Intent intent = new Intent(OverviewActivity.this, MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
+
+    }
+
+    private void findViewById(ImageView go_to_profile_imageView) {
+//        Intent intent = new Intent(OverviewActivity.this, MyProfileActivity.class);
+//        startActivity(intent);
     }
 
     public void openAllHabitsActivity() {
