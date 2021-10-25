@@ -8,8 +8,6 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
-import com.example.spacejuice.HabitListItem;
-import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 
 import java.util.ArrayList;
@@ -22,7 +20,6 @@ public class AllHabitsActivity extends AppCompatActivity {
 
    public ListView habitList;
    public static ArrayAdapter<Habit> habitAdapter;
-   public Member member;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +28,16 @@ public class AllHabitsActivity extends AppCompatActivity {
       setContentView(R.layout.my_habit_list);
       habitList = findViewById(R.id.list_of_my_habits);
 
-      ArrayList<HabitListItem> items = new ArrayList<>();
-      items.add(new HabitListItem("Text Habit #1", R.drawable.habit_empty));
-      items.add(new HabitListItem("Test Habit #2", R.drawable.habit_bronze));
-      items.add(new HabitListItem("Test Habit #3", R.drawable.habit_silver));
-      items.add(new HabitListItem("Test Habit #4", R.drawable.habit_gold));
+      ArrayList<Habit> items = new ArrayList<>();
+
+      /* We must find a way to store these Habits in such a way that they can be accessed from any
+      activity. We want an accessible ArrayList<Habit> of a Member's habits.
+       */
+
+      items.add(new Habit("test habit #1", "reason #1", Habit.Indicator.EMPTY.indicatorImage));
+      items.add(new Habit("test habit #2", "reason #2", Habit.Indicator.BRONZE.indicatorImage));
+      items.add(new Habit("test habit #3", "reason #3", Habit.Indicator.SILVER.indicatorImage));
+      items.add(new Habit("test habit #4", "reason #4", Habit.Indicator.GOLD.indicatorImage));
 
       habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, items));
 

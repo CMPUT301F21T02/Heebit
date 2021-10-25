@@ -11,16 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.spacejuice.HabitListItem;
+import com.example.spacejuice.Habit;
 import com.example.spacejuice.R;
 
 import java.util.ArrayList;
 
 public class HabitListAdapter extends ArrayAdapter {
-   //1. Constructor   2. Viewholder inner class  3. override 2 methods getView(..)  getCount(..)
-   ArrayList<HabitListItem> items;
+   ArrayList<Habit> items;
 
-   public HabitListAdapter(Context context, int layout, ArrayList<HabitListItem> items)
+   public HabitListAdapter(Context context, int layout, ArrayList<Habit> items)
    {
       super(context, layout);
       this.items=items;
@@ -57,8 +56,8 @@ public class HabitListAdapter extends ArrayAdapter {
          viewHolder = (ViewHolder) row.getTag();
       }
 
-      viewHolder.imageView.setImageResource(items.get(position).indicator);
-      viewHolder.textView.setText(items.get(position).text);
+      viewHolder.imageView.setImageResource(items.get(position).getIndicator());
+      viewHolder.textView.setText(items.get(position).getTitle());
 
       return row;
    }

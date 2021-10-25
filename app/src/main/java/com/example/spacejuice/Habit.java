@@ -7,7 +7,7 @@ import java.util.Date;
 public class Habit {
     private static int TITLE_LENGTH = 20;
     private static int REASON_LENGTH = 30;
-    private int id;
+    private int indicator;
     private String title;
     private String reason;
     private Date startDate;
@@ -17,7 +17,36 @@ public class Habit {
         setTitle(title);
         setReason(reason);
         setStartDate(new Date());
+        setIndicator(Indicator.EMPTY.indicatorImage);
         newSchedule();
+    }
+
+    public Habit(String title, String reason, int indicator) {
+        setTitle(title);
+        setReason(reason);
+        setStartDate(new Date());
+        setIndicator(indicator);
+    }
+
+    public enum Indicator {
+        // allows the use of EMPTY, BRONZE, SILVER, GOLD to reference the indicator image
+        // usage Indicator.GOLD.getImage() will retrieve the image ID for the gold indicator
+        EMPTY("empty", R.drawable.habit_empty),
+        BRONZE("bronze", R.drawable.habit_bronze),
+        SILVER("silver", R.drawable.habit_silver),
+        GOLD("gold", R.drawable.habit_gold);
+
+        public String indicatorString;
+        public int indicatorImage;
+        private Indicator(String string, int imageInt) {
+            indicatorString = string;
+            indicatorImage = imageInt;
+        }
+
+        @Override
+        public String toString() {
+            return indicatorString;
+        }
     }
 
     private void generateHabitID() {
@@ -39,6 +68,10 @@ public class Habit {
         Log.d("debugInfo", "reason set to " + this.reason);
     }
 
+    public void setIndicator(int indicator) {
+        this.indicator = indicator;
+    }
+
     public void setStartDate(Date d) {
         this.startDate = d;
     }
@@ -56,9 +89,7 @@ public class Habit {
         return this.reason;
     }
 
-    public int getId() {
-        return this.id;
-    }
+    public int getIndicator() { return this.indicator; }
 
     public Date getStartDate() {
         return this.startDate;
