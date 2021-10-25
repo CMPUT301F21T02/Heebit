@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="editName" type="id" />
+    <item name="userName" type="id" />
+    <item name="followers" type="id" />
+    <item name="following" type="id" />
+    <item name="followersCount" type="id" />
+    <item name="followingCount" type="id" />
+    <item name="requestsButton" type="id" />
+    <item name="discoverButton" type="id" />
+    <item name="confirmButton" type="id" />
+</resources>
