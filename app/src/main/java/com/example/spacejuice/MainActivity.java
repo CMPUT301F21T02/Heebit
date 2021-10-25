@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
@@ -17,9 +18,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*if (user == null) { // user references the Member class for the user
-            user = new Member(this, R.layout.activity_main);
-        }*/
+        user = new Member(this);
 
         setContentView(R.layout.activity_main);
 
@@ -35,6 +34,14 @@ public class MainActivity extends AppCompatActivity {
     public Member getUser() {
         // Getter to get the Member class for the User
         return user;
+    }
+
+    public Context getContext() {
+        return this;
+    }
+
+    public void testFunction() {
+        Log.d("debugInfo", "testFunction() was run.");
     }
 
 }
