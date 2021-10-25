@@ -30,7 +30,7 @@
             android:text="Button" />
 
         <ImageView
-            android:id="@+id/imgDelete"
+            android:id="@+id/profile_imageView"
             android:layout_width="105dp"
             android:layout_height="55dp"
             android:layout_marginEnd="5dp"
