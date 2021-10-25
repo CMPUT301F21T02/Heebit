@@ -34,10 +34,10 @@ public class AllHabitsActivity extends AppCompatActivity {
       activity. We want an accessible ArrayList<Habit> of a Member's habits.
        */
 
-      items.add(new Habit("test habit #1", "reason #1", Habit.Indicator.EMPTY.indicatorImage));
-      items.add(new Habit("test habit #2", "reason #2", Habit.Indicator.BRONZE.indicatorImage));
-      items.add(new Habit("test habit #3", "reason #3", Habit.Indicator.SILVER.indicatorImage));
-      items.add(new Habit("test habit #4", "reason #4", Habit.Indicator.GOLD.indicatorImage));
+      items.add(new Habit("test habit #1", "reason #1", Habit.Indicator.EMPTY));
+      items.add(new Habit("test habit #2", "reason #2", Habit.Indicator.BRONZE));
+      items.add(new Habit("test habit #3", "reason #3", Habit.Indicator.SILVER));
+      items.add(new Habit("test habit #4", "reason #4", Habit.Indicator.GOLD));
 
       habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, items));
 

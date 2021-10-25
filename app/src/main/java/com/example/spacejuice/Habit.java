@@ -7,7 +7,7 @@ import java.util.Date;
 public class Habit {
     private static int TITLE_LENGTH = 20;
     private static int REASON_LENGTH = 30;
-    private int indicator;
+    private Indicator indicator;
     private String title;
     private String reason;
     private Date startDate;
@@ -17,11 +17,11 @@ public class Habit {
         setTitle(title);
         setReason(reason);
         setStartDate(new Date());
-        setIndicator(Indicator.EMPTY.indicatorImage);
+        setIndicator(Indicator.EMPTY);
         newSchedule();
     }
 
-    public Habit(String title, String reason, int indicator) {
+    public Habit(String title, String reason, Indicator indicator) {
         setTitle(title);
         setReason(reason);
         setStartDate(new Date());
@@ -31,21 +31,24 @@ public class Habit {
     public enum Indicator {
         // allows the use of EMPTY, BRONZE, SILVER, GOLD to reference the indicator image
         // usage Indicator.GOLD.getImage() will retrieve the image ID for the gold indicator
-        EMPTY("empty", R.drawable.habit_empty),
-        BRONZE("bronze", R.drawable.habit_bronze),
-        SILVER("silver", R.drawable.habit_silver),
-        GOLD("gold", R.drawable.habit_gold);
+        EMPTY(0,"empty", R.drawable.habit_empty),
+        BRONZE(1,"bronze", R.drawable.habit_bronze),
+        SILVER(2,"silver", R.drawable.habit_silver),
+        GOLD(3,"gold", R.drawable.habit_gold);
 
-        public String indicatorString;
-        public int indicatorImage;
-        private Indicator(String string, int imageInt) {
-            indicatorString = string;
-            indicatorImage = imageInt;
+        public String string;
+        public int image;
+        public int type;
+
+        private Indicator(int type, String string, int imageInt) {
+            this.string = string;
+            this.image = imageInt;
+            this.type = type;
         }
 
         @Override
         public String toString() {
-            return indicatorString;
+            return string;
         }
     }
 
@@ -68,7 +71,7 @@ public class Habit {
         Log.d("debugInfo", "reason set to " + this.reason);
     }
 
-    public void setIndicator(int indicator) {
+    public void setIndicator(Indicator indicator) {
         this.indicator = indicator;
     }
 
@@ -89,7 +92,7 @@ public class Habit {
         return this.reason;
     }
 
-    public int getIndicator() { return this.indicator; }
+    public Indicator getIndicator() { return this.indicator; }
 
     public Date getStartDate() {
         return this.startDate;
