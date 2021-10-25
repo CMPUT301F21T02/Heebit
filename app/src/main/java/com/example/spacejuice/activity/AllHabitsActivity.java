@@ -30,9 +30,11 @@ public class AllHabitsActivity extends AppCompatActivity {
       super.onCreate(savedInstanceState);
       Log.d("debugInfo", "All My Habits View Created");
       setContentView(R.layout.my_habit_list);
-      habitList = findViewById(R.id.my_habit_list);
+
+      // Hey brad these don't work now as i redid member.java - harish
+      /*habitList = findViewById(R.id.my_habit_list);
       this.member = member.getInstance(this, R.layout.habit_content);
-      habitList.setAdapter(habitAdapter);
+      habitList.setAdapter(habitAdapter);*/
    }
 
 }

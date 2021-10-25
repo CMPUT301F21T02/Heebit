@@ -5,12 +5,9 @@
       <map>
         <entry key="..\:/git/SpaceJuice/app/src/main/res/layout/activity_login.xml" value="0.37395833333333334" />
         <entry key="..\:/git/SpaceJuice/app/src/main/res/layout/activity_main.xml" value="0.5614583333333333" />
+        <entry key="..\:/git/SpaceJuice/app/src/main/res/layout/habit_add_edit.xml" value="0.3614583333333333" />
         <entry key="..\:/git/SpaceJuice/app/src/main/res/layout/habit_contents.xml" value="0.3614583333333333" />
         <entry key="..\:/git/SpaceJuice/app/src/main/res/layout/my_habit_list.xml" value="0.5489583333333333" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22327898550724637" />
-        <entry key="app/src/main/res/layout/habit_add_edit.xml" value="0.22327898550724637" />
-        <entry key="app/src/main/res/layout/habit_content.xml" value="0.22327898550724637" />
-        <entry key="app/src/main/res/layout/my_habit_list.xml" value="0.22327898550724637" />
       </map>
     </option>
   </component>
