@@ -9,4 +9,5 @@
     <item name="requestsButton" type="id" />
     <item name="discoverButton" type="id" />
     <item name="confirmButton" type="id" />
+    <item name="go_to_profile_imageView" type="id" />
 </resources>
