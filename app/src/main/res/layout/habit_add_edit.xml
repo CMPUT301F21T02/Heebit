@@ -23,7 +23,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_back"
-
+        android:background="transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -256,9 +256,9 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
     <CheckBox
         android:id="@+id/Sunday"
-        android:layout_width="wrap_content"
+        android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="123dp"
+        android:layout_marginTop="2dp"
         android:text="Sn"
         app:layout_constraintStart_toEndOf="@+id/Saturday"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
