@@ -13,14 +13,19 @@ import com.example.spacejuice.activity.AllHabitsActivity;
 
 import java.util.ArrayList;
 
+
+// Yuchen: Add tests to create a member and add score and add/subtract followers/followings
+
+
 public class Member {
    // Might need to redo accesses for these cuz i dunno shit abt private vs public - Harish
-   public String memberName;
+   private String memberName;
    private final String memberPassword;
    private int id; // Needs to be the primary id on Firestore
-   public int score;
-   public int followers;
-   public int followings;
+   private int score;
+   private int followers;
+   private int followings;
+   // need habit list and set adapter
 
    public Member(String name, String password) {
       // Set login name and password to the arguments
@@ -36,6 +41,9 @@ public class Member {
 
    // Getters -- Need to figure out how to compare password in login so we can access the private password
    //            and return true or false whether it matches or not during login.
+
+   // Public function here that verifies password. so
+   // member.verifypassword(passwordAttempt)
 
    public String getMemberName() {
       return memberName;
