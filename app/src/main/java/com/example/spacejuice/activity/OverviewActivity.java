@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,7 +15,7 @@ public class OverviewActivity extends AppCompatActivity {
 
     Button go_to_all_habits_button;
     Button go_to_add_habit_button;
-    Button go_to_profile_button;
+    ImageView go_to_profile_imageView;
    /*
    This Activity is used my main page which shows an overlay of today's habits
    and various menus
