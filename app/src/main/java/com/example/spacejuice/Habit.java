@@ -33,7 +33,8 @@ public class Habit {
         // usage Indicator.GOLD.image will retrieve the image ID for the gold indicator
         // Indicator.type will return an integer representing its indicator type
 
-        EMPTY(0,"empty", R.drawable.indicator_empty),
+        EMPTY(-1, "empty", R.drawable.indicator_empty),
+        NEW(0,"new", R.drawable.indicator_new),
         BRONZE(1,"bronze", R.drawable.indicator_bronze),
         SILVER(2,"silver", R.drawable.indicator_silver),
         GOLD(3,"gold", R.drawable.indicator_gold);
