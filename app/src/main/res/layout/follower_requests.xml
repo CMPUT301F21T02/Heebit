@@ -18,8 +18,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
     <ImageButton
         android:id="@+id/backButtonFollowerRequests"
-        android:layout_width="73dp"
-        android:layout_height="49dp"
+        android:layout_width="52dp"
+        android:layout_height="72dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/button_back"
