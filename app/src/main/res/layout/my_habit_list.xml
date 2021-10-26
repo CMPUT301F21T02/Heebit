@@ -45,7 +45,7 @@
             android:layout_weight="1"
             android:minHeight="0dp"
             android:minWidth="0dp"
-            android:text="All Habits"
+            android:text="Today's Habits"
             android:textAllCaps="false" />
 
         <ImageView
