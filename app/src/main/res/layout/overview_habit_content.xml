@@ -18,7 +18,7 @@
         >
 
         <ImageView
-            android:id="@+id/habit_indicator"
+            android:id="@+id/overview_habit_indicator"
             android:layout_width="70dp"
             android:layout_height="50dp"
             android:layout_weight="10"
@@ -28,7 +28,7 @@
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
         <TextView
-            android:id="@+id/habit_text"
+            android:id="@+id/overview_habit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -37,7 +37,7 @@
             android:textSize="20dp" />
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/overview_checkBox"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_weight="10"

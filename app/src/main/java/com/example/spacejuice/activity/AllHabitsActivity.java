@@ -45,11 +45,16 @@ public class AllHabitsActivity extends AppCompatActivity {
       activity. We want an accessible ArrayList<Habit> of a Member's habits.
        */
 
-      items.add(new Habit("test habit #1", "reason #1", Habit.Indicator.NEW));
-      items.add(new Habit("test habit #2", "reason #2", Habit.Indicator.BRONZE));
-      items.add(new Habit("test habit #3", "reason #3", Habit.Indicator.SILVER));
-      items.add(new Habit("test habit #4", "reason #4", Habit.Indicator.GOLD));
-
+      items.add(new Habit("test habit #01", "reason #01", Habit.Indicator.LEVEL00));
+      items.add(new Habit("test habit #02", "reason #02", Habit.Indicator.LEVEL01));
+      items.add(new Habit("test habit #03", "reason #03", Habit.Indicator.LEVEL02));
+      items.add(new Habit("test habit #04", "reason #04", Habit.Indicator.LEVEL03));
+      items.add(new Habit("test habit #05", "reason #05", Habit.Indicator.LEVEL04));
+      items.add(new Habit("test habit #06", "reason #06", Habit.Indicator.LEVEL05));
+      items.add(new Habit("test habit #07", "reason #07", Habit.Indicator.LEVEL06));
+      items.add(new Habit("test habit #08", "reason #08", Habit.Indicator.LEVEL07));
+      items.add(new Habit("test habit #09", "reason #09", Habit.Indicator.LEVEL08));
+      items.add(new Habit("test habit #10", "reason #10", Habit.Indicator.LEVEL09));
       habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, items));
 
 

@@ -22,6 +22,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_height="72dp"
         android:scaleType="fitCenter"
         android:background="@null"
+        app:tint="@color/Purple"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/button_back"
@@ -91,7 +92,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
         android:padding="5dp"
-        android:text="Habit Description"
+        android:text="Reason"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,12 +105,12 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     USE: Lets user change or add the habit description
     -->
     <EditText
-        android:id="@+id/HabitDescriptionHAE"
+        android:id="@+id/HabitReasonHAE"
         android:layout_width="313dp"
         android:layout_height="175dp"
         android:layout_marginBottom="260dp"
         android:ems="10"
-        android:hint="Add a description"
+        android:hint="Add a reason for your habit"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ public class AddHabitActivity extends AppCompatActivity {
     private TextView title;
     private Button deleteB;
     private Button confirmB;
+    private ImageButton backB;
     private EditText NameEdit;
     private String name;
     private EditText DescriptionEdit;
@@ -40,6 +42,7 @@ public class AddHabitActivity extends AppCompatActivity {
         title.setText("Add a Habit"); //Set the title into Add a Habit
         deleteB = findViewById(R.id.DeleteButtonHAE);
         deleteB.setVisibility(View.INVISIBLE); //Hide the delete button
+        backB = findViewById(R.id.backButtonHAE);
 
         confirmB = findViewById(R.id.confirmButtonHAE);
         confirmB.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +50,7 @@ public class AddHabitActivity extends AppCompatActivity {
             public void onClick(View view) {
                 NameEdit = findViewById(R.id.HabitNameHAE);
                 name = NameEdit.getText().toString();  //get the name
-                DescriptionEdit = findViewById(R.id.HabitDescriptionHAE);
+                DescriptionEdit = findViewById(R.id.HabitReasonHAE);
                 description = DescriptionEdit.getText().toString(); //Get the Description
                 Monday = findViewById(R.id.Monday);
                 Tuesday = findViewById(R.id.Tuesday);
@@ -57,6 +60,13 @@ public class AddHabitActivity extends AppCompatActivity {
                 Saturday = findViewById(R.id.Saturday);
                 Sunday = findViewById(R.id.Sunday);;
             }
+        });
+
+        backB.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+              finish();
+           }
         });
 
 
