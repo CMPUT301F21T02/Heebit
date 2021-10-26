@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:backgroundTint="@color/AliceBlue"
     app:cardCornerRadius="16dp"
     android:layout_margin="8dp">
 
@@ -18,11 +19,11 @@
 
         <ImageView
             android:id="@+id/habit_indicator"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:layout_weight="15"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_weight="10"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:layout_gravity="center_vertical"
             app:srcCompat="@android:drawable/btn_star_big_on" />
 
@@ -35,13 +36,13 @@
             android:text="This is a test Habit"
             android:textSize="20dp" />
 
-        <Switch
-            android:id="@+id/habit_switch"
+        <CheckBox
+            android:id="@+id/checkBox"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_weight="15"
-            android:layout_gravity="center_vertical"
-            android:text="" />
+            android:layout_weight="10"
+            android:layout_gravity="center_vertical" />
+
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
