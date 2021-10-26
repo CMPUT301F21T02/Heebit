@@ -38,14 +38,11 @@ public class OverviewActivity extends AppCompatActivity {
             }
         });
 
-        // Apply OnClickListener  to imageView to
-        // switch from one activity to another
+        // We apply a clicklistener to the imageView
+        // and then once it is clicked, we change it to another activity
         go_to_profile_imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent class will help to go to next activity using
-                // it's object named intent.
-                // SecondActivty is the name of new created EmptyActivity.
                 Intent intent = new Intent(OverviewActivity.this, MyProfileActivity.class);
                 startActivity(intent);
             }
@@ -54,10 +51,6 @@ public class OverviewActivity extends AppCompatActivity {
 
     }
 
-    private void findViewById(ImageView go_to_profile_imageView) {
-//        Intent intent = new Intent(OverviewActivity.this, MyProfileActivity.class);
-//        startActivity(intent);
-    }
 
     public void openAllHabitsActivity() {
         Intent intent = new Intent(this, AllHabitsActivity.class);
