@@ -1,6 +1,8 @@
 package com.example.spacejuice;
 
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Date;
 
@@ -11,14 +13,15 @@ public class Habit {
     private String title;
     private String reason;
     private Date startDate;
-    //Schedule schedule;
+    public Schedule schedule = new Schedule(false, false, false, false,
+          false, false, false);
 
     public Habit(String title, String reason) {
         setTitle(title);
         setReason(reason);
         setStartDate(new Date());
         setIndicator(Indicator.EMPTY);
-        newSchedule();
+
     }
 
     public Habit(String title, String reason, Indicator indicator) {
@@ -55,6 +58,7 @@ public class Habit {
         }
     }
 
+
     private void generateHabitID() {
         //todo: generate an ID unique to this habit (unique relative to this user's habits)
         //this.id = id;
@@ -82,11 +86,6 @@ public class Habit {
         this.startDate = d;
     }
 
-    public void newSchedule() {
-        //todo: create Schedule Type
-        //this.schedule = new Schedule();
-    }
-
     public String getTitle() {
         return this.title;
     }
@@ -106,7 +105,7 @@ public class Habit {
         return this.title;
     }
 
-    //public Schedule getSchedule() {
-    //    return this.schedule;
-    //}
+    public Schedule getSchedule() {
+        return this.schedule;
+    }
 }
