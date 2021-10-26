@@ -30,11 +30,13 @@ public class Habit {
 
     public enum Indicator {
         // allows the use of EMPTY, BRONZE, SILVER, GOLD to reference the indicator image
-        // usage Indicator.GOLD.getImage() will retrieve the image ID for the gold indicator
-        EMPTY(0,"empty", R.drawable.habit_empty),
-        BRONZE(1,"bronze", R.drawable.habit_bronze),
-        SILVER(2,"silver", R.drawable.habit_silver),
-        GOLD(3,"gold", R.drawable.habit_gold);
+        // usage Indicator.GOLD.image will retrieve the image ID for the gold indicator
+        // Indicator.type will return an integer representing its indicator type
+
+        EMPTY(0,"empty", R.drawable.indicator_empty),
+        BRONZE(1,"bronze", R.drawable.indicator_bronze),
+        SILVER(2,"silver", R.drawable.indicator_silver),
+        GOLD(3,"gold", R.drawable.indicator_gold);
 
         public String string;
         public int image;
