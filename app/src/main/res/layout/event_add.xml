@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--event_add.xml
+This is the xml file for adding events
+ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!--Back Button
+    ID: backButtonEA
+    USE: Exiting the activity
+    -->
+    <ImageButton
+        android:id="@+id/backButtonEA"
+        android:layout_width="73dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--text
+    ID: textViewEA
+    USE: Just prints out "Add an Image!"
+    -->
+    <TextView
+        android:id="@+id/textViewEA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Add an Image!"
+        android:textSize="15dp"
+        android:padding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--text
+    ID: textView2EA
+    USE: Just prints out "Event Description"
+    -->
+    <TextView
+        android:id="@+id/textView2EA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Description"
+        android:textSize="15dp"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.414" />
+
+    <!-- Habit details text
+    ID: eventDescriptionEA
+    USE: Lets user change or add the event description
+    -->
+    <EditText
+        android:id="@+id/eventDescriptionEA"
+        android:layout_width="201dp"
+        android:layout_height="123dp"
+        android:layout_marginBottom="272dp"
+        android:ems="10"
+        android:hint="Add a description"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--text
+    ID: textView3EA
+    USE: Just prints out "Add GPS Tag?"
+    -->
+    <TextView
+        android:id="@+id/textView3EA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Add GPS Tag?"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.403"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
+    <!--Checkbox
+    ID: gpsEA
+    USE: Checkbox for Add GPS Tag
+    -->
+    <CheckBox
+        android:id="@+id/gpsEA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.628"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.778" />
+
+    <!--create button
+    ID: createEventEA
+    USE: Button to create
+    -->
+    <Button
+        android:id="@+id/createEventEA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Publish Habit Event!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.906" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
