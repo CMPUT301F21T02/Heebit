@@ -9,6 +9,7 @@
     <TextView
         android:id="@+id/editName"
         android:textSize="32dp"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="76dp"
@@ -20,13 +21,13 @@
 
     <EditText
         android:id="@+id/userName"
-        android:layout_width="110dp"
-        android:layout_height="50dp"
+        android:layout_width="138dp"
+        android:layout_height="55dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Bob Ross"
-        android:textSize="20dp"
+        android:textSize="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.162"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +35,7 @@
 
     <TextView
         android:id="@+id/followers"
+        android:textStyle="bold"
         android:layout_width="92dp"
         android:layout_height="33dp"
         android:layout_marginStart="60dp"
@@ -45,6 +47,7 @@
 
     <TextView
         android:id="@+id/following"
+        android:textStyle="bold"
         android:layout_width="97dp"
         android:layout_height="40dp"
         android:layout_marginTop="140dp"
