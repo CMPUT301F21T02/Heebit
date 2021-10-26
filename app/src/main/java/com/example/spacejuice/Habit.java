@@ -20,7 +20,7 @@ public class Habit {
         setTitle(title);
         setReason(reason);
         setStartDate(new Date());
-        setIndicator(Indicator.EMPTY);
+        setIndicator(Indicator.LEVELNEW);
 
     }
 
@@ -36,12 +36,17 @@ public class Habit {
         // usage Indicator.GOLD.image will retrieve the image ID for the gold indicator
         // Indicator.type will return an integer representing its indicator type
 
-        EMPTY(-1, "empty", R.drawable.indicator_empty),
-        NEW(0,"new", R.drawable.indicator_new),
-        BRONZE(1,"bronze", R.drawable.indicator_bronze),
-        SILVER(2,"silver", R.drawable.indicator_silver),
-        GOLD(3,"gold", R.drawable.indicator_gold);
-
+        LEVELNEW(-1,"new", R.drawable.indicator_new),
+        LEVEL00(0, "empty", R.drawable.habit_level_00),
+        LEVEL01(1, "bronze 1", R.drawable.habit_level_01),
+        LEVEL02(2, "bronze 2", R.drawable.habit_level_02),
+        LEVEL03(3, "bronze 3", R.drawable.habit_level_03),
+        LEVEL04(4, "silver 1", R.drawable.habit_level_04),
+        LEVEL05(5, "silver 2", R.drawable.habit_level_05),
+        LEVEL06(6, "silver 3", R.drawable.habit_level_06),
+        LEVEL07(7, "gold 1", R.drawable.habit_level_07),
+        LEVEL08(8, "gold 2", R.drawable.habit_level_08),
+        LEVEL09(9, "gold 3", R.drawable.habit_level_09);
         public String string;
         public int image;
         public int type;
