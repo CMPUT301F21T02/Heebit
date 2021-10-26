@@ -1,5 +1,6 @@
 package com.example.spacejuice.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -20,11 +21,21 @@ public class AllHabitsActivity extends AppCompatActivity {
 
    public ListView habitList;
    public static ArrayAdapter<Habit> habitAdapter;
+   public Context context;
+
+   public AllHabitsActivity(Context mContext) {
+      Log.d("debugInfo", "context constructor was run");
+      context = mContext;
+   }
+
+   public AllHabitsActivity() {
+   }
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       Log.d("debugInfo", "All My Habits View Created from AllHabitsActivity.java");
+      Log.d("debugInfo", "Context: " + context);
       setContentView(R.layout.my_habit_list);
       habitList = findViewById(R.id.list_of_my_habits);
 
