@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:backgroundTint="@color/AliceBlue"
+    app:cardCornerRadius="16dp"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:weightSum="120"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        >
+
+        <ImageView
+            android:id="@+id/overview_habit_indicator"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:layout_weight="10"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <TextView
+            android:id="@+id/overview_habit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="90"
+            android:text="This is a test Habit"
+            android:textSize="20dp" />
+
+        <CheckBox
+            android:id="@+id/overview_checkBox"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="10"
+            android:layout_gravity="center_vertical" />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
