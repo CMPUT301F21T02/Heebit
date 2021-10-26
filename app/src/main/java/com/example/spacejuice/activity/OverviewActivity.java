@@ -15,6 +15,7 @@ public class OverviewActivity extends AppCompatActivity {
     Button go_to_all_habits_button;
     Button go_to_add_habit_button;
     ImageView go_to_profile_imageView;
+    ImageView go_to_addHabit_imageView;
    /*
    This Activity is used my main page which shows an overlay of today's habits
    and various menus
@@ -26,6 +27,7 @@ public class OverviewActivity extends AppCompatActivity {
         setContentView(R.layout.today_habits);
 
         go_to_profile_imageView = findViewById(R.id.profile_imageView);
+        go_to_addHabit_imageView = findViewById(R.id.add_habit_image_view);
 
         go_to_all_habits_button = (Button) findViewById(R.id.all_habits_button);
 
@@ -38,6 +40,13 @@ public class OverviewActivity extends AppCompatActivity {
             }
         });
 
+        go_to_addHabit_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OverviewActivity.this, AddHabitActivity.class);
+                startActivity(intent);
+            }
+        });
         // We apply a clicklistener to the imageView
         // and then once it is clicked, we change it to another activity
         go_to_profile_imageView.setOnClickListener(new View.OnClickListener() {
