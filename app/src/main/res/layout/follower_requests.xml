@@ -36,9 +36,9 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
     <TextView
         android:id="@+id/followerRequestsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:layout_height="70dp"
+        android:layout_width="match_parent"
         android:gravity="center_horizontal"
         android:padding="15dp"
         android:text="Follower Requests"
