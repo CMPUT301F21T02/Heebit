@@ -1,10 +1,12 @@
 package com.example.spacejuice.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +22,8 @@ public class FollowerRequestsActivity extends AppCompatActivity {
     */
    public ImageButton back_button;
    ListView followerList;
+   FollowRequestAdapter followRequestAdapter;
+   ArrayList<Member> requestingMembers;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
 
       followerList = findViewById(R.id.followersList);
 
-      ArrayList<Member> requestingMembers = new ArrayList<>();
+      requestingMembers = new ArrayList<>();
 
       requestingMembers.add(new Member("Heeba", "12345678"));
       requestingMembers.add(new Member("Xuanhao", "12345678"));
@@ -38,7 +42,8 @@ public class FollowerRequestsActivity extends AppCompatActivity {
       requestingMembers.add(new Member("LemonJuice", "12345678"));
       requestingMembers.add(new Member("Yuchen", "12345678"));
 
-      followerList.setAdapter(new FollowRequestAdapter(this, R.layout.follow_request_content, requestingMembers));
+      followRequestAdapter = new FollowRequestAdapter(this, R.layout.follow_request_content, requestingMembers);
+      followerList.setAdapter(followRequestAdapter);
 
       back_button.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -46,6 +51,27 @@ public class FollowerRequestsActivity extends AppCompatActivity {
             finish();
          }
       });
+   }
+
+   public void acceptFollowRequest(int position) {
+
+      Context context = getApplicationContext();
+      String memName = requestingMembers.get(position).getMemberName();
+      CharSequence text = memName + " is now following you";
+      int duration = Toast.LENGTH_SHORT;
+
+      Toast toast = Toast.makeText(context, text, duration);
+      toast.show();
+      requestingMembers.remove(position);
+      Log.d("debugInfo", "acceptFollowRequest run at position " + position);
+      followRequestAdapter.notifyDataSetChanged();
+
+   }
+
+   public void denyFollowRequest(int position) {
+      requestingMembers.remove(position);
+      Log.d("debugInfo", "denyFollowRequest run at position " + position);
+      followRequestAdapter.notifyDataSetChanged();
    }
 
 
