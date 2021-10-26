@@ -14,7 +14,7 @@ public class Schedule {
       // Empty Constructor
       this.sun = false;
       this.mon = false;
-      this.tue = false
+      this.tue = false;
       this.wed = false;
       this.thu = false;
       this.fri = false;
