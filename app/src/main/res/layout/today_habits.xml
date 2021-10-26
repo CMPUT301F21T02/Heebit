@@ -50,20 +50,6 @@
         <!--            app:layout_constraintTop_toTopOf="parent" />-->
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        tools:layout_editor_absoluteX="1dp">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/today_habits_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
-
     <TextView
         android:id="@+id/welcome_user_text"
         android:layout_width="wrap_content"
@@ -74,4 +60,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/overview_habit_listview"
+        android:layout_width="300dp"
+        android:layout_height="577dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="44dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
