@@ -25,6 +25,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/button_back"
+        app:tint="@color/Purple"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -50,7 +50,7 @@ public class AddHabitActivity extends AppCompatActivity {
             public void onClick(View view) {
                 NameEdit = findViewById(R.id.HabitNameHAE);
                 name = NameEdit.getText().toString();  //get the name
-                DescriptionEdit = findViewById(R.id.HabitDescriptionHAE);
+                DescriptionEdit = findViewById(R.id.HabitReasonHAE);
                 description = DescriptionEdit.getText().toString(); //Get the Description
                 Monday = findViewById(R.id.Monday);
                 Tuesday = findViewById(R.id.Tuesday);
