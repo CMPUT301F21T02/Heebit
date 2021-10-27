@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -18,9 +19,8 @@ import java.util.ArrayList;
 public class OverviewActivity extends AppCompatActivity {
 
     Button go_to_all_habits_button;
-    Button go_to_add_habit_button;
-    ImageView go_to_profile_imageView;
-    ImageView go_to_addHabit_imageView;
+    ImageButton profile_imagebutton;
+    ImageButton add_habit_imagebutton;
     /*
     This Activity is used my main page which shows an overlay of today's habits
     and various menus
@@ -32,9 +32,8 @@ public class OverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today_habits);
 
-        go_to_profile_imageView = findViewById(R.id.profile_imageView);
-        go_to_addHabit_imageView = findViewById(R.id.add_habit_image_view);
-
+        profile_imagebutton = findViewById(R.id.profile_imagebutton);
+        add_habit_imagebutton = findViewById(R.id.add_habit_imagebutton);
         go_to_all_habits_button = (Button) findViewById(R.id.all_habits_button);
 
         today_habit_list = findViewById(R.id.overview_habit_listview);
@@ -55,7 +54,7 @@ public class OverviewActivity extends AppCompatActivity {
             }
         });
 
-        go_to_addHabit_imageView.setOnClickListener(new View.OnClickListener() {
+        add_habit_imagebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(OverviewActivity.this, AddHabitActivity.class);
@@ -64,7 +63,7 @@ public class OverviewActivity extends AppCompatActivity {
         });
         // We apply a clicklistener to the imageView
         // and then once it is clicked, we change it to another activity
-        go_to_profile_imageView.setOnClickListener(new View.OnClickListener() {
+        profile_imagebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OverviewActivity.this, MyProfileActivity.class);
