@@ -16,11 +16,12 @@ public class Habit {
     public Schedule schedule = new Schedule(false, false, false, false,
           false, false, false);
 
-    public Habit(String title, String reason) {
+    public Habit(String title, String reason, Date date, Schedule schedule) {
         setTitle(title);
         setReason(reason);
-        setStartDate(new Date());
+        setStartDate(date);
         setIndicator(Indicator.LEVELNEW);
+        this.schedule = schedule;
 
     }
 
