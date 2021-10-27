@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="60dp"
     app:cardCornerRadius="16dp"
-    android:backgroundTint="@color/AliceBlue"
+    android:backgroundTint="?colorHabitBackground"
     android:layout_margin="8dp">
 
     <LinearLayout
@@ -20,6 +20,7 @@
             android:id="@+id/follower_name_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
             android:text="YourSecretAdmirer"
             android:gravity="right"
             android:layout_gravity="center_vertical"
