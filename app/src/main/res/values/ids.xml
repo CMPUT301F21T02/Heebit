@@ -11,5 +11,7 @@
     <item name="confirmButton" type="id" />
     <attr name="colorAddHabit" format="color" />
     <attr name="colorHabitBackground" format="color" />
+    <attr name="colorAcceptRequest" format="color" />
+    <attr name="colorDenyRequest" format="color" />
     <item name="go_to_profile_imageView" type="id" />
 </resources>
