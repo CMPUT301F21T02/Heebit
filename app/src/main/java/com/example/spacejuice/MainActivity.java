@@ -11,6 +11,8 @@ import android.util.Log;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     public Member user;
 
@@ -22,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        Habit testHabit_1 = new Habit("Brush Teeth", "Prevent cavities");
-        Habit testHabit_2 = new Habit("Walk Dog", "Exercise");
+        Habit testHabit_1 = new Habit("Brush Teeth", "Prevent cavities", new Date(), new Schedule());
+        Habit testHabit_2 = new Habit("Walk Dog", "Exercise", new Date(), new Schedule());
 
         // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
         Intent intent = new Intent(this, OverviewActivity.class);

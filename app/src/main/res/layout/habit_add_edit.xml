@@ -203,7 +203,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
     <CheckBox
         android:id="@+id/Monday"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="44dp"
         android:layout_marginTop="2dp"

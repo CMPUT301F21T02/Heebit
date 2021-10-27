@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class HabitTest {
     private Habit mockHabit(){
-        return new Habit("SpaceJuice", "SpaceJuice");
+        return new Habit("SpaceJuice", "SpaceJuice", new Date(), new Schedule());
     }
 
     @Test

@@ -1,0 +1,40 @@
+package com.example.spacejuice.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.spacejuice.Habit;
+import com.example.spacejuice.Member;
+import com.example.spacejuice.R;
+
+// Going to work on this!
+public class AllHabitsActivity extends AppCompatActivity {
+   /*
+   This Activity is used to view all of my habits
+    */
+
+   public ListView habitList;
+   public static ArrayAdapter<Habit> habitAdapter;
+   public Member member;
+
+   @Override
+   protected void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      Log.d("debugInfo", "All My Habits View Created");
+      setContentView(R.layout.my_habit_list);
+
+      // Hey brad these don't work now as i redid member.java - harish
+      /*habitList = findViewById(R.id.my_habit_list);
+      this.member = member.getInstance(this, R.layout.habit_content);
+      habitList.setAdapter(habitAdapter);*/
+   }
+
+}
