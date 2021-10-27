@@ -58,16 +58,16 @@ public class AllHabitsActivity extends AppCompatActivity {
       activity. We want an accessible ArrayList<Habit> of a Member's habits.
        */
 
-      items.add(new Habit("test habit #01", "reason #01", Habit.Indicator.LEVEL00));
-      items.add(new Habit("test habit #02", "reason #02", Habit.Indicator.LEVEL01));
-      items.add(new Habit("test habit #03", "reason #03", Habit.Indicator.LEVEL02));
-      items.add(new Habit("test habit #04", "reason #04", Habit.Indicator.LEVEL03));
-      items.add(new Habit("test habit #05", "reason #05", Habit.Indicator.LEVEL04));
-      items.add(new Habit("test habit #06", "reason #06", Habit.Indicator.LEVEL05));
-      items.add(new Habit("test habit #07", "reason #07", Habit.Indicator.LEVEL06));
-      items.add(new Habit("test habit #08", "reason #08", Habit.Indicator.LEVEL07));
-      items.add(new Habit("test habit #09", "reason #09", Habit.Indicator.LEVEL08));
-      items.add(new Habit("test habit #10", "reason #10", Habit.Indicator.LEVEL09));
+      items.add(new Habit("test habit #01", "reason #01", 0));
+      items.add(new Habit("test habit #02", "reason #02", 1));
+      items.add(new Habit("test habit #03", "reason #03", 2));
+      items.add(new Habit("test habit #04", "reason #04", 3));
+      items.add(new Habit("test habit #05", "reason #05", 4));
+      items.add(new Habit("test habit #06", "reason #06", 5));
+      items.add(new Habit("test habit #07", "reason #07", 6));
+      items.add(new Habit("test habit #08", "reason #08", 7));
+      items.add(new Habit("test habit #09", "reason #09", 8));
+      items.add(new Habit("test habit #10", "reason #10", 9));
       habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, items));
 
       today_habits_button.setOnClickListener(new View.OnClickListener() {
