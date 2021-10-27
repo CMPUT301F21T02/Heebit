@@ -1,9 +1,13 @@
 package com.example.spacejuice.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,14 +26,19 @@ public class AllHabitsActivity extends AppCompatActivity {
    public ListView habitList;
    public static ArrayAdapter<Habit> habitAdapter;
    public Context context;
+   Button today_habits_button;
+   ImageButton profile_imagebutton;
+   ImageButton add_habit_imagebutton;
+
+   public AllHabitsActivity() {
+
+   }
 
    public AllHabitsActivity(Context mContext) {
       Log.d("debugInfo", "context constructor was run");
       context = mContext;
    }
 
-   public AllHabitsActivity() {
-   }
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +47,10 @@ public class AllHabitsActivity extends AppCompatActivity {
       Log.d("debugInfo", "Context: " + context);
       setContentView(R.layout.my_habit_list);
       habitList = findViewById(R.id.list_of_my_habits);
+
+      profile_imagebutton = findViewById(R.id.today_button_profile);
+      add_habit_imagebutton = findViewById(R.id.today_button_add_habit);
+      today_habits_button = (Button) findViewById(R.id.today_habits_button);
 
       ArrayList<Habit> items = new ArrayList<>();
 
@@ -57,7 +70,34 @@ public class AllHabitsActivity extends AppCompatActivity {
       items.add(new Habit("test habit #10", "reason #10", Habit.Indicator.LEVEL09));
       habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, items));
 
+      today_habits_button.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            openOverviewActivity();
+         }
+      });
 
+      add_habit_imagebutton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            Intent intent = new Intent(AllHabitsActivity.this, AddHabitActivity.class);
+            startActivity(intent);
+         }
+      });
+
+      profile_imagebutton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            Intent intent = new Intent(AllHabitsActivity.this, MyProfileActivity.class);
+            startActivity(intent);
+         }
+      });
+
+   }
+
+   public void openOverviewActivity() {
+      Intent intent = new Intent(this, OverviewActivity.class);
+      startActivity(intent);
    }
 
 }
