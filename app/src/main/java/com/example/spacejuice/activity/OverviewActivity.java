@@ -39,10 +39,10 @@ public class OverviewActivity extends AppCompatActivity {
         today_habit_list = findViewById(R.id.overview_habit_listview);
         ArrayList<Habit> today_habit_items = new ArrayList<>();
 
-        today_habit_items.add(new Habit("test habit #1", "reason #1", Habit.Indicator.LEVEL00));
-        today_habit_items.add(new Habit("test habit #2", "reason #2", Habit.Indicator.LEVEL00));
-        today_habit_items.add(new Habit("test habit #3", "reason #3", Habit.Indicator.LEVELNEW));
-        today_habit_items.add(new Habit("test habit #4", "reason #4", Habit.Indicator.LEVELNEW));
+        today_habit_items.add(new Habit("test habit #1", "reason #1", 0));
+        today_habit_items.add(new Habit("test habit #2", "reason #2", 0));
+        today_habit_items.add(new Habit("test habit #3", "reason #3", -1));
+        today_habit_items.add(new Habit("test habit #4", "reason #4", -1));
         today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.overview_habit_content,today_habit_items ));
 
 

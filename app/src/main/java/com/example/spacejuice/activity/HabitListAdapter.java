@@ -56,7 +56,7 @@ public class HabitListAdapter extends ArrayAdapter {
          viewHolder = (ViewHolder) row.getTag();
       }
 
-      viewHolder.imageView.setImageResource(items.get(position).getIndicator().image);
+      viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
       viewHolder.textView.setText(items.get(position).getTitle());
 
       return row;
