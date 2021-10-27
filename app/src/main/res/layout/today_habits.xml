@@ -11,13 +11,12 @@
         android:id="@+id/welcome_user_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:textAllCaps = "false"
+        android:layout_marginTop="32dp"
+        android:text="Today's Habits"
+        android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <ListView
         android:id="@+id/overview_habit_listview"
         android:layout_width="313dp"
@@ -61,6 +60,7 @@
             android:layout_gravity="center"
             android:layout_weight="50"
             android:tooltipText="Add New Habit"
+            app:tint="?colorAddHabit"
             android:background="@null"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/button_add" />
@@ -71,7 +71,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center_vertical|right"
             android:layout_weight="50"
-            app:tint="@color/Purple"
+            app:tint="?android:colorPrimary"
             android:tooltipText="My Profile"
             android:background="@null"
             android:scaleType="fitCenter"

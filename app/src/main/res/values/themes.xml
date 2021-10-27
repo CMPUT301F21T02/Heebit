@@ -1,16 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SpaceJuice" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.SpaceJuice" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/Purple</item>
-        <item name="colorPrimaryVariant">@color/MediumPurple</item>
+        <item name="colorAddHabit">@color/Gold</item>
+        <item name="colorHabitBackground">@color/AliceBlue</item>
+        <item name="colorPrimaryVariant">@color/Gold</item>
         <item name="colorOnPrimary">@color/White</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/Teal</item>
-        <item name="colorSecondaryVariant">@color/Turquoise</item>
+        <item name="colorSecondary">@color/MediumPurple</item>
+        <item name="colorSecondaryVariant">@color/Khaki</item>
         <item name="colorOnSecondary">@color/Black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

@@ -22,7 +22,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_height="72dp"
         android:scaleType="fitCenter"
         android:background="@null"
-        app:tint="@color/Purple"
+        app:tint="?android:colorPrimary"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/button_back"
