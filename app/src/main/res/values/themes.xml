@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/Purple</item>
         <item name="colorAddHabit">@color/Gold</item>
         <item name="colorHabitBackground">@color/AliceBlue</item>
+        <item name="colorAcceptRequest">@color/LightGreen</item>
+        <item name="colorDenyRequest">@color/Red</item>
         <item name="colorPrimaryVariant">@color/Gold</item>
         <item name="colorOnPrimary">@color/White</item>
         <!-- Secondary brand color. -->
