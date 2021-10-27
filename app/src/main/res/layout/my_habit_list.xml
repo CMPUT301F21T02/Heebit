@@ -13,6 +13,8 @@
         android:textSize="24sp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
         app:layout_constraintBottom_toTopOf="@id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

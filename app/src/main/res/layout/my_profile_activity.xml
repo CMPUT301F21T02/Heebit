@@ -17,24 +17,25 @@
         android:src="@drawable/button_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/editName"
-        android:textSize="32dp"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="Edit Name"
-        app:layout_constraintHorizontal_bias="0.182"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
+        android:text="My Profile"
+        android:textSize="32dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/userName"
         android:layout_width="138dp"
         android:layout_height="55dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="80dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Bob Ross"

@@ -17,14 +17,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/overview_habit_listview"
-        android:layout_width="313dp"
-        android:layout_height="435dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginTop="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_user_text" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
