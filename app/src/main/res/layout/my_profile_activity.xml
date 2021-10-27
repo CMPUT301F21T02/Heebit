@@ -5,7 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+    <ImageButton
+        android:id="@+id/backButtonMyProfile"
+        android:layout_width="52dp"
+        android:layout_height="72dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        app:tint="@color/Purple"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/button_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/editName"
         android:textSize="32dp"
