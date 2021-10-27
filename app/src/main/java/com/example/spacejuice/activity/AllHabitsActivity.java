@@ -13,6 +13,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.HabitListAdapter;
 import com.example.spacejuice.R;
 
 import java.util.ArrayList;

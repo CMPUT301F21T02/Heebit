@@ -15,11 +15,14 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
     -->
     <ImageButton
         android:id="@+id/backButtonEA"
-        android:layout_width="73dp"
-        android:layout_height="49dp"
+        android:layout_width="52dp"
+        android:layout_height="72dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        app:tint="?android:colorPrimary"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/ic_back"
+        android:src="@drawable/button_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <!--text

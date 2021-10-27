@@ -13,7 +13,7 @@ public class Indicator {
    public Indicator() {
       string = "new";
       level = 0;
-      image = R.drawable.indicator_new;
+      image = R.drawable.indicatornew;
    }
 
    public int getLevel() {
@@ -35,43 +35,43 @@ public class Indicator {
       switch (iLevel) {
          case 0:
             string = "empty";
-            image = R.drawable.habit_level_00;
+            image = R.drawable.indicator00;
             break;
          case 1:
             string = "bronze 1";
-            image = R.drawable.habit_level_01;
+            image = R.drawable.indicator01;
             break;
          case 2:
             string = "bronze 2";
-            image = R.drawable.habit_level_02;
+            image = R.drawable.indicator02;
             break;
          case 3:
             string = "bronze 3";
-            image = R.drawable.habit_level_03;
+            image = R.drawable.indicator03;
             break;
          case 4:
             string = "silver 1";
-            image = R.drawable.habit_level_04;
+            image = R.drawable.indicator04;
             break;
          case 5:
             string = "silver 2";
-            image = R.drawable.habit_level_05;
+            image = R.drawable.indicator05;
             break;
          case 6:
             string = "silver 3";
-            image = R.drawable.habit_level_06;
+            image = R.drawable.indicator06;
             break;
          case 7:
             string = "gold 1";
-            image = R.drawable.habit_level_07;
+            image = R.drawable.indicator07;
             break;
          case 8:
             string = "gold 2";
-            image = R.drawable.habit_level_08;
+            image = R.drawable.indicator08;
             break;
          case 9:
             string = "gold 3";
-            image = R.drawable.habit_level_09;
+            image = R.drawable.indicator09;
             break;
       }
    }

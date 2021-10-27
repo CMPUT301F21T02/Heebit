@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.HabitListAdapter;
 import com.example.spacejuice.R;
 
 import java.util.ArrayList;
