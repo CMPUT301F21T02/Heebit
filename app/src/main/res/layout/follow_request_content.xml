@@ -22,9 +22,15 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:text="YourSecretAdmirer"
-            android:gravity="right"
             android:layout_gravity="center_vertical"
             android:textSize="20dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/button_follower_accept"
@@ -35,8 +41,6 @@
             android:background="@null"
             app:tint="?colorAcceptRequest"
             android:layout_gravity="center_vertical"
-            android:gravity="right"
-
             app:srcCompat="@drawable/button_check" />
 
         <ImageButton
@@ -48,7 +52,6 @@
             android:background="@null"
             app:tint="?colorDenyRequest"
             android:layout_gravity="center_vertical"
-            android:gravity="right"
             app:srcCompat="@drawable/button_x" />
 
 
