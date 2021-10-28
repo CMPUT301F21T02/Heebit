@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Habit {
@@ -78,5 +79,43 @@ public class Habit {
 
     public Schedule getSchedule() {
         return this.schedule;
+    }
+
+    public Boolean isToday() {
+        // returns true if the Habit is scheduled for the current day of the week
+
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case Calendar.SUNDAY:
+                if (schedule.Sun()) {
+                    return true;
+                } else { return false; }
+            case Calendar.MONDAY:
+                if (schedule.Mon()) {
+                    return true;
+                } else { return false; }
+            case Calendar.TUESDAY:
+                if (schedule.Tue()) {
+                    return true;
+                } else { return false; }
+            case Calendar.WEDNESDAY:
+                if (schedule.Wed()) {
+                    return true;
+                } else { return false; }
+            case Calendar.THURSDAY:
+                if (schedule.Thu()) {
+                    return true;
+                } else { return false; }
+            case Calendar.FRIDAY:
+                if (schedule.Fri()) {
+                    return true;
+                } else { return false; }
+            case Calendar.SATURDAY:
+                if (schedule.Sat()) {
+                    return true;
+                } else { return false; }
+        }
+        return false;
     }
 }
