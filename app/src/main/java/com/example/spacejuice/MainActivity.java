@@ -14,13 +14,11 @@ import com.example.spacejuice.activity.OverviewActivity;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    public Member user;
+    public static Member user; // this is the Member instance for the app user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        user = new Member(this);
 
         setContentView(R.layout.activity_main);
 
@@ -30,16 +28,20 @@ public class MainActivity extends AppCompatActivity {
         // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
         Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
+        getUser().setScore(5);
+        Log.d("debugInfo", "user score set to 5");
+
     }
 
-
-    public Member getUser() {
+    /*
+        Singleton Support for Member
+    */
+    public static Member getUser() {
         // Getter to get the Member class for the User
+        if (user == null) {
+            user = new Member();
+        }
         return user;
-    }
-
-    public Context getContext() {
-        return this;
     }
 
     public void testFunction() {

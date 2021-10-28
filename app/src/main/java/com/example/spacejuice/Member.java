@@ -25,13 +25,11 @@ public class Member {
    private int score;
    private int followers;
    private int followings;
-   public Context context;
 
    // need habit list and set adapter
-   public Member(Context context) {
+   public Member() {
       this.memberName = "";
       this.memberPassword = "";
-      this.context = context;
 
       //Set the score and social stats to 0
       this.score = 0;
@@ -39,30 +37,6 @@ public class Member {
       this.followings = 0;
    }
 
-
-   public Member(Context context, String name, String password) {
-      // Set login name and password to the arguments
-      this.memberName = name;
-      this.memberPassword = password;
-      this.context = context;
-
-      //Set the score and social stats to 0
-      this.score = 0;
-      this.followers = 0;
-      this.followings = 0;
-   }
-
-   public Member(String name, String password) {
-      // Set login name and password to the arguments
-      this.memberName = name;
-      this.memberPassword = password;
-      this.context = null;
-
-      //Set the score and social stats to 0
-      this.score = 0;
-      this.followers = 0;
-      this.followings = 0;
-   }
 
    // Getters -- Need to figure out how to compare password in login so we can access the private password
    //            and return true or false whether it matches or not during login.

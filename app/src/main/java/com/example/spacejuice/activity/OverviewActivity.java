@@ -1,7 +1,9 @@
 package com.example.spacejuice.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitListAdapter;
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 
 import java.util.ArrayList;
@@ -27,6 +30,7 @@ public class OverviewActivity extends AppCompatActivity {
      */
     public ListView today_habit_list;
     public static ArrayAdapter<Habit> habitAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +49,8 @@ public class OverviewActivity extends AppCompatActivity {
         today_habit_items.add(new Habit("test habit #4", "reason #4", -1));
         today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.overview_habit_content,today_habit_items ));
 
-
+        int score = MainActivity.getUser().getScore();
+        Log.d("debugInfo", "From OverviewActivity - user score = " + score);
 
         go_to_all_habits_button.setOnClickListener(new View.OnClickListener() {
             @Override

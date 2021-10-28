@@ -25,6 +25,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    FollowRequestAdapter followRequestAdapter;
    ArrayList<Member> requestingMembers;
 
+   /*
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -52,6 +53,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
          }
       });
    }
+   */
 
    public void acceptFollowRequest(int position) {
 
