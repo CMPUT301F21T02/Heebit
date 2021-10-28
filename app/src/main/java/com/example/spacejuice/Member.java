@@ -28,7 +28,7 @@ public class Member {
    private int followers;
    private int followings;
 
-   // need habit list and set adapter
+
    public Member() {
       this.memberName = "";
       this.memberPassword = "";
@@ -40,8 +40,22 @@ public class Member {
 
    }
 
+   public Member(String name) {
 
-   // Getters -- Need to figure out how to compare password in login so we can access the private password
+      // temporary constructor for setting up test members
+
+      this.memberName = name;
+      this.memberPassword = "";
+
+      //Set the score and social stats to 0
+      this.score = 0;
+      this.followers = 0;
+      this.followings = 0;
+   }
+
+
+
+      // Getters -- Need to figure out how to compare password in login so we can access the private password
    //            and return true or false whether it matches or not during login.
 
    // Public function here that verifies password. so
