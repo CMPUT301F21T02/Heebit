@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitListAdapter;
 import com.example.spacejuice.R;
+import com.example.spacejuice.controller.HabitController;
 
 import java.util.ArrayList;
 
@@ -55,21 +56,10 @@ public class AllHabitsActivity extends AppCompatActivity {
 
       ArrayList<Habit> items = new ArrayList<>();
 
-      /* We must find a way to store these Habits in such a way that they can be accessed from any
-      activity. We want an accessible ArrayList<Habit> of a Member's habits.
-       */
 
-      items.add(new Habit("test habit #01", "reason #01", 0));
-      items.add(new Habit("test habit #02", "reason #02", 1));
-      items.add(new Habit("test habit #03", "reason #03", 2));
-      items.add(new Habit("test habit #04", "reason #04", 3));
-      items.add(new Habit("test habit #05", "reason #05", 4));
-      items.add(new Habit("test habit #06", "reason #06", 5));
-      items.add(new Habit("test habit #07", "reason #07", 6));
-      items.add(new Habit("test habit #08", "reason #08", 7));
-      items.add(new Habit("test habit #09", "reason #09", 8));
-      items.add(new Habit("test habit #10", "reason #10", 9));
-      habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, items));
+      ArrayList<Habit> habitListItems = HabitController.getHabitListItems();
+
+      habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, habitListItems));
 
       today_habits_button.setOnClickListener(new View.OnClickListener() {
          @Override
