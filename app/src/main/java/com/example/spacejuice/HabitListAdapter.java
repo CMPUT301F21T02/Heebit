@@ -74,20 +74,26 @@ public class HabitListAdapter extends ArrayAdapter {
       viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
       viewHolder.textView.setText(items.get(position).getTitle());
 
-      checkBox.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-            if(((CompoundButton) view).isChecked()){
-               Log.d("debugInfo", "item is checked");
-               Intent intent = new Intent(context, AddHabitEventActivity.class);
-               context.startActivity(intent);
+      if (items.get(position).isToday()) {
+         checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if (((CompoundButton) view).isChecked()) {
+                  Log.d("debugInfo", "item is checked");
+                  Intent intent = new Intent(context, AddHabitEventActivity.class);
+                  context.startActivity(intent);
 
-            } else {
-               Log.d("debugInfo", "item attempted to be unchecked");
-               checkBox.setChecked(true);
+               } else {
+                  Log.d("debugInfo", "item attempted to be unchecked");
+                  checkBox.setChecked(true);
+               }
             }
-         }
-      });
+         });
+      } else {
+         // remove the checkbox if the habit is not scheduled for today
+         checkBox.setButtonDrawable(null);
+         checkBox.setClickable(false);
+      }
 
       return row;
    }
