@@ -6,12 +6,11 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/usedUsername"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="85dp"
-        android:text="This username has been used!"
-        android:visibility="invisible"
+        android:text="Welcome!"
         android:textSize="35sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,11 +20,11 @@
         android:id="@+id/userName"
         android:layout_width="215dp"
         android:layout_height="30dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="100dp"
         android:background="@drawable/edit_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usedUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
@@ -79,14 +78,4 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This username has been used!"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/userName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
