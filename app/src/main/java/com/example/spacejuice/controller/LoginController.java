@@ -1,5 +1,6 @@
 package com.example.spacejuice.controller;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.activity.LoginActivity;
+import com.example.spacejuice.activity.OverviewActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,21 +26,16 @@ import java.util.Map;
 // still can't return the boolean back
 // need to fix this bug
 public class LoginController {
-    public ArrayList<Member> MemberDataList = new ArrayList<Member>();
+    Member account = null;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final CollectionReference collectionReference = db.collection("Members");
-    boolean loginSuccess;
-    boolean signUpSuccess;
 
-    public LoginController(){
 
-        //Member test_member = new Member("Bradley", "handsome001");  //testmember
-        //MemberDataList.add(test_member);
-        //test_member = new Member("1234", "5678");
-        //MemberDataList.add(test_member);
+    public LoginController() {
+
     }
-    public ArrayList<Member> login(String userName, String password){
-        MemberDataList.clear();
+
+    public void login(String userName, String password, final OnCompleteCallback callback){
         DocumentReference documentReference = db.collection("Members").document(userName);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -50,29 +47,26 @@ public class LoginController {
                         String p = document.getString("Password");
                         // then check pass word
                         if(p.equals(password)){
-                            loginSuccess = true;
-                            Member member = new Member(userName,password);
-                            MemberDataList.add(member);
+                            account = new Member(userName,password);
+                            callback.onComplete(true);
                         }else {
                             // if the password is wrong
                             Log.d("login", "wrong password ");
-                            loginSuccess = false;
-                            MemberDataList.clear();
+                            callback.onComplete(false);
                         }
                     } else {
                         // if other problems exist
                         Log.d("login", "get failed with ", task.getException());
-                        loginSuccess = false;
-                        MemberDataList.clear();
+                        callback.onComplete(false);
                     }
                 }
             }
         });
-        return MemberDataList;
+
     }
 
-    public ArrayList<Member> signUp(String userName, String password){
-        MemberDataList.clear();
+
+    public void signUp(String userName, String password, final OnCompleteCallback callback){
         Map<String,Object> user = new HashMap<>();
         if(userName.length()>0 && password.length()>0){
             DocumentReference documentReference = db.collection("Members").document(userName);
@@ -83,13 +77,10 @@ public class LoginController {
                         DocumentSnapshot document = task.getResult();
                         // if this name is used
                         if (document.exists()) {
-                            signUpSuccess = false;
-                            MemberDataList.clear();
+                            callback.onComplete(false);
                         } else {
-                            // if it not used
-                            signUpSuccess = true;
-                            Member member = new Member(userName,password);
-                            MemberDataList.add(member);
+                            // if this name is not used
+                            account = new Member(userName,password);
 
                             user.put("Password",password);
                             collectionReference.document(userName)
@@ -100,11 +91,18 @@ public class LoginController {
                                             Log.d( "message","Data has been added successfully");
                                         }
                                     });
+                            callback.onComplete(true);
                         }
+                    } else {
+                        callback.onComplete(false);
                     }
                 }
             });
         }
-        return MemberDataList;
+    }
+
+
+    public interface OnCompleteCallback{
+        void onComplete(boolean suc);
     }
 }

@@ -27,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText UserNameET;
     EditText PassWordET;
     LoginController loginController;
+    boolean success;
     public ArrayList<Member> MemberDataList = new ArrayList<Member>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,40 +42,52 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MemberDataList = loginController.login(UserNameET.getText().toString(),
-                        PassWordET.getText().toString());
-                if (!MemberDataList.isEmpty()){
-                    Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT);
-                    // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
-                    Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, "Incorrect Username or Password!",
-                            Toast.LENGTH_SHORT);
-                    PassWordET.setText(""); // clear the Text
-                }
-            }
+                loginController.login(UserNameET.getText().toString(),
+                        PassWordET.getText().toString(), new LoginController.OnCompleteCallback() {
+                            @Override
+                            public void onComplete(boolean suc) {
+                                success = suc;
+                                //MainActivity.setUser(member);
+                                if (success){
+                                    Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                                    // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
+                                    Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Toast.makeText(LoginActivity.this,"login failure" ,
+                                            Toast.LENGTH_SHORT).show();
+                                    PassWordET.setText(""); // clear the Text
+                                }
+                            }
+                        });
+                    }
         });
+
+
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MemberDataList = loginController.signUp(UserNameET.getText().toString() ,
-                        PassWordET.getText().toString());
-                if( !MemberDataList.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Signed Up!",
-                            Toast.LENGTH_SHORT);
-                    UserNameET.setText("");
-                    PassWordET.setText("");
-                    Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(LoginActivity.this, "Username has been used",
-                            Toast.LENGTH_SHORT);
-                    PassWordET.setText(""); // clear the Text
-                    textView.setVisibility(View.VISIBLE);
-                }
+                loginController.signUp(UserNameET.getText().toString(),
+                        PassWordET.getText().toString(), new LoginController.OnCompleteCallback() {
+                            @Override
+                            public void onComplete(boolean suc) {
+                                if(suc) {
+                                    Toast.makeText(LoginActivity.this, "Signed Up!",
+                                            Toast.LENGTH_SHORT).show();
+                                    UserNameET.setText("");
+                                    PassWordET.setText("");
+                                    Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
+                                    startActivity(intent);
+                                }
+                                else{
+                                    Toast.makeText(LoginActivity.this, "Username has been used",
+                                            Toast.LENGTH_SHORT).show();
+                                    PassWordET.setText(""); // clear the Text
+                                    textView.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
             }
         });
     }
