@@ -19,6 +19,7 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.R;
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
+import com.example.spacejuice.activity.EditHabitActivity;
 import com.example.spacejuice.activity.MyProfileActivity;
 
 import java.util.ArrayList;
@@ -73,6 +74,15 @@ public class HabitListAdapter extends ArrayAdapter {
 
       viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
       viewHolder.textView.setText(items.get(position).getTitle());
+      row.setClickable(true);
+      row.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            Intent intent = new Intent(context, EditHabitActivity.class);
+            intent.putExtra("habit", items.get(position));
+            context.startActivity(intent);
+         }
+      });
 
       if (items.get(position).isToday()) {
          checkBox.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +104,6 @@ public class HabitListAdapter extends ArrayAdapter {
          checkBox.setButtonDrawable(null);
          checkBox.setClickable(false);
       }
-
       return row;
    }
 }

@@ -13,10 +13,6 @@
             android:name=".activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="true"
-            android:label="@string/title_activity_login" />
-        <activity
             android:name=".activity.AllHabitsActivity"
             android:exported="true"
             android:label="@string/title_all_habits" />
@@ -47,6 +43,9 @@
         <activity
             android:name=".activity.OverviewActivity"
             android:exported="true" />
+        <activity
+            android:name=".activity.EditHabitActivity"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

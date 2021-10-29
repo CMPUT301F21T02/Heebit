@@ -1,6 +1,8 @@
 package com.example.spacejuice;
 
-public class Schedule {
+import java.io.Serializable;
+
+public class Schedule implements Serializable {
    // Helper class to store Schedule booleans
    private boolean sun;
    private boolean mon;
