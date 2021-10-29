@@ -23,8 +23,8 @@ public class LoginController {
                     return true;
 
             }
-        }
-        return false;
+        }        return false;
+
     }
 
     public void signUp(String userName, String password){
