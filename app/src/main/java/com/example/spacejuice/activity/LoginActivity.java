@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Signed Up!",
                         Toast.LENGTH_SHORT);
                 Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
-                startActivity(intent);
+                startActivity(intent);;
             }
 
         });
