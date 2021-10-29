@@ -34,12 +34,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("debugInfo", "user score set to 5");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
     }
 
     /*
