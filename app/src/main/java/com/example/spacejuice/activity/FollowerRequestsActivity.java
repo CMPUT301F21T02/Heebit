@@ -25,7 +25,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    FollowRequestAdapter followRequestAdapter;
    ArrayList<Member> requestingMembers;
 
-   /*
+
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -37,11 +37,11 @@ public class FollowerRequestsActivity extends AppCompatActivity {
 
       requestingMembers = new ArrayList<>();
 
-      requestingMembers.add(new Member("Heeba", "12345678"));
-      requestingMembers.add(new Member("Xuanhao", "12345678"));
-      requestingMembers.add(new Member("Harish", "12345678"));
-      requestingMembers.add(new Member("LemonJuice", "12345678"));
-      requestingMembers.add(new Member("Yuchen", "12345678"));
+      requestingMembers.add(new Member("Heeba"));
+      requestingMembers.add(new Member("Xuanhao"));
+      requestingMembers.add(new Member("Harish"));
+      requestingMembers.add(new Member("LemonJuice"));
+      requestingMembers.add(new Member("Yuchen"));
 
       followRequestAdapter = new FollowRequestAdapter(this, R.layout.follow_request_content, requestingMembers);
       followerList.setAdapter(followRequestAdapter);
@@ -53,7 +53,6 @@ public class FollowerRequestsActivity extends AppCompatActivity {
          }
       });
    }
-   */
 
    public void acceptFollowRequest(int position) {
 

@@ -16,6 +16,7 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitListAdapter;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
+import com.example.spacejuice.controller.HabitController;
 
 import java.util.ArrayList;
 
@@ -43,10 +44,17 @@ public class OverviewActivity extends AppCompatActivity {
         today_habit_list = findViewById(R.id.overview_habit_listview);
         ArrayList<Habit> today_habit_items = new ArrayList<>();
 
-        today_habit_items.add(new Habit("test habit #1", "reason #1", 0));
-        today_habit_items.add(new Habit("test habit #2", "reason #2", 0));
-        today_habit_items.add(new Habit("test habit #3", "reason #3", -1));
-        today_habit_items.add(new Habit("test habit #4", "reason #4", -1));
+        Habit each;
+
+        ArrayList<Habit> habitListItems;
+        habitListItems = HabitController.getHabitListItems();
+
+        for (int i = 0; i < habitListItems.size(); i += 1) {
+            if (habitListItems.get(i).isToday()) {
+                today_habit_items.add(habitListItems.get(i));
+            }
+        }
+
         today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.overview_habit_content,today_habit_items ));
 
         int score = MainActivity.getUser().getScore();

@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // Getter to get the Member class for the User
         if (user == null) {
             user = new Member();
+            user.initTestData();
         }
         return user;
     }
