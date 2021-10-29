@@ -26,6 +26,7 @@ import java.util.Map;
 // still can't return the boolean back
 // need to fix this bug
 public class LoginController {
+
     Member account = null;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     final CollectionReference collectionReference = db.collection("Members");
@@ -61,6 +62,7 @@ public class LoginController {
                     }
                 }
             }
+
         });
 
     }

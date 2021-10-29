@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--following_content.xml
+This is the xml for the content of following_activity.xml
+could potentially use the same format for member_profile_activity.xml
+ALL ID FROM THIS FILE WILL CONTAIN "FC" AT THE END
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="horizontal">
+
+    <!--Names
+    ID: nameTextFC
+    USE: Displaying Names of following
+    -->
+    <TextView
+        android:id="@+id/nameTextFC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:padding="5dp"
+        android:text="Example Name"
+        android:textSize="30sp"
+        android:layout_gravity="center_vertical"/>
+    <!--Points
+    ID: pointsTextFC
+    USE: Displaying points of following
+    -->
+    <TextView
+        android:id="@+id/pointsTextFC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:padding="5dp"
+        android:text="Points"
+        android:textSize="30sp"/>
+
+</LinearLayout>

@@ -13,7 +13,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
     <!--Back Button
     ID: backButtonHAE
-    USE: Exiting the fragment
+    USE: Exiting the activity
     -->
 
     <ImageButton

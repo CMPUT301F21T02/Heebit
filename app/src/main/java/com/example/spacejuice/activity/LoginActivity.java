@@ -19,9 +19,9 @@ import com.example.spacejuice.controller.LoginController;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
-   /*
-   This Activity is used to display the login screen
-    */
+    /*
+    This Activity is used to display the login screen
+     */
     Button loginButton;
     Button signUpButton;
     EditText UserNameET;
@@ -62,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
                     }
-        });
-
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
