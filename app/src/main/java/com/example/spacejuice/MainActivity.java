@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.LoginActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
@@ -26,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
         Habit testHabit_2 = new Habit("Walk Dog", "Exercise", new Date(), new Schedule());
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+
         getUser().setScore(5);
         Log.d("debugInfo", "user score set to 5");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }
 
