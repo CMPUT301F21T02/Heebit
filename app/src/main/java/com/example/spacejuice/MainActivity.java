@@ -10,6 +10,7 @@ import android.util.Log;
 
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
@@ -30,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
         // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
         Intent intent = new Intent(this, OverviewActivity.class);
         startActivity(intent);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
     }
 
 
