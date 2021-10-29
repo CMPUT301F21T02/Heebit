@@ -40,28 +40,28 @@ public class LoginActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView6);
         loginController = new LoginController();
         loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loginController.login(UserNameET.getText().toString(),
-                        PassWordET.getText().toString(), new LoginController.OnCompleteCallback() {
-                            @Override
-                            public void onComplete(boolean suc) {
-                                success = suc;
-                                //MainActivity.setUser(member);
-                                if (success){
-                                    Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
-                                    // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
-                                    Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
-                                    startActivity(intent);
-                                }
-                                else{
-                                    Toast.makeText(LoginActivity.this,"login failure" ,
-                                            Toast.LENGTH_SHORT).show();
-                                    PassWordET.setText(""); // clear the Text
-                                }
-                            }
-                        });
-                    }
+           @Override
+           public void onClick(View view) {
+               loginController.login(UserNameET.getText().toString(),
+                       PassWordET.getText().toString(), new LoginController.OnCompleteCallback() {
+                           @Override
+                           public void onComplete(boolean suc) {
+                               success = suc;
+                               //MainActivity.setUser(member);
+                               if (success) {
+                                   Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
+                                   // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
+                                   Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
+                                   startActivity(intent);
+                               } else {
+                                   Toast.makeText(LoginActivity.this, "login failure",
+                                           Toast.LENGTH_SHORT).show();
+                                   PassWordET.setText(""); // clear the Text
+                               }
+                           }
+                       });
+           }
+       });
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
