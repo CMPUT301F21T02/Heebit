@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
 
@@ -83,7 +84,8 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 schedule = new Schedule(Sunday.isChecked(),Monday.isChecked(),Tuesday.isChecked(),
                         Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
                 habitReturn = new Habit(name, description, date, schedule);
-
+                MainActivity.getUser().addHabit(habitReturn);
+                finish();
 
 
             }
