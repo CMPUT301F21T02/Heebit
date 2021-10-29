@@ -164,4 +164,10 @@ public class Member {
       // for debug purposes, allows setting a habit with pre-set values
 
    }
+
+
+   public void deleteHabit(Habit habitDelete){
+      habitListItems.remove(habitDelete);
+   }
 }
+

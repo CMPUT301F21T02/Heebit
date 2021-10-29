@@ -1,6 +1,8 @@
 package com.example.spacejuice;
 
-public class Indicator {
+import java.io.Serializable;
+
+public class Indicator implements Serializable {
    // A class to manage indicator level and image resources
    private int MAX_LEVEL = 9;
    private int MIN_LEVEL = 0;
