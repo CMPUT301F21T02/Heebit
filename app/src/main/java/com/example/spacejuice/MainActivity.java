@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public static void setUser(Member new_user){
         user = new_user;
+        user.initTestData();
     }
 
     public void testFunction() {

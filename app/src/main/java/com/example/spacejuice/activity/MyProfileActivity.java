@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 
 public class MyProfileActivity extends AppCompatActivity {
@@ -18,6 +20,7 @@ public class MyProfileActivity extends AppCompatActivity {
 //    public view my_profile_activity;
    public Button go_to_requests;
    public ImageButton back_button;
+   public TextView user_name;
 
 
    @Override
@@ -26,9 +29,13 @@ public class MyProfileActivity extends AppCompatActivity {
        Log.d("debugInfo", "My Profile View Created from MyProfileActivity.java");
        setContentView(R.layout.my_profile_activity);
 
+       user_name = findViewById(R.id.userName);
        back_button = findViewById(R.id.backButtonMyProfile);
-      go_to_requests = findViewById(R.id.requestsButton);
-      go_to_requests.setOnClickListener(new View.OnClickListener() {
+       go_to_requests = findViewById(R.id.requestsButton);
+
+       user_name.setText(MainActivity.getUser().getMemberName());
+       go_to_requests.setOnClickListener(new View.OnClickListener() {
+
          @Override
          public void onClick(View v) {
             openFollowersActivity();
