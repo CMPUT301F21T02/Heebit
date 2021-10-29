@@ -3,7 +3,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter()
+
+       jcenter() // Warning: this repository is going to shut down soon
         maven { url "https://maven.xyz.com" }
     }
 }
