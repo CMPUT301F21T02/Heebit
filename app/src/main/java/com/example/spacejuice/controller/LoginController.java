@@ -10,6 +10,7 @@ public class LoginController {
 
     public LoginController(){
         //change to firestore load every member into MemberDataList
+
         Member test_member = new Member("Bradley", "handsome001");  //testmember
         MemberDataList.add(test_member);
         test_member = new Member("1234", "5678");
