@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -64,6 +65,7 @@ public class HabitListAdapter extends ArrayAdapter {
          viewHolder = new ViewHolder();
          viewHolder.imageView=row.findViewById(R.id.habit_indicator);
          viewHolder.textView=row.findViewById(R.id.habit_text);
+         //ViewHolder.clickablePart= row.findViewById(R.id.clickable_habit_segment);
          row.setTag(viewHolder);
       }
       else { // If the viewHolder was already initialized
@@ -74,21 +76,30 @@ public class HabitListAdapter extends ArrayAdapter {
 
       viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
       viewHolder.textView.setText(items.get(position).getTitle());
-      row.setClickable(true);
-      row.setOnClickListener(new View.OnClickListener() {
+      viewHolder.textView.setClickable(true);
+      View.OnClickListener goToEditHabit;
+
+      goToEditHabit = new View.OnClickListener() {
          @Override
          public void onClick(View view) {
             Intent intent = new Intent(context, EditHabitActivity.class);
             intent.putExtra("habitUid", items.get(position).getUid());
             context.startActivity(intent);
          }
-      });
+      };
+
+      row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEditHabit);
+
+      if (checkBox.isChecked()) {
+         checkBox.setClickable(false);
+      }
 
       if (items.get(position).isToday()) {
          checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                if (((CompoundButton) view).isChecked()) {
+                  checkBox.setClickable(false);
                   Log.d("debugInfo", "item is checked");
                   Intent intent = new Intent(context, AddHabitEventActivity.class);
                   intent.putExtra("habitUid", items.get(position).getUid());
