@@ -4,17 +4,18 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Habit {
+public class Habit implements Serializable {
     private static int TITLE_LENGTH = 20;
     private static int REASON_LENGTH = 30;
     private Indicator indicator;
     private String title;
     private String reason;
     private Date startDate;
-    public Schedule schedule = new Schedule();
+    private Schedule schedule;
 
     public Habit(String title, String reason, Date date, Schedule schedule) {
         setTitle(title);
@@ -33,8 +34,11 @@ public class Habit {
         if (iLevel != -1) {
             indicator.setLevel(iLevel);
         }
+        this.schedule = new Schedule();
     }
-
+    public void setSchedule(Schedule s){
+        this.schedule = s;
+    }
     public void setTitle(String s) {
         int l = s.length();
         if (l > TITLE_LENGTH) { l = TITLE_LENGTH; }

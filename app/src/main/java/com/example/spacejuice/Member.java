@@ -53,13 +53,27 @@ public class Member {
       this.followings = 0;
    }
 
+   public Member(String memberName, String memberPassword){
+      this.memberName = memberName;
+      this.memberPassword = memberPassword;
+
+      //Set the score and social stats to 0
+      this.score = 0;
+      this.followers = 0;
+      this.followings = 0;
+   }
+
 
 
       // Getters -- Need to figure out how to compare password in login so we can access the private password
    //            and return true or false whether it matches or not during login.
 
    // Public function here that verifies password. so
-   // member.verifypassword(passwordAttempt)
+
+   // member.verifyPassword(passwordAttempt)
+   public boolean verifyPassword(String password){
+      return (password.equals(memberPassword));
+   }
 
    public void initTestData() {
             /*
@@ -94,7 +108,15 @@ public class Member {
       habit = new Habit("ThFSS Habit", "reason #9", -1);
       habit.getSchedule().changeTo(true, false, false, false, true, true, true);
       HabitController.addHabit(habit);
+      Log.d("debugInfo", "is this the user? " + isUser());
 
+   }
+
+   public Boolean isUser() {
+      // returns true if this current Member is the User;
+      // check for this before allowing certain methods to be used
+
+      return (this == MainActivity.getUser());
    }
 
    public String getMemberName() {
@@ -121,7 +143,9 @@ public class Member {
    // Setters
 
    public void addHabit(Habit habit) {
-      habitListItems.add(habit);
+      if (isUser()) {
+         habitListItems.add(habit);
+      }
    }
 
    public void setScore(int score) {
@@ -140,27 +164,10 @@ public class Member {
       // for debug purposes, allows setting a habit with pre-set values
 
    }
+
+
+   public void deleteHabit(Habit habitDelete){
+      habitListItems.remove(habitDelete);
+   }
 }
 
-
-        /*extends AppCompatActivity {
-   private static Member instance;
-   public static ArrayAdapter<Habit> habitAdapter;
-   public static ArrayList<Habit> habitList;
-
-   Member(Context activity, int layout) {
-      habitList = new ArrayList<>();
-      if (habitAdapter == null) {
-         habitAdapter = new ArrayAdapter<>(activity, layout, habitList);
-      }
-   }
-
-   public static Member getInstance(Context activity, int layout) {
-      if (instance == null) {
-         instance = new Member(activity, layout);
-      }
-      return instance;
-   }
-
-}
-*/

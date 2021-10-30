@@ -19,6 +19,7 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.R;
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
+import com.example.spacejuice.activity.EditHabitActivity;
 import com.example.spacejuice.activity.MyProfileActivity;
 
 import java.util.ArrayList;
@@ -73,22 +74,36 @@ public class HabitListAdapter extends ArrayAdapter {
 
       viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
       viewHolder.textView.setText(items.get(position).getTitle());
-
-      checkBox.setOnClickListener(new View.OnClickListener() {
+      row.setClickable(true);
+      row.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-            if(((CompoundButton) view).isChecked()){
-               Log.d("debugInfo", "item is checked");
-               Intent intent = new Intent(context, AddHabitEventActivity.class);
-               context.startActivity(intent);
-
-            } else {
-               Log.d("debugInfo", "item attempted to be unchecked");
-               checkBox.setChecked(true);
-            }
+            Intent intent = new Intent(context, EditHabitActivity.class);
+            intent.putExtra("habit", items.get(position));
+            context.startActivity(intent);
          }
       });
 
+      if (items.get(position).isToday()) {
+         checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               if (((CompoundButton) view).isChecked()) {
+                  Log.d("debugInfo", "item is checked");
+                  Intent intent = new Intent(context, AddHabitEventActivity.class);
+                  context.startActivity(intent);
+
+               } else {
+                  Log.d("debugInfo", "item attempted to be unchecked");
+                  checkBox.setChecked(true);
+               }
+            }
+         });
+      } else {
+         // remove the checkbox if the habit is not scheduled for today
+         checkBox.setButtonDrawable(null);
+         checkBox.setClickable(false);
+      }
       return row;
    }
 }

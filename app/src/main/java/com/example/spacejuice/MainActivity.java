@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.spacejuice.activity.AllHabitsActivity;
+import com.example.spacejuice.activity.LoginActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
@@ -19,17 +21,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         Habit testHabit_1 = new Habit("Brush Teeth", "Prevent cavities", new Date(), new Schedule());
         Habit testHabit_2 = new Habit("Walk Dog", "Exercise", new Date(), new Schedule());
-
-        // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
-        Intent intent = new Intent(this, OverviewActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+
         getUser().setScore(5);
         Log.d("debugInfo", "user score set to 5");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }
 
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
             user.initTestData();
         }
         return user;
+    }
+    public static void setUser(Member new_user){
+        user = new_user;
+        user.initTestData();
     }
 
     public void testFunction() {

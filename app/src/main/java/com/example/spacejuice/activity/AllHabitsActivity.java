@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -31,7 +32,7 @@ public class AllHabitsActivity extends AppCompatActivity {
    Button today_habits_button;
    ImageButton profile_imagebutton;
    ImageButton add_habit_imagebutton;
-
+   public ArrayList<Habit> habitListItems;
    public AllHabitsActivity() {
 
    }
@@ -54,10 +55,8 @@ public class AllHabitsActivity extends AppCompatActivity {
       add_habit_imagebutton = findViewById(R.id.today_button_add_habit);
       today_habits_button = (Button) findViewById(R.id.today_habits_button);
 
-      ArrayList<Habit> items = new ArrayList<>();
 
-
-      ArrayList<Habit> habitListItems = HabitController.getHabitListItems();
+      habitListItems = HabitController.getHabitListItems();
 
       habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, habitListItems));
 
@@ -83,6 +82,8 @@ public class AllHabitsActivity extends AppCompatActivity {
             startActivity(intent);
          }
       });
+
+
 
    }
 
