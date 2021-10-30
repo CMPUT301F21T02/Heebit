@@ -22,6 +22,7 @@ public class Member {
    // Might need to redo accesses for these cuz i dunno shit abt private vs public - Harish
    private String memberName;
    private final String memberPassword;
+   private int uniqueId = 1;
    private int id; // Needs to be the primary id on Firestore
    ArrayList<Habit> habitListItems = new ArrayList<>();
    private int score;
@@ -144,6 +145,7 @@ public class Member {
 
    public void addHabit(Habit habit) {
       if (isUser()) {
+         habit.setUid();
          habitListItems.add(habit);
       }
    }
@@ -165,9 +167,24 @@ public class Member {
 
    }
 
+   public int getUniqueID() {
+      this.uniqueId += 1;
+      return this.uniqueId - 1;
+   }
 
-   public void deleteHabit(Habit habitDelete){
-      habitListItems.remove(habitDelete);
+   public Habit getHabitFromUid(int getid) {
+      for (Habit habit : habitListItems) {
+         if (habit.getUid() == getid) {
+            return habit;
+         }
+      }
+      // if no habit with matching id is found, a new habit is returned
+      Habit habit;
+      habit = new Habit("ERROR NO HABIT FOUND", "This erroneous habit was created since the UID was not found", -1);
+      return habit;
+   }
+
+   public void deleteHabit(Habit habitDelete){ habitListItems.remove(habitDelete);
    }
 }
 

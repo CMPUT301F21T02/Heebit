@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Habit testHabit_1 = new Habit("Brush Teeth", "Prevent cavities", new Date(), new Schedule());
-        Habit testHabit_2 = new Habit("Walk Dog", "Exercise", new Date(), new Schedule());
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
