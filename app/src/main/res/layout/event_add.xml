@@ -13,19 +13,95 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
     ID: backButtonEA
     USE: Exiting the activity
     -->
-    <ImageButton
-        android:id="@+id/backButtonEA"
-        android:layout_width="52dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/button_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:colorPrimary"
-        tools:ignore="SpeakableTextPresentCheck" />
+    <LinearLayout
+        android:id="@+id/lin_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/backButtonEA"
+                android:layout_width="52dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_back"
+                app:tint="?android:colorPrimary"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <LinearLayout
+                android:id="@+id/habitdetails_layout"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="230dp"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="40dp"
+                android:paddingEnd="20dp">
+
+                <TextView
+                    android:id="@+id/congratulations"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textSize="80sp"
+                    android:autoSizeTextType="uniform"
+                    android:textColor="?colorPrimary"
+                    android:text="HABIT COMPLETED" />
+
+                <TextView
+                    android:id="@+id/dateofcompletion"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:textColor="?colorPrimary"
+                    android:text="TextView" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/habit_title_title"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="Habit:" />
+
+                    <TextView
+                        android:id="@+id/habit_title_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Habit_title" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/habit_reason_title"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="Reason:" />
+
+                    <TextView
+                        android:id="@+id/habit_reason_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Habit_reason" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
     <!--text
     ID: textViewEA
     USE: Just prints out "Add an Image!"
@@ -35,149 +111,85 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
     ID: textView2EA
     USE: Just prints out "Event Description"
     -->
+
     <LinearLayout
-        android:id="@+id/habitdetails_layout"
-        android:layout_width="341dp"
-        android:layout_height="202dp"
+        android:id="@+id/lin_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:paddingTop="40dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewEA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backButtonEA">
+        app:layout_constraintTop_toBottomOf="@id/lin_1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/habit_title_title"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="Habit:" />
-
-            <TextView
-                android:id="@+id/habit_title_value"
+                android:id="@+id/textView2EA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Habit_title" />
+                android:padding="5dp"
+                android:text="Description:"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/eventDescriptionEA"
+                android:layout_width="306dp"
+                android:layout_height="114dp"
+                android:layout_marginBottom="0dp"
+                android:ems="10"
+                android:hint="Describe this Event"
+                android:inputType="text" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            >
+            android:layout_height="70dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/habit_reason_title"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:text="Reason:" />
+            <Button
+                android:id="@+id/add_an_image_button"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/button_bg"
+                android:scaleType="fitCenter"
+                android:text="Add Image"
+                android:textAllCaps="false"
+                android:layout_gravity="center_vertical"
+                android:tooltipText="Add an Image" />
 
-            <TextView
-                android:id="@+id/habit_reason_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Habit_reason" />
+
+            <Button
+                android:id="@+id/GPS"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:autoSizeTextType="uniform"
+                android:background="@drawable/button_bg"
+                android:scaleType="fitCenter"
+                android:text="Add GPS"
+                android:textAllCaps="false"
+                android:layout_gravity="center_vertical"
+                android:tooltipText="Add GPS" />
+
+            <Button
+                android:id="@+id/createEventEA"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="?colorAddHabit"
+                android:textSize="10sp"
+                android:autoSizeTextType="uniform"
+                android:text="Publish" />
+
         </LinearLayout>
+
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewEA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
-        android:padding="5dp"
-        android:text="Add an Image!"
-        android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2EA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Event Description"
-        android:textSize="15dp"
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.414" />
-
-    <!-- Habit details text
-    ID: eventDescriptionEA
-    USE: Lets user change or add the event description
-    -->
-    <EditText
-        android:id="@+id/eventDescriptionEA"
-        android:layout_width="201dp"
-        android:layout_height="123dp"
-        android:layout_marginBottom="272dp"
-        android:ems="10"
-        android:hint="Add a description"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!--text
-    ID: textView3EA
-    USE: Just prints out "Add GPS Tag?"
-    -->
-    <TextView
-        android:id="@+id/textView3EA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="Add GPS Tag?"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.403"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.77" />
-
-    <!--Checkbox
-    ID: gpsEA
-    USE: Checkbox for Add GPS Tag
-    -->
-    <CheckBox
-        android:id="@+id/gpsEA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.628"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.778" />
-
-    <!--create button
-    ID: createEventEA
-    USE: Button to create
-    -->
-    <Button
-        android:id="@+id/createEventEA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Publish Habit Event!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.906" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
