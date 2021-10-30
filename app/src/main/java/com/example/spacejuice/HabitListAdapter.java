@@ -91,6 +91,7 @@ public class HabitListAdapter extends ArrayAdapter {
                if (((CompoundButton) view).isChecked()) {
                   Log.d("debugInfo", "item is checked");
                   Intent intent = new Intent(context, AddHabitEventActivity.class);
+                  intent.putExtra("habitUid", items.get(position).getUid());
                   context.startActivity(intent);
 
                } else {

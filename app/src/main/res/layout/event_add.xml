@@ -17,35 +17,89 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
         android:id="@+id/backButtonEA"
         android:layout_width="52dp"
         android:layout_height="72dp"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        app:tint="?android:colorPrimary"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
         android:src="@drawable/button_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?android:colorPrimary"
+        tools:ignore="SpeakableTextPresentCheck" />
     <!--text
     ID: textViewEA
     USE: Just prints out "Add an Image!"
     -->
-    <TextView
-        android:id="@+id/textViewEA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:text="Add an Image!"
-        android:textSize="15dp"
-        android:padding="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!--text
     ID: textView2EA
     USE: Just prints out "Event Description"
     -->
+    <LinearLayout
+        android:id="@+id/habitdetails_layout"
+        android:layout_width="341dp"
+        android:layout_height="202dp"
+        android:orientation="vertical"
+        android:paddingTop="40dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewEA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backButtonEA">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/habit_title_title"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Habit:" />
+
+            <TextView
+                android:id="@+id/habit_title_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Habit_title" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/habit_reason_title"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Reason:" />
+
+            <TextView
+                android:id="@+id/habit_reason_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Habit_reason" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewEA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="204dp"
+        android:padding="5dp"
+        android:text="Add an Image!"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView2EA"
         android:layout_width="wrap_content"

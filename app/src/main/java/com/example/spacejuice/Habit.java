@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,15 +17,18 @@ public class Habit implements Serializable {
     private String reason;
     private Date startDate;
     private Schedule schedule;
+    private int uid; // unique identifier for habit
+    private ArrayList<HabitEvent> events;
 
+    /*
     public Habit(String title, String reason, Date date, Schedule schedule) {
         setTitle(title);
         setReason(reason);
         setStartDate(date);
         this.indicator = new Indicator();
         this.schedule = schedule;
-
     }
+    */
 
     public Habit(String title, String reason, int iLevel) {
         setTitle(title);
@@ -35,6 +39,7 @@ public class Habit implements Serializable {
             indicator.setLevel(iLevel);
         }
         this.schedule = new Schedule();
+        this.events = new ArrayList<HabitEvent>();
     }
     public void setSchedule(Schedule s){
         this.schedule = s;
@@ -121,5 +126,21 @@ public class Habit implements Serializable {
                 } else { return false; }
         }
         return false;
+    }
+
+    public ArrayList<HabitEvent> getEvents() {
+        return this.events;
+    }
+
+    public void addEvent(HabitEvent habitEvent) {
+        this.events.add(habitEvent);
+    }
+
+    public void setUid() {
+        this.uid = MainActivity.getUser().getUniqueID();
+    }
+
+    public int getUid() {
+        return this.uid;
     }
 }

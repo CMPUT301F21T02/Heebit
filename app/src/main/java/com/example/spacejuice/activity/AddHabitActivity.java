@@ -33,8 +33,8 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
     private ImageButton backB;
     private EditText NameEdit;
     private String name;
-    private EditText DescriptionEdit;
-    private String description;
+    private EditText ReasonEdit;
+    private String reason;
     private CheckBox Monday;
     private CheckBox Tuesday;
     private CheckBox Wednesday;
@@ -72,8 +72,8 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View view) {
                 NameEdit = findViewById(R.id.HabitNameHAE);
                 name = NameEdit.getText().toString();  //get the name
-                DescriptionEdit = findViewById(R.id.HabitReasonHAE);
-                description = DescriptionEdit.getText().toString(); //Get the Description
+                ReasonEdit = findViewById(R.id.HabitReasonHAE);
+                reason = ReasonEdit.getText().toString(); //Get the Description
                 Monday = findViewById(R.id.Monday);
                 Tuesday = findViewById(R.id.Tuesday);
                 Wednesday = findViewById(R.id.Wednesday);
@@ -83,7 +83,9 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 Sunday = findViewById(R.id.Sunday);
                 schedule = new Schedule(Sunday.isChecked(),Monday.isChecked(),Tuesday.isChecked(),
                         Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
-                habitReturn = new Habit(name, description, date, schedule);
+                habitReturn = new Habit(name, reason, -1);
+                habitReturn.setStartDate(date);
+                habitReturn.setSchedule(schedule);
                 MainActivity.getUser().addHabit(habitReturn);
                 finish();
 
