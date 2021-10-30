@@ -32,6 +32,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
     ID: listOfFollowingFA
     USE: Displays the list of following
     -->
+
+    <!--Text View
+    ID: textViewFA
+    USE: Prints out "Following"
+    -->
     <ListView
         android:id="@+id/listOfFollowingFA"
         android:layout_width="390dp"
@@ -43,15 +48,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.238"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewFA"
-        app:layout_constraintVertical_bias="0.496" />
+        app:layout_constraintVertical_bias="0.488" />
 
-    <!--Text View
-    ID: textViewFA
-    USE: Prints out "Following"
-    -->
     <TextView
         android:id="@+id/textViewFA"
         android:layout_width="wrap_content"
@@ -72,25 +73,14 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
+        android:layout_marginBottom="11dp"
         android:text="Points"
+        app:layout_constraintBottom_toTopOf="@+id/listOfFollowingFA"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="0.956"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!--Text View
-    ID: textView2FA
-    USE: Prints out "Name"
-    -->
-    <TextView
-        android:id="@+id/textView2FA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="120dp"
-        android:text="Name"
-        app:layout_constraintEnd_toStartOf="@+id/textView3FA"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

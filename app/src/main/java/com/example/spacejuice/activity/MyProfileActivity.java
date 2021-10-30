@@ -18,6 +18,7 @@ public class MyProfileActivity extends AppCompatActivity {
 //    public view my_profile_activity;
    public Button go_to_requests;
    public ImageButton back_button;
+   private Button exploreButton;
 
 
    @Override
@@ -28,6 +29,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
        back_button = findViewById(R.id.backButtonMyProfile);
       go_to_requests = findViewById(R.id.requestsButton);
+       exploreButton = findViewById(R.id.discoverButton);
+
+      // requests button
       go_to_requests.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
@@ -36,6 +40,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
       });
 
+      // back button
       back_button.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
@@ -44,11 +49,22 @@ public class MyProfileActivity extends AppCompatActivity {
 
       });
 
+      exploreButton.setOnClickListener(new View.OnClickListener(){
+         @Override
+         public void onClick(View v) {
+            openFollowingListView();
+         }
+      });
+
    }
 
 
    public void openFollowersActivity() {
       Intent intent = new Intent(this, FollowerRequestsActivity.class);
+      startActivity(intent);
+   }
+   public void openFollowingListView() {
+      Intent intent = new Intent(this, FollowingActivity.class);
       startActivity(intent);
    }
 }
