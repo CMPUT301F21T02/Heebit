@@ -26,6 +26,12 @@ public class MyProfileActivity extends AppCompatActivity {
   
    public TextView user_name;
 
+   private TextView followingCount;
+   private TextView followingText;
+
+    private TextView followersCount;
+    private TextView followersText;
+
   
 
 
@@ -40,6 +46,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
        exploreButton = findViewById(R.id.discoverButton);
        go_to_requests = findViewById(R.id.requestsButton);
+       followingCount = findViewById(R.id.followingCount);
+       followingText = findViewById(R.id.following);
+       followersCount = findViewById(R.id.followersCount);
+       followersText = findViewById(R.id.followers);
 
        user_name.setText(MainActivity.getUser().getMemberName());
        go_to_requests.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +57,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
          @Override
          public void onClick(View v) {
-            openFollowersActivity();
+            openFollowRequestActivity();
          }
 
       });
@@ -61,22 +71,49 @@ public class MyProfileActivity extends AppCompatActivity {
 
       });
 
-      exploreButton.setOnClickListener(new View.OnClickListener(){
+      // Makes it so that if the user clicks on the following or following count, it goes to the list
+      followingText.setOnClickListener(new View.OnClickListener(){
          @Override
          public void onClick(View v) {
             openFollowingListView();
          }
       });
+      followingCount.setOnClickListener(new View.OnClickListener(){
+          @Override
+          public void onClick(View v) {
+              openFollowingListView();
+          }
+      });
+
+      // same for followers
+       followersText.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               openFollowersListView();
+           }
+       });
+       followersCount.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               openFollowersListView();
+           }
+       });
 
    }
 
 
-   public void openFollowersActivity() {
+   public void openFollowRequestActivity() {
       Intent intent = new Intent(this, FollowerRequestsActivity.class);
       startActivity(intent);
    }
    public void openFollowingListView() {
+       // goes to following list view
       Intent intent = new Intent(this, FollowingActivity.class);
       startActivity(intent);
    }
+    public void openFollowersListView() {
+        // goes to follower list view
+        Intent intent = new Intent(this, FollowersActivity.class);
+        startActivity(intent);
+    }
 }
