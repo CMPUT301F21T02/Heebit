@@ -76,7 +76,7 @@ public class HabitListAdapter extends ArrayAdapter {
 
       viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
       viewHolder.textView.setText(items.get(position).getTitle());
-      viewHolder.textView.setClickable(true);
+      viewHolder.textView.setClickable(false);
       View.OnClickListener goToEditHabit;
 
       goToEditHabit = new View.OnClickListener() {
