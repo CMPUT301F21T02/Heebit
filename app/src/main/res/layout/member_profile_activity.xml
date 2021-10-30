@@ -29,11 +29,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         app:tint="?android:colorPrimary" />
 
     <!--List View
-    ID: listOfFollowingMPA
+    ID: followingHabitsMPA
     USE: Displays the list of Habits
     -->
     <ListView
-        android:id="@+id/listOfFollowingMPA"
+        android:id="@+id/followingHabitsMPA"
         android:layout_width="406dp"
         android:layout_height="186dp"
         android:divider="@android:color/transparent"
