@@ -20,6 +20,7 @@ import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
+import com.example.spacejuice.controller.HabitController;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -59,8 +60,23 @@ This Activity is used to edit a habit
         super.onCreate(savedInstanceState);
         //set contentView and Editing user
         setContentView(R.layout.habit_add_edit);
-        Intent intent = getIntent();
-        habitEditing = (Habit) intent.getSerializableExtra("habit");
+
+        /*
+            Get the Unique Identifier of the Habit that we are editing
+         */
+        int habitUid;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                habitUid = 0;
+            } else {
+                habitUid = extras.getInt("habitUid");
+            }
+        } else {
+            habitUid = (int) savedInstanceState.getSerializable("habitUid");
+        }
+        habitEditing = HabitController.getHabitFromUid(habitUid);
+
         //initializing
         title = findViewById(R.id.textViewHAE);
         title.setText("Edit a Habit"); //Set the title into Add a Habit
