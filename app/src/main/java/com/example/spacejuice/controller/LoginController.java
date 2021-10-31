@@ -49,6 +49,7 @@ public class LoginController {
                         // then check pass word
                         if(p.equals(password)){
                             account = new Member(userName,password);
+                            MainActivity.setUser(account);
                             callback.onComplete(true);
                         }else {
                             // if the password is wrong
@@ -70,6 +71,8 @@ public class LoginController {
 
     public void signUp(String userName, String password, final OnCompleteCallback callback){
         Map<String,Object> user = new HashMap<>();
+        Map<String,Object> member = new HashMap<>();
+        Map<String,Object> habit = new HashMap<>();
         if(userName.length()>0 && password.length()>0){
             DocumentReference documentReference = db.collection("Members").document(userName);
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -83,8 +86,22 @@ public class LoginController {
                         } else {
                             // if this name is not used
                             account = new Member(userName,password);
-
+                            MainActivity.setUser(account);
                             user.put("Password",password);
+                            user.put("FollowerNumber","0");
+                            user.put("FollowingNumber", "0");
+                            user.put("Score","0");
+                            member.put("userName","NONE");
+                            habit.put("habitName","NONE");
+                            habit.put("ID","NONE");
+                            habit.put("Reason","NONE");
+                            habit.put("Date","NONE");
+                            DocumentReference habitReference = documentReference
+                                    .collection("Habits").document("NONE");
+                            DocumentReference followerReference = documentReference
+                                    .collection("Follower").document("NONE");
+                            DocumentReference followingReference = documentReference
+                                    .collection("Following").document("NONE");
                             collectionReference.document(userName)
                                     .set(user)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -93,6 +110,28 @@ public class LoginController {
                                             Log.d( "message","Data has been added successfully");
                                         }
                                     });
+                            habitReference.set(habit)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d( "message","Data has been added successfully");
+                                        }
+                                    });
+                            followerReference.set(member)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d( "message","Data has been added successfully");
+                                        }
+                                    });
+                            followingReference.set(member)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d( "message","Data has been added successfully");
+                                        }
+                                    });
+
                             callback.onComplete(true);
                         }
                     } else {
@@ -100,6 +139,8 @@ public class LoginController {
                     }
                 }
             });
+
+
         }
     }
 
