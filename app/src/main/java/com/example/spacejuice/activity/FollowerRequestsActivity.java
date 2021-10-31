@@ -1,6 +1,7 @@
 package com.example.spacejuice.activity;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -60,6 +61,8 @@ public class FollowerRequestsActivity extends AppCompatActivity {
       String memName = requestingMembers.get(position).getMemberName();
       CharSequence text = memName + " is now following you";
       int duration = Toast.LENGTH_SHORT;
+      MediaPlayer song = MediaPlayer.create(context, R.raw.pop);
+      song.start();
 
       Toast toast = Toast.makeText(context, text, duration);
       toast.show();
@@ -71,6 +74,11 @@ public class FollowerRequestsActivity extends AppCompatActivity {
 
    public void denyFollowRequest(int position) {
       requestingMembers.remove(position);
+      Context context = getApplicationContext();
+
+      MediaPlayer song = MediaPlayer.create(context, R.raw.pop2);
+      song.start();
+
       Log.d("debugInfo", "denyFollowRequest run at position " + position);
       followRequestAdapter.notifyDataSetChanged();
    }

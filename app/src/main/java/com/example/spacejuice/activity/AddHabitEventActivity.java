@@ -1,5 +1,6 @@
 package com.example.spacejuice.activity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -91,6 +92,9 @@ public class AddHabitEventActivity extends AppCompatActivity {
                 event.setDone(true);
                 event.setDescription(edit_text_description.getText().toString());
                 HabitEventController.addHabitEvent(currentHabit, event);
+
+                MediaPlayer song = MediaPlayer.create(AddHabitEventActivity.this, R.raw.stamp);
+                song.start();
                 finish();
             }
         });

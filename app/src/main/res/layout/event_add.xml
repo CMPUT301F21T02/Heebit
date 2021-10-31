@@ -17,87 +17,84 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
         android:id="@+id/lin_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@id/lin_2"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backButtonEA"
+            android:layout_width="52dp"
+            android:layout_height="72dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/button_back"
+            app:tint="?android:colorPrimary"
+            android:contentDescription="Back"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:id="@+id/habitdetails_layout"
+            android:layout_width="0dp"
+            android:layout_height="230dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="40dp"
+            android:paddingEnd="20dp">
 
-            <ImageButton
-                android:id="@+id/backButtonEA"
-                android:layout_width="52dp"
-                android:layout_height="72dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/button_back"
-                app:tint="?android:colorPrimary"
-                tools:ignore="SpeakableTextPresentCheck" />
+            <TextView
+                android:id="@+id/congratulations"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:autoSizeTextType="uniform"
+                android:text="HABIT COMPLETED"
+                android:textColor="?colorPrimary"
+                android:textSize="80sp" />
+
+            <TextView
+                android:id="@+id/dateofcompletion"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:text="on March 24, 2021"
+                android:textColor="?colorPrimary" />
 
             <LinearLayout
-                android:id="@+id/habitdetails_layout"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="230dp"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingTop="40dp"
-                android:paddingEnd="20dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/congratulations"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textSize="80sp"
-                    android:autoSizeTextType="uniform"
-                    android:textColor="?colorPrimary"
-                    android:text="HABIT COMPLETED" />
-
-                <TextView
-                    android:id="@+id/dateofcompletion"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:textColor="?colorPrimary"
-                    android:text="TextView" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/habit_title_title"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="Habit:" />
 
-                    <TextView
-                        android:id="@+id/habit_title_title"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:text="Habit:" />
+                <TextView
+                    android:id="@+id/habit_title_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Habit_title" />
+            </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/habit_title_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Habit_title" />
-                </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/habit_reason_title"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Reason:" />
 
-                    <TextView
-                        android:id="@+id/habit_reason_title"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:text="Reason:" />
-
-                    <TextView
-                        android:id="@+id/habit_reason_value"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Habit_reason" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/habit_reason_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Habit_reason" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -139,7 +136,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:layout_height="114dp"
                 android:layout_marginBottom="0dp"
                 android:ems="10"
-                android:hint="Describe this Event"
+                android:hint="Describe this Event (Optional)"
                 android:inputType="text" />
         </LinearLayout>
 
@@ -152,13 +149,13 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:id="@+id/add_an_image_button"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/button_bg"
                 android:scaleType="fitCenter"
                 android:text="Add Image"
                 android:textAllCaps="false"
-                android:layout_gravity="center_vertical"
                 android:tooltipText="Add an Image" />
 
 
@@ -166,6 +163,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:id="@+id/GPS"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
                 android:autoSizeTextType="uniform"
@@ -173,20 +171,19 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:scaleType="fitCenter"
                 android:text="Add GPS"
                 android:textAllCaps="false"
-                android:layout_gravity="center_vertical"
                 android:tooltipText="Add GPS" />
 
             <Button
                 android:id="@+id/createEventEA"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
-                android:layout_weight="1"
-                android:layout_marginEnd="10dp"
                 android:layout_gravity="center_vertical"
-                android:backgroundTint="?colorAddHabit"
-                android:textSize="10sp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
                 android:autoSizeTextType="uniform"
-                android:text="Publish" />
+                android:backgroundTint="?colorAddHabit"
+                android:text="Publish"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
