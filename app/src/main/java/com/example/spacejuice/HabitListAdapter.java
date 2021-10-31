@@ -2,6 +2,7 @@ package com.example.spacejuice;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.spacejuice.Habit;
-import com.example.spacejuice.R;
 import com.example.spacejuice.activity.AddHabitEventActivity;
-import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.EditHabitActivity;
-import com.example.spacejuice.activity.MyProfileActivity;
 
 import java.util.ArrayList;
 
@@ -100,7 +96,8 @@ public class HabitListAdapter extends ArrayAdapter {
             public void onClick(View view) {
                if (((CompoundButton) view).isChecked()) {
                   checkBox.setClickable(false);
-                  Log.d("debugInfo", "item is checked");
+                  MediaPlayer song = MediaPlayer.create(context, R.raw.click);
+                  song.start();
                   Intent intent = new Intent(context, AddHabitEventActivity.class);
                   intent.putExtra("habitUid", items.get(position).getUid());
                   context.startActivity(intent);

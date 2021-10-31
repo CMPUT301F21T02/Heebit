@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/habit_indicator"
-                android:layout_width="70dp"
-                android:layout_height="50dp"
+                android:layout_width="42dp"
+                android:layout_height="33dp"
                 android:layout_gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
