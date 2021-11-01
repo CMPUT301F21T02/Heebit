@@ -36,6 +36,7 @@ public class HabitController {
       boolean thu = habit.getSchedule().Thu();
       boolean fri = habit.getSchedule().Fri();
       boolean sat = habit.getSchedule().Sat();
+      /*
       DocumentReference documentReference = db.collection("Members").document(username)
                                                 .collection("Habits").document(habitName);
       documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -64,6 +65,7 @@ public class HabitController {
             }
          }
       });
+     */
 
    }
 
