@@ -81,6 +81,7 @@ public class Member {
       initialization of TEST DATA
        */
 
+      /*
       Habit habit;
       habit = new Habit("MWF Habit", "Reason #1", 0);
       habit.getSchedule().changeTo(false, true, false, true, false, true, false);
@@ -110,6 +111,9 @@ public class Member {
       habit.getSchedule().changeTo(true, false, false, false, true, true, true);
       HabitController.addHabit(habit);
       Log.d("debugInfo", "is this the user? " + isUser());
+
+
+       */
 
    }
 
