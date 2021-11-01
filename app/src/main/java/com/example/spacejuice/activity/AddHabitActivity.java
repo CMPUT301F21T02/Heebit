@@ -17,6 +17,7 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
+import com.example.spacejuice.controller.HabitController;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -86,7 +87,8 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 habitReturn = new Habit(name, reason, -1);
                 habitReturn.setStartDate(date);
                 habitReturn.setSchedule(schedule);
-                MainActivity.getUser().addHabit(habitReturn);
+                HabitController hc = new HabitController();
+                hc.addHabit(habitReturn);
                 finish();
 
 
