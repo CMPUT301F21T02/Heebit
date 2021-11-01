@@ -87,8 +87,9 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 habitReturn = new Habit(name, reason, -1);
                 habitReturn.setStartDate(date);
                 habitReturn.setSchedule(schedule);
-                HabitController hc = new HabitController();
-                hc.addHabit(habitReturn);
+                HabitController.addHabit(habitReturn);
+                //HabitController hc = new HabitController();
+                //hc.addHabit(habitReturn);
                 finish();
 
 
