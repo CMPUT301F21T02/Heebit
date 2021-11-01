@@ -1,13 +1,21 @@
 package com.example.spacejuice.controller;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
+import com.example.spacejuice.activity.LoginActivity;
+import com.example.spacejuice.activity.OverviewActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -15,18 +23,26 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class HabitController {
 
+   public static void addLocalHabit(Habit habit) {
+      MainActivity.getUser().addHabit(habit);
+   }
 
    public static void addHabit(Habit habit) {
       FirebaseFirestore db = FirebaseFirestore.getInstance();
       Member user = MainActivity.getUser();
-      MainActivity.getUser().addHabit(habit);
+      //addLocalHabit(habit);
+      user.addHabit(habit);
       String username = user.getMemberName();
       String habitName = habit.getTitle();
       boolean sun = habit.getSchedule().Sun();
@@ -64,6 +80,56 @@ public class HabitController {
                           }
                        });
             }
+         }
+      });
+
+   }
+
+   public static void loadSingleHabit(Member member) {
+
+
+   }
+
+
+   @RequiresApi(api = Build.VERSION_CODES.N)
+   public static void loadHabitsFromFirebase(Member member, Context context) {
+      /* This method should load a member's habits from firebase */
+      FirebaseFirestore db = FirebaseFirestore.getInstance();
+      String username = member.getMemberName();
+
+      CollectionReference collectionReference = db.collection("Members").document(username)
+              .collection("Habits");
+
+      Task<QuerySnapshot> habitRef = collectionReference.get();
+      //QuerySnapshot habitSnapshot = habitRef.getResult();
+      //List<DocumentSnapshot> docs = habitSnapshot.getDocuments();
+
+      habitRef.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+         @Override
+         public void onSuccess(QuerySnapshot querySnapshot) {
+            List<DocumentSnapshot> docs = querySnapshot.getDocuments();
+
+            for (DocumentSnapshot doc : docs) {
+               //Log.d("debugInfo", "doc: " + doc.toString());
+               String title = doc.getString("Title");
+               String reason = doc.getString("Reason");
+               Boolean sun = doc.getBoolean("Sun");
+               Boolean mon = doc.getBoolean("Mon");
+               Boolean tue = doc.getBoolean("Tue");
+               Boolean wed = doc.getBoolean("Wed");
+               Boolean thu = doc.getBoolean("Thu");
+               Boolean fri = doc.getBoolean("Fri");
+               Boolean sat = doc.getBoolean("Sat");
+               int uid = Integer.valueOf(doc.get("ID").toString());
+               Habit habit = new Habit(title, reason, -1);
+               habit.getSchedule().changeTo(sun, mon, tue, wed, thu, fri, sat);
+
+               HabitController.addLocalHabit(habit);
+
+               Log.d("debugInfo", "doc uid: " + uid);
+            }
+            LoginActivity lastAct = (LoginActivity) context;
+            lastAct.finishLogin();
          }
       });
 

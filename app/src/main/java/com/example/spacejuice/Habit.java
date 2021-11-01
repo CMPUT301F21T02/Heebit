@@ -128,6 +128,23 @@ public class Habit implements Serializable {
         return false;
     }
 
+    public int calculateScore() {
+        /* iterates through a habits events to calculate its score,
+        assigning it the appropriate indicator, and returning the
+        score as an int.
+         */
+        if (this.events.size() > 0) {
+            for (HabitEvent eventItem : this.events) {
+                if (eventItem.isDone()) {
+                    this.indicator.increase();
+                } else {
+                    this.indicator.decrease();
+                }
+            }
+        }
+        return this.indicator.getLevel();
+    }
+
     public ArrayList<HabitEvent> getEvents() {
         return this.events;
     }
@@ -142,5 +159,10 @@ public class Habit implements Serializable {
 
     public int getUid() {
         return this.uid;
+    }
+
+    public long getUidLong() {
+        long uidLong = this.uid;
+        return uidLong;
     }
 }
