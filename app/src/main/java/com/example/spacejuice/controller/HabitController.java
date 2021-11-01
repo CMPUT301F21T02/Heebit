@@ -36,9 +36,10 @@ public class HabitController {
       boolean thu = habit.getSchedule().Thu();
       boolean fri = habit.getSchedule().Fri();
       boolean sat = habit.getSchedule().Sat();
-      /*
+
       DocumentReference documentReference = db.collection("Members").document(username)
                                                 .collection("Habits").document(habitName);
+
       documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
          @Override
          public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -59,13 +60,12 @@ public class HabitController {
                        .addOnSuccessListener(new OnSuccessListener<Void>() {
                           @Override
                           public void onSuccess(Void unused) {
-                             Log.d( "message","Habit has been added successfully");
+                             Log.d( "debugInfo","Habit has been added successfully");
                           }
                        });
             }
          }
       });
-     */
 
    }
 
