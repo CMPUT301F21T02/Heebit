@@ -45,11 +45,14 @@ public class LoginController {
                     DocumentSnapshot document = task.getResult();
                     // if this name exist
                     if (document.exists()) {
+
                         String p = document.getString("Password");
                         // then check pass word
                         if(p.equals(password)){
+                            int maxUniqueId = Integer.valueOf(document.getLong("currentMaxID").toString());
                             account = new Member(userName,password);
                             MainActivity.setUser(account);
+                            account.setUniqueId(maxUniqueId);
                             callback.onComplete(true);
                         }else {
                             // if the password is wrong
@@ -92,6 +95,7 @@ public class LoginController {
                             user.put("FollowingNumber", "0");
                             user.put("Score","0");
                             member.put("userName","NONE");
+                            member.put("currentMaxID", account.getUniqueID());
                             habit.put("habitName","NONE");
                             habit.put("ID","NONE");
                             habit.put("Reason","NONE");

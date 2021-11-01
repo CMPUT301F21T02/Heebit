@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.spacejuice"
-        minSdk 21
+        minSdk 24
         multiDexEnabled true
         targetSdk 31
         versionCode 1
