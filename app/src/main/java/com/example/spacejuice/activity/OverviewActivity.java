@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
@@ -25,17 +29,30 @@ public class OverviewActivity extends AppCompatActivity {
     Button go_to_all_habits_button;
     ImageButton profile_imagebutton;
     ImageButton add_habit_imagebutton;
+    ActivityResultLauncher<Intent> editLaunch;
+    ArrayList<Habit> habitListItems;
     /*
     This Activity is used my main page which shows an overlay of today's habits
     and various menus
      */
     public ListView today_habit_list;
-    public static ArrayAdapter<Habit> habitAdapter;
+    public ArrayAdapter<Habit> habitAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today_habits);
+
+        editLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        Log.d("debugInfo", "result code: " + result.getResultCode());
+
+                        habitAdapter.notifyDataSetChanged();
+
+                    }
+                });
 
         profile_imagebutton = findViewById(R.id.profile_imagebutton);
         add_habit_imagebutton = findViewById(R.id.add_habit_imagebutton);
@@ -44,9 +61,6 @@ public class OverviewActivity extends AppCompatActivity {
         today_habit_list = findViewById(R.id.overview_habit_listview);
         ArrayList<Habit> today_habit_items = new ArrayList<>();
 
-        Habit each;
-
-        ArrayList<Habit> habitListItems;
         habitListItems = HabitController.getHabitListItems();
 
         for (int i = 0; i < habitListItems.size(); i += 1) {
@@ -55,7 +69,9 @@ public class OverviewActivity extends AppCompatActivity {
             }
         }
 
-        today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.overview_habit_content,today_habit_items ));
+        this.habitAdapter = new HabitListAdapter(this, R.layout.overview_habit_content, today_habit_items);
+
+        this.today_habit_list.setAdapter(habitAdapter);
 
         int score = MainActivity.getUser().getScore();
         Log.d("debugInfo", "From OverviewActivity - user score = " + score);
@@ -91,5 +107,11 @@ public class OverviewActivity extends AppCompatActivity {
     public void openAllHabitsActivity() {
         Intent intent = new Intent(this, AllHabitsActivity.class);
         startActivity(intent);
+    }
+
+    public void launchEditHabit(int clickedUid) {
+        Intent intent = new Intent(OverviewActivity.this, EditHabitActivity.class);
+        intent.putExtra("habitUid", clickedUid);
+        editLaunch.launch(intent);
     }
 }

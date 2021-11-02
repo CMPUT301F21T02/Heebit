@@ -1,5 +1,6 @@
 package com.example.spacejuice.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -131,8 +132,10 @@ This Activity is used to edit a habit
                 habitEditing.setSchedule(schedule);
                 Log.d("debugInfo", "sending habit uid: " + habitUid + " in for updating");
                 HabitController.updatehabit(habitEditing);
+                Intent resultIntent = new Intent();
+                //resultIntent.putExtra("some_key", "String data");
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
-
 
             }
         });
@@ -147,7 +150,10 @@ This Activity is used to edit a habit
             @Override
             public void onClick(View view) {
                 user = MainActivity.getUser();
-                user.deleteHabit(habitEditing);
+                HabitController.deleteHabit(habitEditing);
+                Intent resultIntent = new Intent();
+                //resultIntent.putExtra("some_key", "String data");
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }
         });
