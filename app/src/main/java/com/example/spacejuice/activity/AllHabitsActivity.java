@@ -64,11 +64,6 @@ public class AllHabitsActivity extends AppCompatActivity {
                     Log.d("debugInfo", "result code: " + result.getResultCode());
 
                     habitAdapter.notifyDataSetChanged();
-                    //finish();
-                    //overridePendingTransition( 0, 0);
-                    //startActivity(getIntent());
-                    //overridePendingTransition( 0, 0);
-
                  }
               });
 
@@ -76,11 +71,8 @@ public class AllHabitsActivity extends AppCompatActivity {
       add_habit_imagebutton = findViewById(R.id.today_button_add_habit);
       today_habits_button = (Button) findViewById(R.id.today_habits_button);
 
-
-      habitListItems = HabitController.getHabitListItems();
-
+      refreshData();
       habitAdapter = new HabitListAdapter(this, R.layout.habit_content, habitListItems);
-
       habitList.setAdapter(habitAdapter);
 
       today_habits_button.setOnClickListener(new View.OnClickListener() {
@@ -115,10 +107,23 @@ public class AllHabitsActivity extends AppCompatActivity {
       startActivity(intent);
    }
 
+   public void launchAddHabit() {
+      Intent intent = new Intent(AllHabitsActivity.this, AddHabitActivity.class);
+      editLaunch.launch(intent);
+   }
+
    public void launchEditHabit(int clickedUid) {
       Intent intent = new Intent(AllHabitsActivity.this, EditHabitActivity.class);
       intent.putExtra("habitUid", clickedUid);
       editLaunch.launch(intent);
+   }
+
+   public void refreshData() {
+      /* updates the list of Habits */
+      habitListItems = HabitController.getHabitListItems();
+      if(habitAdapter != null) {
+         habitAdapter.notifyDataSetChanged();
+      }
    }
 
 }

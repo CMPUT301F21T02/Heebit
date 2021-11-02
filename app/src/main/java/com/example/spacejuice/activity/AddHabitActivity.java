@@ -1,6 +1,8 @@
 package com.example.spacejuice.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,10 +26,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddHabitActivity extends AppCompatActivity implements View.OnClickListener{
-   /*
-   This Activity is used to add and enter the details of a new habit
-    */
+public class AddHabitActivity extends AppCompatActivity implements View.OnClickListener {
+    /*
+    This Activity is used to add and enter the details of a new habit
+     */
     private TextView title;
     private Button deleteB;
     private Button confirmB;
@@ -50,6 +52,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
     private Format DateToString;
     private Schedule schedule;
     private Habit habitReturn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,27 +84,30 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 Friday = findViewById(R.id.Friday);
                 Saturday = findViewById(R.id.Saturday);
                 Sunday = findViewById(R.id.Sunday);
-                schedule = new Schedule(Sunday.isChecked(),Monday.isChecked(),Tuesday.isChecked(),
+                schedule = new Schedule(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
                         Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
                 habitReturn = new Habit(name, reason, -1);
                 habitReturn.setStartDate(date);
                 habitReturn.setSchedule(schedule);
                 HabitController.addHabit(habitReturn);
+                Intent resultIntent = new Intent();
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
-
-
             }
         });
 
         backB.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-              finish();
-           }
+            @Override
+            public void onClick(View v) {
+                Intent resultIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, resultIntent);
+                finish();
+            }
         });
 
 
     }
+
     @Override
     public void onClick(View view) {
         final Calendar c = Calendar.getInstance();
@@ -114,7 +120,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        date = new Date(year-1900, monthOfYear, dayOfMonth);
+                        date = new Date(year - 1900, monthOfYear, dayOfMonth);
                         SelectedDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
 
                     }

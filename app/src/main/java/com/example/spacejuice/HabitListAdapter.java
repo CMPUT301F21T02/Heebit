@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -101,6 +102,8 @@ public class HabitListAdapter extends ArrayAdapter {
         }
 
         if (items.get(position).isToday()) {
+            checkBox.setVisibility(View.VISIBLE);
+            checkBox.setClickable(true);
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -120,7 +123,7 @@ public class HabitListAdapter extends ArrayAdapter {
             });
         } else {
             // remove the checkbox if the habit is not scheduled for today
-            checkBox.setButtonDrawable(null);
+            checkBox.setVisibility(View.INVISIBLE);
             checkBox.setClickable(false);
         }
         return row;

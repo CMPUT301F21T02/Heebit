@@ -124,16 +124,14 @@ This Activity is used to edit a habit
             public void onClick(View view) {
                 name = NameEdit.getText().toString();  //get the name
                 description = DescriptionEdit.getText().toString(); //Get the Description
-                schedule = new Schedule(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
-                        Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
                 habitEditing.setStartDate(date);
                 habitEditing.setTitle(name);
                 habitEditing.setReason(description);
-                habitEditing.setSchedule(schedule);
+                habitEditing.getSchedule().changeTo(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
+                        Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
                 Log.d("debugInfo", "sending habit uid: " + habitUid + " in for updating");
-                HabitController.updatehabit(habitEditing);
+                HabitController.updateHabit(habitEditing);
                 Intent resultIntent = new Intent();
-                //resultIntent.putExtra("some_key", "String data");
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
 
@@ -152,7 +150,6 @@ This Activity is used to edit a habit
                 user = MainActivity.getUser();
                 HabitController.deleteHabit(habitEditing);
                 Intent resultIntent = new Intent();
-                //resultIntent.putExtra("some_key", "String data");
                 setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }
