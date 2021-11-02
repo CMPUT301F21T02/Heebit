@@ -18,6 +18,14 @@ public class HabitEvent {
         this.uid = MainActivity.getUser().getUniqueID();
     }
 
+    public int getEventIndicator() {
+        if (isDone()) {
+            return R.drawable.event_success;
+        } else {
+            return R.drawable.event_failure;
+        }
+    }
+
     public void setDescription(String desc) {
         this.description = desc;
     }
@@ -41,5 +49,7 @@ public class HabitEvent {
     public Boolean isDone() {
         return this.done;
     }
+
+    public int getUid() { return this.uid; }
 
 }

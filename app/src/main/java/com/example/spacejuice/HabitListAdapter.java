@@ -78,24 +78,24 @@ public class HabitListAdapter extends ArrayAdapter {
         viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
         viewHolder.textView.setText(items.get(position).getTitle());
         viewHolder.textView.setClickable(false);
-        View.OnClickListener goToEditHabit;
+        View.OnClickListener goToHabitDetails;
 
-        goToEditHabit = new View.OnClickListener() {
+        goToHabitDetails = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + items.get(position).getUid());
                 ActivityResultLauncher<String> launchEdit;
                 if (context.getClass() == OverviewActivity.class) {
                     OverviewActivity inst = (OverviewActivity) context;
-                    inst.launchEditHabit(items.get(position).getUid());
+                    inst.launchHabitDetails(items.get(position).getUid());
                 } else if (context.getClass() == AllHabitsActivity.class) {
                     AllHabitsActivity inst = (AllHabitsActivity) context;
-                    inst.launchEditHabit(items.get(position).getUid());
+                    inst.launchHabitDetails(items.get(position).getUid());
                 }
             }
         };
 
-        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEditHabit);
+        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToHabitDetails);
 
         if (checkBox.isChecked()) {
             checkBox.setClickable(false);

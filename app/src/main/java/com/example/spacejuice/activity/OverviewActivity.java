@@ -99,8 +99,8 @@ public class OverviewActivity extends AppCompatActivity {
         editLaunch.launch(intent);
     }
 
-    public void launchEditHabit(int clickedUid) {
-        Intent intent = new Intent(OverviewActivity.this, EditHabitActivity.class);
+    public void launchHabitDetails(int clickedUid) {
+        Intent intent = new Intent(OverviewActivity.this, HabitDetailsActivity.class);
         intent.putExtra("habitUid", clickedUid);
         editLaunch.launch(intent);
     }
