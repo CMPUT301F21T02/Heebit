@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
-import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
@@ -79,14 +78,14 @@ This Activity is used to edit a habit
         habit = HabitController.getHabitFromUid(habitUid);
 
         //initializing
-        title = findViewById(R.id.textViewHAE);
+        title = findViewById(R.id.textViewHAE_hd);
         title.setText("Habit Details"); //Set the title into Add a Habit
 //        deleteB = findViewById(R.id.DeleteButtonHAE);
 //        deleteB.setVisibility(View.VISIBLE); //Show the delete button
 
         backB = findViewById(R.id.backButtonHAE);
-        editHabit = findViewById(R.id.editButtonHAE);
-        SelectedDate = findViewById(R.id.textView5HAE);
+        editHabit = findViewById(R.id.editButtonHAE_hd);
+        SelectedDate = findViewById(R.id.textView5HAE_hd);
         date = habit.getStartDate();
         DateToString = new SimpleDateFormat("yyyy-MM-dd");
         SelectedDate.setText(DateToString.format(date));
