@@ -10,6 +10,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -40,13 +44,13 @@ This Activity is used to edit a habit
     private String name;
     private EditText DescriptionEdit;
     private String description;
-    private CheckBox Monday;
-    private CheckBox Tuesday;
-    private CheckBox Wednesday;
-    private CheckBox Thursday;
-    private CheckBox Friday;
-    private CheckBox Saturday;
-    private CheckBox Sunday;
+    private TextView Monday;
+    private TextView Tuesday;
+    private TextView Wednesday;
+    private TextView Thursday;
+    private TextView Friday;
+    private TextView Saturday;
+    private TextView Sunday;
     private TextView SelectedDate;
 //    private Button DateButton;
     private Date date;
@@ -56,8 +60,22 @@ This Activity is used to edit a habit
     private Habit habit;
     private Schedule currentSchedule;
     private Member user;
+    ActivityResultLauncher<Intent> editLaunch;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        editLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        Log.d("debugInfo", "result code: " + result.getResultCode());
+
+//                        refreshData();
+                        // copy/change from overview
+
+                    }
+        });
         super.onCreate(savedInstanceState);
         //set contentView and Editing user
         setContentView(R.layout.habit_description);
@@ -89,13 +107,40 @@ This Activity is used to edit a habit
         DateToString = new SimpleDateFormat("yyyy-MM-dd");
         SelectedDate.setText(DateToString.format(date));
 
-        Monday = findViewById(R.id.Monday);
-        Tuesday = findViewById(R.id.Tuesday);
-        Wednesday = findViewById(R.id.Wednesday);
-        Thursday = findViewById(R.id.Thursday);
-        Friday = findViewById(R.id.Friday);
-        Saturday = findViewById(R.id.Saturday);
-        Sunday = findViewById(R.id.Sunday);
+        Monday = findViewById(R.id.monday_text);
+        Tuesday = findViewById(R.id.tuesday_text);
+        Wednesday = findViewById(R.id.wednesday_text);
+        Thursday = findViewById(R.id.thursday_text);
+        Friday = findViewById(R.id.friday_text);
+        Saturday = findViewById(R.id.satuday_text);
+        Sunday = findViewById(R.id.sunday_text);
+
+//        if(!schedule.Mon()){
+//            Monday.setVisibility(View.INVISIBLE);
+//        }
+//
+//        if(!schedule.Tue()){
+//            Tuesday.setVisibility(View.INVISIBLE);
+//        }
+//
+//        if(!schedule.Wed()){
+//            Wednesday.setVisibility(View.INVISIBLE);
+//        }
+//        if(!schedule.Thu()){
+//            Thursday.setVisibility(View.INVISIBLE);
+//        }
+//
+//        if(!schedule.Fri()){
+//            Friday.setVisibility(View.INVISIBLE);
+//        }
+//
+//        if(!schedule.Sat()){
+//            Saturday.setVisibility(View.INVISIBLE);
+//        }
+//
+//        if(!schedule.Sun()){
+//            Sunday.setVisibility(View.INVISIBLE);
+//        }
 
         currentSchedule = habit.getSchedule();
 //        Monday.setChecked(currentSchedule.Mon());
@@ -116,9 +161,13 @@ This Activity is used to edit a habit
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HabitDetailsActivity.this, EditHabitActivity.class);
+                intent.putExtra("habitUid", habitUid);
+                editLaunch.launch(intent);
+
                 startActivity(intent);
             }
         });
+
 
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
