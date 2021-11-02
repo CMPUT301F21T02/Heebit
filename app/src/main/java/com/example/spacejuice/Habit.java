@@ -20,16 +20,6 @@ public class Habit implements Serializable {
     private int uid; // unique identifier for habit
     private ArrayList<HabitEvent> events;
 
-    /*
-    public Habit(String title, String reason, Date date, Schedule schedule) {
-        setTitle(title);
-        setReason(reason);
-        setStartDate(date);
-        this.indicator = new Indicator();
-        this.schedule = schedule;
-    }
-    */
-
     public Habit(String title, String reason, int iLevel) {
         setTitle(title);
         setReason(reason);
@@ -40,6 +30,7 @@ public class Habit implements Serializable {
         }
         this.schedule = new Schedule();
         this.events = new ArrayList<HabitEvent>();
+        this.uid = -1;
     }
     public void setSchedule(Schedule s){
         this.schedule = s;
@@ -155,6 +146,12 @@ public class Habit implements Serializable {
 
     public void setUid() {
         this.uid = MainActivity.getUser().getUniqueID();
+    }
+
+    public void forceUid(int uidVal) {
+        /* assigns the uid of the habit to the provided value */
+        /* only to be used when gathering data from FireStore */
+        this.uid = uidVal;
     }
 
     public int getUid() {

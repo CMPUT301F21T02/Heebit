@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void finishLogin() {
+        LoginController.updateMaxID();
         Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
         startActivity(intent);
     }

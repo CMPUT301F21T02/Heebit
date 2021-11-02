@@ -23,6 +23,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -41,7 +42,6 @@ public class HabitController {
    public static void addHabit(Habit habit) {
       FirebaseFirestore db = FirebaseFirestore.getInstance();
       Member user = MainActivity.getUser();
-      //addLocalHabit(habit);
       user.addHabit(habit);
       String username = user.getMemberName();
       String habitName = habit.getTitle();
@@ -77,6 +77,7 @@ public class HabitController {
                           @Override
                           public void onSuccess(Void unused) {
                              Log.d( "debugInfo","Habit has been added successfully");
+                             LoginController.updateMaxID();
                           }
                        });
             }
@@ -113,6 +114,7 @@ public class HabitController {
                //Log.d("debugInfo", "doc: " + doc.toString());
                String title = doc.getString("Title");
                String reason = doc.getString("Reason");
+               Habit habit = new Habit(title, reason, -1);
                Boolean sun = doc.getBoolean("Sun");
                Boolean mon = doc.getBoolean("Mon");
                Boolean tue = doc.getBoolean("Tue");
@@ -121,8 +123,12 @@ public class HabitController {
                Boolean fri = doc.getBoolean("Fri");
                Boolean sat = doc.getBoolean("Sat");
                int uid = Integer.valueOf(doc.get("ID").toString());
-               Habit habit = new Habit(title, reason, -1);
                habit.getSchedule().changeTo(sun, mon, tue, wed, thu, fri, sat);
+               habit.forceUid(uid);
+
+               if (MainActivity.getUser().getMaxUID() <= uid) {
+                  MainActivity.getUser().setUniqueId(uid + 1);
+               }
 
                HabitController.addLocalHabit(habit);
 
@@ -151,4 +157,38 @@ public class HabitController {
       habit = MainActivity.getUser().getHabitFromUid(uid);
       return habit;
    }
+
+   public static void updatehabit(Habit habit) {
+      Member user = MainActivity.getUser();
+      long uid = habit.getUidLong();
+      FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+      String username = user.getMemberName();
+      String habitName = habit.getTitle();
+      boolean sun = habit.getSchedule().Sun();
+      boolean mon = habit.getSchedule().Mon();
+      boolean tue = habit.getSchedule().Tue();
+      boolean wed = habit.getSchedule().Wed();
+      boolean thu = habit.getSchedule().Thu();
+      boolean fri = habit.getSchedule().Fri();
+      boolean sat = habit.getSchedule().Sat();
+
+      Task<QuerySnapshot> querySnap = db.collection("Members").document(username)
+              .collection("Habits").whereEqualTo("ID", uid).get();
+
+      Log.d("debugInfo", "uid: " + ((int) uid));
+      Log.d("debugInfo", "querySnap: " + querySnap.toString());
+
+      querySnap.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+         @Override
+         public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            List<DocumentSnapshot> docs = task.getResult().getDocuments();
+            DocumentSnapshot habitRef = docs.get(0);
+            Log.d("debugInfo", habitRef.toString());
+
+         }
+      });
+   }
+
+
 }
