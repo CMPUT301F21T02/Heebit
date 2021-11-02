@@ -257,25 +257,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     </LinearLayout>
 
 
-    <!-- Habit details text
-    ID: textViewHAE
-    USE: Showing "Habit Details" at the top
-    -->
-    <TextView
-        android:id="@+id/textViewHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:gravity="center_horizontal"
-        android:padding="15dp"
-        android:text="Edit a Habit - "
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <!-- Habit details text
     ID: HabitNameHAE
@@ -313,16 +294,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     ID: confirmButtonHAE
     USE: To confirm the change
     -->
-    <Button
-        android:id="@+id/editButtonHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="CONFIRM"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toStartOf="parent" />
+
 
 
     <!--Delete Button
@@ -330,95 +302,5 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     USE: To delete habit
     -->
 
-    <Button
-        android:id="@+id/DeleteButtonHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="DELETE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
-        app:layout_constraintStart_toEndOf="@+id/editButtonHAE" />
-
-
-    <CheckBox
-        android:id="@+id/Monday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="2dp"
-        android:gravity="center"
-        android:text="M"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Tuesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="T"
-        app:layout_constraintStart_toEndOf="@+id/Monday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Wednesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="W"
-        app:layout_constraintStart_toEndOf="@+id/Tuesday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Thursday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Th"
-        app:layout_constraintStart_toEndOf="@+id/Wednesday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Friday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="F"
-        app:layout_constraintStart_toEndOf="@+id/Thursday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Saturday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="S"
-        app:layout_constraintStart_toEndOf="@+id/Friday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Sunday"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Sn"
-        app:layout_constraintStart_toEndOf="@+id/Saturday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Select the days you want to follow this:"
-        android:textStyle="bold"
-        app:flow_horizontalBias="0.14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.269"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DateButtonHAE" />
-=======
 
 </androidx.constraintlayout.widget.ConstraintLayout>
