@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.EditHabitActivity;
+import com.example.spacejuice.activity.HabitDetailsActivity;
 
 import java.util.ArrayList;
 
@@ -73,18 +74,18 @@ public class HabitListAdapter extends ArrayAdapter {
       viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
       viewHolder.textView.setText(items.get(position).getTitle());
       viewHolder.textView.setClickable(false);
-      View.OnClickListener goToEditHabit;
+      View.OnClickListener goToHabitDetails;
 
-      goToEditHabit = new View.OnClickListener() {
+      goToHabitDetails = new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-            Intent intent = new Intent(context, EditHabitActivity.class);
+            Intent intent = new Intent(context, HabitDetailsActivity.class);
             intent.putExtra("habitUid", items.get(position).getUid());
             context.startActivity(intent);
          }
       };
 
-      row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEditHabit);
+      row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToHabitDetails);
 
       if (checkBox.isChecked()) {
          checkBox.setClickable(false);

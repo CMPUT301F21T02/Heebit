@@ -59,7 +59,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
         deleteB = findViewById(R.id.DeleteButtonHAE);
         deleteB.setVisibility(View.INVISIBLE); //Hide the delete button
         backB = findViewById(R.id.backButtonHAE);
-        confirmB = findViewById(R.id.confirmButtonHAE);
+        confirmB = findViewById(R.id.editButtonHAE);
 
         SelectedDate = findViewById(R.id.textView5HAE);
         date = new Date();

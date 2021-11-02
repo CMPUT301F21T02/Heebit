@@ -40,7 +40,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_marginTop="48dp"
         android:gravity="center_horizontal"
         android:padding="15dp"
-        android:text="Edit a Habit - "
+        android:text="Habit Details"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -69,14 +69,13 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     ID: HabitNameHAE
     USE: Lets user change or add the name of habit
     -->
-    <EditText
+    <TextView
         android:id="@+id/HabitNameHAE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:ems="10"
         android:hint="Add a Name"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.218"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,14 +103,13 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     ID: HabitDescriptionHAE
     USE: Lets user change or add the habit description
     -->
-    <EditText
+    <TextView
         android:id="@+id/HabitReasonHAE"
         android:layout_width="313dp"
         android:layout_height="175dp"
         android:layout_marginBottom="260dp"
         android:ems="10"
         android:hint="Add a reason for your habit"
-        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
@@ -141,45 +139,36 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     ID: DateButtonHAE
     USE: Opens another fragment for date
     -->
-    <Button
-        android:id="@+id/DateButtonHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="160dp"
-        android:text="Select Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE" />
 
     <!-- Selected Date text
     ID: textView5HAE
     USE: Showing the date of the selected Date
     -->
-    <TextView
-        android:id="@+id/textView5HAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="168dp"
-        android:padding="5dp"
-        android:text="Selected Date"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
-        app:layout_constraintStart_toEndOf="@+id/DateButtonHAE" />
 
     <!--Confirm Button
     ID: confirmButtonHAE
     USE: To confirm the change
     -->
+
+    <TextView
+        android:id="@+id/textView5HAE"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="172dp"
+        android:padding="5dp"
+        android:text="Selected Date"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
         android:id="@+id/editButtonHAE"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
-        android:text="CONFIRM"
+        android:text="EDIT"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.138"
@@ -196,8 +185,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_marginBottom="12dp"
         android:text="DELETE"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
         app:layout_constraintStart_toEndOf="@+id/editButtonHAE" />
 
 
@@ -205,78 +192,70 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:id="@+id/Monday"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="28dp"
         android:gravity="center"
         android:text="M"
+        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/Tuesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="28dp"
         android:text="T"
+        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE"
         app:layout_constraintStart_toEndOf="@+id/Monday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/Wednesday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="28dp"
         android:text="W"
+        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE"
         app:layout_constraintStart_toEndOf="@+id/Tuesday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/Thursday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="28dp"
         android:text="Th"
+        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE"
         app:layout_constraintStart_toEndOf="@+id/Wednesday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/Friday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="28dp"
         android:text="F"
+        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE"
         app:layout_constraintStart_toEndOf="@+id/Thursday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        tools:ignore="MissingConstraints" />
 
     <CheckBox
         android:id="@+id/Saturday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="80dp"
         android:text="S"
         app:layout_constraintStart_toEndOf="@+id/Friday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4HAE" />
 
     <CheckBox
         android:id="@+id/Sunday"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="80dp"
         android:text="Sn"
         app:layout_constraintStart_toEndOf="@+id/Saturday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Select the days you want to follow this:"
-        android:textStyle="bold"
-        app:flow_horizontalBias="0.14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.269"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DateButtonHAE" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4HAE" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

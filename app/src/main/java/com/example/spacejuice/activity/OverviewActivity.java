@@ -56,6 +56,8 @@ public class OverviewActivity extends AppCompatActivity {
         }
 
         today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.overview_habit_content,today_habit_items ));
+//        today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.habit_description,today_habit_items ));
+
 
         int score = MainActivity.getUser().getScore();
         Log.d("debugInfo", "From OverviewActivity - user score = " + score);
