@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
+import com.example.spacejuice.controller.HabitController;
 import com.example.spacejuice.controller.LoginController;
 
 import java.util.ArrayList;
@@ -49,10 +50,8 @@ public class LoginActivity extends AppCompatActivity {
                                success = suc;
                                //MainActivity.setUser(member);
                                if (success) {
-                                   Toast.makeText(LoginActivity.this, "Login Successfully!", Toast.LENGTH_SHORT).show();
-                                   // Feel free to change to whatever but setting to MainActivity makes it super buggy lmfao - harish
-                                   Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
-                                   startActivity(intent);
+                                   Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                                   HabitController.loadHabitsFromFirebase(MainActivity.getUser(), LoginActivity.this);  // load all habits from firebase into Habit array
                                } else {
                                    Toast.makeText(LoginActivity.this, "login failure",
                                            Toast.LENGTH_SHORT).show();
@@ -79,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 else{
-                                    Toast.makeText(LoginActivity.this, "Username has been used",
+                                    Toast.makeText(LoginActivity.this, "Username is unavailable",
                                             Toast.LENGTH_SHORT).show();
                                     PassWordET.setText(""); // clear the Text
                                     textView.setVisibility(View.VISIBLE);
@@ -88,5 +87,11 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    public void finishLogin() {
+        LoginController.updateMaxID();
+        Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
+        startActivity(intent);
     }
 }
