@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
+import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 
 import java.util.ArrayList;
@@ -72,22 +73,16 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.eventDescription.setText(eventItems.get(position).getDescription());
         viewHolder.eventDescription.setClickable(false);
         View.OnClickListener goToEventDetails;
-/*
+
         goToEventDetails = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
-                ActivityResultLauncher<String> launchEdit;
-                if (context.getClass() == OverviewActivity.class) {
-                    OverviewActivity inst = (OverviewActivity) context;
-                    inst.launchEventDetails(eventItems.get(position).getUid());
-                } else if (context.getClass() == AllHabitsActivity.class) {
-                    AllHabitsActivity inst = (AllHabitsActivity) context;
-                    inst.launchEventDetails(eventItems.get(position).getUid());
-                }
+                HabitDetailsActivity inst = (HabitDetailsActivity) context;
+                inst.launchEventDetails(eventItems.get(position).getUid());
             }
         };
-/*
+
         row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
 
         /* todo: implement a Habit Event Details page */

@@ -2,6 +2,7 @@ package com.example.spacejuice.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,7 +63,7 @@ This Activity is used to edit a habit
         setContentView(R.layout.habit_description);
 
         /*
-            Get the Unique Identifier of the Habit that we are editing
+            Get the Unique Identifier of the Habit that we are viewing
          */
         int habitUid;
         if (savedInstanceState == null) {
@@ -80,8 +81,6 @@ This Activity is used to edit a habit
         //initializing
         title = findViewById(R.id.textViewHAE_hd);
         title.setText(habit.getTitle()); //Set the title into Add a Habit
-//        deleteB = findViewById(R.id.DeleteButtonHAE);
-//        deleteB.setVisibility(View.VISIBLE); //Show the delete button
 
         backB = findViewById(R.id.backButtonHAE);
         editHabit = findViewById(R.id.editButtonHAE_hd);
@@ -89,15 +88,6 @@ This Activity is used to edit a habit
         date = habit.getStartDate();
         DateToString = new SimpleDateFormat("yyyy-MM-dd");
         SelectedDate.setText(DateToString.format(date));
-
-//        name = NameEdit.getText().toString();  //get the name
-//        description = DescriptionEdit.getText().toString(); //Get the Description
-
-//        NameEdit = findViewById(R.id.HabitNameHAE);     //set the habit name to current name
-//        NameEdit.setText(habitEditing.getTitle());
-
-//        DescriptionEdit = findViewById(R.id.HabitReasonHAE);
-//        DescriptionEdit.setText(habitEditing.getReason());
 
         Monday = findViewById(R.id.Monday);
         Tuesday = findViewById(R.id.Tuesday);
@@ -130,30 +120,13 @@ This Activity is used to edit a habit
             }
         });
 
-
-//        editHabit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                name = user.getMemberName();  //get the name
-//                description = DescriptionEdit.getText().toString(); //Get the Description
-//                schedule = new Schedule(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
-//                        Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
-//                habitEditing.setStartDate(date);
-//                habitEditing.setTitle(name);
-//                habitEditing.setReason(description);
-//                habitEditing.setSchedule(schedule);
-//                finish();
-//
-//
-//            }
-//        });
-
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
 //        deleteB.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -164,23 +137,9 @@ This Activity is used to edit a habit
 //        });
 
     }
-//    @Override
-//    public void onClick(View view) {
-//        final Calendar c = Calendar.getInstance();
-//        mYear = c.get(Calendar.YEAR);
-//        mMonth = c.get(Calendar.MONTH);
-//        mDay = c.get(Calendar.DAY_OF_MONTH);
-//        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-//                new DatePickerDialog.OnDateSetListener() {
-//
-//                    @Override
-//                    public void onDateSet(DatePicker view, int year,
-//                                          int monthOfYear, int dayOfMonth) {
-//                        date = new Date(year - 1900, monthOfYear, dayOfMonth);
-//                        SelectedDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-//
-//                    }
-//                }, mYear, mMonth, mDay);
-//        datePickerDialog.show();
-//    }
+
+    public void launchEventDetails(int uid) {
+        Log.d("debugInfo", "event details launched for habit uid #" + uid);
+    }
+
 }
