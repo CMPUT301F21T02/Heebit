@@ -36,6 +36,7 @@ public class AllHabitsActivity extends AppCompatActivity {
    Button today_habits_button;
    ImageButton profile_imagebutton;
    ImageButton add_habit_imagebutton;
+   ImageButton back_imagebutton;
    public ArrayList<Habit> habitListItems;
    ActivityResultLauncher<Intent> editLaunch;
 
@@ -95,6 +96,14 @@ public class AllHabitsActivity extends AppCompatActivity {
          public void onClick(View v) {
             Intent intent = new Intent(AllHabitsActivity.this, MyProfileActivity.class);
             startActivity(intent);
+         }
+      });
+
+      back_imagebutton = findViewById(R.id.AllHabitsBackButton);
+      back_imagebutton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            finish();
          }
       });
 
