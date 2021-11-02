@@ -125,5 +125,7 @@ public class OverviewActivity extends AppCompatActivity {
         Log.d("debugInfo", "today size: " + today_habit_items.size());
         this.today_habit_list.setAdapter(habitAdapter);
         this.habitAdapter.notifyDataSetChanged();
+
+
     }
 }

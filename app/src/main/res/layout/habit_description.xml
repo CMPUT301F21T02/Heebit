@@ -148,13 +148,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:id="@+id/HabitReasonHAE_hd"
         android:layout_width="282dp"
         android:layout_height="94dp"
+        android:layout_marginTop="1dp"
         android:layout_marginBottom="616dp"
         android:ems="10"
         android:hint="Add a reason for your habit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.361"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewHAE_hd" />
 
     <!--Date Button
     ID: DateButtonHAE
@@ -257,9 +259,5 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
