@@ -17,10 +17,69 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     -->
 
     <TextView
+        android:id="@+id/satuday_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="232dp"
+        android:layout_marginTop="16dp"
+        android:text="SA"
+        android:textColor="@color/Purple"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+
+    <TextView
+        android:id="@+id/friday_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="16dp"
+        android:text="F"
+        android:textColor="@color/Purple"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+
+    <TextView
+        android:id="@+id/thursday_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="16dp"
+        android:text="TH"
+        android:textColor="@color/Purple"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+
+    <TextView
+        android:id="@+id/sunday_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="16dp"
+        android:text="SN"
+        android:textColor="@color/Purple"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+
+    <TextView
+        android:id="@+id/wednesday_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/Purple"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+
+    <TextView
         android:id="@+id/wednesday_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="114dp"
+        android:layout_marginStart="144dp"
         android:layout_marginTop="16dp"
         android:text="W"
         android:textColor="@color/Purple"
@@ -179,7 +238,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:id="@+id/monday_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="84dp"
         android:layout_marginTop="16dp"
         android:text="M"
         android:textColor="@color/Purple"
@@ -191,7 +250,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:id="@+id/tuesday_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="116dp"
         android:layout_marginTop="16dp"
         android:text="T"
         android:textColor="@color/Purple"
@@ -199,50 +258,8 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
 
-    <CheckBox
-        android:id="@+id/Wednesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="W"
-        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE_hd"
-        app:layout_constraintStart_toEndOf="@+id/Tuesday"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/Thursday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="Th"
-        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE_hd"
-        app:layout_constraintStart_toEndOf="@+id/Wednesday"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/Friday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="F"
-        app:layout_constraintBottom_toTopOf="@+id/editButtonHAE_hd"
-        app:layout_constraintStart_toEndOf="@+id/Thursday"
-        tools:ignore="MissingConstraints" />
-
-    <CheckBox
-        android:id="@+id/Saturday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="S"
-        app:layout_constraintStart_toEndOf="@+id/Friday"
-        tools:layout_editor_absoluteY="449dp" />
-
-    <CheckBox
-        android:id="@+id/Sunday"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:text="Sn"
-        app:layout_constraintStart_toEndOf="@+id/Saturday"
-        tools:layout_editor_absoluteY="449dp" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

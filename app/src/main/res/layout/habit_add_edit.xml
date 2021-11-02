@@ -163,12 +163,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:weightSum="7"
+            android:layout_gravity="center_vertical"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/Sunday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
                 android:layout_weight="1"
                 android:text="Sn" />
 
@@ -177,6 +180,8 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+
                 android:text="M" />
 
             <CheckBox
@@ -184,12 +189,16 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+
                 android:text="T" />
 
             <CheckBox
                 android:id="@+id/Wednesday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
                 android:text="W" />
 
             <CheckBox
@@ -197,6 +206,8 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+
                 android:text="Th" />
 
             <CheckBox
@@ -204,12 +215,16 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+
                 android:text="F" />
 
             <CheckBox
                 android:id="@+id/Saturday"
                 android:layout_width="48dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+
                 android:layout_weight="1"
                 android:text="Sa" />
 
