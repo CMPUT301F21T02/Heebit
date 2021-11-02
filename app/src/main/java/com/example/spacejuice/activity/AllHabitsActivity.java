@@ -11,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
@@ -27,12 +31,14 @@ public class AllHabitsActivity extends AppCompatActivity {
     */
 
    public ListView habitList;
-   public static ArrayAdapter<Habit> habitAdapter;
+   public ArrayAdapter<Habit> habitAdapter;
    public Context context;
    Button today_habits_button;
    ImageButton profile_imagebutton;
    ImageButton add_habit_imagebutton;
    public ArrayList<Habit> habitListItems;
+   ActivityResultLauncher<Intent> editLaunch;
+
    public AllHabitsActivity() {
 
    }
@@ -51,6 +57,21 @@ public class AllHabitsActivity extends AppCompatActivity {
       setContentView(R.layout.my_habit_list);
       habitList = findViewById(R.id.list_of_my_habits);
 
+      editLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+              new ActivityResultCallback<ActivityResult>() {
+                 @Override
+                 public void onActivityResult(ActivityResult result) {
+                    Log.d("debugInfo", "result code: " + result.getResultCode());
+
+                    habitAdapter.notifyDataSetChanged();
+                    //finish();
+                    //overridePendingTransition( 0, 0);
+                    //startActivity(getIntent());
+                    //overridePendingTransition( 0, 0);
+
+                 }
+              });
+
       profile_imagebutton = findViewById(R.id.today_button_profile);
       add_habit_imagebutton = findViewById(R.id.today_button_add_habit);
       today_habits_button = (Button) findViewById(R.id.today_habits_button);
@@ -58,7 +79,9 @@ public class AllHabitsActivity extends AppCompatActivity {
 
       habitListItems = HabitController.getHabitListItems();
 
-      habitList.setAdapter(new HabitListAdapter(this, R.layout.habit_content, habitListItems));
+      habitAdapter = new HabitListAdapter(this, R.layout.habit_content, habitListItems);
+
+      habitList.setAdapter(habitAdapter);
 
       today_habits_button.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -90,6 +113,12 @@ public class AllHabitsActivity extends AppCompatActivity {
    public void openOverviewActivity() {
       Intent intent = new Intent(this, OverviewActivity.class);
       startActivity(intent);
+   }
+
+   public void launchEditHabit(int clickedUid) {
+      Intent intent = new Intent(AllHabitsActivity.this, EditHabitActivity.class);
+      intent.putExtra("habitUid", clickedUid);
+      editLaunch.launch(intent);
    }
 
 }
