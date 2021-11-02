@@ -3,7 +3,7 @@
     <style name="Theme.SpaceJuice" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/Purple</item>
-        <item name="colorAddHabit">@color/Gold</item>
+        <item name="colorAddHabit">@color/DarkOrange</item>
         <item name="colorHabitBackground">@color/AliceBlue</item>
         <item name="colorAcceptRequest">@color/LightGreen</item>
         <item name="colorDenyRequest">@color/Red</item>
