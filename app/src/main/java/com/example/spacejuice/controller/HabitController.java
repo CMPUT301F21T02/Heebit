@@ -14,6 +14,7 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
+import com.example.spacejuice.Schedule;
 import com.example.spacejuice.activity.LoginActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -158,7 +159,7 @@ public class HabitController {
         return habit;
     }
 
-    public static void updatehabit(Habit habit) {
+    public static void updateHabit(Habit habit) {
         Member user = MainActivity.getUser();
         long uid = habit.getUidLong();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -174,6 +175,8 @@ public class HabitController {
         boolean fri = habit.getSchedule().Fri();
         boolean sat = habit.getSchedule().Sat();
 
+        Log.d("debugInfo", "Habit Schedule for Sunday: " + sun);
+
         Task<QuerySnapshot> querySnap = db.collection("Members").document(username)
                 .collection("Habits").whereEqualTo("ID", uid).get();
 
@@ -188,12 +191,12 @@ public class HabitController {
                 habitRef.update("Title", habitName);
                 habitRef.update("Reason", habitReason);
                 habitRef.update("Sun", sun);
-                habitRef.update("mon", mon);
-                habitRef.update("tue", tue);
-                habitRef.update("wed", wed);
-                habitRef.update("thu", thu);
-                habitRef.update("fri", fri);
-                habitRef.update("sat", sat);
+                habitRef.update("Mon", mon);
+                habitRef.update("Tue", tue);
+                habitRef.update("Wed", wed);
+                habitRef.update("Thu", thu);
+                habitRef.update("Fri", fri);
+                habitRef.update("Sat", sat);
 
                 Log.d("debugInfo", habitRef.toString());
 

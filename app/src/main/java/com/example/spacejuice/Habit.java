@@ -139,6 +139,7 @@ public class Habit implements Serializable {
      * Check if this habit needs to do today according to the schedule
      * @return  Return true if the habit is schedule for the current day of the week
      */
+
     public Boolean isToday() {
         // returns true if the Habit is scheduled for the current day of the week
 
