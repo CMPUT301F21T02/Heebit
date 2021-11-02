@@ -1,7 +1,11 @@
 package com.example.spacejuice.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Scene;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -82,7 +86,7 @@ This Activity is used to edit a habit
         deleteB.setVisibility(View.VISIBLE); //Show the delete button
 
         backB = findViewById(R.id.backButtonHAE);
-        confirmB = findViewById(R.id.editButtonHAE);
+        confirmB = findViewById(R.id.confirmButtonHAE);
         SelectedDate = findViewById(R.id.textView5HAE);
         date = habitEditing.getStartDate();
         DateToString = new SimpleDateFormat("yyyy-MM-dd");
@@ -120,14 +124,16 @@ This Activity is used to edit a habit
             public void onClick(View view) {
                 name = NameEdit.getText().toString();  //get the name
                 description = DescriptionEdit.getText().toString(); //Get the Description
-                schedule = new Schedule(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
-                        Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
                 habitEditing.setStartDate(date);
                 habitEditing.setTitle(name);
                 habitEditing.setReason(description);
-                habitEditing.setSchedule(schedule);
+                habitEditing.getSchedule().changeTo(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
+                        Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
+                Log.d("debugInfo", "sending habit uid: " + habitUid + " in for updating");
+                HabitController.updateHabit(habitEditing);
+                Intent resultIntent = new Intent();
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
-
 
             }
         });
@@ -142,7 +148,9 @@ This Activity is used to edit a habit
             @Override
             public void onClick(View view) {
                 user = MainActivity.getUser();
-                user.deleteHabit(habitEditing);
+                HabitController.deleteHabit(habitEditing);
+                Intent resultIntent = new Intent();
+                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }
         });

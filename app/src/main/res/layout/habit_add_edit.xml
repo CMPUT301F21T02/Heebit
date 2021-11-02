@@ -16,267 +16,291 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     USE: Exiting the activity
     -->
 
-    <ImageButton
-        android:id="@+id/backButtonHAE"
-        android:layout_width="52dp"
-        android:layout_height="72dp"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        app:tint="?android:colorPrimary"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/button_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!-- Habit details text
-    ID: textViewHAE
-    USE: Showing "Habit Details" at the top
-    -->
-    <TextView
-        android:id="@+id/textViewHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:gravity="center_horizontal"
-        android:padding="15dp"
-        android:text="Edit a Habit - "
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <!-- Habit details text
-    ID: textView2HAE
-    USE: Showing "Habit" at the editTextField
-    -->
-    <TextView
-        android:id="@+id/textView2HAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:padding="5dp"
-        android:text="Habit"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/backButtonHAE"
+                android:layout_width="52dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_back"
+                app:tint="?android:colorPrimary" />
+
+            <TextView
+                android:id="@+id/textViewHAE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:gravity="center_horizontal"
+                android:padding="15dp"
+                android:text="Create your habit"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <!-- Habit details text
+   ID: textViewHAE
+   USE: Showing "Habit Details" at the top
+   -->
+
+        <!-- Habit details text
+        ID: textView2HAE
+        USE: Showing "Habit" at the editTextField
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView2HAE"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Title:"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/HabitNameHAE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Add a Title"
+                android:inputType="textPersonName"
+                android:maxLength="20"
+                android:maxLines="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView3HAE"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Reason:"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/HabitReasonHAE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Add a reason for your habit"
+                android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/DateContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+
+            <Button
+                android:id="@+id/DateButtonHAE"
+                android:layout_width="74dp"
+                android:layout_height="39dp"
+                android:layout_marginEnd="10dp"
+                android:text="DATE" />
+
+            <TextView
+                android:id="@+id/textView5HAE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:padding="5dp"
+                android:text="Selected Date"
+                android:textSize="15dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:text="Your habit schedule:"
+            android:textStyle="bold"
+            app:flow_horizontalBias="0.14" />
+
+        <LinearLayout
+            android:id="@+id/ScheduleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:weightSum="7"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/Sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sn" />
+
+            <CheckBox
+                android:id="@+id/Monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="M" />
+
+            <CheckBox
+                android:id="@+id/Tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="T" />
+
+            <CheckBox
+                android:id="@+id/Wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="W" />
+
+            <CheckBox
+                android:id="@+id/Thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Th" />
+
+            <CheckBox
+                android:id="@+id/Friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="F" />
+
+            <CheckBox
+                android:id="@+id/Saturday"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sa" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ButtonContainerHAE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:weightSum="2"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+
+            <Button
+                android:id="@+id/confirmButtonHAE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="?colorAddHabit"
+                android:text="CONFIRM" />
+
+            <Button
+                android:id="@+id/DeleteButtonHAE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="DELETE" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp">
+                android:layout_weight="1"></LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
 
     <!-- Habit details text
     ID: HabitNameHAE
     USE: Lets user change or add the name of habit
     -->
-    <EditText
-        android:id="@+id/HabitNameHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:ems="10"
-        android:hint="Add a Name"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Habit details text
     ID: textView3HAE
     USE: Showing "Habit Description" at the editTextField
     -->
-    <TextView
-        android:id="@+id/textView3HAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:padding="5dp"
-        android:text="Reason"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2HAE" />
 
     <!-- Habit details text
     ID: HabitDescriptionHAE
     USE: Lets user change or add the habit description
     -->
-    <EditText
-        android:id="@+id/HabitReasonHAE"
-        android:layout_width="313dp"
-        android:layout_height="175dp"
-        android:layout_marginBottom="260dp"
-        android:ems="10"
-        android:hint="Add a reason for your habit"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.448"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3HAE" />
 
 
     <!-- Habit Date text
     ID: textView4HAE
     USE: Showing "Starting Date" at the editTextField
     -->
-    <TextView
-        android:id="@+id/textView4HAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="216dp"
-        android:padding="5dp"
-        android:text="Starting Date"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.14"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <!--Date Button
     ID: DateButtonHAE
     USE: Opens another fragment for date
     -->
-    <Button
-        android:id="@+id/DateButtonHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="160dp"
-        android:text="Select Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE" />
+
 
     <!-- Selected Date text
     ID: textView5HAE
     USE: Showing the date of the selected Date
     -->
-    <TextView
-        android:id="@+id/textView5HAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="168dp"
-        android:padding="5dp"
-        android:text="Selected Date"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.181"
-        app:layout_constraintStart_toEndOf="@+id/DateButtonHAE" />
 
     <!--Confirm Button
     ID: confirmButtonHAE
     USE: To confirm the change
     -->
-    <Button
-        android:id="@+id/editButtonHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="CONFIRM"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toStartOf="parent" />
+
+
 
     <!--Delete Button
     ID: DeleteButtonHAE
     USE: To delete habit
     -->
-    <Button
-        android:id="@+id/DeleteButtonHAE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="DELETE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.787"
-        app:layout_constraintStart_toEndOf="@+id/editButtonHAE" />
 
-
-    <CheckBox
-        android:id="@+id/Monday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="2dp"
-        android:gravity="center"
-        android:text="M"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Tuesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="T"
-        app:layout_constraintStart_toEndOf="@+id/Monday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Wednesday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="W"
-        app:layout_constraintStart_toEndOf="@+id/Tuesday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Thursday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Th"
-        app:layout_constraintStart_toEndOf="@+id/Wednesday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Friday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="F"
-        app:layout_constraintStart_toEndOf="@+id/Thursday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Saturday"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="S"
-        app:layout_constraintStart_toEndOf="@+id/Friday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <CheckBox
-        android:id="@+id/Sunday"
-        android:layout_width="48dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="Sn"
-        app:layout_constraintStart_toEndOf="@+id/Saturday"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Select the days you want to follow this:"
-        android:textStyle="bold"
-        app:flow_horizontalBias="0.14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.269"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DateButtonHAE" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

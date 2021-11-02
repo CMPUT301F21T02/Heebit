@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
+/**
+    This is a class to represent a habit.
+ */
 public class Habit implements Serializable {
     private static int TITLE_LENGTH = 20;
     private static int REASON_LENGTH = 30;
@@ -20,16 +22,12 @@ public class Habit implements Serializable {
     private int uid; // unique identifier for habit
     private ArrayList<HabitEvent> events;
 
-    /*
-    public Habit(String title, String reason, Date date, Schedule schedule) {
-        setTitle(title);
-        setReason(reason);
-        setStartDate(date);
-        this.indicator = new Indicator();
-        this.schedule = schedule;
-    }
-    */
-
+    /**
+     * The constructor use for create a new habit
+     * @param title The title for the habit
+     * @param reason    The reason for the habit
+     * @param iLevel    The current level of the habit
+     */
     public Habit(String title, String reason, int iLevel) {
         setTitle(title);
         setReason(reason);
@@ -40,16 +38,31 @@ public class Habit implements Serializable {
         }
         this.schedule = new Schedule();
         this.events = new ArrayList<HabitEvent>();
+        this.uid = -1;
     }
+    /**
+     * Set schedule for the habit
+     * @param s the schedule set to the habit
+     */
     public void setSchedule(Schedule s){
         this.schedule = s;
     }
+
+    /**
+     * Set title for the habit
+     * @param s the title set to the habit
+     */
     public void setTitle(String s) {
         int l = s.length();
         if (l > TITLE_LENGTH) { l = TITLE_LENGTH; }
         this.title = s.substring(0,l);
         Log.d("debugInfo", "title set to " + this.title);
     }
+
+    /**
+     * Set reason for the habit
+     * @param s the reason set to the habit
+     */
 
     public void setReason(String s) {
         int l = s.length();
@@ -58,37 +71,74 @@ public class Habit implements Serializable {
         Log.d("debugInfo", "reason set to " + this.reason);
     }
 
+    /**
+     * Set indicator for the habit
+     * @param iLevel    The level of the habit use to generate the indicator
+     */
     public void setIndicator(int iLevel) {
 
         this.indicator.setLevel(iLevel);
     }
 
+    /**
+     * Set the start date for habit
+     * @param d The start date set to the habit
+     */
     public void setStartDate(Date d) {
         this.startDate = d;
     }
 
+    /**
+     * This return the title of the habit
+     * @return Return the title of the habit
+     */
     public String getTitle() {
         return this.title;
     }
 
+    /**
+     * This return the reason/description of the habit
+     * @return Return the reason of the habit
+     */
     public String getReason() {
         return this.reason;
     }
 
+    /**
+     * This return the indicator of the habit
+     * @return this.indicator   The indicator of the habit
+     */
     public Indicator getIndicator() { return this.indicator; }
 
+    /**
+     * This return the start date of the habit
+     * @return  Return the start date of the habit
+     */
     public Date getStartDate() {
         return this.startDate;
     }
 
+    /**
+     * This transfer habit into a string
+     * @return  Return the title of the habit
+     */
     @Override
     public String toString() {
         return this.title;
     }
 
+    /**
+     * This return the schedule of the habit
+     * @return  Return the schedule of the habit
+     */
     public Schedule getSchedule() {
         return this.schedule;
     }
+
+    /**
+     * Check if this habit needs to do today according to the schedule
+     * @return  Return true if the habit is schedule for the current day of the week
+     */
 
     public Boolean isToday() {
         // returns true if the Habit is scheduled for the current day of the week
@@ -128,19 +178,74 @@ public class Habit implements Serializable {
         return false;
     }
 
+    /**
+     * iterates through a habits events to calculate its score,
+     * assigning it the appropriate indicator, and returning the
+     * score as an int.
+     *
+     * @return Return the level of the habit
+     */
+    public int calculateScore() {
+
+        if (this.events.size() > 0) {
+            for (HabitEvent eventItem : this.events) {
+                if (eventItem.isDone()) {
+                    this.indicator.increase();
+                } else {
+                    this.indicator.decrease();
+                }
+            }
+        }
+        return this.indicator.getLevel();
+    }
+
+    /**
+     * This returns all events of the habit
+     * @return  return a list of events of the habit
+     */
     public ArrayList<HabitEvent> getEvents() {
         return this.events;
     }
 
+    /**
+     * Add a habit event to the habit
+     * @param habitEvent    a habit event
+     */
     public void addEvent(HabitEvent habitEvent) {
         this.events.add(habitEvent);
     }
 
+    /**
+     * Set the unique id for the habit.
+     */
     public void setUid() {
         this.uid = MainActivity.getUser().getUniqueID();
     }
 
+    /**
+     * Force to manually set the unique id for the habit
+     * @param uidVal    unique id
+     */
+    public void forceUid(int uidVal) {
+        /* assigns the uid of the habit to the provided value */
+        /* only to be used when gathering data from FireStore */
+        this.uid = uidVal;
+    }
+
+    /**
+     * This returns the unique id of habit
+     * @return  Returns the unique id of the habit
+     */
     public int getUid() {
         return this.uid;
+    }
+
+    /**
+     * This returns the unique id of the habit in long
+     * @return  Returns the unique id in long
+     */
+    public long getUidLong() {
+        long uidLong = this.uid;
+        return uidLong;
     }
 }
