@@ -79,7 +79,7 @@ This Activity is used to edit a habit
 
         //initializing
         title = findViewById(R.id.textViewHAE_hd);
-        title.setText("Habit Details"); //Set the title into Add a Habit
+        title.setText(habit.getTitle()); //Set the title into Add a Habit
 //        deleteB = findViewById(R.id.DeleteButtonHAE);
 //        deleteB.setVisibility(View.VISIBLE); //Show the delete button
 
