@@ -80,6 +80,7 @@ public class HabitListAdapter extends ArrayAdapter {
          public void onClick(View view) {
             Intent intent = new Intent(context, EditHabitActivity.class);
             intent.putExtra("habitUid", items.get(position).getUid());
+            Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + items.get(position).getUid());
             context.startActivity(intent);
          }
       };

@@ -56,7 +56,6 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.habit_add_edit);
 
         title = findViewById(R.id.textViewHAE);
-        title.setText("Add a Habit"); //Set the title into Add a Habit
         deleteB = findViewById(R.id.DeleteButtonHAE);
         deleteB.setVisibility(View.INVISIBLE); //Hide the delete button
         backB = findViewById(R.id.backButtonHAE);
@@ -88,8 +87,6 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 habitReturn.setStartDate(date);
                 habitReturn.setSchedule(schedule);
                 HabitController.addHabit(habitReturn);
-                //HabitController hc = new HabitController();
-                //hc.addHabit(habitReturn);
                 finish();
 
 

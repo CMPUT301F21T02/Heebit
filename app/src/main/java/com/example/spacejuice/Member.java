@@ -149,7 +149,9 @@ public class Member {
 
    public void addHabit(Habit habit) {
       if (isUser()) {
-         habit.setUid();
+         if (habit.getUid() == -1) {
+            habit.setUid();
+         }
          habitListItems.add(habit);
       }
    }
@@ -173,9 +175,15 @@ public class Member {
 
    public int getUniqueID() {
       this.uniqueId += 1;
+      if (isUser()) {
+
+      }
       return this.uniqueId - 1;
    }
 
+   public int getMaxUID() {
+      return this.uniqueId;
+   }
    public void setUniqueId(int val) {
       /* this should only be used to set the uniqueId value to that which is stored in Firebase */
       this.uniqueId = val;

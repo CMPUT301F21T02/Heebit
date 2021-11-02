@@ -36,7 +36,32 @@ public class LoginController {
 
     }
 
-    public void login(String userName, String password, final OnCompleteCallback callback){
+    public static void updateMaxID() {
+        Member user = MainActivity.getUser();
+        String username = user.getMemberName();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference documentReference = db.collection("Members").document(username);
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    // if this name exist
+                    if (document.exists()) {
+                        int maxUniqueId = user.getMaxUID();
+                        documentReference.update("currentMaxID", maxUniqueId);
+                    }
+                } else {
+                    // if other problems exist
+                    Log.d("debugInfo", "error updating maxID in LoginController.java");
+                }
+            }
+        });
+    }
+
+
+    public void login(String userName, String password, final OnCompleteCallback callback) {
         DocumentReference documentReference = db.collection("Members").document(userName);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -48,13 +73,13 @@ public class LoginController {
 
                         String p = document.getString("Password");
                         // then check pass word
-                        if(p.equals(password)){
+                        if (p.equals(password)) {
                             int maxUniqueId = Integer.valueOf(document.getLong("currentMaxID").toString());
-                            account = new Member(userName,password);
+                            account = new Member(userName, password);
                             MainActivity.setUser(account);
                             account.setUniqueId(maxUniqueId);
                             callback.onComplete(true);
-                        }else {
+                        } else {
                             // if the password is wrong
                             Log.d("login", "wrong password ");
                             callback.onComplete(false);
@@ -72,11 +97,11 @@ public class LoginController {
     }
 
 
-    public void signUp(String userName, String password, final OnCompleteCallback callback){
-        Map<String,Object> user = new HashMap<>();
-        Map<String,Object> member = new HashMap<>();
-        Map<String,Object> habit = new HashMap<>();
-        if(userName.length()>0 && password.length()>0){
+    public void signUp(String userName, String password, final OnCompleteCallback callback) {
+        Map<String, Object> user = new HashMap<>();
+        Map<String, Object> member = new HashMap<>();
+        Map<String, Object> habit = new HashMap<>();
+        if (userName.length() > 0 && password.length() > 0) {
             DocumentReference documentReference = db.collection("Members").document(userName);
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -88,18 +113,18 @@ public class LoginController {
                             callback.onComplete(false);
                         } else {
                             // if this name is not used
-                            account = new Member(userName,password);
+                            account = new Member(userName, password);
                             MainActivity.setUser(account);
-                            user.put("Password",password);
-                            user.put("FollowerNumber","0");
+                            user.put("Password", password);
+                            user.put("FollowerNumber", "0");
                             user.put("FollowingNumber", "0");
-                            user.put("Score","0");
-                            member.put("userName","NONE");
+                            user.put("Score", "0");
+                            member.put("userName", "NONE");
                             member.put("currentMaxID", account.getUniqueID());
-                            habit.put("habitName","NONE");
-                            habit.put("ID","NONE");
-                            habit.put("Reason","NONE");
-                            habit.put("Date","NONE");
+                            habit.put("habitName", "NONE");
+                            habit.put("ID", "NONE");
+                            habit.put("Reason", "NONE");
+                            habit.put("Date", "NONE");
                             DocumentReference habitReference = documentReference
                                     .collection("Habits").document("NONE");
                             DocumentReference followerReference = documentReference
@@ -111,28 +136,28 @@ public class LoginController {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Log.d( "message","Data has been added successfully");
+                                            Log.d("message", "Data has been added successfully");
                                         }
                                     });
                             habitReference.set(habit)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Log.d( "message","Data has been added successfully");
+                                            Log.d("message", "Data has been added successfully");
                                         }
                                     });
                             followerReference.set(member)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Log.d( "message","Data has been added successfully");
+                                            Log.d("message", "Data has been added successfully");
                                         }
                                     });
                             followingReference.set(member)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Log.d( "message","Data has been added successfully");
+                                            Log.d("message", "Data has been added successfully");
                                         }
                                     });
 
@@ -149,7 +174,7 @@ public class LoginController {
     }
 
 
-    public interface OnCompleteCallback{
-        void onComplete(boolean suc);
-    }
+public interface OnCompleteCallback {
+    void onComplete(boolean suc);
+}
 }
