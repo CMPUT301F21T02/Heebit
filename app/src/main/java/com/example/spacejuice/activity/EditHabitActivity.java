@@ -2,7 +2,6 @@ package com.example.spacejuice.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.transition.Scene;
 import android.util.Log;
@@ -86,7 +85,7 @@ This Activity is used to edit a habit
         deleteB.setVisibility(View.VISIBLE); //Show the delete button
 
         backB = findViewById(R.id.backButtonHAE);
-        confirmB = findViewById(R.id.confirmButtonHAE);
+        confirmB = findViewById(R.id.editButtonHAE);
         SelectedDate = findViewById(R.id.textView5HAE);
         date = habitEditing.getStartDate();
         DateToString = new SimpleDateFormat("yyyy-MM-dd");

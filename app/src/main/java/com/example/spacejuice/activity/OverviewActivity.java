@@ -59,6 +59,25 @@ public class OverviewActivity extends AppCompatActivity {
         add_habit_imagebutton = findViewById(R.id.add_habit_imagebutton);
         go_to_all_habits_button = (Button) findViewById(R.id.all_habits_button);
         today_habit_list = findViewById(R.id.overview_habit_listview);
+
+  /* old stuff
+        ArrayList<Habit> today_habit_items = new ArrayList<>();
+
+        Habit each;
+
+        ArrayList<Habit> habitListItems;
+        habitListItems = HabitController.getHabitListItems();
+
+        for (int i = 0; i < habitListItems.size(); i += 1) {
+            if (habitListItems.get(i).isToday()) {
+                today_habit_items.add(habitListItems.get(i));
+            }
+        }
+
+        today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.overview_habit_content,today_habit_items ));
+//        today_habit_list.setAdapter(new HabitListAdapter(this, R.layout.habit_description,today_habit_items ));
+*/
+=======
         refreshData();
 
         int score = MainActivity.getUser().getScore();

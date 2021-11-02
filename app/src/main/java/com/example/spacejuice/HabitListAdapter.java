@@ -25,11 +25,88 @@ import androidx.annotation.Nullable;
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.EditHabitActivity;
-import com.example.spacejuice.activity.OverviewActivity;
 
+import com.example.spacejuice.activity.HabitDetailsActivity;
+//import com.example.spacejuice.activity.OverviewActivity;
 import java.util.ArrayList;
 
 public class HabitListAdapter extends ArrayAdapter {
+
+  /* new code pulled from Heeba */
+  
+   ArrayList<Habit> items;
+   Context context;
+
+   public HabitListAdapter(Context context, int layout, ArrayList<Habit> items)
+   {
+      super(context, layout);
+      this.context = context;
+      this.items = items;
+   }
+
+   //ViewHolder contains elements for our list item layout.. and is an inner class
+
+   public class ViewHolder{
+      TextView textView;
+      ImageView imageView;
+   }
+
+   @Override
+   public int getCount() {
+      return items.size();
+   }
+
+   @NonNull
+   @Override
+   public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
+
+      View row;
+      row = convertView;
+      CheckBox checkBox;
+
+      ViewHolder viewHolder;
+      if (row==null) // If the viewHolder was not previously initialized
+      {
+         row= LayoutInflater.from(getContext()).inflate(R.layout.habit_content, parent, false);
+         viewHolder = new ViewHolder();
+         viewHolder.imageView=row.findViewById(R.id.habit_indicator);
+         viewHolder.textView=row.findViewById(R.id.habit_text);
+         //ViewHolder.clickablePart= row.findViewById(R.id.clickable_habit_segment);
+         row.setTag(viewHolder);
+      }
+      else { // If the viewHolder was already initialized
+         viewHolder = (ViewHolder) row.getTag();
+      }
+
+      checkBox = row.findViewById(R.id.habitCheckBox);
+
+      viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
+      viewHolder.textView.setText(items.get(position).getTitle());
+      viewHolder.textView.setClickable(false);
+      View.OnClickListener goToHabitDetails;
+
+      goToHabitDetails = new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            Intent intent = new Intent(context, HabitDetailsActivity.class);
+            intent.putExtra("habitUid", items.get(position).getUid());
+            context.startActivity(intent);
+         }
+      };
+
+      row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToHabitDetails);
+
+      if (checkBox.isChecked()) {
+         checkBox.setClickable(false);
+      }
+
+      if (items.get(position).isToday()) {
+         checkBox.setOnClickListener(new View.OnClickListener() {
+
+  
+  /*  OLD CODE BEFORE HEEBA
     ArrayList<Habit> items;
     Context context;
 
@@ -80,7 +157,9 @@ public class HabitListAdapter extends ArrayAdapter {
         viewHolder.textView.setClickable(false);
         View.OnClickListener goToEditHabit;
 
-        goToEditHabit = new View.OnClickListener() {
+        goToEditHabit = new View.OnClickListener() { 
+          
+          */
             @Override
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + items.get(position).getUid());
