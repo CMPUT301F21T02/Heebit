@@ -56,6 +56,7 @@ This Activity is used to edit a habit
     private Date date;
     private int mYear, mMonth, mDay;
     private Format DateToString;
+    private String dateAsString;
     private Schedule schedule;
     private Habit habit;
     private Schedule currentSchedule;
@@ -107,7 +108,7 @@ This Activity is used to edit a habit
         Wednesday = findViewById(R.id.wednesday_text);
         Thursday = findViewById(R.id.thursday_text);
         Friday = findViewById(R.id.friday_text);
-        Saturday = findViewById(R.id.satuday_text);
+        Saturday = findViewById(R.id.saturday_text);
         Sunday = findViewById(R.id.sunday_text);
 
 
@@ -152,7 +153,8 @@ This Activity is used to edit a habit
         SelectedDate = findViewById(R.id.textView5HAE_hd);
         date = habit.getStartDate();
         DateToString = new SimpleDateFormat("yyyy-MM-dd");
-        SelectedDate.setText(DateToString.format(date));
+        dateAsString = "Started on " + DateToString.format(date);
+        SelectedDate.setText(dateAsString);
 
 
         title = findViewById(R.id.textViewHAE_hd);

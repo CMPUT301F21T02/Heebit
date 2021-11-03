@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -84,6 +85,8 @@ This Activity is used to edit a habit
         title.setText("Edit a Habit"); //Set the title into Add a Habit
         deleteB = findViewById(R.id.DeleteButtonHAE);
         deleteB.setVisibility(View.VISIBLE); //Show the delete button
+        LinearLayout dateContainer = findViewById(R.id.LL_DateContainer);
+        dateContainer.setVisibility(View.INVISIBLE);
 
         backB = findViewById(R.id.backButtonHAE);
         confirmB = findViewById(R.id.confirmButtonHAE);

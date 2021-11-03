@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--habit_add_edit.xml
+<?xml version="1.0" encoding="utf-8"?><!--habit_add_edit.xml
 This is the xml file for adding/viewing/editing fragment
 ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 -->
@@ -16,107 +15,161 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     USE: Exiting the activity
     -->
 
-    <TextView
-        android:id="@+id/satuday_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="232dp"
-        android:layout_marginTop="16dp"
-        android:text="SA"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
 
-    <TextView
-        android:id="@+id/friday_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="212dp"
-        android:layout_marginTop="16dp"
-        android:text="F"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/thursday_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="16dp"
-        android:text="TH"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+        <LinearLayout
+            android:id="@+id/LL_TitleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/sunday_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="16dp"
-        android:text="SN"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+            <ImageButton
+                android:id="@+id/backButtonHAE"
+                android:layout_width="52dp"
+                android:layout_height="72dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/button_back"
+                app:tint="?android:colorPrimary" />
 
-    <TextView
-        android:id="@+id/wednesday_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="16dp"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+            <LinearLayout
+                android:id="@+id/LL_Name_Reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/wednesday_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="16dp"
-        android:text="W"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
+                <TextView
+                    android:id="@+id/textViewHAE_hd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Habit Details - Name"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
 
-    <ImageButton
-        android:id="@+id/backButtonHAE"
-        android:layout_width="52dp"
-        android:layout_height="72dp"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        app:tint="?android:colorPrimary"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/button_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/HabitReasonHAE_hd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:hint="Add a reason for your habit"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/textView5HAE_hd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="Selected Date"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LL_Schedule_Outer_Container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/LL_Schedule_Inner_Container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?colorHabitBackground"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/sunday_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="SN"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/monday_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="M"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/tuesday_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="T"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/wednesday_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="W"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/thursday_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="TH"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/friday_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="F"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:id="@+id/saturday_text"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:padding="7dp"
+                    android:text="SA"
+                    android:textColor="?android:colorPrimary"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"></LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- Habit details text
     ID: textViewHAE
     USE: Showing "Habit Details" at the top
     -->
-    <TextView
-        android:id="@+id/textViewHAE_hd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:gravity="center_horizontal"
-        android:padding="15dp"
-        android:text="Habit Details - Name"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Habit details text
     ID: textView2HAE
@@ -144,19 +197,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     USE: Showing "Starting Date" at the editTextField
     -->
 
-    <TextView
-        android:id="@+id/HabitReasonHAE_hd"
-        android:layout_width="282dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="1dp"
-        android:ems="10"
-        android:hint="Add a reason for your habit"
-        app:layout_constraintBottom_toTopOf="@+id/textView4HAE_hd"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.361"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHAE_hd" />
-
     <!--Date Button
     ID: DateButtonHAE
     USE: Opens another fragment for date
@@ -171,33 +211,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     ID: confirmButtonHAE
     USE: To confirm the change
     -->
-
-    <TextView
-        android:id="@+id/textView4HAE_hd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="568dp"
-        android:padding="5dp"
-        android:text="Starting Date"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView5HAE_hd"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView5HAE_hd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="564dp"
-        android:padding="5dp"
-        android:text="Selected Date"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/editButtonHAE_hd"
@@ -214,51 +227,27 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     ID: DeleteButtonHAE
     USE: To delete habit
     -->
-<!--    <Button-->
-<!--        android:id="@+id/DeleteButtonHAE"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginBottom="12dp"-->
-<!--        android:text="DELETE"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/editButtonHAE" />-->
+    <!--    <Button-->
+    <!--        android:id="@+id/DeleteButtonHAE"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="12dp"-->
+    <!--        android:text="DELETE"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toEndOf="@+id/editButtonHAE" />-->
 
 
-<!--    <ImageView-->
-<!--        android:id="@+id/Monday"-->
-<!--        android:layout_width="260dp"-->
-<!--        android:layout_height="25dp"-->
-<!--        android:layout_marginStart="48dp"-->
-<!--        android:gravity="center"-->
-<!--        android:outlineSpotShadowColor="@color/black"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:srcCompat="@android:drawable/editbox_dropdown_dark_frame"-->
-<!--        tools:ignore="MissingConstraints"-->
-<!--        tools:layout_editor_absoluteY="286dp" />-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/Monday"-->
+    <!--        android:layout_width="260dp"-->
+    <!--        android:layout_height="25dp"-->
+    <!--        android:layout_marginStart="48dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:outlineSpotShadowColor="@color/black"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:srcCompat="@android:drawable/editbox_dropdown_dark_frame"-->
+    <!--        tools:ignore="MissingConstraints"-->
+    <!--        tools:layout_editor_absoluteY="286dp" />-->
 
-
-    <TextView
-        android:id="@+id/monday_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginTop="16dp"
-        android:text="M"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
-
-    <TextView
-        android:id="@+id/tuesday_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="16dp"
-        android:text="T"
-        android:textColor="@color/Purple"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4HAE_hd" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
