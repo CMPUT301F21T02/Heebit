@@ -2,12 +2,14 @@ package com.example.spacejuice.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
@@ -52,6 +54,7 @@ This Activity is used to edit a habit
     private TextView Saturday;
     private TextView Sunday;
     private TextView SelectedDate;
+    private int habitIndicator;
     //    private Button DateButton;
     private Date date;
     private int mYear, mMonth, mDay;
@@ -62,6 +65,7 @@ This Activity is used to edit a habit
     private Schedule currentSchedule;
     private Member user;
     private TextView reason;
+    private ImageView indicatorImage;
     ActivityResultLauncher<Intent> editLaunch;
 
 
@@ -86,6 +90,7 @@ This Activity is used to edit a habit
             Get the Unique Identifier of the Habit that we are viewing
          */
         int habitUid;
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
@@ -102,7 +107,9 @@ This Activity is used to edit a habit
 
         backB = findViewById(R.id.backButtonHAE);
         editHabit = findViewById(R.id.editButtonHAE_hd);
-
+        SelectedDate = findViewById(R.id.textView5HAE_hd);
+        indicatorImage = findViewById(R.id.desc_habit_indicator);
+        indicatorImage.setImageResource(habitIndicator);
         Monday = findViewById(R.id.monday_text);
         Tuesday = findViewById(R.id.tuesday_text);
         Wednesday = findViewById(R.id.wednesday_text);
@@ -110,9 +117,23 @@ This Activity is used to edit a habit
         Friday = findViewById(R.id.friday_text);
         Saturday = findViewById(R.id.saturday_text);
         Sunday = findViewById(R.id.sunday_text);
+        title = findViewById(R.id.textViewHAE_hd);
+        reason = findViewById(R.id.HabitReasonHAE_hd);
 
+         /* date formatting retrieved from
+        https://stackoverflow.com/questions/17192776/get-value-of-day-month-from-date-object-in-android
+         */
 
-        currentSchedule = habit.getSchedule();
+        date = habit.getStartDate();
+
+        String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
+        String day          = (String) DateFormat.format("dd",   date); // 20
+        String monthString  = (String) DateFormat.format("MMMM",  date); // September
+        String year         = (String) DateFormat.format("yyyy", date); // 2013
+
+        SelectedDate.setText("Started on " + dayOfTheWeek + ", " + monthString + " " + day + ", " +
+                year + ".");
+        habitIndicator = habit.getIndicator().getImage();
 
         refreshData();
 
@@ -150,58 +171,48 @@ This Activity is used to edit a habit
 
     public void refreshData() {
 
-        SelectedDate = findViewById(R.id.textView5HAE_hd);
-        date = habit.getStartDate();
-        DateToString = new SimpleDateFormat("yyyy-MM-dd");
-        dateAsString = "Started on " + DateToString.format(date);
-        SelectedDate.setText(dateAsString);
-
-
-        title = findViewById(R.id.textViewHAE_hd);
+        currentSchedule = habit.getSchedule();
         title.setText(habit.getTitle()); //Set the title into Add a Habit
+        String reasonText = "\"" + habit.getReason() + "\"";
+        reason.setText(reasonText);
 
-        reason = findViewById(R.id.HabitReasonHAE_hd);
-        reason.setText(habit.getReason());
-
-        Schedule visibility_schedule = habit.getSchedule();
-
-        if (!visibility_schedule.Mon()) {
+        if (!currentSchedule.Mon()) {
             Monday.setVisibility(View.INVISIBLE);
         } else {
             Monday.setVisibility(View.VISIBLE);
         }
 
-        if (!visibility_schedule.Tue()) {
+        if (!currentSchedule.Tue()) {
             Tuesday.setVisibility(View.INVISIBLE);
         } else {
             Tuesday.setVisibility(View.VISIBLE);
         }
 
-        if (!visibility_schedule.Wed()) {
+        if (!currentSchedule.Wed()) {
             Wednesday.setVisibility(View.INVISIBLE);
         } else {
             Wednesday.setVisibility(View.VISIBLE);
         }
 
-        if (!visibility_schedule.Thu()) {
+        if (!currentSchedule.Thu()) {
             Thursday.setVisibility(View.INVISIBLE);
         } else {
             Thursday.setVisibility(View.VISIBLE);
         }
 
-        if (!visibility_schedule.Fri()) {
+        if (!currentSchedule.Fri()) {
             Friday.setVisibility(View.INVISIBLE);
         } else {
             Friday.setVisibility(View.VISIBLE);
         }
 
-        if (!visibility_schedule.Sat()) {
+        if (!currentSchedule.Sat()) {
             Saturday.setVisibility(View.INVISIBLE);
         } else {
             Saturday.setVisibility(View.VISIBLE);
         }
 
-        if (!visibility_schedule.Sun()) {
+        if (!currentSchedule.Sun()) {
             Sunday.setVisibility(View.INVISIBLE);
         } else {
             Sunday.setVisibility(View.VISIBLE);
