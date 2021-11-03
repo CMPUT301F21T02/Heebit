@@ -147,12 +147,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     <TextView
         android:id="@+id/HabitReasonHAE_hd"
         android:layout_width="282dp"
-        android:layout_height="94dp"
+        android:layout_height="24dp"
         android:layout_marginTop="1dp"
-        android:layout_marginBottom="616dp"
         android:ems="10"
         android:hint="Add a reason for your habit"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView4HAE_hd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.361"
         app:layout_constraintStart_toStartOf="parent"
@@ -178,12 +177,14 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
+        android:layout_marginEnd="76dp"
         android:layout_marginBottom="568dp"
         android:padding="5dp"
         android:text="Starting Date"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView5HAE_hd"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
