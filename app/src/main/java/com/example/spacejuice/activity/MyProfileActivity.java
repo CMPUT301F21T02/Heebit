@@ -71,6 +71,14 @@ public class MyProfileActivity extends AppCompatActivity {
 
       });
 
+      // Discover button
+       exploreButton.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               openDiscoverActivity();
+           }
+       });
+
       // Makes it so that if the user clicks on the following or following count, it goes to the list
       followingText.setOnClickListener(new View.OnClickListener(){
          @Override
@@ -115,5 +123,11 @@ public class MyProfileActivity extends AppCompatActivity {
         // goes to follower list view
         Intent intent = new Intent(this, FollowersActivity.class);
         startActivity(intent);
+    }
+
+    // Opens DiscoverActivity
+    public void openDiscoverActivity() {
+       Intent intent = new Intent(this, DiscoverActivity.class);
+       startActivity(intent);
     }
 }

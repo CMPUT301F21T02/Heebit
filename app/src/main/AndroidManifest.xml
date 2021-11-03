@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpaceJuice">
         <activity
+            android:name=".activity.DiscoverActivity"
+            android:exported="true"
+            android:label="@string/title_activity_discover"
+            android:theme="@style/Theme.SpaceJuice.NoActionBar" />
+        <activity
             android:name=".activity.LoginActivity"
             android:exported="true" />
         <activity
@@ -45,7 +50,7 @@
             android:exported="true" />
         <activity
             android:name=".activity.EditHabitActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

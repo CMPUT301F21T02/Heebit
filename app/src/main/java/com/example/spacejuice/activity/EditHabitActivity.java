@@ -144,6 +144,8 @@ This Activity is used to edit a habit
                 finish();
             }
         });
+
+
         deleteB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

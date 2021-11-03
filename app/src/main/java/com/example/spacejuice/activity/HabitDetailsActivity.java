@@ -121,8 +121,6 @@ This Activity is used to edit a habit
                 Intent intent = new Intent(HabitDetailsActivity.this, EditHabitActivity.class);
                 intent.putExtra("habitUid", habitUid);
                 editLaunch.launch(intent);
-
-                startActivity(intent);
             }
         });
 
@@ -167,29 +165,44 @@ This Activity is used to edit a habit
 
         if (!visibility_schedule.Mon()) {
             Monday.setVisibility(View.INVISIBLE);
+        } else {
+            Monday.setVisibility(View.VISIBLE);
         }
 
         if (!visibility_schedule.Tue()) {
             Tuesday.setVisibility(View.INVISIBLE);
+        } else {
+            Tuesday.setVisibility(View.VISIBLE);
         }
 
         if (!visibility_schedule.Wed()) {
             Wednesday.setVisibility(View.INVISIBLE);
+        } else {
+            Wednesday.setVisibility(View.VISIBLE);
         }
+
         if (!visibility_schedule.Thu()) {
             Thursday.setVisibility(View.INVISIBLE);
+        } else {
+            Thursday.setVisibility(View.VISIBLE);
         }
 
         if (!visibility_schedule.Fri()) {
             Friday.setVisibility(View.INVISIBLE);
+        } else {
+            Friday.setVisibility(View.VISIBLE);
         }
 
         if (!visibility_schedule.Sat()) {
             Saturday.setVisibility(View.INVISIBLE);
+        } else {
+            Saturday.setVisibility(View.VISIBLE);
         }
 
         if (!visibility_schedule.Sun()) {
             Sunday.setVisibility(View.INVISIBLE);
+        } else {
+            Sunday.setVisibility(View.VISIBLE);
         }
     }
 
