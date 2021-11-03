@@ -109,7 +109,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/DateContainer"
+            android:id="@+id/LL_DateContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
