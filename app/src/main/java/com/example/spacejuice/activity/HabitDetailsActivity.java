@@ -34,13 +34,13 @@ public class HabitDetailsActivity extends AppCompatActivity {
 This Activity is used to edit a habit
  */
     private TextView title;
-//    private Button deleteB;
+    //    private Button deleteB;
 //    private Button confirmB;
     // i changed it from confirmB to editHabit
     private Button editHabit;
 
     private ImageButton backB;
-//    private EditText NameEdit;
+    //    private EditText NameEdit;
     private String name;
     private EditText DescriptionEdit;
     private String description;
@@ -52,7 +52,7 @@ This Activity is used to edit a habit
     private TextView Saturday;
     private TextView Sunday;
     private TextView SelectedDate;
-//    private Button DateButton;
+    //    private Button DateButton;
     private Date date;
     private int mYear, mMonth, mDay;
     private Format DateToString;
@@ -60,6 +60,7 @@ This Activity is used to edit a habit
     private Habit habit;
     private Schedule currentSchedule;
     private Member user;
+    private TextView reason;
     ActivityResultLauncher<Intent> editLaunch;
 
 
@@ -71,11 +72,11 @@ This Activity is used to edit a habit
                     public void onActivityResult(ActivityResult result) {
                         Log.d("debugInfo", "result code: " + result.getResultCode());
 
-//                        refreshData();
+                        refreshData();
                         // copy/change from overview
 
                     }
-        });
+                });
         super.onCreate(savedInstanceState);
         //set contentView and Editing user
         setContentView(R.layout.habit_description);
@@ -97,15 +98,9 @@ This Activity is used to edit a habit
         habit = HabitController.getHabitFromUid(habitUid);
 
         //initializing
-        title = findViewById(R.id.textViewHAE_hd);
-        title.setText(habit.getTitle()); //Set the title into Add a Habit
 
         backB = findViewById(R.id.backButtonHAE);
         editHabit = findViewById(R.id.editButtonHAE_hd);
-        SelectedDate = findViewById(R.id.textView5HAE_hd);
-        date = habit.getStartDate();
-        DateToString = new SimpleDateFormat("yyyy-MM-dd");
-        SelectedDate.setText(DateToString.format(date));
 
         Monday = findViewById(R.id.monday_text);
         Tuesday = findViewById(R.id.tuesday_text);
@@ -115,47 +110,10 @@ This Activity is used to edit a habit
         Saturday = findViewById(R.id.satuday_text);
         Sunday = findViewById(R.id.sunday_text);
 
-//        if(!schedule.Mon()){
-//            Monday.setVisibility(View.INVISIBLE);
-//        }
-//
-//        if(!schedule.Tue()){
-//            Tuesday.setVisibility(View.INVISIBLE);
-//        }
-//
-//        if(!schedule.Wed()){
-//            Wednesday.setVisibility(View.INVISIBLE);
-//        }
-//        if(!schedule.Thu()){
-//            Thursday.setVisibility(View.INVISIBLE);
-//        }
-//
-//        if(!schedule.Fri()){
-//            Friday.setVisibility(View.INVISIBLE);
-//        }
-//
-//        if(!schedule.Sat()){
-//            Saturday.setVisibility(View.INVISIBLE);
-//        }
-//
-//        if(!schedule.Sun()){
-//            Sunday.setVisibility(View.INVISIBLE);
-//        }
 
         currentSchedule = habit.getSchedule();
-//        Monday.setChecked(currentSchedule.Mon());
-//        Tuesday.setChecked(currentSchedule.Tue());
-//        Wednesday.setChecked(currentSchedule.Wed());
-//        Thursday.setChecked(currentSchedule.Thu());
-//        Friday.setChecked(currentSchedule.Fri());
-//        Saturday.setChecked(currentSchedule.Sat());
-//        Sunday.setChecked(currentSchedule.Sun());
 
-//        DateButton = findViewById(R.id.DateButtonHAE);
-//        DateButton.setOnClickListener(this);
-
-        // got rid of the edit habit button for now
-
+        refreshData();
 
         editHabit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,4 +149,49 @@ This Activity is used to edit a habit
         Log.d("debugInfo", "event details launched for habit uid #" + uid);
     }
 
+    public void refreshData() {
+
+        SelectedDate = findViewById(R.id.textView5HAE_hd);
+        date = habit.getStartDate();
+        DateToString = new SimpleDateFormat("yyyy-MM-dd");
+        SelectedDate.setText(DateToString.format(date));
+
+
+        title = findViewById(R.id.textViewHAE_hd);
+        title.setText(habit.getTitle()); //Set the title into Add a Habit
+
+        reason = findViewById(R.id.HabitReasonHAE_hd);
+        reason.setText(habit.getReason());
+
+        Schedule visibility_schedule = habit.getSchedule();
+
+        if (!visibility_schedule.Mon()) {
+            Monday.setVisibility(View.INVISIBLE);
+        }
+
+        if (!visibility_schedule.Tue()) {
+            Tuesday.setVisibility(View.INVISIBLE);
+        }
+
+        if (!visibility_schedule.Wed()) {
+            Wednesday.setVisibility(View.INVISIBLE);
+        }
+        if (!visibility_schedule.Thu()) {
+            Thursday.setVisibility(View.INVISIBLE);
+        }
+
+        if (!visibility_schedule.Fri()) {
+            Friday.setVisibility(View.INVISIBLE);
+        }
+
+        if (!visibility_schedule.Sat()) {
+            Saturday.setVisibility(View.INVISIBLE);
+        }
+
+        if (!visibility_schedule.Sun()) {
+            Sunday.setVisibility(View.INVISIBLE);
+        }
+    }
+
 }
+
