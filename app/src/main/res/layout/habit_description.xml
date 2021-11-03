@@ -16,259 +16,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     -->
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/LL_TitleContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/backButtonHAE"
-                android:layout_width="52dp"
-                android:layout_height="72dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:layout_gravity="top|left"
-                android:src="@drawable/button_back"
-                app:tint="?android:colorPrimary" />
-
-            <LinearLayout
-                android:id="@+id/LL_Name_Reason"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewHAE_hd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="15dp"
-                    android:text="Habit Details - Name"
-                    android:textSize="30dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/HabitReasonHAE_hd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:textColor="?colorAccent"
-                    android:text="because I should"
-                    android:textStyle="italic" />
-
-                <TextView
-                    android:id="@+id/textView5HAE_hd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:text="Selected Date"
-                    android:textSize="12dp" />
-            </LinearLayout>
-            <ImageView
-                android:id="@+id/desc_habit_indicator"
-                android:layout_width="84dp"
-                android:layout_height="66dp"
-                android:layout_gravity="center_vertical"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/LL_Schedule_Outer_Container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"></LinearLayout>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/LL_Schedule_Card_Container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:orientation="horizontal"
-                android:padding="5dp"
-                app:cardCornerRadius="8dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/LL_Sunday_Card"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="?colorHabitBackground"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        app:cardCornerRadius="8dp">
-
-                        <TextView
-                            android:id="@+id/sunday_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="SN"
-                            android:textColor="?android:colorPrimary"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/LL_Schedule_Monday_Card"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="?colorHabitBackground"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        app:cardCornerRadius="8dp">
-
-                        <TextView
-                            android:id="@+id/monday_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="M"
-                            android:textColor="?android:colorPrimary"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/LL_Schedule_Tueday_Card"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="?colorHabitBackground"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        app:cardCornerRadius="8dp">
-
-                        <TextView
-                            android:id="@+id/tuesday_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="T"
-                            android:textColor="?android:colorPrimary"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/LL_Schedule_Wednesday_Card"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="?colorHabitBackground"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        app:cardCornerRadius="8dp">
-
-                        <TextView
-                            android:id="@+id/wednesday_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="W"
-                            android:textColor="?android:colorPrimary"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/LL_Schedule_Thursday_Card"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="?colorHabitBackground"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        app:cardCornerRadius="8dp">
-
-                        <TextView
-                            android:id="@+id/thursday_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="TH"
-                            android:textColor="?android:colorPrimary"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/LL_Schedule_Friday_Card"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="?colorHabitBackground"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        app:cardCornerRadius="8dp">
-
-                        <TextView
-                            android:id="@+id/friday_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="F"
-                            android:textColor="?android:colorPrimary"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/LL_Schedule_Saturday_Card"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="?colorHabitBackground"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
-                        app:cardCornerRadius="8dp">
-
-                        <TextView
-                            android:id="@+id/saturday_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="SA"
-                            android:textColor="?android:colorPrimary"
-                            android:textSize="20dp" />
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"></LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-
     <!-- Habit details text
     ID: textViewHAE
     USE: Showing "Habit Details" at the top
@@ -315,17 +62,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     USE: To confirm the change
     -->
 
-    <Button
-        android:id="@+id/editButtonHAE_hd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:text="EDIT"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <!--Delete Button
     ID: DeleteButtonHAE
     USE: To delete habit
@@ -352,5 +88,298 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     <!--        tools:ignore="MissingConstraints"-->
     <!--        tools:layout_editor_absoluteY="286dp" />-->
 
+    <LinearLayout
+        android:id="@+id/LL_Main_Vertical_HD"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/LL_TitleContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingEnd="5dp">
+
+            <LinearLayout
+                android:id="@+id/LL_BackIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/backButtonHAE"
+                    android:layout_width="52dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="top|left"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/button_back"
+                    app:tint="?android:colorPrimary" />
+
+                <ImageView
+                    android:id="@+id/desc_habit_indicator"
+                    android:layout_width="42dp"
+                    android:layout_height="33dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginBottom="3dp"></ImageView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/LL_Name_Reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="15dp">
+
+                <LinearLayout
+                    android:id="@+id/LL_Name_Edit_Delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewHAE_hd"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="15dp"
+                        android:maxLines="1"
+                        android:text="Habit Name"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+                        app:autoSizeTextType="uniform"
+                        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="100"></LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/desc_edit_button"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="5dp"
+                        android:tooltipText="Edit this habit"
+                        app:srcCompat="@drawable/habit_edit"
+                        app:tint="?colorPrimary" />
+
+                    <ImageView
+                        android:id="@+id/desc_delete_button"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="15dp"
+                        android:tooltipText="Delete this habit"
+                        app:srcCompat="@drawable/habit_delete"
+                        app:tint="?colorDenyRequest" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/HabitReasonHAE_hd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="because I should"
+                    android:textColor="?colorAccent"
+                    android:textStyle="italic" />
+
+                <TextView
+                    android:id="@+id/textView5HAE_hd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="Selected Date"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"></LinearLayout>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/LL_Schedule_Card_Container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LL_Sunday_Card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="?colorHabitBackground"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/sunday_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="SN"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="20dp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LL_Schedule_Monday_Card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="?colorHabitBackground"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/monday_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="M"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="20dp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LL_Schedule_Tueday_Card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="?colorHabitBackground"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/tuesday_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="T"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="20dp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LL_Schedule_Wednesday_Card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="?colorHabitBackground"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/wednesday_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="W"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="20dp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LL_Schedule_Thursday_Card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="?colorHabitBackground"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/thursday_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="TH"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="20dp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LL_Schedule_Friday_Card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="?colorHabitBackground"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/friday_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="F"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="20dp" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/LL_Schedule_Saturday_Card"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:backgroundTint="?colorHabitBackground"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    app:cardCornerRadius="8dp">
+
+                    <TextView
+                        android:id="@+id/saturday_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="SA"
+                        android:textColor="?android:colorPrimary"
+                        android:textSize="20dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ListView
+            android:id="@+id/list_of_my_habit_events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:textSize="24sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

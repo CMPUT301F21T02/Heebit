@@ -1,5 +1,8 @@
 package com.example.spacejuice.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -10,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
@@ -20,6 +24,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.HabitEvent;
+import com.example.spacejuice.HabitEventAdapter;
+import com.example.spacejuice.HabitListAdapter;
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
@@ -27,6 +35,7 @@ import com.example.spacejuice.controller.HabitController;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 //public class HabitDetailsActivity extends AppCompatActivity implements View.OnClickListener{
@@ -39,13 +48,8 @@ This Activity is used to edit a habit
     //    private Button deleteB;
 //    private Button confirmB;
     // i changed it from confirmB to editHabit
-    private Button editHabit;
 
-    private ImageButton backB;
-    //    private EditText NameEdit;
-    private String name;
-    private EditText DescriptionEdit;
-    private String description;
+
     private TextView Monday;
     private TextView Tuesday;
     private TextView Wednesday;
@@ -53,20 +57,15 @@ This Activity is used to edit a habit
     private TextView Friday;
     private TextView Saturday;
     private TextView Sunday;
-    private TextView SelectedDate;
-    private int habitIndicator;
-    //    private Button DateButton;
-    private Date date;
-    private int mYear, mMonth, mDay;
-    private Format DateToString;
-    private String dateAsString;
-    private Schedule schedule;
     private Habit habit;
-    private Schedule currentSchedule;
-    private Member user;
     private TextView reason;
-    private ImageView indicatorImage;
+    private ListView habitEventList;
+    private ArrayList<HabitEvent> habitEventListItems;
+    private HabitEventAdapter habitEventAdapter;
     ActivityResultLauncher<Intent> editLaunch;
+
+    public HabitDetailsActivity() {
+    }
 
 
     @Override
@@ -105,11 +104,11 @@ This Activity is used to edit a habit
 
         //initializing
 
-        backB = findViewById(R.id.backButtonHAE);
-        editHabit = findViewById(R.id.editButtonHAE_hd);
-        SelectedDate = findViewById(R.id.textView5HAE_hd);
-        indicatorImage = findViewById(R.id.desc_habit_indicator);
-        indicatorImage.setImageResource(habitIndicator);
+        ImageButton backB = findViewById(R.id.backButtonHAE);
+        ImageView editHabit = findViewById(R.id.desc_edit_button);
+        ImageView deleteHabit = findViewById(R.id.desc_delete_button);
+        TextView selectedDate = findViewById(R.id.textView5HAE_hd);
+        ImageView indicatorImage = findViewById(R.id.desc_habit_indicator);
         Monday = findViewById(R.id.monday_text);
         Tuesday = findViewById(R.id.tuesday_text);
         Wednesday = findViewById(R.id.wednesday_text);
@@ -124,16 +123,19 @@ This Activity is used to edit a habit
         https://stackoverflow.com/questions/17192776/get-value-of-day-month-from-date-object-in-android
          */
 
-        date = habit.getStartDate();
+        //    private Button DateButton;
+        Date date = habit.getStartDate();
 
         String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
-        String day          = (String) DateFormat.format("dd",   date); // 20
-        String monthString  = (String) DateFormat.format("MMMM",  date); // September
+        String day          = (String) DateFormat.format("dd", date); // 20
+        String monthString  = (String) DateFormat.format("MMMM", date); // September
         String year         = (String) DateFormat.format("yyyy", date); // 2013
 
-        SelectedDate.setText("Started on " + dayOfTheWeek + ", " + monthString + " " + day + ", " +
+        selectedDate.setText("Started on " + dayOfTheWeek + ", " + monthString + " " + day + ", " +
                 year + ".");
-        habitIndicator = habit.getIndicator().getImage();
+        int habitIndicator = habit.getIndicator().getImage();
+        indicatorImage.setImageResource(habitIndicator);
+        habitEventList = findViewById(R.id.list_of_my_habit_events);
 
         refreshData();
 
@@ -143,6 +145,30 @@ This Activity is used to edit a habit
                 Intent intent = new Intent(HabitDetailsActivity.this, EditHabitActivity.class);
                 intent.putExtra("habitUid", habitUid);
                 editLaunch.launch(intent);
+            }
+        });
+
+        deleteHabit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(HabitDetailsActivity.this);
+                builder.setMessage("Are you sure you want to delete the habit: " + habit.getTitle() + "?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                HabitController.deleteHabit(habit);
+                                Intent resultIntent = new Intent();
+                                setResult(Activity.RESULT_OK, resultIntent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
@@ -171,7 +197,7 @@ This Activity is used to edit a habit
 
     public void refreshData() {
 
-        currentSchedule = habit.getSchedule();
+        Schedule currentSchedule = habit.getSchedule();
         title.setText(habit.getTitle()); //Set the title into Add a Habit
         String reasonText = "\"" + habit.getReason() + "\"";
         reason.setText(reasonText);
@@ -217,6 +243,14 @@ This Activity is used to edit a habit
         } else {
             Sunday.setVisibility(View.VISIBLE);
         }
+        /* updates the list of Habits */
+        habitEventListItems = HabitController.getHabitEvents(habit);
+
+        this.habitEventAdapter = new HabitEventAdapter(this, R.layout.habit_event_content, habitEventListItems);
+        Log.d("debugInfo", "habit event list updated");
+        Log.d("debugInfo", "list size: " + habitEventListItems.size());
+        this.habitEventList.setAdapter(habitEventAdapter);
+        this.habitEventAdapter.notifyDataSetChanged();
     }
 
 }

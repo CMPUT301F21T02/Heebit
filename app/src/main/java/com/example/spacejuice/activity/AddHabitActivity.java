@@ -30,10 +30,6 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
     /*
     This Activity is used to add and enter the details of a new habit
      */
-    private TextView title;
-    private Button deleteB;
-    private Button confirmB;
-    private ImageButton backB;
     private EditText NameEdit;
     private String name;
     private EditText ReasonEdit;
@@ -46,10 +42,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
     private CheckBox Saturday;
     private CheckBox Sunday;
     private TextView SelectedDate;
-    private Button DateButton;
     private Date date;
-    private int mYear, mMonth, mDay;
-    private Format DateToString;
     private Schedule schedule;
     private Habit habitReturn;
 
@@ -58,18 +51,15 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.habit_add_edit);
 
-        title = findViewById(R.id.textViewHAE);
-        deleteB = findViewById(R.id.DeleteButtonHAE);
-        deleteB.setVisibility(View.INVISIBLE); //Hide the delete button
-        backB = findViewById(R.id.backButtonHAE);
-        confirmB = findViewById(R.id.confirmButtonHAE);
+        ImageButton backB = findViewById(R.id.backButtonHAE);
+        Button confirmB = findViewById(R.id.confirmButtonHAE);
 
         SelectedDate = findViewById(R.id.textView5HAE);
         date = new Date();
-        DateToString = new SimpleDateFormat("yyyy-MM-dd");
-        SelectedDate.setText(DateToString.format(date));
-        DateButton = findViewById(R.id.DateButtonHAE);
-        DateButton.setOnClickListener(this);
+        Format dateToString = new SimpleDateFormat("yyyy-MM-dd");
+        SelectedDate.setText(dateToString.format(date));
+        Button dateButton = findViewById(R.id.DateButtonHAE);
+        dateButton.setOnClickListener(this);
         confirmB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,9 +101,9 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
 

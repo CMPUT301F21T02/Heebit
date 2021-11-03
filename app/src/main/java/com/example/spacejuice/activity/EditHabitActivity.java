@@ -82,9 +82,7 @@ This Activity is used to edit a habit
 
         //initializing
         title = findViewById(R.id.textViewHAE);
-        title.setText("Edit a Habit"); //Set the title into Add a Habit
-        deleteB = findViewById(R.id.DeleteButtonHAE);
-        deleteB.setVisibility(View.VISIBLE); //Show the delete button
+        title.setText("Edit this Habit"); //Set the title into Add a Habit
         LinearLayout dateContainer = findViewById(R.id.LL_DateContainer);
         dateContainer.setVisibility(View.INVISIBLE);
 
@@ -144,18 +142,6 @@ This Activity is used to edit a habit
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-        deleteB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                user = MainActivity.getUser();
-                HabitController.deleteHabit(habitEditing);
-                Intent resultIntent = new Intent();
-                setResult(Activity.RESULT_OK, resultIntent);
                 finish();
             }
         });
