@@ -70,7 +70,6 @@ This Activity is used to edit a habit
     private ListView habitEventList;
     private ArrayList<HabitEvent> habitEventListItems;
     private HabitEventAdapter habitEventAdapter;
-    private Boolean smallDisplay; // true if display is small
     ActivityResultLauncher<Intent> editLaunch;
 
     public HabitDetailsActivity() {
@@ -146,7 +145,7 @@ This Activity is used to edit a habit
         indicatorImage.setImageResource(habitIndicator);
         habitEventList = findViewById(R.id.list_of_my_habit_events);
 
-        checkForSmallDisplay();
+        adjustForSmallDisplay(); // title width is resized if display is small
         refreshData();
 
         editHabit.setOnClickListener(new View.OnClickListener() {
@@ -191,17 +190,15 @@ This Activity is used to edit a habit
         });
     }
 
-    public void checkForSmallDisplay() {
+    public void adjustForSmallDisplay() {
         /* if the display is small, adjusts the title width to fit properly */
-        float densityDpi = this.getResources().getDisplayMetrics().densityDpi;
-        if (densityDpi > 460) {
-            this.smallDisplay = true;
-            Log.d("debugInfo", "screen densityDpi: " + densityDpi + "  so title width adjusted");
+        if (MainActivity.checkForSmallDisplay(this)) {
             ViewGroup.LayoutParams layoutParams = title.getLayoutParams();
             layoutParams.width = 520;
             title.setLayoutParams(layoutParams);
         }
     }
+
     public void launchEventDetails(int uid) {
         Log.d("debugInfo", "event details launched for habit uid #" + uid);
     }
