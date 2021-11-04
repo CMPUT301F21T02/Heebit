@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.LoginActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.example.spacejuice.activity.WelcomeActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
         overridePendingTransition( 0, 0);
 
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
         overridePendingTransition( 0, 0);
 

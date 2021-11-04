@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     This Activity is used to display the login screen
      */
     Button loginButton;
-    Button signUpButton;
+    Button cancelButton;
     EditText UserNameET;
     EditText PassWordET;
     LoginController loginController;
@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         loginButton = findViewById(R.id.loginButton);
-        signUpButton = findViewById(R.id.signupButton);
+        cancelButton = findViewById(R.id.cancelButton);
         UserNameET = findViewById(R.id.userName);
         PassWordET = findViewById(R.id.editTextTextPassword);
         TextView textView = findViewById(R.id.textView6);
@@ -62,30 +62,11 @@ public class LoginActivity extends AppCompatActivity {
            }
        });
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginController.signUp(UserNameET.getText().toString(),
-                        PassWordET.getText().toString(), new LoginController.OnCompleteCallback() {
-                            @Override
-                            public void onComplete(boolean suc) {
-                                if(suc) {
-                                    Toast.makeText(LoginActivity.this, "Signed Up!",
-                                            Toast.LENGTH_SHORT).show();
-                                    UserNameET.setText("");
-                                    PassWordET.setText("");
-                                    Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
-                                    startActivity(intent);
-                                }
-                                else{
-                                    Toast.makeText(LoginActivity.this, "Username is unavailable",
-                                            Toast.LENGTH_SHORT).show();
-                                    PassWordET.setText(""); // clear the Text
-                                    textView.setVisibility(View.VISIBLE);
-                                }
-                            }
-                        });
-            }
+                finish();
+                }
         });
     }
 
