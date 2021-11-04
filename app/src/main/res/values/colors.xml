@@ -146,6 +146,8 @@
     <color name="MediumBlue">#0000CD</color>
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
-    <color name="Slate">#383838</color>
+    <color name="LightRedGrey">#1F1C1C</color>
+    <color name="CrystalWhite">#F8FBFF</color>
+    <color name="Slate">#181818</color>
     <color name="Black">#000000</color>
 </resources>
