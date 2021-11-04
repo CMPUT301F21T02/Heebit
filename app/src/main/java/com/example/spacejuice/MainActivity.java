@@ -6,13 +6,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.transition.Explode;
 import android.util.Log;
 import android.view.Window;
 
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.LoginActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.example.spacejuice.activity.WelcomeActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;

@@ -119,6 +119,7 @@ public class LoginController {
                             user.put("FollowerNumber", "0");
                             user.put("FollowingNumber", "0");
                             user.put("Score", "0");
+                            /*
                             member.put("userName", "NONE");
                             member.put("currentMaxID", account.getUniqueID());
                             habit.put("habitName", "NONE");
@@ -130,7 +131,7 @@ public class LoginController {
                             DocumentReference followerReference = documentReference
                                     .collection("Follower").document("NONE");
                             DocumentReference followingReference = documentReference
-                                    .collection("Following").document("NONE");
+                                    .collection("Following").document("NONE");*/
                             collectionReference.document(userName)
                                     .set(user)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -139,6 +140,7 @@ public class LoginController {
                                             Log.d("message", "Data has been added successfully");
                                         }
                                     });
+                            /*
                             habitReference.set(habit)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -159,7 +161,7 @@ public class LoginController {
                                         public void onSuccess(Void unused) {
                                             Log.d("message", "Data has been added successfully");
                                         }
-                                    });
+                                    });*/
 
                             callback.onComplete(true);
                         }
