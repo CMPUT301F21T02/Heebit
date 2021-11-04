@@ -78,6 +78,12 @@ public class HabitEventAdapter extends ArrayAdapter {
         String month  = (String) DateFormat.format("MMM", date); // September
         String dateText = dayOfWk + " " + month + " " + day;
 
+        if (MainActivity.checkForSmallDisplay(context)) {
+            ViewGroup.LayoutParams layoutParams = viewHolder.eventDescription.getLayoutParams();
+            layoutParams.width = 350; // resizes description width for smaller displays
+            viewHolder.eventDescription.setLayoutParams(layoutParams);
+        }
+
         viewHolder.eventIndicator.setImageResource(eventItems.get(position).getEventIndicator());
         viewHolder.eventIndicator.setClickable(false);
         viewHolder.eventDescription.setText(eventItems.get(position).getShortDescription());
@@ -97,28 +103,8 @@ public class HabitEventAdapter extends ArrayAdapter {
         };
 
         row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
+        // todo implement click events
 
-        /* todo: implement a Habit Event Details page */
-
-/*
-        checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (((CompoundButton) view).isChecked()) {
-                    checkBox.setClickable(false);
-                    MediaPlayer song = MediaPlayer.create(context, R.raw.click);
-                    song.start();
-                    Intent intent = new Intent(context, EventDetailsActivity.class);
-                    intent.putExtra("habitUid", eventItems.get(position).getUid());
-                    context.startActivity(intent);
-
-                } else {
-                    Log.d("debugInfo", "item attempted to be unchecked");
-                    checkBox.setChecked(true);
-                }
-            }
-        });
-*/
         return row;
     }
 }
