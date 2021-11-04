@@ -30,6 +30,7 @@ public class Member {
    private int score;
    private int followers;
    private int followings;
+   private Follow follow;
 
    /**
     * Constructor for generate a empty Member
@@ -42,6 +43,7 @@ public class Member {
       this.score = 0;
       this.followers = 0;
       this.followings = 0;
+      this.follow = new Follow();
 
    }
 
@@ -58,6 +60,7 @@ public class Member {
       this.score = 0;
       this.followers = 0;
       this.followings = 0;
+      this.follow = new Follow();
    }
 
    /**
@@ -73,6 +76,7 @@ public class Member {
       this.score = 0;
       this.followers = 0;
       this.followings = 0;
+      this.follow = new Follow();
    }
 
 
