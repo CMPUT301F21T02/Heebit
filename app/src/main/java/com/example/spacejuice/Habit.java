@@ -28,13 +28,13 @@ public class Habit implements Serializable {
      * @param reason    The reason for the habit
      * @param iLevel    The current level of the habit
      */
-    public Habit(String title, String reason, int iLevel) {
+    public Habit(String title, String reason, int xp) {
         setTitle(title);
         setReason(reason);
         setStartDate(new Date());
         this.indicator = new Indicator();
-        if (iLevel != -1) {
-            indicator.setLevel(iLevel);
+        if (xp != -1) {
+            indicator.setXp(xp);
         }
         this.schedule = new Schedule();
         this.events = new ArrayList<HabitEvent>();
@@ -73,11 +73,11 @@ public class Habit implements Serializable {
 
     /**
      * Set indicator for the habit
-     * @param iLevel    The level of the habit use to generate the indicator
+     * @param xp    The experience(xp) of the habit use to generate the indicator
      */
-    public void setIndicator(int iLevel) {
+    public void setIndicator(int xp) {
 
-        this.indicator.setLevel(iLevel);
+        this.indicator.setXp(xp);
     }
 
     /**

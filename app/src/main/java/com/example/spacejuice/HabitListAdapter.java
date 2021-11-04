@@ -21,6 +21,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
@@ -43,7 +44,8 @@ public class HabitListAdapter extends ArrayAdapter {
 
     public class ViewHolder {
         TextView textView;
-        ImageView imageView;
+        TextView levelText;
+        View ll_indicator;
     }
 
     @Override
@@ -65,18 +67,18 @@ public class HabitListAdapter extends ArrayAdapter {
         {
             row = LayoutInflater.from(getContext()).inflate(R.layout.habit_content, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.imageView = row.findViewById(R.id.habit_indicator);
+            viewHolder.ll_indicator = row.findViewById(R.id.LL_Habit_Indicator);
             viewHolder.textView = row.findViewById(R.id.habit_text);
-            //ViewHolder.clickablePart= row.findViewById(R.id.clickable_habit_segment);
+            viewHolder.levelText = row.findViewById(R.id.habit_content_habit_level);
             row.setTag(viewHolder);
         } else { // If the viewHolder was already initialized
             viewHolder = (ViewHolder) row.getTag();
         }
 
         checkBox = row.findViewById(R.id.habitCheckBox);
-
-        viewHolder.imageView.setImageResource(items.get(position).getIndicator().getImage());
+        viewHolder.ll_indicator.setBackground(AppCompatResources.getDrawable(context, items.get(position).getIndicator().getImage()));
         viewHolder.textView.setText(items.get(position).getTitle());
+        viewHolder.levelText.setText(items.get(position).getIndicator().getIndicatorText());
         viewHolder.textView.setClickable(false);
         View.OnClickListener goToHabitDetails;
 
