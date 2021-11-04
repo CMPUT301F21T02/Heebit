@@ -17,15 +17,26 @@
 
         >
 
-        <ImageView
-            android:id="@+id/overview_habit_indicator"
-            android:layout_width="70dp"
-            android:layout_height="50dp"
-            android:layout_weight="10"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:layout_gravity="center_vertical"
-            app:srcCompat="@android:drawable/btn_star_big_on" />
+        <LinearLayout
+            android:id="@+id/Overview_LL_Indicator"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/progress_40">
+            <TextView
+                android:id="@+id/Overview_habit_level"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:autoSizeTextType="uniform"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="Lv10"
+                android:textColor="?colorAcceptRequest"
+                android:textSize="30sp"
+                android:textStyle="bold">
+            </TextView>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/overview_habit_text"

@@ -19,6 +19,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
@@ -67,7 +69,9 @@ This Activity is used to edit a habit
     private TextView Sunday;
     private Habit habit;
     private TextView reason;
+    private TextView level;
     private ListView habitEventList;
+    private LinearLayout indicatorImage;
     private ArrayList<HabitEvent> habitEventListItems;
     private HabitEventAdapter habitEventAdapter;
     ActivityResultLauncher<Intent> editLaunch;
@@ -116,7 +120,6 @@ This Activity is used to edit a habit
         ImageView editHabit = findViewById(R.id.desc_edit_button);
         ImageView deleteHabit = findViewById(R.id.desc_delete_button);
         TextView selectedDate = findViewById(R.id.textView5HAE_hd);
-        ImageView indicatorImage = findViewById(R.id.desc_habit_indicator);
         Monday = findViewById(R.id.monday_text);
         Tuesday = findViewById(R.id.tuesday_text);
         Wednesday = findViewById(R.id.wednesday_text);
@@ -126,6 +129,8 @@ This Activity is used to edit a habit
         Sunday = findViewById(R.id.sunday_text);
         title = findViewById(R.id.textViewHAE_hd);
         reason = findViewById(R.id.HabitReasonHAE_hd);
+        indicatorImage = findViewById(R.id.LL_Indicator);
+        level = findViewById(R.id.habit_level);
 
          /* date formatting retrieved from
         https://stackoverflow.com/questions/17192776/get-value-of-day-month-from-date-object-in-android
@@ -141,8 +146,6 @@ This Activity is used to edit a habit
 
         selectedDate.setText("Started on " + dayOfTheWeek + ", " + monthString + " " + day + ", " +
                 year + ".");
-        int habitIndicator = habit.getIndicator().getImage();
-        indicatorImage.setImageResource(habitIndicator);
         habitEventList = findViewById(R.id.list_of_my_habit_events);
 
         adjustForSmallDisplay(); // title width is resized if display is small
@@ -181,6 +184,14 @@ This Activity is used to edit a habit
             }
         });
 
+        // for debugging: click on indicator within HabitDetails to simulate progress
+        indicatorImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                habit.getIndicator().increase();
+                refreshData();
+            }
+        });
 
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -206,6 +217,8 @@ This Activity is used to edit a habit
     public void refreshData() {
 
         Schedule currentSchedule = habit.getSchedule();
+        indicatorImage.setBackground(AppCompatResources.getDrawable(this, habit.getIndicator().getImage()));
+        level.setText(habit.getIndicator().getIndicatorText());
 
         title.setText(habit.getTitle()); //Set the title into Add a Habit
         String reasonText = "\"" + habit.getReason() + "\"";
