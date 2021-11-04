@@ -3,6 +3,7 @@ package com.example.spacejuice;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class HabitEventAdapter extends ArrayAdapter {
     ArrayList<HabitEvent> eventItems;
@@ -38,7 +40,9 @@ public class HabitEventAdapter extends ArrayAdapter {
 
     public class ViewHolder {
         TextView eventDescription;
+        TextView eventDateText;
         ImageView eventIndicator;
+        ImageView eventImage;
     }
 
     @Override
@@ -53,7 +57,6 @@ public class HabitEventAdapter extends ArrayAdapter {
 
         View row;
         row = convertView;
-        CheckBox checkBox;
 
         ViewHolder viewHolder;
         if (row == null) // If the viewHolder was not previously initialized
@@ -62,16 +65,26 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder = new ViewHolder();
             viewHolder.eventIndicator = row.findViewById(R.id.habit_event_indicator);
             viewHolder.eventDescription = row.findViewById(R.id.habit_event_description);
+            viewHolder.eventDateText = row.findViewById(R.id.habit_event_date);
+            viewHolder.eventImage = row.findViewById(R.id.eventImage);
             row.setTag(viewHolder);
         } else { // If the viewHolder was already initialized
             viewHolder = (ViewHolder) row.getTag();
         }
+        Date date = eventItems.get(position).getDate();
 
+        String dayOfWk = (String) DateFormat.format("EEE", date); // Thursday
+        String day          = (String) DateFormat.format("dd", date); // 20
+        String month  = (String) DateFormat.format("MMM", date); // September
+        String dateText = dayOfWk + " " + month + " " + day;
 
         viewHolder.eventIndicator.setImageResource(eventItems.get(position).getEventIndicator());
         viewHolder.eventIndicator.setClickable(false);
-        viewHolder.eventDescription.setText(eventItems.get(position).getDescription());
+        viewHolder.eventDescription.setText(eventItems.get(position).getShortDescription());
         viewHolder.eventDescription.setClickable(false);
+        viewHolder.eventDateText.setText(dateText);
+        viewHolder.eventDateText.setClickable(false);
+        viewHolder.eventImage.setImageResource(R.drawable.empty_image);
         View.OnClickListener goToEventDetails;
 
         goToEventDetails = new View.OnClickListener() {

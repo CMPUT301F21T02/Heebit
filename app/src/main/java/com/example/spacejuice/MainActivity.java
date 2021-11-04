@@ -22,10 +22,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        overridePendingTransition( 0, 0);
         finish();
+        overridePendingTransition( 0, 0);
 
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        overridePendingTransition( 0, 0);
 
         getUser().setScore(5);
         Log.d("debugInfo", "user score set to 5");
