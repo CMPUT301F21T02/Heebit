@@ -189,7 +189,7 @@ public class Member {
       return this.habitListItems;
    }
 
-
+   public Follow getFollow(){return this.follow;}
    // Setters
 
    /**
