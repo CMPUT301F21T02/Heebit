@@ -2,6 +2,7 @@ package com.example.spacejuice;
 
 import android.media.Image;
 import android.telephony.CarrierConfigManager;
+import android.util.Log;
 
 import java.util.Date;
 
@@ -11,6 +12,7 @@ public class HabitEvent {
     private Image image;
     private CarrierConfigManager.Gps location;
     private Boolean done;
+    public int DESC_LENGTH = 80; //cutoff for a short description
     private int uid; // a unique ID allowing easier tracking between activities
 
     public HabitEvent() {
@@ -40,6 +42,16 @@ public class HabitEvent {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getShortDescription() {
+        String shortDescription = this.description;
+        int l = shortDescription.length();
+        if (l > DESC_LENGTH) {
+            l = DESC_LENGTH;
+            shortDescription = shortDescription.substring(0, l - 2) + "..";
+        }
+        return shortDescription;
     }
 
     public Date getDate() {
