@@ -216,6 +216,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             android:layout_margin="5dp"
             android:orientation="horizontal"
             android:padding="5dp"
+            app:cardBackgroundColor="?colorOuterCard"
             app:cardCornerRadius="8dp">
 
             <LinearLayout

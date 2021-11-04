@@ -13,5 +13,6 @@
     <attr name="colorHabitBackground" format="color" />
     <attr name="colorAcceptRequest" format="color" />
     <attr name="colorDenyRequest" format="color" />
+    <attr name="colorOuterCard" format="color" />
     <item name="go_to_profile_imageView" type="id" />
 </resources>

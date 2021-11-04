@@ -29,6 +29,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingStart="3dp"
                 android:paddingEnd="3dp"
+                app:tint="?android:colorPrimary"
                 app:srcCompat="@android:drawable/btn_star_big_on" />
 
             <ImageView
@@ -66,6 +67,7 @@
                         android:id="@+id/location_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         app:srcCompat="@drawable/location_icon" />
