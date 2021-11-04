@@ -26,22 +26,27 @@
 
             <LinearLayout
                 android:id="@+id/LL_Habit_Indicator"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_gravity="center_vertical"
                 android:background="@drawable/progress_40">
                 <TextView
                     android:id="@+id/habit_content_habit_level"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="41dp"
+                    android:layout_height="41dp"
                     android:layout_gravity="center"
-                    android:autoSizeTextType="uniform"
+                    app:autoSizeTextType="uniform"
                     android:gravity="center"
-                    android:padding="12dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="2dp"
                     android:text="Lv10"
+                    android:maxLines="1"
                     android:textColor="?colorAcceptRequest"
-                    android:textSize="30sp"
+                    android:textSize="24sp"
                     android:textStyle="bold">
                 </TextView>
             </LinearLayout>
