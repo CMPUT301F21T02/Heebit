@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class FollowController {
@@ -73,5 +74,40 @@ public class FollowController {
 
         });
 
+    }
+
+    /**
+     * Update the requests
+     */
+    public void getRequests(final LoginController.OnCompleteCallback callback){
+        DocumentReference documentReference = db
+                .collection("Members")
+                .document(MainActivity.getUser().getMemberName());
+        DocumentReference Requests = documentReference
+                .collection("Follow")
+                .document("Requests");
+        Requests.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                        ArrayList<String> list = new ArrayList<>();
+                        Map<String, Object> map = document.getData();
+                        if (map != null){
+                            for (Map.Entry<String, Object> entry : map.entrySet()){
+                                list.add(entry.getValue().toString());
+                                Log.d("request", "add"+entry.getValue().toString());
+                            }
+                        }
+                        MainActivity.getUser().getFollow().setRequests(list);
+                        callback.onComplete(true);
+                    }
+                    else{
+                        callback.onComplete(false);
+                    }
+                }
+            }
+        });
     }
 }

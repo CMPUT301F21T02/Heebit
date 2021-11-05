@@ -33,6 +33,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    private ArrayList<Member> requestingMembers;
    private EditText requestName;
    private Button send;
+   FollowController followController;
 
 
    @Override
@@ -43,14 +44,31 @@ public class FollowerRequestsActivity extends AppCompatActivity {
       back_button = findViewById(R.id.backButtonFollowerRequests);
 
       followerList = findViewById(R.id.followersList);
-
+      followController = new FollowController();
       requestingMembers = new ArrayList<>();
+      followController.getRequests(new LoginController.OnCompleteCallback() {
+         @Override
+         public void onComplete(boolean suc) {
+            if (suc){
+               ArrayList<String> list = MainActivity.getUser().getFollow().getRequests();
+               for (int i = 0; i < list.size(); i++){
+                  requestingMembers.add(new Member(list.get(i)));
+               }
+               followRequestAdapter = new FollowRequestAdapter(FollowerRequestsActivity.this, R.layout.follow_request_content, requestingMembers);
+               followerList.setAdapter(followRequestAdapter);
+            }
+            else{
+               requestingMembers.add(new Member("Heeba"));
+               requestingMembers.add(new Member("Xuanhao"));
+               requestingMembers.add(new Member("Harish"));
+               requestingMembers.add(new Member("LemonJuice"));
+               requestingMembers.add(new Member("Yuchen"));
+               followRequestAdapter = new FollowRequestAdapter(FollowerRequestsActivity.this, R.layout.follow_request_content, requestingMembers);
+               followerList.setAdapter(followRequestAdapter);
+            }
+         }
+      });
 
-      requestingMembers.add(new Member("Heeba"));
-      requestingMembers.add(new Member("Xuanhao"));
-      requestingMembers.add(new Member("Harish"));
-      requestingMembers.add(new Member("LemonJuice"));
-      requestingMembers.add(new Member("Yuchen"));
 
       followRequestAdapter = new FollowRequestAdapter(this, R.layout.follow_request_content, requestingMembers);
       followerList.setAdapter(followRequestAdapter);
