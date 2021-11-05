@@ -193,6 +193,16 @@ This Activity is used to edit a habit
             }
         });
 
+        // for debugging: click on indicator within HabitDetails to simulate missed habit decay
+        indicatorImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                habit.getIndicator().decrease();
+                refreshData();
+                return true;
+            }
+        });
+
         backB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
