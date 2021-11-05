@@ -9,6 +9,8 @@ public class Indicator implements Serializable {
    private final int MAX_LEVEL = 99;
    private final int INCREMENT = 1;
    private final int DECAY = -3;
+   private final Boolean PERCENT_XP_DECAY = true;
+   private final float XP_DECAY_PERCENTAGE = 0.35f;
    private String string;
    private int level;
    private int progress;
@@ -216,7 +218,13 @@ public class Indicator implements Serializable {
 
    public void decrease() {
       // decay the indicator level after missing a habit
-      setXp(getXp() + DECAY);
+      if (this.PERCENT_XP_DECAY) {
+         int newXp = (int) (xp * (1 - XP_DECAY_PERCENTAGE));
+         setXp(newXp);
+      }
+      else {
+         setXp(getXp() + DECAY);
+      }
       updateLevelAndProgress();
    }
 
