@@ -79,19 +79,29 @@ public class FollowerRequestsActivity extends AppCompatActivity {
       send.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
-            FollowController followController = new FollowController();
-            followController.sendRequest(requestName.getText().toString(), new LoginController.OnCompleteCallback() {
-               @Override
-               public void onComplete(boolean suc) {
-                  //MainActivity.setUser(member);
-                  if (suc) {
-                     Toast.makeText(FollowerRequestsActivity.this, "Sent request successfully!", Toast.LENGTH_SHORT).show();
-                  } else {
-                     Toast.makeText(FollowerRequestsActivity.this, "No such user exists!",
-                             Toast.LENGTH_SHORT).show();
+            if(!requestName.getText().toString().matches("")){
+               FollowController followController = new FollowController();
+               followController.sendRequest(requestName.getText().toString(), new LoginController.OnCompleteCallback() {
+                  @Override
+                  public void onComplete(boolean suc) {
+                     //MainActivity.setUser(member);
+                     if (suc) {
+                        Toast.makeText(FollowerRequestsActivity.this, "Sent request successfully!", Toast.LENGTH_SHORT).show();
+                     }
+                     else {
+                        if (requestName.getText().toString().equals(MainActivity.getUser().getMemberName())){
+                           Toast.makeText(FollowerRequestsActivity.this, "Please don't send follow request to yourself!",
+                                   Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                           Toast.makeText(FollowerRequestsActivity.this, "No such user exists!",
+                                   Toast.LENGTH_SHORT).show();
+                        }
+                     }
                   }
-               }
-            });
+               });
+            }
+
 
          }
       });

@@ -41,30 +41,57 @@ public class FollowController {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     // if this name exist
-                    if (document.exists()) {
+                    if (document.exists() && !userName.equals(MainActivity.getUser().getMemberName())) {
                         HashMap<String, Object> requesting = new HashMap<>();
                         //add the user to the Requests list
                         requesting.put(MainActivity.getUser().getMemberName(), MainActivity.getUser().getMemberName());
                         DocumentReference FollowRequests = documentReference
                                 .collection("Follow")
                                 .document("Requests");
-
-                        FollowRequests
-                                .set(requesting)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d("message", "Data has been added successfully");
+                        FollowRequests.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                    if (documentSnapshot.exists()){
+                                        FollowRequests
+                                                .update(requesting)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("message", "Data has been added successfully");
+                                                        callback.onComplete(true);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("message", "Data already exist");
+                                                        callback.onComplete(false);
+                                                    }
+                                                });
                                     }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("message", "Data already exist");
+                                    else {
+                                        FollowRequests
+                                                .set(requesting)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("message", "Data has been CREATED successfully");
+                                                        callback.onComplete(true);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("message", "Data already exist");
+                                                        callback.onComplete(false);
+                                                    }
+                                                });
                                     }
-                                });
-
-                        callback.onComplete(true);
+                                }
+                            }
+                        });
                     }
                     else {
                         // if other problems exist
@@ -209,23 +236,49 @@ public class FollowController {
                             .collection("Follow")
                             .document("Follower");
                     //create hash map for follower
-                    Map<String, Object> user = new HashMap<>();
-                    user.put(userName, userName);
+                    follower.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                DocumentSnapshot documentSnapshot = task.getResult();
+                                Map<String, Object> user = new HashMap<>();
+                                user.put(userName, userName);
+                                if (documentSnapshot.exists()){
+                                    follower
+                                            .update(user)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d("message", "User has been added to follower");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d("message", "User has failed adding to follower");
+                                                }
+                                            });
+                                }
+                                else{
+                                    follower
+                                            .set(user)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d("message", "User has been added to follower");
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d("message", "User has failed adding to follower");
+                                                }
+                                            });
+                                }
+                            }
+                        }
+                    });
 
-                    follower
-                            .set(user)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d("message", "User has been added to follower");
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("message", "User has failed adding to follower");
-                                }
-                            });
                     // add user into the user following
                     DocumentReference documentReference = db.collection("Members").document(userName);
                     documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -238,22 +291,49 @@ public class FollowController {
                                 DocumentReference Following = documentReference
                                         .collection("Follow")
                                         .document("Following");
-                                Following
-                                        .set(mainUser)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void unused) {
-                                                Log.d("message", "User has been added to Following successfully");
-                                                callback.onComplete(true);
+                                Following.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot documentSnapshot = task.getResult();
+                                            if (documentSnapshot.exists()) {
+                                                Following
+                                                        .update(mainUser)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                Log.d("message", "User has been added to Following successfully");
+                                                                callback.onComplete(true);
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.d("message", "Failed to add User to Following");
+                                                                callback.onComplete(false);
+                                                            }
+                                                        });
+                                            } else {
+                                                Following
+                                                        .set(mainUser)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void unused) {
+                                                                Log.d("message", "User has been added to Following successfully");
+                                                                callback.onComplete(true);
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.d("message", "Failed to add User to Following");
+                                                                callback.onComplete(false);
+                                                            }
+                                                        });
                                             }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.d("message", "Failed to add User to Following");
-                                                callback.onComplete(false);
-                                            }
-                                        });
+                                        }
+                                    }
+                                });
                             }
                             else {
                                 callback.onComplete(false);
