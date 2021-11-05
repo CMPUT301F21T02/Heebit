@@ -24,14 +24,36 @@
             android:layout_weight="1"
             >
 
-            <ImageView
-                android:id="@+id/habit_indicator"
-                android:layout_width="42dp"
-                android:layout_height="33dp"
+            <LinearLayout
+                android:id="@+id/LL_Habit_Indicator"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_gravity="center_vertical"
-                android:paddingStart="5dp"
-                android:paddingEnd="5dp"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
+                android:backgroundTint="@color/LightSteelBlue"
+                android:background="@drawable/progress_40">
+                <TextView
+                    android:id="@+id/habit_content_habit_level"
+                    android:layout_width="41dp"
+                    android:layout_height="41dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:paddingStart="2dp"
+                    android:paddingEnd="2dp"
+                    android:text="Lv10"
+                    android:maxLines="1"
+                    android:shadowDx="3"
+                    android:shadowDy="3"
+                    android:shadowRadius="4"
+                    android:shadowColor="@color/DarkSlateGray"
+                    android:textColor="@color/LightSalmon"
+                    android:textSize="13sp"
+                    android:textStyle="bold">
+                </TextView>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/habit_text"
