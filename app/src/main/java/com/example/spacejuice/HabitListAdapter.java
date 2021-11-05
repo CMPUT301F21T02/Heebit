@@ -103,7 +103,6 @@ public class HabitListAdapter extends ArrayAdapter {
         row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToHabitDetails);
 
 
-
         if (items.get(position).isToday()) {
             checkBox.setVisibility(View.VISIBLE);
             if (items.get(position).completedToday()) {
@@ -112,29 +111,31 @@ public class HabitListAdapter extends ArrayAdapter {
             } else {
                 checkBox.setChecked(false);
                 checkBox.setClickable(true);
-            }
 
-            checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (((CompoundButton) view).isChecked()) {
-                        checkBox.setClickable(false);
-                        ActivityResultLauncher<String> launch;
-                        MediaPlayer song = MediaPlayer.create(context, R.raw.click);
-                        song.start();
-                        ActivityResultLauncher<String> launchEdit;
-                        OverviewActivity inst = (OverviewActivity) context;
-                        inst.launchAddNewEvent(items.get(position).getUid());
-                    } else {
-                        Log.d("debugInfo", "item attempted to be unchecked");
-                        checkBox.setChecked(true);
+
+                checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (((CompoundButton) view).isChecked()) {
+                            checkBox.setClickable(false);
+                            ActivityResultLauncher<String> launch;
+                            MediaPlayer song = MediaPlayer.create(context, R.raw.click);
+                            song.start();
+                            ActivityResultLauncher<String> launchEdit;
+                            OverviewActivity inst = (OverviewActivity) context;
+                            inst.launchAddNewEvent(items.get(position).getUid());
+                        } else {
+                            Log.d("debugInfo", "item attempted to be unchecked");
+                            checkBox.setChecked(true);
+                        }
                     }
-                }
-            });
+                });
+            }
         } else {
             // remove the checkbox if the habit is not scheduled for today
             checkBox.setVisibility(View.INVISIBLE);
             checkBox.setClickable(false);
+
         }
         return row;
     }
