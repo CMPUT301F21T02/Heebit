@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -39,33 +40,28 @@ public class FollowController {
                     DocumentSnapshot document = task.getResult();
                     // if this name exist
                     if (document.exists()) {
-                        HashMap<String, Object> builder = new HashMap<>();
+                        HashMap<String, Object> requesting = new HashMap<>();
                         //add the user to the Requests list
-                        builder.put("NONE", "NONE");
+                        requesting.put(MainActivity.getUser().getMemberName(), MainActivity.getUser().getMemberName());
                         DocumentReference FollowRequests = documentReference
-                                .collection("FollowRequests")
-                                .document(MainActivity.getUser().getMemberName());
+                                .collection("Follow")
+                                .document("Requests");
 
                         FollowRequests
-                                .set(builder)
+                                .set(requesting)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
                                         Log.d("message", "Data has been added successfully");
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("message", "Data already exist");
                                     }
                                 });
 
-                        MainActivity.getUser().getFollow().newRequest(userName);
-                        DocumentReference FollowRequesting = db.collection("Members").document(MainActivity.getUser().getMemberName())
-                                .collection("FollowRequesting").document(userName);
-                        FollowRequesting
-                                .set(builder)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d("message", "Data has been added successfully");
-                                    }
-                                });
                         callback.onComplete(true);
                     }
                     else {
