@@ -5,6 +5,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -12,8 +14,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
+import com.example.spacejuice.controller.FollowController;
+import com.example.spacejuice.controller.HabitController;
+import com.example.spacejuice.controller.LoginController;
 
 import java.util.ArrayList;
 
@@ -21,10 +27,13 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    /*
    This Activity is used to display all my pending incoming follow requests
     */
-   public ImageButton back_button;
-   ListView followerList;
-   FollowRequestAdapter followRequestAdapter;
-   ArrayList<Member> requestingMembers;
+   private ImageButton back_button;
+   private ListView followerList;
+   private FollowRequestAdapter followRequestAdapter;
+   private ArrayList<Member> requestingMembers;
+   private EditText requestName;
+   private Button send;
+   FollowController followController;
 
 
    @Override
@@ -35,14 +44,31 @@ public class FollowerRequestsActivity extends AppCompatActivity {
       back_button = findViewById(R.id.backButtonFollowerRequests);
 
       followerList = findViewById(R.id.followersList);
-
+      followController = new FollowController();
       requestingMembers = new ArrayList<>();
+      followController.getRequests(new LoginController.OnCompleteCallback() {
+         @Override
+         public void onComplete(boolean suc) {
+            if (suc){
+               ArrayList<String> list = MainActivity.getUser().getFollow().getRequests();
+               for (int i = 0; i < list.size(); i++){
+                  requestingMembers.add(new Member(list.get(i)));
+               }
+               followRequestAdapter = new FollowRequestAdapter(FollowerRequestsActivity.this, R.layout.follow_request_content, requestingMembers);
+               followerList.setAdapter(followRequestAdapter);
+            }
+            else{
+               requestingMembers.add(new Member("Heeba"));
+               requestingMembers.add(new Member("Xuanhao"));
+               requestingMembers.add(new Member("Harish"));
+               requestingMembers.add(new Member("LemonJuice"));
+               requestingMembers.add(new Member("Yuchen"));
+               followRequestAdapter = new FollowRequestAdapter(FollowerRequestsActivity.this, R.layout.follow_request_content, requestingMembers);
+               followerList.setAdapter(followRequestAdapter);
+            }
+         }
+      });
 
-      requestingMembers.add(new Member("Heeba"));
-      requestingMembers.add(new Member("Xuanhao"));
-      requestingMembers.add(new Member("Harish"));
-      requestingMembers.add(new Member("LemonJuice"));
-      requestingMembers.add(new Member("Yuchen"));
 
       followRequestAdapter = new FollowRequestAdapter(this, R.layout.follow_request_content, requestingMembers);
       followerList.setAdapter(followRequestAdapter);
@@ -51,6 +77,27 @@ public class FollowerRequestsActivity extends AppCompatActivity {
          @Override
          public void onClick(View v) {
             finish();
+         }
+      });
+      requestName = findViewById(R.id.requestingName);
+      send = findViewById(R.id.sendRequestButton);
+      send.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            FollowController followController = new FollowController();
+            followController.sendRequest(requestName.getText().toString(), new LoginController.OnCompleteCallback() {
+               @Override
+               public void onComplete(boolean suc) {
+                  //MainActivity.setUser(member);
+                  if (suc) {
+                     Toast.makeText(FollowerRequestsActivity.this, "Sent request successfully!", Toast.LENGTH_SHORT).show();
+                  } else {
+                     Toast.makeText(FollowerRequestsActivity.this, "No such user exists!",
+                             Toast.LENGTH_SHORT).show();
+                  }
+               }
+            });
+
          }
       });
    }
