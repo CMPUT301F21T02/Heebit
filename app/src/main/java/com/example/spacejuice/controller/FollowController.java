@@ -41,7 +41,7 @@ public class FollowController {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     // if this name exist
-                    if (document.exists()) {
+                    if (document.exists() && !userName.equals(MainActivity.getUser().getMemberName())) {
                         HashMap<String, Object> requesting = new HashMap<>();
                         //add the user to the Requests list
                         requesting.put(MainActivity.getUser().getMemberName(), MainActivity.getUser().getMemberName());
