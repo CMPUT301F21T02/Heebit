@@ -1,7 +1,10 @@
 package com.example.spacejuice.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -57,10 +60,25 @@ public class FollowingActivity extends AppCompatActivity {
             }
         });
 
+        listViewListener();
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+    }
+
+    private void listViewListener(){
+        Context context = this;
+        followListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(context, MemberProfileActivity.class);
+                Member member = followList.get(i);
+                String name = member.getMemberName();
+                intent.putExtra("Member Name", name);
+                startActivity(intent);
             }
         });
     }
