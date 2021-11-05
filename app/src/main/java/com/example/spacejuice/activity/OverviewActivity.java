@@ -26,10 +26,11 @@ import java.util.ArrayList;
 
 public class OverviewActivity extends AppCompatActivity {
 
-    Button go_to_all_habits_button;
     ImageButton profile_imagebutton;
     ImageButton add_habit_imagebutton;
     ActivityResultLauncher<Intent> editLaunch;
+    Boolean filterToday = true;
+    Button today_all_toggle;
     ArrayList<Habit> habitListItems;
     ArrayList<Habit> today_habit_items;
     /*
@@ -37,7 +38,7 @@ public class OverviewActivity extends AppCompatActivity {
     and various menus
      */
     public ListView today_habit_list;
-    public ArrayAdapter<Habit> habitAdapter;
+    public HabitListAdapter habitAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,17 +58,19 @@ public class OverviewActivity extends AppCompatActivity {
 
         profile_imagebutton = findViewById(R.id.profile_imagebutton);
         add_habit_imagebutton = findViewById(R.id.add_habit_imagebutton);
-        go_to_all_habits_button = (Button) findViewById(R.id.all_habits_button);
+        today_all_toggle = findViewById(R.id.list_toggle_button_switch);
         today_habit_list = findViewById(R.id.overview_habit_listview);
+
         refreshData();
 
         int score = MainActivity.getUser().getScore();
         Log.d("debugInfo", "From OverviewActivity - user score = " + score);
 
-        go_to_all_habits_button.setOnClickListener(new View.OnClickListener() {
+        today_all_toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAllHabitsActivity();
+                filterToday = !filterToday;
+                refreshData();
             }
         });
 
@@ -119,12 +122,22 @@ public class OverviewActivity extends AppCompatActivity {
     public void refreshData() {
         /* updates the list of Habits */
         habitListItems = HabitController.getHabitListItems();
-        populateTodayItems();
-        this.habitAdapter = new HabitListAdapter(this, R.layout.overview_habit_content, today_habit_items);
-        Log.d("debugInfo", "today's habit list updated");
-        Log.d("debugInfo", "today size: " + today_habit_items.size());
-        this.today_habit_list.setAdapter(habitAdapter);
-        this.habitAdapter.notifyDataSetChanged();
+        if (filterToday) {
+            today_all_toggle.setText("Today's");
+            populateTodayItems();
+            this.habitAdapter = new HabitListAdapter(this, R.layout.overview_habit_content, today_habit_items);
+            Log.d("debugInfo", "today's habit list updated");
+            Log.d("debugInfo", "today size: " + today_habit_items.size());
+            this.today_habit_list.setAdapter(habitAdapter);
+            this.habitAdapter.notifyDataSetChanged();
+        } else {
+            /* updates the list of Habits */
+            today_all_toggle.setText("All");
+            this.habitAdapter = new HabitListAdapter(this, R.layout.overview_habit_content, habitListItems);
+            this.today_habit_list.setAdapter(habitAdapter);
+            habitAdapter.notifyDataSetChanged();
+
+        }
 
 
     }
