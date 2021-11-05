@@ -16,6 +16,8 @@ import com.example.spacejuice.FollowingList;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
+import com.example.spacejuice.controller.FollowController;
+import com.example.spacejuice.controller.LoginController;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,11 +32,11 @@ public class FollowersActivity extends AppCompatActivity {
     This Activity is used to display who I am following
      */
     private ImageButton backButton;
-    ListView followListView;
-    ArrayAdapter<Member> followAdapter;
-    ArrayList<Member> followList;
-    TextView text;  // To change "following" to "followers"
-    FirebaseFirestore db;
+    private ListView followListView;
+    private ArrayAdapter<Member> followAdapter;
+    private ArrayList<Member> followList;
+    private FollowController followController;
+    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,35 +44,26 @@ public class FollowersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.following_activity);
 
-        String username = MainActivity.getUser().getMemberName();
-
-        db = FirebaseFirestore.getInstance();
-        final CollectionReference collectionReference = db.collection("Members")
-                .document(username)
-                .collection("Followers");
 
         backButton = findViewById(R.id.backButtonFA);
         followListView = findViewById(R.id.listOfFollowingFA);
         followList = new ArrayList<>();
         text = findViewById(R.id.textViewFA);
         text.setText("Followers");
-
-        collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        followController = new FollowController();
+        followController.getFollower(new LoginController.OnCompleteCallback() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable
-                    FirebaseFirestoreException error) {
-                followList.clear();
-                for(QueryDocumentSnapshot doc: queryDocumentSnapshots)
-                {
-                    String followMember = doc.getId();
-                    followList.add(new Member(followMember)); // Adding the cities and provinces from FireStore
+            public void onComplete(boolean suc) {
+                if (suc){
+                    ArrayList<String> list = MainActivity.getUser().getFollow().getFollowers();
+                    for (int i = 0; i < list.size(); i++){
+                        followList.add(new Member(list.get(i)));
+                    }
                 }
-                followAdapter.notifyDataSetChanged();
+                followAdapter = new FollowingList(FollowersActivity.this, followList);
+                followListView.setAdapter(followAdapter);
             }
         });
-
-        followAdapter = new FollowersList(this, followList);
-        followListView.setAdapter(followAdapter);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
