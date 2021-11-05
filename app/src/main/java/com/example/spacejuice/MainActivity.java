@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
         overridePendingTransition(0,0);
         getUser().setScore(5);
