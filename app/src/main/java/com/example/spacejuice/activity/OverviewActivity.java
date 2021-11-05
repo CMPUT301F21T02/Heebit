@@ -29,6 +29,7 @@ public class OverviewActivity extends AppCompatActivity {
     ImageButton profile_imagebutton;
     ImageButton add_habit_imagebutton;
     ActivityResultLauncher<Intent> editLaunch;
+    ActivityResultLauncher<Intent> addEventLaunch;
     Boolean filterToday = true;
     Button today_all_toggle;
     ArrayList<Habit> habitListItems;
@@ -44,6 +45,17 @@ public class OverviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today_habits);
+
+        addEventLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        Log.d("debugInfo", "result code: " + result.getResultCode());
+
+                        refreshData();
+
+                    }
+                });
 
         editLaunch = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -106,6 +118,12 @@ public class OverviewActivity extends AppCompatActivity {
         Intent intent = new Intent(OverviewActivity.this, HabitDetailsActivity.class);
         intent.putExtra("habitUid", clickedUid);
         editLaunch.launch(intent);
+    }
+
+    public void launchAddNewEvent(int clickedUid) {
+        Intent intent = new Intent(OverviewActivity.this, AddHabitEventActivity.class);
+        intent.putExtra("habitUid", clickedUid);
+        addEventLaunch.launch(intent);
     }
 
     public void populateTodayItems() {

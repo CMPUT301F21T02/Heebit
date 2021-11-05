@@ -92,6 +92,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
                 event.setDone(true);
                 event.setDescription(edit_text_description.getText().toString());
                 HabitEventController.addHabitEvent(currentHabit, event);
+                currentHabit.getIndicator().increase();
 
                 MediaPlayer song = MediaPlayer.create(AddHabitEventActivity.this, R.raw.stamp);
                 song.start();
