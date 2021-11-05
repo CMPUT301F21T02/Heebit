@@ -8,28 +8,41 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.example.spacejuice.activity.AllHabitsActivity;
+import com.example.spacejuice.activity.GooglePlayNotFoundError;
 import com.example.spacejuice.activity.LoginActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 import com.example.spacejuice.activity.WelcomeActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 3;
     public static Member user; // this is the Member instance for the app user
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        Intent intent = new Intent(this, WelcomeActivity.class);
-        startActivity(intent);
-        overridePendingTransition(0,0);
-        getUser().setScore(5);
-        Log.d("debugInfo", "user score set to 5");
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (!checkPlayServices()) {
+            Log.d("debugInfo", "PLAY SERVICES FALSE");
+            setContentView(R.layout.google_play_not_found);
+            Intent intent = new Intent(this, GooglePlayNotFoundError.class);
+            startActivity(intent);
+        } else {
+            setContentView(R.layout.activity_welcome);
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            getUser().setScore(5);
+            Log.d("debugInfo", "user score set to 5");
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+        }
     }
 
     /*
@@ -43,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return user;
     }
-    public static void setUser(Member new_user){
+
+    public static void setUser(Member new_user) {
         user = new_user;
         user.initTestData();
     }
@@ -57,8 +71,22 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    public void testFunction() {
-        Log.d("debugInfo", "testFunction() was run.");
+
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability gApi = GoogleApiAvailability.getInstance();
+        int resultCode = gApi.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (gApi.isUserResolvableError(resultCode)) {
+                gApi.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Toast.makeText(this, getResources().getString(R.string.toast_playservices_unrecoverable),
+                        Toast.LENGTH_LONG).show();
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
 }

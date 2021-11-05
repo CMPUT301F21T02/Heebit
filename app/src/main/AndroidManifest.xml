@@ -24,6 +24,9 @@
             android:name=".activity.LoginActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.GooglePlayNotFoundError"
+            android:exported="true" />
+        <activity
             android:name=".activity.AllHabitsActivity"
             android:exported="true"
             android:label="@string/title_all_habits" />
