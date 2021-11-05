@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
+import com.example.spacejuice.controller.FollowController;
+import com.example.spacejuice.controller.LoginController;
 
 public class MyProfileActivity extends AppCompatActivity {
    /*
@@ -31,6 +33,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private TextView followersCount;
     private TextView followersText;
+    private FollowController followController;
 
   
 
@@ -50,6 +53,22 @@ public class MyProfileActivity extends AppCompatActivity {
        followingText = findViewById(R.id.following);
        followersCount = findViewById(R.id.followersCount);
        followersText = findViewById(R.id.followers);
+       followController = new FollowController();
+
+       followController.getFollower(new LoginController.OnCompleteCallback() {
+           @Override
+           public void onComplete(boolean suc) {
+               followersCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowers().size()));
+
+           }
+       });
+
+       followController.getFollowing(new LoginController.OnCompleteCallback() {
+           @Override
+           public void onComplete(boolean suc) {
+               followingCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowings().size()));
+           }
+       });
 
        user_name.setText(MainActivity.getUser().getMemberName());
        go_to_requests.setOnClickListener(new View.OnClickListener() {
