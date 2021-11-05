@@ -15,8 +15,23 @@ public class Follow {
     public void setRequests(ArrayList<String> r){
         this.Requests = r;
     }
+    public void setFollowers(ArrayList<String> r){
+        this.followers = r;
+    }
+
+    public void setFollowings(ArrayList<String> r){
+        this.followings = r;
+    }
 
     public ArrayList<String> getRequests() {
         return Requests;
+    }
+
+    public ArrayList<String> getFollowers(){
+        return followers;
+    }
+
+    public ArrayList<String> getFollowings(){
+        return followings;
     }
 }

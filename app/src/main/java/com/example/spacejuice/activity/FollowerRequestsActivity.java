@@ -33,7 +33,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    private ArrayList<Member> requestingMembers;
    private EditText requestName;
    private Button send;
-   FollowController followController;
+   private FollowController followController;
 
 
    @Override

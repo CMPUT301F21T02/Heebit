@@ -113,6 +113,78 @@ public class FollowController {
     }
 
     /**
+     * Update follower to local
+     * @param callback
+     */
+    public void getFollower(final LoginController.OnCompleteCallback callback){
+        DocumentReference documentReference = db
+                .collection("Members")
+                .document(MainActivity.getUser().getMemberName());
+        DocumentReference Follower = documentReference
+                .collection("Follow")
+                .document("Follower");
+        Follower.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                        ArrayList<String> list = new ArrayList<>();
+                        Map<String, Object> map = document.getData();
+                        if (map != null){
+                            for (Map.Entry<String, Object> entry : map.entrySet()){
+                                list.add(entry.getValue().toString());
+                                Log.d("follower", "add "+entry.getValue().toString());
+                            }
+                        }
+                        MainActivity.getUser().getFollow().setFollowers(list);
+                        callback.onComplete(true);
+                    }
+                    else{
+                        callback.onComplete(false);
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Update following to local
+     * @param callback
+     */
+    public void getFollowing(final LoginController.OnCompleteCallback callback){
+        DocumentReference documentReference = db
+                .collection("Members")
+                .document(MainActivity.getUser().getMemberName());
+        DocumentReference Following = documentReference
+                .collection("Follow")
+                .document("Following");
+        Following.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                        ArrayList<String> list = new ArrayList<>();
+                        Map<String, Object> map = document.getData();
+                        if (map != null){
+                            for (Map.Entry<String, Object> entry : map.entrySet()){
+                                list.add(entry.getValue().toString());
+                                Log.d("follower", "add "+entry.getValue().toString());
+                            }
+                        }
+                        MainActivity.getUser().getFollow().setFollowings(list);
+                        callback.onComplete(true);
+                    }
+                    else{
+                        callback.onComplete(false);
+                    }
+                }
+            }
+        });
+    }
+
+    /**
      * Accept or deny a follow request
      * @param userName  the user name you want to accept/delete
      * @param accept    accept or deny
