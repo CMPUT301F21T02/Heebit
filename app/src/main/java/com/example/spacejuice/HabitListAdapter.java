@@ -87,6 +87,9 @@ public class HabitListAdapter extends ArrayAdapter {
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + items.get(position).getUid());
                 ActivityResultLauncher<String> launchEdit;
+
+                items.get(position).completedToday(); //test
+
                 if (context.getClass() == OverviewActivity.class) {
                     OverviewActivity inst = (OverviewActivity) context;
                     inst.launchHabitDetails(items.get(position).getUid());
@@ -99,24 +102,29 @@ public class HabitListAdapter extends ArrayAdapter {
 
         row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToHabitDetails);
 
-        if (checkBox.isChecked()) {
-            checkBox.setClickable(false);
-        }
+
 
         if (items.get(position).isToday()) {
             checkBox.setVisibility(View.VISIBLE);
-            checkBox.setClickable(true);
+            if (items.get(position).completedToday()) {
+                checkBox.setChecked(true);
+                checkBox.setClickable(false);
+            } else {
+                checkBox.setChecked(false);
+                checkBox.setClickable(true);
+            }
+
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (((CompoundButton) view).isChecked()) {
                         checkBox.setClickable(false);
+                        ActivityResultLauncher<String> launch;
                         MediaPlayer song = MediaPlayer.create(context, R.raw.click);
                         song.start();
-                        Intent intent = new Intent(context, AddHabitEventActivity.class);
-                        intent.putExtra("habitUid", items.get(position).getUid());
-                        context.startActivity(intent);
-
+                        ActivityResultLauncher<String> launchEdit;
+                        OverviewActivity inst = (OverviewActivity) context;
+                        inst.launchAddNewEvent(items.get(position).getUid());
                     } else {
                         Log.d("debugInfo", "item attempted to be unchecked");
                         checkBox.setChecked(true);

@@ -8,8 +8,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
 /**
-    This is a class to represent a habit.
+ * This is a class to represent a habit.
  */
 public class Habit implements Serializable {
     private static int TITLE_LENGTH = 20;
@@ -24,9 +25,10 @@ public class Habit implements Serializable {
 
     /**
      * The constructor use for create a new habit
-     * @param title The title for the habit
-     * @param reason    The reason for the habit
-     * @param iLevel    The current level of the habit
+     *
+     * @param title  The title for the habit
+     * @param reason The reason for the habit
+     * @param iLevel The current level of the habit
      */
     public Habit(String title, String reason, int xp) {
         setTitle(title);
@@ -40,40 +42,49 @@ public class Habit implements Serializable {
         this.events = new ArrayList<HabitEvent>();
         this.uid = -1;
     }
+
     /**
      * Set schedule for the habit
+     *
      * @param s the schedule set to the habit
      */
-    public void setSchedule(Schedule s){
+    public void setSchedule(Schedule s) {
         this.schedule = s;
     }
 
     /**
      * Set title for the habit
+     *
      * @param s the title set to the habit
      */
     public void setTitle(String s) {
         int l = s.length();
-        if (l > TITLE_LENGTH) { l = TITLE_LENGTH; }
-        this.title = s.substring(0,l);
+        if (l > TITLE_LENGTH) {
+            l = TITLE_LENGTH;
+        }
+        this.title = s.substring(0, l);
         Log.d("debugInfo", "title set to " + this.title);
     }
 
     /**
      * Set reason for the habit
+     *
      * @param s the reason set to the habit
      */
 
     public void setReason(String s) {
         int l = s.length();
-        if (l > REASON_LENGTH) { l = REASON_LENGTH; }
-        this.reason = s.substring(0,l);
+        if (l > REASON_LENGTH) {
+            l = REASON_LENGTH;
+        }
+        this.reason = s.substring(0, l);
         Log.d("debugInfo", "reason set to " + this.reason);
     }
 
     /**
      * Set indicator for the habit
-     * @param xp    The experience(xp) of the habit use to generate the indicator
+     *
+     * @param xp The experience(xp) of the habit use to generate the indicator
      */
     public void setIndicator(int xp) {
 
@@ -82,6 +93,7 @@ public class Habit implements Serializable {
 
     /**
      * Set the start date for habit
+     *
      * @param d The start date set to the habit
      */
     public void setStartDate(Date d) {
@@ -90,6 +102,7 @@ public class Habit implements Serializable {
 
     /**
      * This return the title of the habit
+     *
      * @return Return the title of the habit
      */
     public String getTitle() {
@@ -98,6 +111,7 @@ public class Habit implements Serializable {
 
     /**
      * This return the reason/description of the habit
+     *
      * @return Return the reason of the habit
      */
     public String getReason() {
@@ -106,13 +120,17 @@ public class Habit implements Serializable {
 
     /**
      * This return the indicator of the habit
+     *
      * @return this.indicator   The indicator of the habit
      */
-    public Indicator getIndicator() { return this.indicator; }
+    public Indicator getIndicator() {
+        return this.indicator;
+    }
 
     /**
      * This return the start date of the habit
-     * @return  Return the start date of the habit
+     *
+     * @return Return the start date of the habit
      */
     public Date getStartDate() {
         return this.startDate;
@@ -120,7 +138,8 @@ public class Habit implements Serializable {
 
     /**
      * This transfer habit into a string
-     * @return  Return the title of the habit
+     *
+     * @return Return the title of the habit
      */
     @Override
     public String toString() {
@@ -129,7 +148,8 @@ public class Habit implements Serializable {
 
     /**
      * This return the schedule of the habit
-     * @return  Return the schedule of the habit
+     *
+     * @return Return the schedule of the habit
      */
     public Schedule getSchedule() {
         return this.schedule;
@@ -137,7 +157,8 @@ public class Habit implements Serializable {
 
     /**
      * Check if this habit needs to do today according to the schedule
-     * @return  Return true if the habit is schedule for the current day of the week
+     *
+     * @return Return true if the habit is schedule for the current day of the week
      */
 
     public Boolean isToday() {
@@ -149,31 +170,45 @@ public class Habit implements Serializable {
             case Calendar.SUNDAY:
                 if (schedule.Sun()) {
                     return true;
-                } else { return false; }
+                } else {
+                    return false;
+                }
             case Calendar.MONDAY:
                 if (schedule.Mon()) {
                     return true;
-                } else { return false; }
+                } else {
+                    return false;
+                }
             case Calendar.TUESDAY:
                 if (schedule.Tue()) {
                     return true;
-                } else { return false; }
+                } else {
+                    return false;
+                }
             case Calendar.WEDNESDAY:
                 if (schedule.Wed()) {
                     return true;
-                } else { return false; }
+                } else {
+                    return false;
+                }
             case Calendar.THURSDAY:
                 if (schedule.Thu()) {
                     return true;
-                } else { return false; }
+                } else {
+                    return false;
+                }
             case Calendar.FRIDAY:
                 if (schedule.Fri()) {
                     return true;
-                } else { return false; }
+                } else {
+                    return false;
+                }
             case Calendar.SATURDAY:
                 if (schedule.Sat()) {
                     return true;
-                } else { return false; }
+                } else {
+                    return false;
+                }
         }
         return false;
     }
@@ -201,7 +236,8 @@ public class Habit implements Serializable {
 
     /**
      * This returns all events of the habit
-     * @return  return a list of events of the habit
+     *
+     * @return return a list of events of the habit
      */
     public ArrayList<HabitEvent> getEvents() {
         return this.events;
@@ -209,7 +245,8 @@ public class Habit implements Serializable {
 
     /**
      * Add a habit event to the habit
-     * @param habitEvent    a habit event
+     *
+     * @param habitEvent a habit event
      */
     public void addEvent(HabitEvent habitEvent) {
         this.events.add(habitEvent);
@@ -224,7 +261,8 @@ public class Habit implements Serializable {
 
     /**
      * Force to manually set the unique id for the habit
-     * @param uidVal    unique id
+     *
+     * @param uidVal unique id
      */
     public void forceUid(int uidVal) {
         /* assigns the uid of the habit to the provided value */
@@ -234,7 +272,8 @@ public class Habit implements Serializable {
 
     /**
      * This returns the unique id of habit
-     * @return  Returns the unique id of the habit
+     *
+     * @return Returns the unique id of the habit
      */
     public int getUid() {
         return this.uid;
@@ -242,10 +281,42 @@ public class Habit implements Serializable {
 
     /**
      * This returns the unique id of the habit in long
-     * @return  Returns the unique id in long
+     *
+     * @return Returns the unique id in long
      */
     public long getUidLong() {
         long uidLong = this.uid;
         return uidLong;
+    }
+
+    /**
+     * This returns the last event in the list of events attached to this habit
+     *
+     * @return Returns the HabitEvent (or null if no events are found)
+     */
+
+    public HabitEvent getLastEvent() {
+        if (events.size() == 0) {
+            return null;
+        }
+        return events.get(events.size() - 1);
+    }
+
+    public Boolean completedToday() {
+        HabitEvent lastEvent = getLastEvent();
+        if (lastEvent == null) {
+            return false;
+        }
+
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+        Date eventDate = getLastEvent().getDate();
+        currentDate.setTime(eventDate.getTime());
+        if (currentDate.getTime() == eventDate.getTime()) {
+            Log.d("debugInfo", getTitle() + " was completed today");
+            return true;
+        }
+        Log.d("debugInfo", "currentDate: " + currentDate + "  eventDate: " + eventDate);
+        return false;
     }
 }
