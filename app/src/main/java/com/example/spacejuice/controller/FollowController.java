@@ -48,23 +48,50 @@ public class FollowController {
                         DocumentReference FollowRequests = documentReference
                                 .collection("Follow")
                                 .document("Requests");
-
-                        FollowRequests
-                                .set(requesting)
-                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Log.d("message", "Data has been added successfully");
+                        FollowRequests.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+                                    if (documentSnapshot.exists()){
+                                        FollowRequests
+                                                .update(requesting)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("message", "Data has been added successfully");
+                                                        callback.onComplete(true);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("message", "Data already exist");
+                                                        callback.onComplete(false);
+                                                    }
+                                                });
                                     }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("message", "Data already exist");
+                                    else {
+                                        FollowRequests
+                                                .set(requesting)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.d("message", "Data has been CREATED successfully");
+                                                        callback.onComplete(true);
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("message", "Data already exist");
+                                                        callback.onComplete(false);
+                                                    }
+                                                });
                                     }
-                                });
-
-                        callback.onComplete(true);
+                                }
+                            }
+                        });
                     }
                     else {
                         // if other problems exist
