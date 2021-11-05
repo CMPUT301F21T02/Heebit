@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -107,6 +108,92 @@ public class FollowController {
                         callback.onComplete(false);
                     }
                 }
+            }
+        });
+    }
+
+    /**
+     * Accept or deny a follow request
+     * @param userName  the user name you want to accept/delete
+     * @param accept    accept or deny
+     */
+    public void responseRequest(String userName, boolean accept, final LoginController.OnCompleteCallback callback){
+        DocumentReference documentReference = db
+                .collection("Members")
+                .document(MainActivity.getUser().getMemberName());
+        DocumentReference Requests = documentReference
+                .collection("Follow")
+                .document("Requests");
+        //Remove the user from the request
+        Map<String, Object> delete = new HashMap<>();
+        delete.put(userName, FieldValue.delete()); // make the deleting hashmap
+
+        Requests.update(delete).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(accept){
+                    //after delete, add the user into the follower
+                    DocumentReference follower = documentReference
+                            .collection("Follow")
+                            .document("Follower");
+                    //create hash map for follower
+                    Map<String, Object> user = new HashMap<>();
+                    user.put(userName, userName);
+
+                    follower
+                            .set(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Log.d("message", "User has been added to follower");
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("message", "User has failed adding to follower");
+                                }
+                            });
+                    // add user into the user following
+                    DocumentReference documentReference = db.collection("Members").document(userName);
+                    documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                HashMap<String, Object> mainUser = new HashMap<>();
+                                mainUser.put(MainActivity.getUser().getMemberName(), MainActivity.getUser().getMemberName());
+                                DocumentReference Following = documentReference
+                                        .collection("Follow")
+                                        .document("Following");
+                                Following
+                                        .set(mainUser)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d("message", "User has been added to Following successfully");
+                                                callback.onComplete(true);
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("message", "Failed to add User to Following");
+                                                callback.onComplete(false);
+                                            }
+                                        });
+                            }
+                            else {
+                                callback.onComplete(false);
+                            }
+                        }
+                    });
+
+                }
+                else{
+                    callback.onComplete(false);
+                }
+
             }
         });
     }
