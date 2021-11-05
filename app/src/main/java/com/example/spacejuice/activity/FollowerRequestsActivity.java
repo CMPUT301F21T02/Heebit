@@ -33,7 +33,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    private ArrayList<Member> requestingMembers;
    private EditText requestName;
    private Button send;
-   FollowController followController;
+   private FollowController followController;
 
 
    @Override
@@ -58,11 +58,6 @@ public class FollowerRequestsActivity extends AppCompatActivity {
                followerList.setAdapter(followRequestAdapter);
             }
             else{
-               requestingMembers.add(new Member("Heeba"));
-               requestingMembers.add(new Member("Xuanhao"));
-               requestingMembers.add(new Member("Harish"));
-               requestingMembers.add(new Member("LemonJuice"));
-               requestingMembers.add(new Member("Yuchen"));
                followRequestAdapter = new FollowRequestAdapter(FollowerRequestsActivity.this, R.layout.follow_request_content, requestingMembers);
                followerList.setAdapter(followRequestAdapter);
             }
@@ -106,28 +101,38 @@ public class FollowerRequestsActivity extends AppCompatActivity {
 
       Context context = getApplicationContext();
       String memName = requestingMembers.get(position).getMemberName();
-      CharSequence text = memName + " is now following you";
-      int duration = Toast.LENGTH_SHORT;
-      MediaPlayer song = MediaPlayer.create(context, R.raw.pop);
-      song.start();
+      followController.responseRequest(memName, true, new LoginController.OnCompleteCallback() {
+         @Override
+         public void onComplete(boolean suc) {
+            CharSequence text = memName + " is now following you";
+            int duration = Toast.LENGTH_SHORT;
+            MediaPlayer song = MediaPlayer.create(context, R.raw.pop);
+            song.start();
 
-      Toast toast = Toast.makeText(context, text, duration);
-      toast.show();
-      requestingMembers.remove(position);
-      Log.d("debugInfo", "acceptFollowRequest run at position " + position);
-      followRequestAdapter.notifyDataSetChanged();
-
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            requestingMembers.remove(position);
+            Log.d("debugInfo", "acceptFollowRequest run at position " + position);
+            followRequestAdapter.notifyDataSetChanged();
+         }
+      });
    }
 
    public void denyFollowRequest(int position) {
-      requestingMembers.remove(position);
+      String memName = requestingMembers.get(position).getMemberName();
       Context context = getApplicationContext();
+      followController.responseRequest(memName, false, new LoginController.OnCompleteCallback() {
+         @Override
+         public void onComplete(boolean suc) {
+            requestingMembers.remove(position);
+            MediaPlayer song = MediaPlayer.create(context, R.raw.pop2);
+            song.start();
 
-      MediaPlayer song = MediaPlayer.create(context, R.raw.pop2);
-      song.start();
+            Log.d("debugInfo", "denyFollowRequest run at position " + position);
+            followRequestAdapter.notifyDataSetChanged();
+         }
+      });
 
-      Log.d("debugInfo", "denyFollowRequest run at position " + position);
-      followRequestAdapter.notifyDataSetChanged();
    }
 
 
