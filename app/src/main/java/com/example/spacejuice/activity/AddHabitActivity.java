@@ -45,6 +45,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
     private Date date;
     private Schedule schedule;
     private Habit habitReturn;
+    private CheckBox habitPrivate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,11 +75,13 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 Friday = findViewById(R.id.Friday);
                 Saturday = findViewById(R.id.Saturday);
                 Sunday = findViewById(R.id.Sunday);
+                habitPrivate = findViewById(R.id.private_checkbox);
                 schedule = new Schedule(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
                         Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
                 habitReturn = new Habit(name, reason, -1);
                 habitReturn.setStartDate(date);
                 habitReturn.setSchedule(schedule);
+                habitReturn.setPrivacy(habitPrivate.isChecked());
                 HabitController.addHabit(habitReturn);
                 Intent resultIntent = new Intent();
                 setResult(Activity.RESULT_OK, resultIntent);

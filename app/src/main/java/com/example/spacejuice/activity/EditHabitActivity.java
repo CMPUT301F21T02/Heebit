@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.transition.Scene;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -56,6 +58,7 @@ This Activity is used to edit a habit
     private Format DateToString;
     private Schedule schedule;
     private Habit habitEditing;
+    private CheckBox habitPrivate;
     private Schedule currentSchedule;
     private Member user;
     @Override
@@ -80,11 +83,19 @@ This Activity is used to edit a habit
         }
         habitEditing = HabitController.getHabitFromUid(habitUid);
 
-        //initializing
+        // modify the "Add a Habit layout for Editing a habit
         title = findViewById(R.id.textViewHAE);
         title.setText("Edit this Habit"); //Set the title into Add a Habit
         LinearLayout dateContainer = findViewById(R.id.LL_DateContainer);
+        ViewGroup.LayoutParams dateContainerParams = dateContainer.getLayoutParams();
+        ViewGroup.MarginLayoutParams dateContainerMargins =
+                (ViewGroup.MarginLayoutParams) dateContainer.getLayoutParams();
+        // change the height and margins of the "set date" container to zero and set it to INVISIBLE
+        dateContainerParams.height = 0;
+        dateContainerMargins.setMargins(0,0,0,0);
         dateContainer.setVisibility(View.INVISIBLE);
+        dateContainer.setLayoutParams(dateContainerParams);
+        dateContainer.setLayoutParams(dateContainerMargins);
 
         backB = findViewById(R.id.backButtonHAE);
         confirmB = findViewById(R.id.confirmButtonHAE);
@@ -115,6 +126,9 @@ This Activity is used to edit a habit
         Saturday.setChecked(currentSchedule.Sat());
         Sunday.setChecked(currentSchedule.Sun());
 
+        habitPrivate = findViewById(R.id.private_checkbox);
+        habitPrivate.setChecked(habitEditing.isPrivate());
+
         DateButton = findViewById(R.id.DateButtonHAE);
         DateButton.setOnClickListener(this);
 
@@ -128,6 +142,7 @@ This Activity is used to edit a habit
                 habitEditing.setStartDate(date);
                 habitEditing.setTitle(name);
                 habitEditing.setReason(description);
+                habitEditing.setPrivacy(habitPrivate.isChecked());
                 habitEditing.getSchedule().changeTo(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
                         Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
                 Log.d("debugInfo", "sending habit uid: " + habitUid + " in for updating");

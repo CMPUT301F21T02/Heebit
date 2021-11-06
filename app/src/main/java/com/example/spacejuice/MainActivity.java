@@ -73,6 +73,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    /**
+     * Checks if Google Play Services is on the device
+     *
+     * @return Boolean
+     */
+     // Source: https://gist.github.com/kristopherjohnson/7554793
     private boolean checkPlayServices() {
         GoogleApiAvailability gApi = GoogleApiAvailability.getInstance();
         int resultCode = gApi.isGooglePlayServicesAvailable(this);
@@ -80,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
             if (gApi.isUserResolvableError(resultCode)) {
                 gApi.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST).show();
             } else {
-                Toast.makeText(this, getResources().getString(R.string.toast_playservices_unrecoverable),
-                        Toast.LENGTH_LONG).show();
-                finish();
             }
             return false;
         }
