@@ -72,8 +72,8 @@ This Activity is used to edit a habit
     private TextView level;
     private ListView habitEventList;
     private LinearLayout indicatorImage;
-    private ArrayList<HabitEvent> habitEventListItems;
-    private HabitEventAdapter habitEventAdapter;
+    private CheckBox isPrivate;
+    private TextView privateTextBox;
     ActivityResultLauncher<Intent> editLaunch;
 
     public HabitDetailsActivity() {
@@ -131,6 +131,9 @@ This Activity is used to edit a habit
         reason = findViewById(R.id.HabitReasonHAE_hd);
         indicatorImage = findViewById(R.id.LL_Indicator);
         level = findViewById(R.id.habit_level);
+        privateTextBox = findViewById(R.id.habit_desc_private_textBox);
+        isPrivate = findViewById(R.id.habit_desc_privacy_checkbox);
+        isPrivate.setClickable(false);
 
          /* date formatting retrieved from
         https://stackoverflow.com/questions/17192776/get-value-of-day-month-from-date-object-in-android
@@ -275,14 +278,27 @@ This Activity is used to edit a habit
         } else {
             Sunday.setVisibility(View.VISIBLE);
         }
-        /* updates the list of Habits */
-        habitEventListItems = HabitController.getHabitEvents(habit);
 
-        this.habitEventAdapter = new HabitEventAdapter(this, R.layout.habit_event_content, habitEventListItems);
+        isPrivate.setChecked(habit.isPrivate());
+        if (habit.isPrivate()) {
+            privateTextBox.setVisibility(View.VISIBLE);
+            isPrivate.setVisibility(View.VISIBLE);
+        } else
+        {
+            privateTextBox.setVisibility(View.INVISIBLE);
+            isPrivate.setVisibility(View.INVISIBLE);
+        }
+
+
+
+        /* updates the list of Habits */
+        ArrayList<HabitEvent> habitEventListItems = HabitController.getHabitEvents(habit);
+
+        HabitEventAdapter habitEventAdapter = new HabitEventAdapter(this, R.layout.habit_event_content, habitEventListItems);
         Log.d("debugInfo", "habit event list updated");
         Log.d("debugInfo", "list size: " + habitEventListItems.size());
         this.habitEventList.setAdapter(habitEventAdapter);
-        this.habitEventAdapter.notifyDataSetChanged();
+        habitEventAdapter.notifyDataSetChanged();
     }
 
 }
