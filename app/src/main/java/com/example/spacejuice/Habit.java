@@ -20,6 +20,7 @@ public class Habit implements Serializable {
     private String reason;
     private Date startDate;
     private Schedule schedule;
+    private Boolean privateHabit = false;
     private int uid; // unique identifier for habit
     private ArrayList<HabitEvent> events;
 
@@ -28,7 +29,7 @@ public class Habit implements Serializable {
      *
      * @param title  The title for the habit
      * @param reason The reason for the habit
-     * @param iLevel The current level of the habit
+     * @param xp The current xp of the habit
      */
     public Habit(String title, String reason, int xp) {
         setTitle(title);
@@ -300,6 +301,14 @@ public class Habit implements Serializable {
             return null;
         }
         return events.get(events.size() - 1);
+    }
+
+    public Boolean isPrivate() {
+        return this.privateHabit;
+    }
+
+    public void setPrivacy(Boolean bool) {
+        this.privateHabit = bool;
     }
 
     public Boolean completedToday() {

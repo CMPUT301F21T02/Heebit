@@ -123,8 +123,13 @@ public class HabitController {
                     Boolean thu = doc.getBoolean("Thu");
                     Boolean fri = doc.getBoolean("Fri");
                     Boolean sat = doc.getBoolean("Sat");
+                    Boolean privateHabit = doc.getBoolean("PrivateHabit");
                     int uid = Integer.valueOf(doc.get("ID").toString());
                     habit.getSchedule().changeTo(sun, mon, tue, wed, thu, fri, sat);
+                    if (privateHabit == null) {
+                        privateHabit = false;
+                    }
+                    habit.setPrivacy(privateHabit);
                     habit.forceUid(uid);
 
                     if (MainActivity.getUser().getMaxUID() <= uid) {
@@ -167,6 +172,7 @@ public class HabitController {
         String username = user.getMemberName();
         String habitName = habit.getTitle();
         String habitReason = habit.getReason();
+        boolean privateHabit = habit.isPrivate();
         boolean sun = habit.getSchedule().Sun();
         boolean mon = habit.getSchedule().Mon();
         boolean tue = habit.getSchedule().Tue();
@@ -197,6 +203,7 @@ public class HabitController {
                 habitRef.update("Thu", thu);
                 habitRef.update("Fri", fri);
                 habitRef.update("Sat", sat);
+                habitRef.update("PrivateHabit", privateHabit);
 
                 Log.d("debugInfo", habitRef.toString());
 

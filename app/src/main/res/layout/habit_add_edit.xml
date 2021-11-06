@@ -112,11 +112,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             android:id="@+id/LL_DateContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
-            android:weightSum="2"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="2">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -139,11 +139,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:text="Selected Date"
                 android:textSize="15dp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"></LinearLayout>
-
         </LinearLayout>
 
         <TextView
@@ -151,7 +146,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:text="Your habit schedule:"
             android:textStyle="bold"
             app:flow_horizontalBias="0.14" />
@@ -233,11 +228,32 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
 
         <LinearLayout
+            android:id="@+id/LL_Private_Container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/make_private_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Make Private: "/>
+            <CheckBox
+                android:id="@+id/private_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/ButtonContainerHAE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:weightSum="2"
             android:orientation="horizontal">
 
