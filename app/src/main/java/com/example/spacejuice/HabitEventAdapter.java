@@ -90,6 +90,14 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.eventDescription.setClickable(false);
         viewHolder.eventDateText.setText(dateText);
         viewHolder.eventDateText.setClickable(false);
+        //
+        //
+        //
+        //
+        // reset the image if user upload one
+        //
+        //
+        //
         viewHolder.eventImage.setImageResource(R.drawable.empty_image);
         View.OnClickListener goToEventDetails;
 

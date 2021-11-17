@@ -11,7 +11,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.example.spacejuice.Habit;
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class UploadImageActivity extends AppCompatActivity {
@@ -24,7 +32,9 @@ public class UploadImageActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private Uri imageUri;
-
+    private StorageReference storageReference;
+    private DocumentReference documentReference;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +47,11 @@ public class UploadImageActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         backButton = findViewById(R.id.back_button);
 
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        DocumentReference documentReference = db.collection("Members")
+                .document(MainActivity.getUser().getMemberName())
+                .collection("Habits").document(getIntent().getExtras().getString("habit"));
+        // use logincontroller
 
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override

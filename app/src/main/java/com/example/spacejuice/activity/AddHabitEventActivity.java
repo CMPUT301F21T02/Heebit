@@ -107,6 +107,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddHabitEventActivity.this, UploadImageActivity.class);
+                intent.putExtra("habit",currentHabit.getTitle());
                 startActivity(intent);
             }
         });
