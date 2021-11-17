@@ -48,7 +48,7 @@ public class UploadImageActivity extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
-        DocumentReference documentReference = db.collection("Members")
+        documentReference = db.collection("Members")
                 .document(MainActivity.getUser().getMemberName())
                 .collection("Habits").document(getIntent().getExtras().getString("habit"));
         // use logincontroller
@@ -64,7 +64,7 @@ public class UploadImageActivity extends AppCompatActivity {
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
             }
         });
 
