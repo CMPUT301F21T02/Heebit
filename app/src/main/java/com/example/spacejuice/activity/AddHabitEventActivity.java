@@ -1,5 +1,6 @@
 package com.example.spacejuice.activity;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -25,6 +26,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
  This Activity is used to add and enter the details of a new habit event
   */
     public ImageButton back_button;
+    public Button add_image_button;
     public Button create_button;
     public EditText edit_text_description;
     public TextView habit_title_text;
@@ -44,6 +46,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
         habit_title_text = findViewById(R.id.habit_title_value);
         habit_reason_text = findViewById(R.id.habit_reason_value);
         habit_date_completed = findViewById(R.id.dateofcompletion);
+        add_image_button = findViewById(R.id.add_an_image_button);
 
         /*
             Get the Unique Identifier of the Habit that we are creating an event for
@@ -99,6 +102,16 @@ public class AddHabitEventActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        add_image_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddHabitEventActivity.this, UploadImageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 }
 
