@@ -28,9 +28,12 @@ import android.widget.Toast;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -152,18 +155,21 @@ public class UploadImageActivity extends AppCompatActivity {
                             }, 500);
                             Toast.makeText(UploadImageActivity.this, "Upload successful"
                                     , Toast.LENGTH_LONG).show();
-                            String url = taskSnapshot.getMetadata().getReference()
-                                    .getDownloadUrl().toString().trim();
-                            Map<String,Object> uri = new HashMap<>();
-                            uri.put("url", url);
-                            uri.put("url2",imageUri.toString().trim());
-                            documentReference.update(uri)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Log.d("message", "URL has been added successfully");
-                                        }
-                                    });
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    Map<String,Object> Duri = new HashMap<>();
+                                    Duri.put("url", url);
+                                    documentReference.update(Duri)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d("message", "URL has been added successfully");
+                                                }
+                                            });
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -180,9 +186,12 @@ public class UploadImageActivity extends AppCompatActivity {
                         }
                     });
 
+
         }else{
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
 }
