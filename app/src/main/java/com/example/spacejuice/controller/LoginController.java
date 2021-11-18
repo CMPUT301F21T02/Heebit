@@ -22,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 // still can't return the boolean back
 // need to fix this bug
@@ -42,20 +43,18 @@ public class LoginController {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         DocumentReference documentReference = db.collection("Members").document(username);
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    // if this name exist
-                    if (document.exists()) {
-                        int maxUniqueId = user.getMaxUID();
-                        documentReference.update("currentMaxID", maxUniqueId);
-                    }
-                } else {
-                    // if other problems exist
-                    Log.d("debugInfo", "error updating maxID in LoginController.java");
+        documentReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                // if this name exist
+                assert document != null;
+                if (document.exists()) {
+                    int maxUniqueId = user.getMaxUID();
+                    documentReference.update("currentMaxID", maxUniqueId);
                 }
+            } else {
+                // if other problems exist
+                Log.d("debugInfo", "error updating maxID in LoginController.java");
             }
         });
     }
@@ -64,35 +63,36 @@ public class LoginController {
     public void login(String userName, String password, final OnCompleteCallback callback) {
         if(userName.length()>0 && password.length()>0) {
             DocumentReference documentReference = db.collection("Members").document(userName);
-            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        // if this name exist
-                        if (document.exists()) {
+            documentReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    // if this name exist
+                    assert document != null;
+                    if (document.exists()) {
 
-                            String p = document.getString("Password");
-                            // then check pass word
-                            if (p.equals(password)) {
-                                int maxUniqueId = Integer.valueOf(document.getLong("currentMaxID").toString());
-                                account = new Member(userName, password);
-                                MainActivity.setUser(account);
-                                account.setUniqueId(maxUniqueId);
-                                callback.onComplete(true);
-                            } else {
-                                // if the password is wrong
-                                Log.d("login", "wrong password ");
-                                callback.onComplete(false);
+                        String p = document.getString("Password");
+                        // then check pass word
+                        assert p != null;
+                        if (p.equals(password)) {
+                            int maxUniqueId = 0;
+                            if (document.getLong("currentMaxID") != null) {
+                                maxUniqueId = Integer.parseInt(Objects.requireNonNull(document.getLong("currentMaxID")).toString());
                             }
+                            account = new Member(userName, password);
+                            MainActivity.setUser(account);
+                            account.setUniqueId(maxUniqueId);
+                            callback.onComplete(true);
                         } else {
-                            // if other problems exist
-                            Log.d("login", "get failed with ", task.getException());
+                            // if the password is wrong
+                            Log.d("login", "wrong password ");
                             callback.onComplete(false);
                         }
+                    } else {
+                        // if other problems exist
+                        Log.d("login", "get failed with ", task.getException());
+                        callback.onComplete(false);
                     }
                 }
-
             });
         }
 
@@ -104,35 +104,29 @@ public class LoginController {
         Map<String, Object> habit = new HashMap<>();
         if (userName.length() > 0 && password.length() > 0) {
             DocumentReference documentReference = db.collection("Members").document(userName);
-            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        // if this name is used
-                        if (document.exists()) {
-                            callback.onComplete(false);
-                        } else {
-                            // if this name is not used
-                            account = new Member(userName, password);
-                            MainActivity.setUser(account);
-                            user.put("Password", password);
-                            user.put("FollowerNumber", "0");
-                            user.put("FollowingNumber", "0");
-                            user.put("Score", "0");
-                            collectionReference.document(userName)
-                                    .set(user)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Log.d("message", "Data has been added successfully");
-                                        }
-                                    });
-                            callback.onComplete(true);
-                        }
-                    } else {
+            documentReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    // if this name is used
+                    assert document != null;
+                    if (document.exists()) {
                         callback.onComplete(false);
+                    } else {
+                        // if this name is not used
+                        account = new Member(userName, password);
+                        MainActivity.setUser(account);
+                        user.put("Password", password);
+                        user.put("FollowerNumber", "0");
+                        user.put("FollowingNumber", "0");
+                        user.put("Score", "0");
+                        user.put("currentMaxID", 0);
+                        collectionReference.document(userName)
+                                .set(user)
+                                .addOnSuccessListener(unused -> Log.d("message", "Data has been added successfully"));
+                        callback.onComplete(true);
                     }
+                } else {
+                    callback.onComplete(false);
                 }
             });
 
