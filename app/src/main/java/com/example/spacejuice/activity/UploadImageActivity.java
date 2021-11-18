@@ -1,26 +1,45 @@
 package com.example.spacejuice.activity;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
+import com.example.spacejuice.Upload;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UploadImageActivity extends AppCompatActivity {
 
@@ -64,7 +83,7 @@ public class UploadImageActivity extends AppCompatActivity {
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                uploadFile();
             }
         });
 
@@ -72,12 +91,9 @@ public class UploadImageActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finish();
             }
         });
-
-
-
     }
 
     private void openFileChooser(){
@@ -94,9 +110,66 @@ public class UploadImageActivity extends AppCompatActivity {
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
             && data != null && data.getData() != null){
             imageUri = data.getData();
-
-            Picasso.with(this).load(imageUri).into(imageView);
-            // imageView.setImageURI(imageUri);
+            //Picasso.get().load(imageUri).into(imageView);
+            //imageView.setImageURI(imageUri);
         }
     }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void uploadFile(){
+        if(imageUri != null){
+            StorageReference fileReference = storageReference.child("uploads/" +
+                    System.currentTimeMillis() +"."+ getFileExtension(imageUri));
+            fileReference.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setProgress(0);
+                                }
+                            }, 500);
+                            Toast.makeText(UploadImageActivity.this, "Upload successful"
+                                    , Toast.LENGTH_LONG).show();
+                            String url = taskSnapshot.getMetadata().getReference()
+                                    .getDownloadUrl().toString().trim();
+                            Upload upload = new Upload(url);
+                            String uploadId = documentReference.getId().toString();
+                            Map<String,Object> uri = new HashMap<>();
+                            uri.put(getIntent().getExtras().getString("habit"), url);
+                            documentReference.set(uri)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("message", "URL has been added successfully");
+                                        }
+                                    });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(UploadImageActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
+                            progressBar.setProgress((int) progress);
+                        }
+                    });
+
+        }else{
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
