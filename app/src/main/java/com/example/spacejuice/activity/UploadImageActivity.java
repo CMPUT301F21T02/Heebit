@@ -123,8 +123,9 @@ public class UploadImageActivity extends AppCompatActivity {
 
     private void uploadFile(){
         if(imageUri != null){
-            StorageReference fileReference = storageReference.child("uploads/" +
-                    System.currentTimeMillis() +"."+ getFileExtension(imageUri));
+            StorageReference fileReference = storageReference.child(
+                    MainActivity.getUser().getMemberName()+ getIntent().getExtras().getString("habit")
+                            +"."+ getFileExtension(imageUri));
             fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -140,11 +141,10 @@ public class UploadImageActivity extends AppCompatActivity {
                                     , Toast.LENGTH_LONG).show();
                             String url = taskSnapshot.getMetadata().getReference()
                                     .getDownloadUrl().toString().trim();
-                            Upload upload = new Upload(url);
-                            String uploadId = documentReference.getId().toString();
                             Map<String,Object> uri = new HashMap<>();
-                            uri.put(getIntent().getExtras().getString("habit"), url);
-                            documentReference.set(uri)
+                            uri.put("url", url);
+                            uri.put("url2",imageUri.toString().trim());
+                            documentReference.update(uri)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
