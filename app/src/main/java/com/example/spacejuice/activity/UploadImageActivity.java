@@ -1,29 +1,21 @@
 package com.example.spacejuice.activity;
 
-<<<<<<< Updated upstream
+
 import androidx.annotation.NonNull;
-=======
+
 import static android.content.ContentValues.TAG;
 
->>>>>>> Stashed changes
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
-<<<<<<< Updated upstream
-import android.graphics.BitmapFactory;
-=======
->>>>>>> Stashed changes
+
 import android.net.Uri;
-import android.nfc.Tag;
+
 import android.os.Bundle;
-<<<<<<< Updated upstream
+
 import android.os.Handler;
-=======
-import android.provider.MediaStore;
->>>>>>> Stashed changes
+
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -32,19 +24,13 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.spacejuice.Habit;
+
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
-<<<<<<< Updated upstream
-import com.example.spacejuice.Upload;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-=======
-import com.example.spacejuice.controller.HabitEventController;
->>>>>>> Stashed changes
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -53,14 +39,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-<<<<<<< Updated upstream
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+
 import java.util.HashMap;
 import java.util.Map;
-=======
-import java.io.IOException;
->>>>>>> Stashed changes
+
 
 public class UploadImageActivity extends AppCompatActivity {
 
@@ -134,7 +116,6 @@ public class UploadImageActivity extends AppCompatActivity {
         {
             Log.d(TAG, "The start event");
             imageUri = data.getData();
-<<<<<<< Updated upstream
             //Picasso.get().load(imageUri).into(imageView);
             //imageView.setImageURI(imageUri);
         }
@@ -194,12 +175,6 @@ public class UploadImageActivity extends AppCompatActivity {
 
         }else{
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
-=======
-            Log.d(TAG, "The mid event");
-            Picasso.with(getApplicationContext()).load(imageUri).into(imageView);
-            //imageView.setImageURI(imageUri);
-            Log.d(TAG, "The FINISH event");
->>>>>>> Stashed changes
         }
     }
 
