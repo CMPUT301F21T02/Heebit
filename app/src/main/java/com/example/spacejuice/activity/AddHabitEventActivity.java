@@ -11,13 +11,21 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
+import com.example.spacejuice.MainActivity;
+import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.controller.HabitController;
 import com.example.spacejuice.controller.HabitEventController;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
 
@@ -93,10 +101,31 @@ public class AddHabitEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 HabitEvent event = new HabitEvent();
                 event.setDone(true);
+                event.setEventId();
                 event.setDescription(edit_text_description.getText().toString());
+                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
+                        .document(MainActivity.getUser().getMemberName())
+                        .collection("Habits").document(currentHabit.getTitle());
+                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            // if this name exist
+                            if (document.exists()) {
+                                String U = document.getString("url");
+                                // then check url
+                                if (U != null){
+                                    event.setImage(U);
+                                }
+
+                            }
+                        }
+                    }
+
+                });
                 HabitEventController.addHabitEvent(currentHabit, event);
                 currentHabit.getIndicator().increase();
-
                 MediaPlayer song = MediaPlayer.create(AddHabitEventActivity.this, R.raw.stamp);
                 song.start();
                 finish();

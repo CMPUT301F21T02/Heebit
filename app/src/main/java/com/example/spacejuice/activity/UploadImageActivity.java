@@ -96,6 +96,8 @@ public class UploadImageActivity extends AppCompatActivity {
                     Toast.makeText(UploadImageActivity.this,"Upload in progress",Toast.LENGTH_SHORT).show();
                 }else {
                     uploadFile();
+                    Toast.makeText(UploadImageActivity.this, "Upload successful"
+                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -185,8 +187,6 @@ public class UploadImageActivity extends AppCompatActivity {
                             progressBar.setProgress((int) progress);
                         }
                     });
-
-
         }else{
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }

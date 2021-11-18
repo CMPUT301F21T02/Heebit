@@ -9,10 +9,11 @@ import java.util.Date;
 public class HabitEvent {
     private String description;
     private Date date;
-    private Image image;
+    private String ImageUrl;
     private CarrierConfigManager.Gps location;
     private Boolean done;
     public int DESC_LENGTH = 80; //cutoff for a short description
+    private long eventId;
     private int uid; // a unique ID allowing easier tracking between activities
 
     public HabitEvent() {
@@ -26,6 +27,13 @@ public class HabitEvent {
         } else {
             return R.drawable.event_failure;
         }
+    }
+    public void setEventId(){
+        this.eventId = System.currentTimeMillis();
+    }
+
+    public long getEventId(){
+        return this.eventId;
     }
 
     public void setDescription(String desc) {
@@ -63,5 +71,13 @@ public class HabitEvent {
     }
 
     public int getUid() { return this.uid; }
+
+    public void setImage(String uri){
+        this.ImageUrl = uri;
+    }
+
+    public String getImage(){
+        return this.ImageUrl;
+    }
 
 }
