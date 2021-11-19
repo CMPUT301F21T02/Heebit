@@ -2,12 +2,14 @@ package com.example.spacejuice.controller;
 
 import android.content.ContentResolver;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
@@ -18,16 +20,20 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HabitEventController {
@@ -62,6 +68,40 @@ public class HabitEventController {
             }
         });
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public static void loadHabitEventsFromFirebase(Habit habit){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference collectionReference = db.collection("Members").document(MainActivity.getUser().getMemberName())
+                .collection("Habits").document(habit.getTitle()).collection("Events");
+        Task<QuerySnapshot> habitEventRef = collectionReference.get();
+        habitEventRef.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
+
+                for(DocumentSnapshot doc: docs){
+                    String id = doc.getString("Id");
+                    String Uri = doc.getString("Url");
+                    Date date = doc.getDate("Date");
+                    String des = doc.getString("Description");
+                    HabitEvent habitEvent = new HabitEvent();
+                    habitEvent.setEventId(Integer.valueOf(id));
+                    habitEvent.setDescription(des);
+                    habitEvent.setDate(date);
+                    habitEvent.setImage(Uri);
+
+                }
+
+            }
+        });
+
+
+
+    }
+
+
 
 
 }

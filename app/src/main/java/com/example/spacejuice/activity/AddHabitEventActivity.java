@@ -101,7 +101,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 HabitEvent event = new HabitEvent();
                 event.setDone(true);
-                event.setEventId();
+                event.setEventId(null);
                 event.setDescription(edit_text_description.getText().toString());
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
                         .document(MainActivity.getUser().getMemberName())
@@ -118,11 +118,9 @@ public class AddHabitEventActivity extends AppCompatActivity {
                                 if (U != null){
                                     event.setImage(U);
                                 }
-
                             }
                         }
                     }
-
                 });
                 HabitEventController.addHabitEvent(currentHabit, event);
                 currentHabit.getIndicator().increase();

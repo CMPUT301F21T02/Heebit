@@ -3,6 +3,7 @@ package com.example.spacejuice;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -93,12 +95,14 @@ public class HabitEventAdapter extends ArrayAdapter {
         //
         //
         //
-        //
         // reset the image if user upload one
         //
         //
-        //
-        viewHolder.eventImage.setImageResource(R.drawable.empty_image);
+        String stringUri = eventItems.get(position).getImage();
+        Uri uri = Uri.parse(stringUri);
+        // todo can't load image
+        Picasso.get().load(uri).into(viewHolder.eventImage);
+        //viewHolder.eventImage.setImageResource(R.drawable.empty_image);
         View.OnClickListener goToEventDetails;
 
         goToEventDetails = new View.OnClickListener() {

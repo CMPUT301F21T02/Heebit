@@ -128,6 +128,7 @@ public class UploadImageActivity extends AppCompatActivity {
         {
             Log.d(TAG, "The start event");
             imageUri = data.getData();
+            // todo can't load image
             //Picasso.get().load(imageUri).into(imageView);
             //imageView.setImageURI(imageUri);
         }
@@ -168,6 +169,7 @@ public class UploadImageActivity extends AppCompatActivity {
                                                 @Override
                                                 public void onSuccess(Void unused) {
                                                     Log.d("message", "URL has been added successfully");
+                                                    //Picasso.get().load(imageUri).into(imageView);
                                                 }
                                             });
                                 }
