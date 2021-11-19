@@ -97,8 +97,6 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                 finish();
             }
         });
-
-
     }
 
     @Override

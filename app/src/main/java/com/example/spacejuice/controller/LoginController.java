@@ -100,8 +100,6 @@ public class LoginController {
     
     public void signUp(String userName, String password, final OnCompleteCallback callback) {
         Map<String, Object> user = new HashMap<>();
-        Map<String, Object> member = new HashMap<>();
-        Map<String, Object> habit = new HashMap<>();
         if (userName.length() > 0 && password.length() > 0) {
             DocumentReference documentReference = db.collection("Members").document(userName);
             documentReference.get().addOnCompleteListener(task -> {
