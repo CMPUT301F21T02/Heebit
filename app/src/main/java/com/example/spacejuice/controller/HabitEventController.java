@@ -26,6 +26,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 //import com.google.firebase.storage.FirebaseStorage;
 //import com.google.firebase.storage.OnProgressListener;
@@ -45,29 +46,39 @@ public class HabitEventController {
         // adds a HabitEvent to the array of events contained by a Habit
         habit.addEvent(habitEvent);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        DocumentReference documentReference;
-        documentReference = db.collection("Members").document(MainActivity.getUser().getMemberName())
-                .collection("Habits").document(habit.getTitle()).collection("Events").document(String.valueOf(habitEvent.getEventId()));
-
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        int uid = habit.getUid();
+        Query habitQuery =
+                db.collection("Members").document(MainActivity.getUser()
+                        .getMemberName()).collection("Habits")
+                        .whereEqualTo("ID", uid);
+        Task<QuerySnapshot> habitQueryTask = habitQuery.get();
+        habitQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("Id", habitEvent.getEventId());
-                    data.put("Description",habitEvent.getDescription());
-                    data.put("Date",habitEvent.getDate());
-                    data.put("Url",habitEvent.getImage());
-                    documentReference.set(data)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d("debugInfo", "Habit has been added successfully");
-                                    LoginController.updateMaxID();
-                                }
-                            });
-                }
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {    //get the document with the proper habit uID
+                DocumentReference habitRef = Objects.requireNonNull(habitQueryTask
+                        .getResult()).getDocuments().get(0).getReference();
+                DocumentReference eventDocRef;
+                eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
+                eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("Id", habitEvent.getEventId());
+                            data.put("Description",habitEvent.getDescription());
+                            data.put("Date",habitEvent.getDate());
+                            data.put("Url",habitEvent.getImage());
+                            eventDocRef.set(data)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("debugInfo", "Habit has been added successfully");
+                                            LoginController.updateMaxID();
+                                        }
+                                    });
+                        }
+                    }
+                });
             }
         });
     }
