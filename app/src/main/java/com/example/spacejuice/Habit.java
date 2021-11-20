@@ -29,7 +29,7 @@ public class Habit implements Serializable {
      *
      * @param title  The title for the habit
      * @param reason The reason for the habit
-     * @param xp The current xp of the habit
+     * @param xp     The current xp of the habit
      */
     public Habit(String title, String reason, int xp) {
         setTitle(title);
@@ -326,6 +326,16 @@ public class Habit implements Serializable {
             return true;
         }
         Log.d("debugInfo", "currentDate: " + currentDate + "  eventDate: " + eventDate);
+        return false;
+    }
+
+
+    public boolean containsEventId(int id) {
+        for (HabitEvent e : events) {
+            if (e.getEventId() == id) {
+                return true;
+            }
+        }
         return false;
     }
 }

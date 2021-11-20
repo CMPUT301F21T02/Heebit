@@ -21,6 +21,7 @@ public class HabitEvent {
     public HabitEvent() {
         this.setDate(null);
         this.uid = MainActivity.getUser().getUniqueID();
+        this.done = false;
     }
 
     public int getEventIndicator() {

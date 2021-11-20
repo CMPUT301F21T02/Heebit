@@ -40,6 +40,7 @@ import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
 import com.example.spacejuice.controller.HabitController;
+import com.example.spacejuice.controller.HabitEventController;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -119,6 +120,7 @@ This Activity is used to edit a habit
             habitUid = (int) savedInstanceState.getSerializable("habitUid");
         }
         habit = HabitController.getHabitFromUid(habitUid);
+        HabitEventController.loadHabitEventsFromFirebase(habit, this);
 
         //initializing
 

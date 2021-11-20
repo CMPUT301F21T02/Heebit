@@ -20,6 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -113,11 +114,21 @@ public class LoginController {
                         // if this name is not used
                         account = new Member(userName, password);
                         MainActivity.setUser(account);
+
+                        // determine the user's next midnight so missed events can be calculated
+                        Calendar nextMidnight = Calendar.getInstance();
+                        nextMidnight.set(Calendar.HOUR_OF_DAY, 0);
+                        nextMidnight.set(Calendar.MINUTE, 0);
+                        nextMidnight.set(Calendar.SECOND, 0);
+                        nextMidnight.set(Calendar.MILLISECOND, 0);
+                        nextMidnight.add(Calendar.DATE, 1);
+
                         user.put("Password", password);
                         user.put("FollowerNumber", "0");
                         user.put("FollowingNumber", "0");
                         user.put("Score", "0");
                         user.put("currentMaxID", 0);
+                        user.put("NextMidnight", nextMidnight);
                         collectionReference.document(userName)
                                 .set(user)
                                 .addOnSuccessListener(unused -> Log.d("message", "Data has been added successfully"));
