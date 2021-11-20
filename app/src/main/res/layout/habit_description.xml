@@ -409,6 +409,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+
         <ListView
             android:id="@+id/list_of_my_habit_events"
             android:layout_width="match_parent"

@@ -6,17 +6,20 @@ import android.util.Log;
 
 import java.util.Date;
 
+import javax.annotation.Nullable;
+
 public class HabitEvent {
     private String description;
     private Date date;
-    private Image image;
+    private String ImageUrl;
     private CarrierConfigManager.Gps location;
     private Boolean done;
     public int DESC_LENGTH = 80; //cutoff for a short description
+    private long eventId;
     private int uid; // a unique ID allowing easier tracking between activities
 
     public HabitEvent() {
-        this.setDate();
+        this.setDate(null);
         this.uid = MainActivity.getUser().getUniqueID();
     }
 
@@ -27,13 +30,28 @@ public class HabitEvent {
             return R.drawable.event_failure;
         }
     }
+    public void setEventId(@Nullable Integer id){
+        if(id == null) {
+            this.eventId = System.currentTimeMillis();
+        }else {
+            this.eventId = id;
+        }
+    }
+
+    public long getEventId(){
+        return this.eventId;
+    }
 
     public void setDescription(String desc) {
         this.description = desc;
     }
 
-    public void setDate() {
-        this.date = new Date();
+    public void setDate(@Nullable Date d) {
+        if(d == null) {
+            this.date = new Date();
+        } else {
+            this.date = d;
+        }
     }
 
     public void setDone(Boolean bool) {
@@ -63,5 +81,13 @@ public class HabitEvent {
     }
 
     public int getUid() { return this.uid; }
+
+    public void setImage(String uri){
+        this.ImageUrl = uri;
+    }
+
+    public String getImage(){
+        return this.ImageUrl;
+    }
 
 }

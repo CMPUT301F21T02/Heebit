@@ -21,6 +21,7 @@ import com.example.spacejuice.HabitListAdapter;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 import com.example.spacejuice.controller.HabitController;
+import com.example.spacejuice.controller.HabitEventController;
 
 import java.util.ArrayList;
 
@@ -51,9 +52,7 @@ public class OverviewActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         Log.d("debugInfo", "result code: " + result.getResultCode());
-
                         refreshData();
-
                     }
                 });
 
@@ -62,7 +61,6 @@ public class OverviewActivity extends AppCompatActivity {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         Log.d("debugInfo", "result code: " + result.getResultCode());
-
                         refreshData();
 
                     }
@@ -72,7 +70,6 @@ public class OverviewActivity extends AppCompatActivity {
         add_habit_imagebutton = findViewById(R.id.add_habit_imagebutton);
         today_all_toggle = findViewById(R.id.list_toggle_button_switch);
         today_habit_list = findViewById(R.id.overview_habit_listview);
-
         refreshData();
 
         int score = MainActivity.getUser().getScore();
@@ -154,7 +151,6 @@ public class OverviewActivity extends AppCompatActivity {
             this.habitAdapter = new HabitListAdapter(this, R.layout.overview_habit_content, habitListItems);
             this.today_habit_list.setAdapter(habitAdapter);
             habitAdapter.notifyDataSetChanged();
-
         }
 
 

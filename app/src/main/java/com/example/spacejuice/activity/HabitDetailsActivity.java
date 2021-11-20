@@ -40,6 +40,9 @@ import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
 import com.example.spacejuice.controller.HabitController;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -71,6 +74,9 @@ This Activity is used to edit a habit
     private TextView reason;
     private TextView level;
     private ListView habitEventList;
+    private HabitEventAdapter habitEventAdapter;
+    CollectionReference collectionReference;
+    private ArrayList<HabitEvent> habitEventArrayList;
     private LinearLayout indicatorImage;
     private CheckBox isPrivate;
     private TextView privateTextBox;
@@ -212,6 +218,8 @@ This Activity is used to edit a habit
                 finish();
             }
         });
+
+
     }
 
     public void adjustForSmallDisplay() {
