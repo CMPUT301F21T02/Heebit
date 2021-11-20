@@ -211,7 +211,6 @@ public class HabitController {
         });
     }
 
-
     public static void deleteHabit(Habit habit) {
         Member user = MainActivity.getUser();
         if (user.getHabitListItems().contains(habit)) {

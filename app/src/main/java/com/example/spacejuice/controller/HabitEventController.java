@@ -1,6 +1,7 @@
 package com.example.spacejuice.controller;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
+import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.UploadImageActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -25,16 +27,17 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
+//import com.google.firebase.storage.FirebaseStorage;
+//import com.google.firebase.storage.OnProgressListener;
+//import com.google.firebase.storage.StorageReference;
+//import com.google.firebase.storage.StorageTask;
+//import com.google.firebase.storage.UploadTask;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class HabitEventController {
 
@@ -70,7 +73,7 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit){
+    public static void loadHabitEventsFromFirebase(Habit habit, Context context){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference collectionReference = db.collection("Members").document(MainActivity.getUser().getMemberName())
                 .collection("Habits").document(habit.getTitle()).collection("Events");
@@ -79,19 +82,31 @@ public class HabitEventController {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
+                Log.d("debugInfo", "retrieved the habit events document");
+
                 List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
 
                 for(DocumentSnapshot doc: docs){
-                    String id = doc.getString("Id");
-                    String Uri = doc.getString("Url");
+                    int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
+                    Log.d("debugInfo", "got id: " + id);
+                    String Url = doc.getString("Url");
+                    Log.d("debugInfo", "got Url:: " + Url);
                     Date date = doc.getDate("Date");
+                    Log.d("debugInfo", "got date: " + date);
                     String des = doc.getString("Description");
+                    Log.d("debugInfo", "got des: " + des);
                     HabitEvent habitEvent = new HabitEvent();
-                    habitEvent.setEventId(Integer.valueOf(id));
+                    habitEvent.setEventId(id);
                     habitEvent.setDescription(des);
                     habitEvent.setDate(date);
-                    habitEvent.setImage(Uri);
+                    habitEvent.setImage(Url);
+                    if (!habit.containsEventId(id)) {
+                        habit.addEvent(habitEvent);
+                    }
 
+                }
+                if (context.getClass() == HabitDetailsActivity.class) {
+                    ((HabitDetailsActivity) context).refreshData();
                 }
 
             }
