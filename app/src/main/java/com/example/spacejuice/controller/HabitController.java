@@ -131,6 +131,7 @@ public class HabitController {
                     }
                     habit.setPrivacy(privateHabit);
                     habit.forceUid(uid);
+                    HabitEventController.loadHabitEventsFromFirebase(habit);
 
                     if (MainActivity.getUser().getMaxUID() <= uid) {
                         MainActivity.getUser().setUniqueId(uid + 1);

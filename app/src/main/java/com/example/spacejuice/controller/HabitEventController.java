@@ -65,9 +65,9 @@ public class HabitEventController {
                         if (task.isSuccessful()) {
                             Map<String, Object> data = new HashMap<>();
                             data.put("Id", habitEvent.getEventId());
-                            data.put("Description",habitEvent.getDescription());
-                            data.put("Date",habitEvent.getDate());
-                            data.put("Url",habitEvent.getImage());
+                            data.put("Description", habitEvent.getDescription());
+                            data.put("Date", habitEvent.getDate());
+                            data.put("Url", habitEvent.getImage());
                             eventDocRef.set(data)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -84,50 +84,53 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit, Context context){
+    public static void loadHabitEventsFromFirebase(Habit habit) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference collectionReference = db.collection("Members").document(MainActivity.getUser().getMemberName())
-                .collection("Habits").document(habit.getTitle()).collection("Events");
-        Task<QuerySnapshot> habitEventRef = collectionReference.get();
-        habitEventRef.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        int uid = habit.getUid();
+        Query habitQuery =
+                db.collection("Members").document(MainActivity.getUser()
+                        .getMemberName()).collection("Habits")
+                        .whereEqualTo("ID", uid);
+        Task<QuerySnapshot> habitQueryTask = habitQuery.get();
+        habitQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {    //get the document with the proper habit uID
+                Log.d("debugInfo", "retrieved habit events from firebase");
+                DocumentReference habitRef = Objects.requireNonNull(habitQueryTask
+                        .getResult()).getDocuments().get(0).getReference();
+                CollectionReference collectionReference = habitRef.collection("Events");
+                Task<QuerySnapshot> habitEventRef = collectionReference.get();
+                habitEventRef.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                Log.d("debugInfo", "retrieved the habit events document");
+                        Log.d("debugInfo", "retrieved the habit events document");
 
-                List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
+                        List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
 
-                for(DocumentSnapshot doc: docs){
-                    int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
-                    Log.d("debugInfo", "got id: " + id);
-                    String Url = doc.getString("Url");
-                    Log.d("debugInfo", "got Url:: " + Url);
-                    Date date = doc.getDate("Date");
-                    Log.d("debugInfo", "got date: " + date);
-                    String des = doc.getString("Description");
-                    Log.d("debugInfo", "got des: " + des);
-                    HabitEvent habitEvent = new HabitEvent();
-                    habitEvent.setEventId(id);
-                    habitEvent.setDescription(des);
-                    habitEvent.setDate(date);
-                    habitEvent.setImage(Url);
-                    if (!habit.containsEventId(id)) {
-                        habit.addEvent(habitEvent);
+                        for (DocumentSnapshot doc : docs) {
+                            int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
+                            Log.d("debugInfo", "got id: " + id);
+                            String Url = doc.getString("Url");
+                            Log.d("debugInfo", "got Url:: " + Url);
+                            Date date = doc.getDate("Date");
+                            Log.d("debugInfo", "got date: " + date);
+                            String des = doc.getString("Description");
+                            Log.d("debugInfo", "got des: " + des);
+                            HabitEvent habitEvent = new HabitEvent();
+                            habitEvent.setEventId(id);
+                            habitEvent.setDescription(des);
+                            habitEvent.setDate(date);
+                            habitEvent.setImage(Url);
+                            if (!habit.containsEventId(id)) {
+                                habit.addEvent(habitEvent);
+                            }
+
+                        }
                     }
 
-                }
-                if (context.getClass() == HabitDetailsActivity.class) {
-                    ((HabitDetailsActivity) context).refreshData();
-                }
-
+                });
             }
         });
-
-
-
     }
-
-
-
-
 }
