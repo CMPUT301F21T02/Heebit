@@ -13,6 +13,8 @@ import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.controller.HabitController;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 // Yuchen: Add tests to create a member and add score and add/subtract followers/followings
@@ -31,6 +33,9 @@ public class Member {
    private int followers;
    private int followings;
    private Follow follow;
+   private Date nextMidnight;
+   private Date prevNextMidnight;
+   public Boolean generatingMissedEventsFlag = false;
 
    /**
     * Constructor for generate a empty Member
@@ -286,6 +291,22 @@ public class Member {
     * @param habitDelete   The habit want to delete
     */
    public void deleteHabit(Habit habitDelete){ habitListItems.remove(habitDelete);
+   }
+
+   public void setNextMidnight(Date midn) {
+      this.nextMidnight = midn;
+   }
+
+   public Date getNextMidnight() {
+      return this.nextMidnight;
+   }
+
+   public void setPrevNextMidnight(Date midn) {
+      this.prevNextMidnight = midn;
+   }
+
+   public Date getPrevNextMidnight() {
+      return this.prevNextMidnight;
    }
 
 }

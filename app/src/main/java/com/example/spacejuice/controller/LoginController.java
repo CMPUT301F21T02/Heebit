@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -81,6 +82,12 @@ public class LoginController {
                             }
                             account = new Member(userName, password);
                             MainActivity.setUser(account);
+                            Date prevMidnight = Calendar.getInstance().getTime();
+                            if (document.getDate("nextMidnight") != null) {
+                                prevMidnight = document.getDate("nextMidnight");
+                            }
+
+                            account.setPrevNextMidnight(prevMidnight);
                             account.setUniqueId(maxUniqueId);
                             callback.onComplete(true);
                         } else {
@@ -116,12 +123,8 @@ public class LoginController {
                         MainActivity.setUser(account);
 
                         // determine the user's next midnight so missed events can be calculated
-                        Calendar nextMidnight = Calendar.getInstance();
-                        nextMidnight.set(Calendar.HOUR_OF_DAY, 0);
-                        nextMidnight.set(Calendar.MINUTE, 0);
-                        nextMidnight.set(Calendar.SECOND, 0);
-                        nextMidnight.set(Calendar.MILLISECOND, 0);
-                        nextMidnight.add(Calendar.DATE, 1);
+                        Date nextMidnight = getNextMidnight();
+                        account.setNextMidnight(nextMidnight);
 
                         user.put("Password", password);
                         user.put("FollowerNumber", "0");
@@ -141,6 +144,16 @@ public class LoginController {
 
 
         }
+    }
+
+    public static Date getNextMidnight() {
+        Calendar midn = Calendar.getInstance();
+        midn.set(Calendar.HOUR_OF_DAY, 0);
+        midn.set(Calendar.MINUTE, 0);
+        midn.set(Calendar.SECOND, 0);
+        midn.set(Calendar.MILLISECOND, 0);
+        midn.add(Calendar.DATE, 1);
+        return midn.getTime();
     }
 
 
