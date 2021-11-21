@@ -9,7 +9,7 @@ import java.util.Date;
 import javax.annotation.Nullable;
 
 public class HabitEvent {
-    private String description;
+    private String description = "";
     private Date date;
     private String ImageUrl = null;
     private CarrierConfigManager.Gps location;

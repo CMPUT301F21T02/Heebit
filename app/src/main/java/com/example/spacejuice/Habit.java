@@ -253,6 +253,14 @@ public class Habit implements Serializable {
         this.events.add(habitEvent);
     }
 
+    public void addMissedEvent(Calendar eventDay) {
+        HabitEvent missedEvent = new HabitEvent();
+        missedEvent.setDate(eventDay.getTime());
+        missedEvent.setDone(false);
+        this.events.add(missedEvent);
+        Log.d("debugInfo", "generated missed event for " + getTitle() + "... ");
+    }
+
     /**
      * Set the unique id for the habit.
      */
@@ -311,22 +319,26 @@ public class Habit implements Serializable {
         this.privateHabit = bool;
     }
 
-    public Boolean completedToday() {
+    public Boolean completedOnDay(Calendar dayToCheck) {
         HabitEvent lastEvent = getLastEvent();
         if (lastEvent == null) {
             return false;
         }
 
-        Calendar calendar = Calendar.getInstance();
-        Date currentDate = calendar.getTime();
+        Date dateToCheck = dayToCheck.getTime();
         Date eventDate = getLastEvent().getDate();
-        currentDate.setTime(eventDate.getTime());
-        if (currentDate.getTime() == eventDate.getTime()) {
-            Log.d("debugInfo", getTitle() + " was completed today");
+        dateToCheck.setTime(eventDate.getTime());
+        if (dateToCheck.getTime() == eventDate.getTime()) {
+            Log.d("debugInfo", getTitle() + " was completed on that day");
             return true;
         }
-        Log.d("debugInfo", "currentDate: " + currentDate + "  eventDate: " + eventDate);
+        Log.d("debugInfo", "currentDate: " + dateToCheck + "  eventDate: " + eventDate);
         return false;
+
+    }
+
+    public Boolean completedToday() {
+        return completedOnDay(Calendar.getInstance());
     }
 
 
