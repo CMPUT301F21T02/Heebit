@@ -48,10 +48,14 @@ public class LoginActivity extends AppCompatActivity {
                            @Override
                            public void onComplete(boolean suc) {
                                success = suc;
-                               //MainActivity.setUser(member);
                                if (success) {
                                    Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
-                                   HabitController.loadHabitsFromFirebase(MainActivity.getUser(), LoginActivity.this);  // load all habits from firebase into Habit array
+                                   HabitController.loadHabitsFromFirebase(MainActivity.getUser(), new LoginController.OnCompleteCallback() {
+                                       @Override
+                                       public void onComplete(boolean suc) {
+                                           finishLogin();
+                                       }
+                                   });  // load all habits from firebase into Habit array
                                } else {
                                    Toast.makeText(LoginActivity.this, "login failure",
                                            Toast.LENGTH_SHORT).show();

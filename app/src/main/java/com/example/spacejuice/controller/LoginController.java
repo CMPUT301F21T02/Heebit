@@ -72,7 +72,7 @@ public class LoginController {
                     if (document.exists()) {
 
                         String p = document.getString("Password");
-                        // then check pass word
+                        // then check password
                         assert p != null;
                         if (p.equals(password)) {
                             int maxUniqueId = 0;
