@@ -34,6 +34,8 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import javax.security.auth.callback.Callback;
+
 public class HabitController {
 
     public static void addLocalHabit(Habit habit) {
@@ -94,7 +96,7 @@ public class HabitController {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitsFromFirebase(Member member, Context context) {
+    public static void loadHabitsFromFirebase(Member member, final LoginController.OnCompleteCallback callback) {
         /* This method should load a member's habits from firebase */
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String username = member.getMemberName();
@@ -131,7 +133,15 @@ public class HabitController {
                     }
                     habit.setPrivacy(privateHabit);
                     habit.forceUid(uid);
-                    HabitEventController.loadHabitEventsFromFirebase(habit);
+                    HabitEventController.loadHabitEventsFromFirebase(habit, new OnHabitLoaded() {
+
+                        @Override
+                        public void onComplete(Boolean success) {
+                            if (success) {
+                                callback.onComplete(true);
+                            }
+                        }
+                    });
 
                     if (MainActivity.getUser().getMaxUID() <= uid) {
                         MainActivity.getUser().setUniqueId(uid + 1);
@@ -141,11 +151,13 @@ public class HabitController {
 
                     Log.d("debugInfo", "doc uid: " + uid);
                 }
-                LoginActivity lastAct = (LoginActivity) context;
-                lastAct.finishLogin();
             }
         });
 
+    }
+
+    public interface OnHabitLoaded {
+        void onComplete(Boolean success);
     }
 
     public static ArrayList<Habit> getHabitListItems() {

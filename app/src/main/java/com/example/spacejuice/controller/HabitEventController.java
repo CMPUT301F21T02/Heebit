@@ -9,6 +9,7 @@ import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
@@ -84,7 +85,7 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit) {
+    public static void loadHabitEventsFromFirebase(Habit habit, final HabitController.OnHabitLoaded callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
         Query habitQuery =
@@ -127,6 +128,7 @@ public class HabitEventController {
                             }
 
                         }
+                        callback.onComplete(true);
                     }
 
                 });
