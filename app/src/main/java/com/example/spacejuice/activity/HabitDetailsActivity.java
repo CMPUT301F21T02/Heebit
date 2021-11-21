@@ -120,7 +120,7 @@ This Activity is used to edit a habit
             habitUid = (int) savedInstanceState.getSerializable("habitUid");
         }
         habit = HabitController.getHabitFromUid(habitUid);
-        HabitEventController.loadHabitEventsFromFirebase(habit, this);
+        //HabitEventController.loadHabitEventsFromFirebase(habit, this);
 
         //initializing
 
