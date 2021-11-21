@@ -28,6 +28,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddHabitEventActivity extends AppCompatActivity {
     /*
@@ -117,6 +119,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
                                 // then check url
                                 if (U != null){
                                     event.setImage(U);
+                                    documentReference.update("url",null);
                                 }
                             }
                         }

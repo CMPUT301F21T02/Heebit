@@ -99,10 +99,12 @@ public class HabitEventAdapter extends ArrayAdapter {
         //
         //
         String stringUri = eventItems.get(position).getImage();
+        if(stringUri != null){
         Uri uri = Uri.parse(stringUri);
-        // todo can't load image
         Picasso.get().load(uri).into(viewHolder.eventImage);
-        //viewHolder.eventImage.setImageResource(R.drawable.emptyD_image);
+        } else {
+            viewHolder.eventImage.setImageResource(R.drawable.empty_image);
+        }
         View.OnClickListener goToEventDetails;
 
         goToEventDetails = new View.OnClickListener() {

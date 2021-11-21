@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
 public class HabitEvent {
     private String description;
     private Date date;
-    private String ImageUrl;
+    private String ImageUrl = null;
     private CarrierConfigManager.Gps location;
     private Boolean done;
     public int DESC_LENGTH = 80; //cutoff for a short description
