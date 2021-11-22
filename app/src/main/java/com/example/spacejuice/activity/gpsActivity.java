@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -33,10 +34,11 @@ public class gpsActivity extends AppCompatActivity {
 
     private LocationManager lm;
     private Location location;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
         province = findViewById(R.id.gpsProvince);
         city = findViewById(R.id.gpsCity);
@@ -48,30 +50,27 @@ public class gpsActivity extends AppCompatActivity {
 
         province.setText("None");
         city.setText("None");
-//        locateButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (!isGpsAble(lm)) {
-//                    Toast.makeText(gpsActivity.this, "Please open your GPS!", Toast.LENGTH_SHORT).show();
-//                    openGPS2();
-//                } else {
-//                    if (ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//                        // TODO: Consider calling
-//                        //    ActivityCompat#requestPermissions
-//                        // here to request the missing permissions, and then overriding
-//                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                        //                                          int[] grantResults)
-//                        // to handle the case where the user grants the permission. See the documentation
-//                        // for ActivityCompat#requestPermissions for more details.
-//                        return;
-//                    }
-//                    location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
-//                    province.setText(String.valueOf(location.getLatitude()));
-//                    city.setText(String.valueOf(location.getLongitude()));
-//
-//                }
-//            }
-//        });
+        locateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isGpsAble(lm)) {
+                    Toast.makeText(gpsActivity.this, "Please open your GPS!", Toast.LENGTH_SHORT).show();
+                    openGPS2();
+                } else {
+                    if (ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        onPause();
+                        ActivityCompat.requestPermissions(gpsActivity.this,
+                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                MY_PERMISSIONS_REQUEST_LOCATION);
+                        onResume();
+                    }
+                    location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
+                    province.setText(String.valueOf(location.getLatitude()));
+                    city.setText(String.valueOf(location.getLongitude()));
+
+                }
+            }
+        });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override

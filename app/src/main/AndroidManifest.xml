@@ -66,6 +66,10 @@
             android:name=".activity.EditHabitActivity"
             android:exported="true" />
         <activity
+            android:name=".activity.gpsActivity"
+            android:exported="true" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
