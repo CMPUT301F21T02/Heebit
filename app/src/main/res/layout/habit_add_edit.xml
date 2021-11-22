@@ -15,7 +15,13 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     ID: backButtonHAE
     USE: Exiting the activity
     -->
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:scaleType="centerCrop">
+    </ImageView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,17 +40,19 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_marginTop="16dp"
                 android:background="@null"
                 android:scaleType="fitCenter"
-                android:src="@drawable/button_back"
-                app:tint="?android:colorPrimary" />
+                android:src="@drawable/black_back_button"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/textViewHAE"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="48dp"
+                android:fontFamily="@font/lato_black"
                 android:gravity="center_horizontal"
                 android:padding="15dp"
                 android:text="Create your habit"
+                android:textColor="#FFFFFF"
                 android:textSize="30dp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -67,8 +75,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:id="@+id/textView2HAE"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
                 android:padding="5dp"
                 android:text="Title:"
+                android:textColor="#FFFFFF"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -80,7 +90,8 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:hint="Add a Title"
                 android:inputType="textPersonName"
                 android:maxLength="20"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -93,8 +104,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:id="@+id/textView3HAE"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/font"
                 android:padding="5dp"
                 android:text="Reason:"
+                android:textColor="#FFFFFF"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -105,7 +118,8 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:hint="Add a reason for your habit"
                 android:inputType="text"
                 android:maxLength="20"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,6 +142,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="74dp"
                 android:layout_height="39dp"
                 android:layout_marginEnd="10dp"
+                android:fontFamily="@font/lato_black"
                 android:text="DATE" />
 
             <TextView
@@ -135,8 +150,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
+                android:fontFamily="@font/lato"
                 android:padding="5dp"
                 android:text="Selected Date"
+                android:textColor="#FFFFFF"
                 android:textSize="15dp" />
 
         </LinearLayout>
@@ -147,7 +164,9 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="15dp"
+            android:fontFamily="@font/lato"
             android:text="Your habit schedule:"
+            android:textColor="#FFFFFF"
             android:textStyle="bold"
             app:flow_horizontalBias="0.14" />
 
@@ -168,24 +187,27 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_gravity="center_vertical"
 
                 android:layout_weight="1"
+                android:fontFamily="@font/lato"
                 android:text="Sn" />
 
             <CheckBox
                 android:id="@+id/Monday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
 
+                android:fontFamily="@font/lato"
                 android:text="M" />
 
             <CheckBox
                 android:id="@+id/Tuesday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
 
+                android:fontFamily="@font/lato"
                 android:text="T" />
 
             <CheckBox
@@ -194,24 +216,27 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
 
+                android:fontFamily="@font/lato"
                 android:text="W" />
 
             <CheckBox
                 android:id="@+id/Thursday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
 
+                android:fontFamily="@font/lato"
                 android:text="Th" />
 
             <CheckBox
                 android:id="@+id/Friday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
+                android:layout_weight="1"
 
+                android:fontFamily="@font/lato"
                 android:text="F" />
 
             <CheckBox
@@ -221,6 +246,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_gravity="center_vertical"
 
                 android:layout_weight="1"
+                android:fontFamily="@font/lato"
                 android:text="Sa" />
 
 
@@ -235,12 +261,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             android:layout_marginTop="5dp"
             android:layout_weight="0"
             android:orientation="horizontal">
+
             <TextView
                 android:id="@+id/make_private_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Make Private: "/>
+                android:fontFamily="@font/lato"
+                android:text="Make Private: "
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
             <CheckBox
                 android:id="@+id/private_checkbox"
                 android:layout_width="wrap_content"
@@ -267,8 +296,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:backgroundTint="?colorAddHabit"
-                android:text="CONFIRM" />
+                android:backgroundTint="@color/Beige"
+                android:fontFamily="@font/lato_black"
+                android:text="CONFIRM"
+                android:textColor="#3B0A43" />
 
             <LinearLayout
                 android:layout_width="0dp"
