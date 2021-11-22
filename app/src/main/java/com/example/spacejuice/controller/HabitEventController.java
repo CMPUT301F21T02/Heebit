@@ -156,7 +156,6 @@ public class HabitEventController {
         Log.d("debugInfo", "generateMissedEvents was called.... " + size + " habits found..");
         for (Habit h : user.getHabitListItems()) {
             generateHabitMissedEvents(h);
-            h.generateIndicator();
         }
         ((LoginActivity)context).finishLogin();
     }
