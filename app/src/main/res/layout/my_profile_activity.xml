@@ -5,45 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:scaleType="centerCrop">
+
+    </ImageView>
+
+
     <ImageButton
         android:id="@+id/backButtonMyProfile"
         android:layout_width="52dp"
         android:layout_height="72dp"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        app:tint="?android:colorPrimary"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/button_back"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/black_back_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/editName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="80dp"
-        android:text="My Profile"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/userName"
-        android:layout_width="138dp"
+        android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="150dp"
         android:ems="10"
+        android:fontFamily="@font/lato_black"
         android:inputType="textPersonName"
         android:text="Bob Ross"
-        android:textSize="25dp"
+        android:textAlignment="center"
+        android:textColor="@color/WhiteSmoke"
+        android:textSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.162"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/followers"
@@ -51,7 +52,10 @@
         android:layout_height="33dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="72dp"
+        android:fontFamily="@font/lato_black"
         android:text="Followers"
+        android:textAlignment="center"
+        android:textColor="@color/WhiteSmoke"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,11 +63,14 @@
 
     <TextView
         android:id="@+id/following"
-        android:layout_width="97dp"
-        android:layout_height="40dp"
+        android:layout_width="92dp"
+        android:layout_height="33dp"
         android:layout_marginTop="72dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="64dp"
+        android:fontFamily="@font/lato_black"
         android:text="Following"
+        android:textAlignment="center"
+        android:textColor="@color/WhiteSmoke"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -74,22 +81,25 @@
         android:id="@+id/followersCount"
         android:layout_width="54dp"
         android:layout_height="48dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="27dp"
         android:text="6"
+        android:textAlignment="center"
+        android:textColor="@color/WhiteSmoke"
         android:textSize="32dp"
-        app:layout_constraintEnd_toStartOf="@+id/followingCount"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/followers" />
 
     <TextView
         android:id="@+id/followingCount"
-        android:layout_width="56dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="124dp"
+        android:layout_width="54dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="76dp"
+        android:fontFamily="@font/lato"
         android:text="5"
+        android:textAlignment="center"
+        android:textColor="@color/WhiteSmoke"
         android:textSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/following"
@@ -101,7 +111,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="60dp"
+        android:fontFamily="@font/lato"
         android:text="Requests"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/discoverButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,9 +123,11 @@
         android:id="@+id/discoverButton"
         android:layout_width="110dp"
         android:layout_height="49dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="64dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="60dp"
+        android:fontFamily="@font/lato"
         android:text="Discover"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/followingCount" />
 
@@ -121,7 +135,8 @@
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="64dp"
+        android:fontFamily="@font/lato_black"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
