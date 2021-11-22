@@ -224,6 +224,7 @@ public class Habit implements Serializable {
      * @return Return the level of the habit
      */
     public void calculateScore() {
+        this.indicator.setXp(0);
 
         if (this.events.size() > 0) {
             for (HabitEvent eventItem : this.events) {
