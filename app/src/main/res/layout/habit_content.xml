@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
+    android:layout_margin="8dp"
     android:backgroundTint="?colorHabitBackground"
-    app:cardCornerRadius="16dp"
-    android:layout_margin="8dp">
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,39 +20,38 @@
             android:id="@+id/clickable_habit_segment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_weight="1"
-            >
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/LL_Habit_Indicator"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:layout_gravity="center_vertical"
-                android:backgroundTint="@color/LightSteelBlue"
-                android:background="@drawable/progress_40">
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/progress_40"
+                android:backgroundTint="@color/LightSteelBlue">
+
                 <TextView
                     android:id="@+id/habit_content_habit_level"
                     android:layout_width="41dp"
                     android:layout_height="41dp"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:maxLines="1"
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
-                    android:text="Lv10"
-                    android:maxLines="1"
+                    android:shadowColor="@color/DarkSlateGray"
                     android:shadowDx="3"
                     android:shadowDy="3"
                     android:shadowRadius="4"
-                    android:shadowColor="@color/DarkSlateGray"
+                    android:text="Lv10"
                     android:textColor="@color/LightSalmon"
                     android:textSize="13sp"
-                    android:textStyle="bold">
-                </TextView>
+                    android:textStyle="bold"></TextView>
             </LinearLayout>
 
             <TextView

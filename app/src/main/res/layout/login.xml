@@ -39,6 +39,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="10dp"
+                android:fontFamily="@font/lato_black"
                 android:text="Username:" />
 
             <EditText
@@ -66,6 +67,7 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="10dp"
+                android:fontFamily="@font/lato_black"
                 android:text="Password:" />
 
             <EditText
@@ -102,14 +104,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginEnd="5dp"
+                android:fontFamily="@font/lato_black"
                 android:text="Login" />
 
             <Button
                 android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/lato_black"
                 android:text="Cancel" />
         </LinearLayout>
 

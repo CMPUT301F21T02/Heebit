@@ -16,18 +16,27 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     USE: Exiting the fragment
     -->
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:scaleType="centerCrop">
+
+    </ImageView>
+
     <ImageButton
         android:id="@+id/backButtonFollowerRequests"
         android:layout_width="52dp"
         android:layout_height="72dp"
-        android:scaleType="fitCenter"
-        android:background="@null"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/button_back"
-        app:tint="?android:colorPrimary"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/black_back_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <!-- Habit details text
     ID: textViewHAE
@@ -36,12 +45,14 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
     <TextView
         android:id="@+id/followerRequestsTextView"
-        android:layout_marginTop="100dp"
-        android:layout_height="70dp"
         android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/lato_black"
         android:gravity="center_horizontal"
         android:padding="15dp"
         android:text="Follower Requests"
+        android:textColor="#FFFFFF"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +84,9 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato"
         android:text="Send Request:"
+        android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +112,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="18dp"
+        android:fontFamily="@font/lato_black"
         android:text="Send Request"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/requestingName"

@@ -13,6 +13,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
     ID: backButtonEA
     USE: Exiting the activity
     -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:scaleType="centerCrop">
+
+    </ImageView>
     <LinearLayout
         android:id="@+id/lin_1"
         android:layout_width="match_parent"
@@ -28,10 +37,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/button_back"
-            app:tint="?android:colorPrimary"
             android:contentDescription="Back"
+            android:scaleType="fitCenter"
+            android:src="@drawable/black_back_button"
+            app:tint="@color/Black"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <LinearLayout
@@ -49,16 +58,18 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:autoSizeTextType="uniform"
+                android:fontFamily="@font/lato_black"
                 android:text="HABIT COMPLETED"
-                android:textColor="?colorPrimary"
+                android:textColor="@color/CrystalWhite"
                 android:textSize="80sp" />
 
             <TextView
                 android:id="@+id/dateofcompletion"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
+                android:fontFamily="@font/lato"
                 android:text="on March 24, 2021"
-                android:textColor="?colorPrimary" />
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,13 +80,17 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                     android:id="@+id/habit_title_title"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:text="Habit:" />
+                    android:fontFamily="@font/lato"
+                    android:text="Habit:"
+                    android:textColor="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/habit_title_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Habit_title" />
+                    android:fontFamily="@font/lato"
+                    android:text="Habit_title"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
@@ -88,13 +103,17 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                     android:id="@+id/habit_reason_title"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:text="Reason:" />
+                    android:fontFamily="@font/lato"
+                    android:text="Reason:"
+                    android:textColor="#FFFFFF" />
 
                 <TextView
                     android:id="@+id/habit_reason_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Habit_reason" />
+                    android:fontFamily="@font/lato"
+                    android:text="Habit_reason"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -126,8 +145,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:id="@+id/textView2EA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
                 android:padding="5dp"
                 android:text="Description:"
+                android:textColor="#FFFFFF"
                 android:textSize="15dp" />
 
             <EditText
@@ -136,8 +157,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:layout_height="114dp"
                 android:layout_marginBottom="0dp"
                 android:ems="10"
+                android:fontFamily="@font/lato"
                 android:hint="Describe this Event (Optional)"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
 
         <LinearLayout
@@ -153,6 +176,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
                 android:background="@drawable/button_bg"
+                android:fontFamily="@font/lato_black"
                 android:scaleType="fitCenter"
                 android:text="Add Image"
                 android:textAllCaps="false"
@@ -168,6 +192,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:layout_marginEnd="10dp"
                 android:autoSizeTextType="uniform"
                 android:background="@drawable/button_bg"
+                android:fontFamily="@font/lato_black"
                 android:scaleType="fitCenter"
                 android:text="Add GPS"
                 android:textAllCaps="false"
@@ -182,6 +207,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:layout_weight="1"
                 android:autoSizeTextType="uniform"
                 android:backgroundTint="?colorAddHabit"
+                android:fontFamily="@font/lato_black"
                 android:text="Publish"
                 android:textSize="10sp" />
 
