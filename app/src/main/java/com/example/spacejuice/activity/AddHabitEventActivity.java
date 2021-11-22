@@ -42,6 +42,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
     public TextView habit_title_text;
     public TextView habit_reason_text;
     public TextView habit_date_completed;
+    public Button gpsButton;
     Habit currentHabit;
 
     @Override
@@ -57,6 +58,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
         habit_reason_text = findViewById(R.id.habit_reason_value);
         habit_date_completed = findViewById(R.id.dateofcompletion);
         add_image_button = findViewById(R.id.add_an_image_button);
+        gpsButton = findViewById(R.id.GPS);
 
         /*
             Get the Unique Identifier of the Habit that we are creating an event for
@@ -138,6 +140,14 @@ public class AddHabitEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AddHabitEventActivity.this, UploadImageActivity.class);
                 intent.putExtra("habit",currentHabit.getTitle());
+                startActivity(intent);
+            }
+        });
+
+        gpsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddHabitEventActivity.this, gpsActivity.class);
                 startActivity(intent);
             }
         });

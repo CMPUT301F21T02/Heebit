@@ -69,6 +69,4 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.android.support:multidex:1.0.3'
 
-    //the gps dependency
-    implementation 'google.android.gms:play-services-location:17.0.0'
 }
