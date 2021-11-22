@@ -4,6 +4,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.spacejuice.controller.HabitEventController;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -214,6 +216,11 @@ public class Habit implements Serializable {
         return false;
     }
 
+    public void generateIndicator() {
+        int xp = calculateScore();
+        this.getIndicator().setXp(xp);
+    }
+
     /**
      * iterates through a habits events to calculate its score,
      * assigning it the appropriate indicator, and returning the
@@ -257,7 +264,8 @@ public class Habit implements Serializable {
         HabitEvent missedEvent = new HabitEvent();
         missedEvent.setDate(eventDay.getTime());
         missedEvent.setDone(false);
-        this.events.add(missedEvent);
+        missedEvent.setEventId(MainActivity.getUser().getUniqueID());
+        HabitEventController.addHabitEvent(this, missedEvent);
         Log.d("debugInfo", "generated missed event for " + getTitle() + "... ");
     }
 
@@ -319,26 +327,30 @@ public class Habit implements Serializable {
         this.privateHabit = bool;
     }
 
-    public Boolean completedOnDay(Calendar dayToCheck) {
+    public Boolean completedOnDay(Calendar checkDay) {
         HabitEvent lastEvent = getLastEvent();
         if (lastEvent == null) {
             return false;
         }
 
-        Date dateToCheck = dayToCheck.getTime();
         Date eventDate = getLastEvent().getDate();
-        dateToCheck.setTime(eventDate.getTime());
-        if (dateToCheck.getTime() == eventDate.getTime()) {
+        Calendar eventDay = Calendar.getInstance();
+        eventDay.setTime(eventDate);
+
+        if (checkDay.get(Calendar.YEAR) == eventDay.get(Calendar.YEAR) &&
+        checkDay.get(Calendar.MONTH) == eventDay.get(Calendar.MONTH) &&
+        checkDay.get(Calendar.DAY_OF_MONTH) == eventDay.get(Calendar.DAY_OF_MONTH)) {
             Log.d("debugInfo", getTitle() + " was completed on that day");
             return true;
         }
-        Log.d("debugInfo", "currentDate: " + dateToCheck + "  eventDate: " + eventDate);
         return false;
 
     }
 
     public Boolean completedToday() {
-        return completedOnDay(Calendar.getInstance());
+        Calendar today = Calendar.getInstance();
+        Log.d("debugInfo", "checking if habit was completed on day of week #" + today.get(Calendar.DAY_OF_WEEK));
+        return completedOnDay(today);
     }
 
 
