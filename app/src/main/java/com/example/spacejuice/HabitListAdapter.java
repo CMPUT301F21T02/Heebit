@@ -64,6 +64,8 @@ public class HabitListAdapter extends ArrayAdapter {
         row = convertView;
         CheckBox checkBox;
 
+        items.get(position).calculateScore();
+
         ViewHolder viewHolder;
         if (row == null) // If the viewHolder was not previously initialized
         {

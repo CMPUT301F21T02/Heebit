@@ -216,11 +216,6 @@ public class Habit implements Serializable {
         return false;
     }
 
-    public void generateIndicator() {
-        int xp = calculateScore();
-        this.getIndicator().setXp(xp);
-    }
-
     /**
      * iterates through a habits events to calculate its score,
      * assigning it the appropriate indicator, and returning the
@@ -228,18 +223,19 @@ public class Habit implements Serializable {
      *
      * @return Return the level of the habit
      */
-    public int calculateScore() {
+    public void calculateScore() {
 
         if (this.events.size() > 0) {
             for (HabitEvent eventItem : this.events) {
                 if (eventItem.isDone()) {
                     this.indicator.increase();
+                    Log.d("scoreCalculation", "habit " + getTitle() + " increased.");
                 } else {
                     this.indicator.decrease();
+                    Log.d("scoreCalculation", "habit " + getTitle() + " decreased.");
                 }
             }
         }
-        return this.indicator.getLevel();
     }
 
     /**
