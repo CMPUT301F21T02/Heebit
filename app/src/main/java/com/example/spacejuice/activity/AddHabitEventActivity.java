@@ -103,7 +103,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 HabitEvent event = new HabitEvent();
                 event.setDone(true);
-                event.setEventId(null);
+                event.setEventId(MainActivity.getUser().getUniqueID());
                 event.setDescription(edit_text_description.getText().toString());
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
                         .document(MainActivity.getUser().getMemberName())
