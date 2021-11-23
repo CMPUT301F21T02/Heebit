@@ -63,28 +63,36 @@ public class gpsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!isGpsAble(lm)) {
                     Toast.makeText(gpsActivity.this, "Please open your GPS!", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else {
                     if (ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(gpsActivity.this,
                                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                 MY_PERMISSIONS_REQUEST_LOCATION);
                     }
                     else {
-                        location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
-                        longitude = location.getLongitude();
-                        latitude = location.getLatitude();
-                        Geocoder geocoder = new Geocoder(gpsActivity.this, Locale.getDefault());
-                        List<Address> addresses = null;
-                        try {
-                            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        location = lm.getLastKnownLocation(lm.PASSIVE_PROVIDER);
+                        if (location != null){
+                            longitude = location.getLongitude();
+                            latitude = location.getLatitude();
+                            Geocoder geocoder = new Geocoder(gpsActivity.this, Locale.getDefault());
+                            List<Address> addresses = null;
+                            try {
+                                addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            cityName = addresses.get(0).getLocality();
+                            stateName = addresses.get(0).getAdminArea();
+                            province.setText(stateName);
+                            city.setText(cityName);
+                        }
+                        else{
+                            Toast.makeText(gpsActivity.this, "Can't get location data!", Toast.LENGTH_SHORT).show();
                         }
 
-                        cityName = addresses.get(0).getLocality();
-                        stateName = addresses.get(0).getAdminArea();
-                        province.setText(stateName);
-                        city.setText(cityName);
+
                     }
                 }
             }

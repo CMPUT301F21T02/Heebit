@@ -1,5 +1,6 @@
 package com.example.spacejuice;
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.media.Image;
@@ -114,7 +115,17 @@ public class HabitEvent {
         return this.longitude;
     }
 
-    public String getLocation(){
-        
+    public String getLocation(Context context){
+        if (this.latitude == 0.00 && this.longitude == 0.00){
+            return "Null";
+        }
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(this.latitude, this.longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea());
     }
 }
