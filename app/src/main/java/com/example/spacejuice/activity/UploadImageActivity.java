@@ -6,16 +6,23 @@ import androidx.annotation.NonNull;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import android.os.Bundle;
 
 import android.os.Handler;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -44,6 +51,12 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +67,7 @@ public class UploadImageActivity extends AppCompatActivity {
     private Button chooseImage;
     private Button uploadImage;
     private Button backButton;
+    private Button takePhoto;
     private ImageView imageView;
     private ProgressBar progressBar;
 
@@ -61,6 +75,8 @@ public class UploadImageActivity extends AppCompatActivity {
     private StorageReference storageReference;
     private DocumentReference documentReference;
     private StorageTask uploadTask;
+    private Bitmap photo;
+    private int test = 0;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -74,12 +90,32 @@ public class UploadImageActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         progressBar = findViewById(R.id.progress_bar);
         backButton = findViewById(R.id.back_button);
+        takePhoto = findViewById(R.id.take_photo_button);
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         documentReference = db.collection("Members")
                 .document(MainActivity.getUser().getMemberName())
                 .collection("Habits").document(getIntent().getExtras().getString("habit"));
-        // use logincontroller
+        //request for Camera Permission
+        if(ContextCompat.checkSelfPermission(UploadImageActivity.this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(UploadImageActivity.this,
+                    new String[]{
+                            Manifest.permission.CAMERA
+                    },
+                    100);
+        }
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open Camera
+                Log.d(TAG, "The take photo start");
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
+
 
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,11 +128,21 @@ public class UploadImageActivity extends AppCompatActivity {
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(test == 0){
+                    Toast.makeText(UploadImageActivity.this,"Absolutely wrong",Toast.LENGTH_SHORT).show();
+                }
+                if(photo == null){
+                    Toast.makeText(UploadImageActivity.this,"Totally wrong",Toast.LENGTH_SHORT).show();
+                }
                 if(uploadTask != null && uploadTask.isInProgress()){
                     Toast.makeText(UploadImageActivity.this,"Upload in progress",Toast.LENGTH_SHORT).show();
-                }else {
+                }
+                else if(imageUri == null){
+                    Toast.makeText(UploadImageActivity.this, "No file selected", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     uploadFile();
-                    Toast.makeText(UploadImageActivity.this, "Upload successful"
+                    Toast.makeText(UploadImageActivity.this, imageUri.toString()
                             , Toast.LENGTH_LONG).show();
                 }
             }
@@ -132,6 +178,22 @@ public class UploadImageActivity extends AppCompatActivity {
             //Picasso.get().load(imageUri).into(imageView);
             //imageView.setImageURI(imageUri);
         }
+
+        if(requestCode == 100 && resultCode == RESULT_OK)
+        {
+            test = 1;
+            Log.d(TAG, "The start photo event");
+            photo = (Bitmap) data.getExtras().get("data");
+            imageUri = getImageUri(UploadImageActivity.this, photo);
+        }
+
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     private String getFileExtension(Uri uri){
