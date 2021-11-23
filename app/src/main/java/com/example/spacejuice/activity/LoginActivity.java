@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.spacejuice.Habit;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userDoc = db.collection("Members").document(MainActivity.getUser().getMemberName());
         MainActivity.getUser().setNextMidnight(LoginController.getNextMidnight());
-        userDoc.update("nextMidnight", LoginController.getNextMidnight());
+        userDoc.update("NextMidnight", LoginController.getNextMidnight());
         LoginController.updateMaxID();
         Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
         startActivity(intent);

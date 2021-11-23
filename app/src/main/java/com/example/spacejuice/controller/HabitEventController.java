@@ -134,13 +134,7 @@ public class HabitEventController {
 
                         }
 
-                        // this was being called multiple times for some reason, so had to set a flag
-                        // so that it will only run once.
-                        if (!MainActivity.getUser().generatingMissedEventsFlag) {
-                            MainActivity.getUser().generatingMissedEventsFlag = true;
-                            callback.onComplete(true);
-                            Log.d("debugInfo", "loadHabitEventsFromFirebase callback.onComplete(true) .... ");
-                        }
+                        callback.onComplete(true);
 
                     }
 
@@ -157,7 +151,7 @@ public class HabitEventController {
         for (Habit h : user.getHabitListItems()) {
             generateHabitMissedEvents(h);
         }
-        ((LoginActivity)context).finishLogin();
+        ((LoginActivity) context).finishLogin();
     }
 
     public static void generateHabitMissedEvents(Habit habit) {
@@ -175,8 +169,7 @@ public class HabitEventController {
             if (habit.getSchedule().checkScheduleDay(dayOfWeek)) {
                 if (!habit.completedOnDay(dateIterator)) {
                     habit.addMissedEvent(dateIterator);
-                }
-                else {
+                } else {
                     Log.d("debugInfo", habit.getTitle() + " was completed on day " + dayOfWeek + "....");
                 }
 

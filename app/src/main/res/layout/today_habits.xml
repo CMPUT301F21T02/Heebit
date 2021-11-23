@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:scaleType="centerCrop">
+
+    </ImageView>
+
     <LinearLayout
         android:id="@+id/Top_LL"
         android:layout_width="match_parent"
@@ -25,13 +34,14 @@
             android:id="@+id/list_toggle_button_switch"
             android:layout_width="100dp"
             android:layout_height="62dp"
-            android:scaleType="fitXY"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="?colorPrimary"
-            android:textSize="16sp"
-            android:textColor="@color/White"
             android:background="@drawable/split_button_left"
-            android:text="Today's" />
+            android:backgroundTint="?colorPrimary"
+            android:fontFamily="@font/lato"
+            android:scaleType="fitXY"
+            android:text="Today's"
+            android:textColor="@color/White"
+            android:textSize="16sp" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/list_toggle_button_divider"
             android:layout_width="2dp"
@@ -45,15 +55,16 @@
             android:id="@+id/list_toggle_button_right"
             android:layout_width="100dp"
             android:layout_height="62dp"
-            android:scaleType="fitXY"
-            android:textSize="16sp"
-            android:paddingStart="20dp"
-            android:textColor="@color/White"
             android:layout_gravity="center_horizontal"
-            android:backgroundTint="?colorPrimary"
-            android:gravity="center_vertical"
             android:background="@drawable/split_button_right"
-            android:text="Habits" />
+            android:backgroundTint="?colorPrimary"
+            android:fontFamily="@font/lato"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:scaleType="fitXY"
+            android:text="Habits"
+            android:textColor="@color/White"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -68,16 +79,16 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical|right"
-        android:layout_weight="50"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
+        android:layout_weight="50"
         android:background="@null"
         android:scaleType="fitCenter"
         android:tooltipText="My Profile"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/button_profile"
-        app:tint="?android:colorPrimary" />
+        app:tint="@color/BlueViolet" />
 
 
     <ListView
@@ -136,7 +147,7 @@
             android:scaleType="fitCenter"
             android:tooltipText="Add New Habit"
             app:srcCompat="@drawable/button_add"
-            app:tint="?colorAddHabit" />
+            app:tint="@color/Bisque" />
 
     </LinearLayout>
 

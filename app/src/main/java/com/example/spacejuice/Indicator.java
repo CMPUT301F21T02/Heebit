@@ -220,10 +220,17 @@ public class Indicator implements Serializable {
       // decay the indicator level after missing a habit
       if (this.PERCENT_XP_DECAY) {
          int newXp = (int) (xp * (1 - XP_DECAY_PERCENTAGE));
+         if (newXp < 0) {
+            newXp = 0;
+         }
          setXp(newXp);
       }
       else {
-         setXp(getXp() + DECAY);
+         int newXp = getXp() + DECAY;
+         if (newXp < 0) {
+            newXp = 0;
+         }
+         setXp(newXp);
       }
       updateLevelAndProgress();
    }

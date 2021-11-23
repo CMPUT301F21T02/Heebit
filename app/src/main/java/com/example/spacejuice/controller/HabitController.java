@@ -103,56 +103,65 @@ public class HabitController {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String username = member.getMemberName();
 
-        CollectionReference collectionReference = db.collection("Members").document(username)
-                .collection("Habits");
+        final CollectionReference[] collectionReference = {db.collection("Members").document(username)
+                .collection("Habits")};
 
-        Task<QuerySnapshot> habitRef = collectionReference.get();
-        //QuerySnapshot habitSnapshot = habitRef.getResult();
-        //List<DocumentSnapshot> docs = habitSnapshot.getDocuments();
+        Task<QuerySnapshot> habitRef = collectionReference[0].get();
 
         habitRef.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot querySnapshot) {
                 List<DocumentSnapshot> docs = querySnapshot.getDocuments();
+                final boolean[] lastDocument = {false};
+                if (!docs.isEmpty()) {
 
-                for (DocumentSnapshot doc : docs) {
-                    //Log.d("debugInfo", "doc: " + doc.toString());
-                    String title = doc.getString("Title");
-                    String reason = doc.getString("Reason");
-                    Habit habit = new Habit(title, reason, -1);
-                    Boolean sun = doc.getBoolean("Sun");
-                    Boolean mon = doc.getBoolean("Mon");
-                    Boolean tue = doc.getBoolean("Tue");
-                    Boolean wed = doc.getBoolean("Wed");
-                    Boolean thu = doc.getBoolean("Thu");
-                    Boolean fri = doc.getBoolean("Fri");
-                    Boolean sat = doc.getBoolean("Sat");
-                    Boolean privateHabit = doc.getBoolean("PrivateHabit");
-                    int uid = Integer.valueOf(doc.get("ID").toString());
-                    habit.getSchedule().changeTo(sun, mon, tue, wed, thu, fri, sat);
-                    if (privateHabit == null) {
-                        privateHabit = false;
-                    }
-                    habit.setPrivacy(privateHabit);
-                    habit.forceUid(uid);
-                    HabitEventController.loadHabitEventsFromFirebase(habit, new OnHabitLoaded() {
-
-                        @Override
-                        public void onComplete(Boolean success) {
-                            if (success) {
-                                callback.onComplete(true);
-                            }
+                    for (DocumentSnapshot doc : docs) {
+                        String title = doc.getString("Title");
+                        String reason = doc.getString("Reason");
+                        Habit habit = new Habit(title, reason, -1);
+                        Boolean sun = doc.getBoolean("Sun");
+                        Boolean mon = doc.getBoolean("Mon");
+                        Boolean tue = doc.getBoolean("Tue");
+                        Boolean wed = doc.getBoolean("Wed");
+                        Boolean thu = doc.getBoolean("Thu");
+                        Boolean fri = doc.getBoolean("Fri");
+                        Boolean sat = doc.getBoolean("Sat");
+                        Boolean privateHabit = doc.getBoolean("PrivateHabit");
+                        int uid = Integer.valueOf(doc.get("ID").toString());
+                        habit.getSchedule().changeTo(sun, mon, tue, wed, thu, fri, sat);
+                        if (privateHabit == null) {
+                            privateHabit = false;
                         }
-                    });
+                        habit.setPrivacy(privateHabit);
+                        habit.forceUid(uid);
+                        if (doc == docs.get(docs.size() - 1)) {
+                            lastDocument[0] = true;
+                            Log.d("debugInfo", "last document is being retrieved in HabitController");
+                        }
+                        HabitEventController.loadHabitEventsFromFirebase(habit, new OnHabitLoaded() {
 
-                    if (MainActivity.getUser().getMaxUID() <= uid) {
-                        MainActivity.getUser().setUniqueId(uid + 1);
+                            @Override
+                            public void onComplete(Boolean success) {
+                                if (success) {
+                                    if (lastDocument[0]) {
+                                        callback.onComplete(true);
+                                    }
+                                }
+                            }
+                        });
+
+                        if (MainActivity.getUser().getMaxUID() <= uid) {
+                            MainActivity.getUser().setUniqueId(uid + 1);
+                        }
+
+                        HabitController.addLocalHabit(habit);
+
+                        Log.d("debugInfo", "doc uid: " + uid);
                     }
-
-                    HabitController.addLocalHabit(habit);
-
-                    Log.d("debugInfo", "doc uid: " + uid);
+                } else {
+                    callback.onComplete(true);
                 }
+
             }
         });
 

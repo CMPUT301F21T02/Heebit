@@ -83,8 +83,8 @@ public class LoginController {
                             account = new Member(userName, password);
                             MainActivity.setUser(account);
                             Date prevMidnight = Calendar.getInstance().getTime();
-                            if (document.getDate("nextMidnight") != null) {
-                                prevMidnight = document.getDate("nextMidnight");
+                            if (document.getDate("NextMidnight") != null) {
+                                prevMidnight = document.getDate("NextMidnight");
                             }
 
                             account.setPrevNextMidnight(prevMidnight);
