@@ -87,8 +87,8 @@
         android:tooltipText="My Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/button_profile"
-        app:tint="@color/BlueViolet" />
+        app:srcCompat="@drawable/profile_button_black"
+        app:tint="@color/white" />
 
 
     <ListView
