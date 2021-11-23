@@ -76,7 +76,6 @@ public class UploadImageActivity extends AppCompatActivity {
     private DocumentReference documentReference;
     private StorageTask uploadTask;
     private Bitmap photo;
-    private int test = 0;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -128,12 +127,6 @@ public class UploadImageActivity extends AppCompatActivity {
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(test == 0){
-                    Toast.makeText(UploadImageActivity.this,"Absolutely wrong",Toast.LENGTH_SHORT).show();
-                }
-                if(photo == null){
-                    Toast.makeText(UploadImageActivity.this,"Totally wrong",Toast.LENGTH_SHORT).show();
-                }
                 if(uploadTask != null && uploadTask.isInProgress()){
                     Toast.makeText(UploadImageActivity.this,"Upload in progress",Toast.LENGTH_SHORT).show();
                 }
@@ -181,7 +174,6 @@ public class UploadImageActivity extends AppCompatActivity {
 
         if(requestCode == 100 && resultCode == RESULT_OK)
         {
-            test = 1;
             Log.d(TAG, "The start photo event");
             photo = (Bitmap) data.getExtras().get("data");
             imageUri = getImageUri(UploadImageActivity.this, photo);
@@ -205,7 +197,7 @@ public class UploadImageActivity extends AppCompatActivity {
     private void uploadFile(){
         if(imageUri != null){
             StorageReference fileReference = storageReference.child(
-                    MainActivity.getUser().getMemberName()+ getIntent().getExtras().getString("habit")
+                    MainActivity.getUser().getMemberName()+ getIntent().getExtras().getString("habit") + String.valueOf(System.currentTimeMillis())
                             +"."+ getFileExtension(imageUri));
             uploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

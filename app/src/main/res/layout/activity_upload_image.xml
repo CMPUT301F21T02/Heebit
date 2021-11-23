@@ -19,7 +19,7 @@
         android:layout_above="@+id/upload_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="79dp"
+        android:layout_marginBottom="162dp"
         android:autofillHints="this is " />
 
     <ProgressBar
@@ -39,7 +39,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="160dp"
+        android:layout_marginBottom="110dp"
         android:text="Choose file" />
 
     <Button
@@ -49,7 +49,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="-200dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="60dp"
         android:layout_toEndOf="@+id/button_choose_image"
         android:text="upload" />
 
@@ -68,7 +68,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="160dp"
         android:text="Take photo" />
 
 </RelativeLayout>
