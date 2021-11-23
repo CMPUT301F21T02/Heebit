@@ -21,6 +21,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_height="match_parent"
         android:src="@drawable/profile_background"
         android:alpha="0.75"
+        android:contentDescription="@null"
         android:scaleType="centerCrop">
 
     </ImageView>
@@ -33,6 +34,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_marginTop="16dp"
         android:background="@null"
         android:scaleType="fitCenter"
+        android:contentDescription="back button"
         android:src="@drawable/black_back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +55,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:padding="15dp"
         android:text="Follower Requests"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.607"

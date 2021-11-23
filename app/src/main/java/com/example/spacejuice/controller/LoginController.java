@@ -31,8 +31,8 @@ import java.util.Objects;
 public class LoginController {
 
     Member account = null;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    final CollectionReference collectionReference = db.collection("Members");
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final CollectionReference collectionReference = db.collection("Members");
 
 
     public LoginController() {

@@ -138,7 +138,7 @@ public class OverviewActivity extends AppCompatActivity {
         /* updates the list of Habits */
         habitListItems = HabitController.getHabitListItems();
         if (filterToday) {
-            today_all_toggle.setText("Today's");
+            today_all_toggle.setText(getString(R.string.todays));
             populateTodayItems();
             this.habitAdapter = new HabitListAdapter(this, R.layout.overview_habit_content, today_habit_items);
             Log.d("debugInfo", "today's habit list updated");
@@ -147,7 +147,7 @@ public class OverviewActivity extends AppCompatActivity {
             this.habitAdapter.notifyDataSetChanged();
         } else {
             /* updates the list of Habits */
-            today_all_toggle.setText("All");
+            today_all_toggle.setText(getString(R.string.all));
             this.habitAdapter = new HabitListAdapter(this, R.layout.overview_habit_content, habitListItems);
             this.today_habit_list.setAdapter(habitAdapter);
             habitAdapter.notifyDataSetChanged();

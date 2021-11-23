@@ -20,6 +20,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
         android:layout_height="match_parent"
         android:src="@drawable/profile_background"
         android:alpha="0.75"
+        android:contentDescription="@null"
         android:scaleType="centerCrop">
 
     </ImageView>
@@ -32,6 +33,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
         android:background="@null"
         android:scaleType="fitCenter"
         android:src="@drawable/black_back_button"
+        android:contentDescription="back button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"

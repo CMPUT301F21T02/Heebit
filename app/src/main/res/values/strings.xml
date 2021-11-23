@@ -16,4 +16,32 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="toast_playservices_unrecoverable">Play Services Unrecoverable</string>
+    <string name="dateString">%4d-%02d-%02d</string>
+    <string name="eventDateCompletedString">on %s, %s %d, %d.</string>
+    <string name="habitStartedOnDate">Started on %s, %s %d, %d.</string>
+    <string name="editThisHabit">Edit this Habit</string>
+    <string name="followers">Followers</string>
+    <string name="noHabits">No Habits</string>
+    <string name="mustFollowToViewHabits">Must Follow To View Habits</string>
+    <string name="none">None</string>
+    <string name="todays">Today\'s</string>
+    <string name="all">All</string>
+    <string name="habits">Habits</string>
+    <string name="privateLabel">private:</string>
+    <string name="habitName">Habit Name</string>
+    <string name="CD_BackButton">Back Button</string>
+    <string name="CD_ProfileButton">Profile Button</string>
+    <string name="CD_AddHabitButton">Add Habit Button</string>
+    <string name="CD_EditHabitButton">Edit Habit Button</string>
+    <string name="CD_DeleteHabitButton">Delete Habit Button</string>
+    <string name="CD_AddNewHabit">Add New Habit</string>
+    <string name="CD_Accept">Accept</string>
+    <string name="CD_Deny">Deny</string>
+    <string name="DAY_Sn">Sn</string>
+    <string name="DAY_M">M</string>
+    <string name="DAY_T">T</string>
+    <string name="DAY_W">W</string>
+    <string name="DAY_Th">Th</string>
+    <string name="DAY_F">F</string>
+    <string name="DAY_Sa">Sa</string>
 </resources>

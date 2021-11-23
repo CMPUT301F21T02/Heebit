@@ -33,8 +33,8 @@ import com.example.spacejuice.controller.HabitEventController;
 import java.util.ArrayList;
 
 public class HabitListAdapter extends ArrayAdapter {
-    ArrayList<Habit> items;
-    Context context;
+    private final ArrayList<Habit> items;
+    private final Context context;
 
     public HabitListAdapter(Context context, int layout, ArrayList<Habit> items) {
         super(context, layout);
@@ -98,11 +98,11 @@ public class HabitListAdapter extends ArrayAdapter {
 
                 if (context.getClass() == OverviewActivity.class) {
                     OverviewActivity inst = (OverviewActivity) context;
-                    Toast.makeText(inst,"loadSuccess",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(inst,"loadSuccess",Toast.LENGTH_SHORT).show();
                     inst.launchHabitDetails(items.get(position).getUid());
                 } else if (context.getClass() == AllHabitsActivity.class) {
                     AllHabitsActivity inst = (AllHabitsActivity) context;
-                    Toast.makeText(inst,"loadSuccess",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(inst,"loadSuccess",Toast.LENGTH_SHORT).show();
                     inst.launchHabitDetails(items.get(position).getUid());
                 }
             }

@@ -24,15 +24,15 @@ import java.util.Date;
  */
 public class Member {
    // Might need to redo accesses for these cuz i dunno shit abt private vs public - Harish
-   private String memberName;
+   private final String memberName;
    private final String memberPassword;
    private int uniqueId = 1; // this is the current state of the uniqueId value, not to be used as a unique Id for this.
    private int id; // Needs to be the primary id on Firestore
-   ArrayList<Habit> habitListItems = new ArrayList<>();
+   private final ArrayList<Habit> habitListItems = new ArrayList<>();
    private int score;
    private int followers;
    private int followings;
-   private Follow follow;
+   private final Follow follow;
    private Date nextMidnight;
    private Date prevNextMidnight;
 

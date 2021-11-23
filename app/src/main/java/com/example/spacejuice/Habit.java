@@ -15,16 +15,16 @@ import java.util.Date;
  * This is a class to represent a habit.
  */
 public class Habit implements Serializable {
-    private static int TITLE_LENGTH = 20;
-    private static int REASON_LENGTH = 30;
-    private Indicator indicator;
+    private final static int TITLE_LENGTH = 20;
+    private final static int REASON_LENGTH = 30;
+    private final Indicator indicator;
     private String title;
     private String reason;
     private Date startDate;
     private Schedule schedule;
     private Boolean privateHabit = false;
     private int uid; // unique identifier for habit
-    private ArrayList<HabitEvent> events;
+    private final ArrayList<HabitEvent> events;
 
     /**
      * The constructor use for create a new habit

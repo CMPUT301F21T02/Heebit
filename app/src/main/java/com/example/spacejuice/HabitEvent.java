@@ -23,9 +23,9 @@ public class HabitEvent {
     private double longitude;
     private double latitude;
     private Boolean done;
-    public int DESC_LENGTH = 80; //cutoff for a short description
+    public final int DESC_LENGTH = 80; //cutoff for a short description
     private long eventId;
-    private int uid; // a unique ID allowing easier tracking between activities
+    private final int uid; // a unique ID allowing easier tracking between activities
 
     public HabitEvent() {
         this.setDate(null);

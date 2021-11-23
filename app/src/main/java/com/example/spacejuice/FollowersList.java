@@ -16,8 +16,8 @@ public class FollowersList extends ArrayAdapter<Member> {
     /**
      * This sets the content for following list
      */
-    private ArrayList<Member> names;
-    private Context context;
+    private final ArrayList<Member> names;
+    private final Context context;
 
     public FollowersList(Context context, ArrayList<Member> names){
         super(context, 0, names);

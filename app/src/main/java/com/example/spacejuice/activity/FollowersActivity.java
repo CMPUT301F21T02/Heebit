@@ -52,7 +52,7 @@ public class FollowersActivity extends AppCompatActivity {
         followListView = findViewById(R.id.listOfFollowingFA);
         followList = new ArrayList<>();
         text = findViewById(R.id.textViewFA);
-        text.setText("Followers");
+        text.setText(getString(R.string.followers));
         followController = new FollowController();
         followController.getFollower(new LoginController.OnCompleteCallback() {
             @Override

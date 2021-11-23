@@ -24,6 +24,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="30dp"
                 android:scaleType="fitCenter"
+                android:contentDescription="Heebit Logo"
                 app:srcCompat="@drawable/heebit_logo" />
 
             <LinearLayout

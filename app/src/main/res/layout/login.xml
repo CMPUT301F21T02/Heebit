@@ -24,6 +24,7 @@
             android:layout_marginBottom="30dp"
             android:scaleType="fitCenter"
             app:tint="?android:colorPrimary"
+            android:contentDescription="Heebit Logo"
             app:srcCompat="@drawable/heebit_logo" />
 
         <LinearLayout
@@ -97,24 +98,25 @@
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
 
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="5dp"
+                android:fontFamily="@font/lato_black"
+                android:text="Cancel" />
 
             <Button
                 android:id="@+id/loginButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/lato_black"
                 android:text="Login" />
 
-            <Button
-                android:id="@+id/cancelButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/lato_black"
-                android:text="Cancel" />
+
         </LinearLayout>
 
 
