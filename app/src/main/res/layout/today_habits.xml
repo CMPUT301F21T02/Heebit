@@ -109,24 +109,52 @@
         android:dividerHeight="5dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/add_habit_imagebutton"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Top_LL" />
 
-    <ImageButton
-        android:id="@+id/add_habit_imagebutton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/CD_AddNewHabit"
-        app:srcCompat="@drawable/button_add"
-        app:tint="@color/Bisque"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/overview_habit_listview"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:weightSum="120"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        tools:layout_editor_absoluteX="1dp">
+
+        <!--
+        <Button
+            android:id="@+id/all_habits_button"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="20"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/button_bg"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:scaleType="fitCenter"
+            android:text="All Habits"
+            android:textAllCaps="false"
+            android:tooltipText="View All Habits" />
+        -->
+
+        <ImageButton
+            android:id="@+id/add_habit_imagebutton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="50"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/CD_AddNewHabit"
+            app:srcCompat="@drawable/button_add"
+            app:tint="@color/Bisque" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
