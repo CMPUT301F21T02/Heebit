@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
@@ -43,6 +44,9 @@ public class AddHabitEventActivity extends AppCompatActivity {
     public TextView habit_reason_text;
     public TextView habit_date_completed;
     public Button gpsButton;
+    private double longitude;
+    private double latitude;
+    private boolean hasLocation =  false;
     Habit currentHabit;
 
     @Override
@@ -107,6 +111,9 @@ public class AddHabitEventActivity extends AppCompatActivity {
                 event.setDone(true);
                 event.setEventId(null);
                 event.setDescription(edit_text_description.getText().toString());
+                if (hasLocation){
+                    event.setLocation(latitude,longitude);
+                }
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
                         .document(MainActivity.getUser().getMemberName())
                         .collection("Habits").document(currentHabit.getTitle());
@@ -148,11 +155,24 @@ public class AddHabitEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddHabitEventActivity.this, gpsActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                longitude = data.getDoubleExtra("longitude", 0.00);
+                latitude = data.getDoubleExtra("latitude", 0.00);
+                hasLocation = true;
+            }
+        }
     }
 }
 

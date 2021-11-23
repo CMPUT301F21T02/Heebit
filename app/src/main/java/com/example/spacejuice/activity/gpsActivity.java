@@ -36,9 +36,12 @@ public class gpsActivity extends AppCompatActivity {
     private Button addButton;
     private Button locateButton;
     private Button cancelButton;
-
     private LocationManager lm;
     private Location location;
+    private double latitude;
+    private double longitude;
+    private String cityName;
+    private String stateName;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     @Override
@@ -60,7 +63,6 @@ public class gpsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!isGpsAble(lm)) {
                     Toast.makeText(gpsActivity.this, "Please open your GPS!", Toast.LENGTH_SHORT).show();
-                    openGPS2();
                 } else {
                     if (ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(gpsActivity.this,
@@ -69,6 +71,8 @@ public class gpsActivity extends AppCompatActivity {
                     }
                     else {
                         location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
+                        longitude = location.getLongitude();
+                        latitude = location.getLatitude();
                         Geocoder geocoder = new Geocoder(gpsActivity.this, Locale.getDefault());
                         List<Address> addresses = null;
                         try {
@@ -77,8 +81,8 @@ public class gpsActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        String cityName = addresses.get(0).getLocality();
-                        String stateName = addresses.get(0).getAdminArea();
+                        cityName = addresses.get(0).getLocality();
+                        stateName = addresses.get(0).getAdminArea();
                         province.setText(stateName);
                         city.setText(cityName);
                     }
@@ -93,6 +97,19 @@ public class gpsActivity extends AppCompatActivity {
             }
         });
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!cityName.isEmpty()){
+                    Intent intent = new Intent();
+                    intent.putExtra("longitude",longitude);
+                    intent.putExtra("latitude", latitude);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }
+        });
+
 
 
 
@@ -101,8 +118,4 @@ public class gpsActivity extends AppCompatActivity {
         return lm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER) ? true : false;
     }
 
-    private void openGPS2() {
-        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivityForResult(intent, 0);
-    }
 }

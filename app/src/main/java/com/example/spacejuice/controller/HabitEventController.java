@@ -27,6 +27,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 //import com.google.firebase.storage.FirebaseStorage;
@@ -69,6 +70,8 @@ public class HabitEventController {
                             data.put("Description", habitEvent.getDescription());
                             data.put("Date", habitEvent.getDate());
                             data.put("Url", habitEvent.getImage());
+                            data.put("Location",new GeoPoint(habitEvent.getLatitude(), habitEvent.getLongitude()));
+
                             eventDocRef.set(data)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -118,11 +121,13 @@ public class HabitEventController {
                             Log.d("debugInfo", "got date: " + date);
                             String des = doc.getString("Description");
                             Log.d("debugInfo", "got des: " + des);
+                            GeoPoint loc = doc.getGeoPoint("Location");
                             HabitEvent habitEvent = new HabitEvent();
                             habitEvent.setEventId(id);
                             habitEvent.setDescription(des);
                             habitEvent.setDate(date);
                             habitEvent.setImage(Url);
+                            habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
                             if (!habit.containsEventId(id)) {
                                 habit.addEvent(habitEvent);
                             }
