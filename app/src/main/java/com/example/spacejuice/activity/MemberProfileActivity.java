@@ -44,11 +44,14 @@ public class MemberProfileActivity extends AppCompatActivity {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.member_profile_activity);
        this.db = FirebaseFirestore.getInstance();
+       final LoadingDialog loadingDialog = new LoadingDialog(MemberProfileActivity.this);
 
        backButton = findViewById(R.id.backButtonMPA);
        displayName = findViewById(R.id.memberNameMPA);
        displayScore = findViewById(R.id.scoreMPA);
        displayHabits = findViewById(R.id.followingHabitsMPA);
+
+       loadingDialog.startLoadingAlertDialog();
 
        followController = new FollowController();
 
@@ -60,38 +63,45 @@ public class MemberProfileActivity extends AppCompatActivity {
            @Override
            public void onComplete(boolean suc) {
                boolean isFollowing = followController.getIsFollowing();
-
+               Log.d("message", "being read");
                if (isFollowing == true) {
                    Log.d("message", "is following");
+                   followController.findMember(memberName, new LoginController.OnCompleteCallback(){
+                       @Override
+                       public void onComplete(boolean suc) {
+                           String score = followController.getScore();
+                           displayScore.setText(score);
+                       }
+                   });
+
+                   followController.findPublicHabits(memberName, new LoginController.OnCompleteCallback(){
+                       @Override
+                       public void onComplete(boolean suc) {
+                           publicHabits = followController.getPublicHabits();
+                           if (publicHabits.isEmpty()){
+                               TextView HabitText = findViewById(R.id.textViewMPA);
+                               HabitText.setText("No Habits");
+                           }
+                           ListAdapter = new PublicHabitsAdapter(MemberProfileActivity.this, publicHabits);
+                           displayHabits.setAdapter(ListAdapter);
+                           loadingDialog.dismissDialog();
+
+                       }
+
+                   });
                } else {
                    Log.d("message", "is not following");
+                   displayScore.setText("?");
+                   TextView HabitText = findViewById(R.id.textViewMPA);
+                   HabitText.setText("Must Follow to View Habits");
+                   loadingDialog.dismissDialog();
                }
 
            }
        });
 
 
-       followController.findMember(memberName, new LoginController.OnCompleteCallback(){
-           @Override
-           public void onComplete(boolean suc) {
-                String score = followController.getScore();
-                displayName.setText(memberName);
-                displayScore.setText(score);
-           }
-       });
 
-       followController.findPublicHabits(memberName, new LoginController.OnCompleteCallback(){
-           @Override
-           public void onComplete(boolean suc) {
-               publicHabits = followController.getPublicHabits();
-//               if (publicHabits.isEmpty()){
-//                   publicHabits.add("No Habits");
-//               }
-               ListAdapter = new PublicHabitsAdapter(MemberProfileActivity.this, publicHabits);
-               displayHabits.setAdapter(ListAdapter);
-           }
-
-       });
 
 
 

@@ -409,6 +409,7 @@ public class FollowController {
                 if (string != null){
                     isFollowing = true;
                 }
+                callback.onComplete(true);
             }
         });
     }
@@ -419,13 +420,15 @@ public class FollowController {
         DocumentReference documentReference = db.collection("Members").document(memberName);
         documentReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+
                 DocumentSnapshot document = task.getResult();
                 // if this name exist
                 assert document != null;
                 if (document.exists()){
                     score = document.getString("Score");
-
+                    callback.onComplete(true);
                 }
+                callback.onComplete(true);
             }
         });
     }
