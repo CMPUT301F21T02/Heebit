@@ -1,9 +1,11 @@
 package com.example.spacejuice.controller;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.spacejuice.Habit;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +17,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +27,10 @@ import java.util.Map;
 
 public class FollowController {
     private FirebaseFirestore db;
+    private ArrayList<String> publicHabits;
+    private String score;
+    boolean isFollowing = false;
+
     //Empty constructor
     public FollowController(){
         this.db = FirebaseFirestore.getInstance();
@@ -349,4 +357,90 @@ public class FollowController {
             }
         });
     }
+
+    public void findPublicHabits(String memberName, final LoginController.OnCompleteCallback callback){
+        publicHabits = new ArrayList<>();
+
+        Query query = db.collection("Members").document(memberName).collection("Habits")
+                .whereEqualTo("PrivateHabit", false);
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot querySnapshot) {
+                Log.d("message", "task is successful");
+                if (querySnapshot.isEmpty()) {
+                    Log.d("message", "is empty");
+                    callback.onComplete(true);
+                } else {
+                    Log.d("message", "is not empty");
+                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                        String habit = document.getId();
+                        publicHabits.add(habit);
+                        callback.onComplete(true);
+                    }
+                }
+
+            }
+        });
+
+    }
+
+    public boolean isFollowing(String memberName){
+        ArrayList<String> following = MainActivity.getUser().getFollow().getFollowings();
+        boolean isFollowing = false;
+        for (int i = 0; i < following.size(); i++){
+            if (following.get(i) == memberName){
+                isFollowing = true;
+                break;
+            }
+        }
+
+        return isFollowing;
+    }
+
+    public void checkFollowing(String memberName, final LoginController.OnCompleteCallback callback){
+        DocumentReference documentReference = db.collection("Members")
+                .document(MainActivity.getUser().getMemberName())
+                .collection("Follow")
+                .document("Following");
+        documentReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                String string = document.getString(memberName);
+                if (string != null){
+                    isFollowing = true;
+                }
+            }
+        });
+    }
+
+
+
+    public void findMember(String memberName, final LoginController.OnCompleteCallback callback){
+        DocumentReference documentReference = db.collection("Members").document(memberName);
+        documentReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                // if this name exist
+                assert document != null;
+                if (document.exists()){
+                    score = document.getString("Score");
+
+                }
+            }
+        });
+    }
+
+    public ArrayList<String> getPublicHabits(){
+        return publicHabits;
+    }
+
+    public String getScore(){
+        return score;
+    }
+
+    public boolean getIsFollowing(){
+        return isFollowing;
+    }
+
+
 }
