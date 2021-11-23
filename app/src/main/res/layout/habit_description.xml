@@ -93,6 +93,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         android:layout_height="match_parent"
         android:src="@drawable/profile_background"
         android:alpha="0.75"
+        android:contentDescription="@null"
         android:scaleType="centerCrop">
 
     </ImageView>
@@ -115,6 +116,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:focusable="true"
                 android:orientation="vertical">
 
                 <ImageButton
@@ -127,6 +129,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                     android:background="@null"
                     android:scaleType="fitCenter"
                     android:src="@drawable/black_back_button"
+                    android:contentDescription="back button"
                     app:tint="@color/white" />
 
                 <LinearLayout
@@ -187,9 +190,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
 
 
                     <LinearLayout
+                        android:id="@+id/NameEditSpacer"
+                        android:orientation="horizontal"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="100"></LinearLayout>
+                        android:layout_weight="100"/>
 
                     <ImageView
                         android:id="@+id/desc_edit_button"
@@ -199,6 +204,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_marginEnd="5dp"
                         android:tooltipText="Edit this habit"
                         android:layout_gravity="top|left"
+                        android:contentDescription="Edit habit"
                         app:srcCompat="@drawable/edit_button_black"
                         app:tint="@color/White" />
 
@@ -208,6 +214,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_height="52dp"
                         android:tooltipText="Delete this habit"
                         android:layout_gravity="top|left"
+                        android:contentDescription="Delete habit"
                         app:srcCompat="@drawable/delete_button_black"
                         app:tint="@color/White" />
 
@@ -218,7 +225,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:fontFamily="@font/lato"
                     android:text="because I should"
                     android:textColor="@color/Black"
@@ -232,7 +239,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                     android:fontFamily="@font/lato"
                     android:text="Selected Date"
                     android:textColor="@color/Black"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
 
                 <LinearLayout
                     android:id="@+id/LL_Privacy_Container"
@@ -258,9 +265,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/PrivacySpacer"
+                android:orientation="horizontal"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"></LinearLayout>
+                android:layout_weight="1"/>
         </LinearLayout>
 
         <LinearLayout
@@ -292,7 +301,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_gravity="center"
                         android:text="SN"
                         android:textColor="?android:colorPrimary"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -313,7 +322,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_gravity="center"
                         android:text="M"
                         android:textColor="?android:colorPrimary"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -334,7 +343,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_gravity="center"
                         android:text="T"
                         android:textColor="?android:colorPrimary"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -355,7 +364,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_gravity="center"
                         android:text="W"
                         android:textColor="?android:colorPrimary"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -376,7 +385,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_gravity="center"
                         android:text="TH"
                         android:textColor="?android:colorPrimary"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -397,7 +406,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_gravity="center"
                         android:text="F"
                         android:textColor="?android:colorPrimary"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
@@ -418,7 +427,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_gravity="center"
                         android:text="SA"
                         android:textColor="?android:colorPrimary"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
         </LinearLayout>

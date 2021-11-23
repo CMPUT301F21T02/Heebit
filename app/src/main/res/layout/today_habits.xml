@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/profile_background"
         android:alpha="0.75"
+        android:contentDescription="@null"
         android:scaleType="centerCrop">
 
     </ImageView>
@@ -26,6 +27,8 @@
         app:layout_constraintBottom_toTopOf="@id/overview_habit_listview">
 
         <LinearLayout
+            android:id="@+id/Top_LLSpacer"
+            android:orientation="horizontal"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -67,6 +70,8 @@
             android:textSize="16sp" />
 
         <LinearLayout
+            android:id="@+id/Top_LLSpacer2"
+            android:orientation="horizontal"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -85,6 +90,7 @@
         android:background="@null"
         android:scaleType="fitCenter"
         android:tooltipText="My Profile"
+        android:contentDescription="profile button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profile_button_black"
@@ -146,6 +152,7 @@
             android:background="@null"
             android:scaleType="fitCenter"
             android:tooltipText="Add New Habit"
+            android:contentDescription="add new habit"
             app:srcCompat="@drawable/button_add"
             app:tint="@color/Bisque" />
 
