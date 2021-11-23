@@ -4,7 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationRequest;
@@ -23,7 +25,10 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.spacejuice.R;
 
+import java.io.IOException;
 import java.security.spec.MGF1ParameterSpec;
+import java.util.List;
+import java.util.Locale;
 
 public class gpsActivity extends AppCompatActivity {
     private TextView province;
@@ -64,8 +69,18 @@ public class gpsActivity extends AppCompatActivity {
                     }
                     else {
                         location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
-                        province.setText(String.valueOf(location.getLatitude()));
-                        city.setText(String.valueOf(location.getLongitude()));
+                        Geocoder geocoder = new Geocoder(gpsActivity.this, Locale.getDefault());
+                        List<Address> addresses = null;
+                        try {
+                            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        String cityName = addresses.get(0).getLocality();
+                        String stateName = addresses.get(0).getAdminArea();
+                        province.setText(stateName);
+                        city.setText(cityName);
                     }
                 }
             }
