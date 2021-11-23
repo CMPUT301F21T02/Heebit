@@ -153,7 +153,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:shadowColor="@color/DarkSlateGray"
                         android:padding="12dp"
                         android:textColor="@color/LightSalmon"
-                        android:textSize="30sp"
+                        android:textSize="18sp"
                         android:textStyle="bold">
                     </TextView>
                 </LinearLayout>
