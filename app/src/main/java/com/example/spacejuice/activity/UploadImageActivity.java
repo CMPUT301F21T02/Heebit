@@ -6,16 +6,22 @@ import androidx.annotation.NonNull;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
 
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import android.os.Bundle;
 
 import android.os.Handler;
 
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -54,6 +60,7 @@ public class UploadImageActivity extends AppCompatActivity {
     private Button chooseImage;
     private Button uploadImage;
     private Button backButton;
+    private Button takePhoto;
     private ImageView imageView;
     private ProgressBar progressBar;
 
@@ -74,12 +81,31 @@ public class UploadImageActivity extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         progressBar = findViewById(R.id.progress_bar);
         backButton = findViewById(R.id.back_button);
+        takePhoto = findViewById(R.id.take_photo_button);
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         documentReference = db.collection("Members")
                 .document(MainActivity.getUser().getMemberName())
                 .collection("Habits").document(getIntent().getExtras().getString("habit"));
-        // use logincontroller
+        //request for Camera Permission
+        if(ContextCompat.checkSelfPermission(UploadImageActivity.this,
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(UploadImageActivity.this,
+                    new String[]{
+                            Manifest.permission.CAMERA
+                    },
+                    100);
+        }
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open Camera
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
+
 
         chooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +122,7 @@ public class UploadImageActivity extends AppCompatActivity {
                     Toast.makeText(UploadImageActivity.this,"Upload in progress",Toast.LENGTH_SHORT).show();
                 }else {
                     uploadFile();
-                    Toast.makeText(UploadImageActivity.this, "Upload successful"
+                    Toast.makeText(UploadImageActivity.this, imageUri.toString()
                             , Toast.LENGTH_LONG).show();
                 }
             }
@@ -132,6 +158,12 @@ public class UploadImageActivity extends AppCompatActivity {
             //Picasso.get().load(imageUri).into(imageView);
             //imageView.setImageURI(imageUri);
         }
+
+        if(requestCode == 100 && resultCode == RESULT_OK
+                && data != null && data.getData() != null ){
+                imageUri = data.getData();
+            }
+
     }
 
     private String getFileExtension(Uri uri){
