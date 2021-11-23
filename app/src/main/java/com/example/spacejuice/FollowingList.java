@@ -33,9 +33,7 @@ public class FollowingList extends ArrayAdapter<Member> {
         }
         Member member = names.get(position);
         TextView name = view.findViewById(R.id.nameTextFC);
-        TextView score = view.findViewById(R.id.pointsTextFC);
         name.setText(member.getMemberName());
-        score.setText("0");
 
         return view;
     }

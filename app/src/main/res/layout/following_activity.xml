@@ -76,25 +76,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Text View
-     ID: textView3FA
-     USE: Prints out "Points"
-     -->
-    <TextView
-        android:id="@+id/textView3FA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="11dp"
-        android:fontFamily="@font/lato_black"
-        android:text="Points"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/listOfFollowingFA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
