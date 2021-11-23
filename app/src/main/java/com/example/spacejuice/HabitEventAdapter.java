@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class HabitEventAdapter extends ArrayAdapter {
-    ArrayList<HabitEvent> eventItems;
-    Context context;
+    private final ArrayList<HabitEvent> eventItems;
+    private final Context context;
 
     public HabitEventAdapter(Context context, int layout, ArrayList<HabitEvent> items) {
         super(context, layout);

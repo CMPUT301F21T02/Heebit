@@ -23,9 +23,10 @@
             android:paddingLeft="20dp"
             android:text="YourSecretAdmirer"
             android:layout_gravity="center_vertical"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <LinearLayout
+            android:id="@+id/followerSpacer"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -41,6 +42,7 @@
             android:scaleType="fitCenter"
             android:background="@null"
             app:tint="?colorAcceptRequest"
+            android:contentDescription="accept"
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/button_check" />
 
@@ -53,6 +55,7 @@
             android:scaleType="fitCenter"
             android:background="@null"
             app:tint="?colorDenyRequest"
+            android:contentDescription="deny"
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/button_x" />
 

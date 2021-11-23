@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FollowController {
-    private FirebaseFirestore db;
+    private final FirebaseFirestore db;
     private ArrayList<String> publicHabits;
     private String score;
     boolean isFollowing = false;

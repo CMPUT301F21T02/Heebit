@@ -80,7 +80,7 @@ public class MemberProfileActivity extends AppCompatActivity {
                            publicHabits = followController.getPublicHabits();
                            if (publicHabits.isEmpty()){
                                TextView HabitText = findViewById(R.id.textViewMPA);
-                               HabitText.setText("No Habits");
+                               HabitText.setText(R.string.noHabits);
                            }
                            ListAdapter = new PublicHabitsAdapter(MemberProfileActivity.this, publicHabits);
                            displayHabits.setAdapter(ListAdapter);
@@ -93,7 +93,7 @@ public class MemberProfileActivity extends AppCompatActivity {
                    Log.d("message", "is not following");
                    displayScore.setText("?");
                    TextView HabitText = findViewById(R.id.textViewMPA);
-                   HabitText.setText("Must Follow to View Habits");
+                   HabitText.setText(R.string.mustFollowToViewHabits);
                    loadingDialog.dismissDialog();
                }
 

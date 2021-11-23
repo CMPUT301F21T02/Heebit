@@ -70,6 +70,7 @@
             android:layout_weight="50"
             android:background="@null"
             android:scaleType="fitCenter"
+            android:contentDescription="add habit"
             app:tint="?colorAddHabit"
             android:tooltipText="Add New Habit"
             app:srcCompat="@drawable/button_add" />
@@ -83,25 +84,11 @@
             android:background="@null"
             android:scaleType="fitCenter"
             android:tooltipText="My Profile"
+            android:contentDescription="profile button"
             app:srcCompat="@drawable/button_profile"
             app:tint="?android:colorPrimary" />
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/AllHabitsBackButton"
-        android:layout_width="52dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:colorPrimary"
-        android:scaleType="fitCenter"
-
-        android:background="@null"
-
-        app:srcCompat="@drawable/button_back" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -155,8 +155,8 @@ This Activity is used to edit a habit
         String monthString  = (String) DateFormat.format("MMMM", date); // September
         String year         = (String) DateFormat.format("yyyy", date); // 2013
 
-        selectedDate.setText("Started on " + dayOfTheWeek + ", " + monthString + " " + day + ", " +
-                year + ".");
+        selectedDate.setText(getString(R.string.habitStartedOnDate, dayOfTheWeek, monthString, Integer.valueOf(day), Integer.valueOf(year)));
+
         habitEventList = findViewById(R.id.list_of_my_habit_events);
 
         adjustForSmallDisplay(); // title width is resized if display is small

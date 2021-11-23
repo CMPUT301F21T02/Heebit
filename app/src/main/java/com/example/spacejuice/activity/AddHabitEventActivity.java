@@ -90,8 +90,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
         String monthString  = (String) DateFormat.format("MMMM",  date); // September
         String year         = (String) DateFormat.format("yyyy", date); // 2013
 
-        habit_date_completed.setText("on " + dayOfTheWeek + ", " + monthString + " " + day + ", " +
-            year + ".");
+        habit_date_completed.setText(getString(R.string.eventDateCompletedString, dayOfTheWeek, monthString, Integer.valueOf(day), Integer.valueOf(year)));
         habit_title_text.setText(currentHabit.getTitle());
         habit_reason_text.setText(currentHabit.getReason());
         Log.d("debugInfo", "Habit title: " + currentHabit.getTitle() + "Habit reason: " + currentHabit.getReason());

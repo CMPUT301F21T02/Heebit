@@ -56,8 +56,8 @@ public class gpsActivity extends AppCompatActivity {
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        province.setText("None");
-        city.setText("None");
+        province.setText(getString(R.string.none));
+        city.setText(getString(R.string.none));
         locateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

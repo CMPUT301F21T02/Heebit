@@ -85,7 +85,7 @@ This Activity is used to edit a habit
 
         // modify the "Add a Habit layout for Editing a habit
         title = findViewById(R.id.textViewHAE);
-        title.setText("Edit this Habit"); //Set the title into Add a Habit
+        title.setText(getString(R.string.editThisHabit)); //Set the title into Add a Habit
         LinearLayout dateContainer = findViewById(R.id.LL_DateContainer);
         ViewGroup.LayoutParams dateContainerParams = dateContainer.getLayoutParams();
         ViewGroup.MarginLayoutParams dateContainerMargins =
@@ -174,9 +174,12 @@ This Activity is used to edit a habit
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        date = new Date(year - 1900, monthOfYear, dayOfMonth);
-                        SelectedDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(Calendar.YEAR, year);
+                        cal.set(Calendar.MONTH, monthOfYear);
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        date = cal.getTime();
+                        SelectedDate.setText(getString(R.string.dateString, year, monthOfYear+1, dayOfMonth));
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();

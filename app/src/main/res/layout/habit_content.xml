@@ -51,7 +51,7 @@
                     android:text="Lv10"
                     android:textColor="@color/LightSalmon"
                     android:textSize="13sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold"/>
             </LinearLayout>
 
             <TextView
@@ -60,13 +60,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="This is a test Habit"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal"></LinearLayout>
         </LinearLayout>
 
         <CheckBox

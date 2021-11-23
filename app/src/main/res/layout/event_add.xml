@@ -19,6 +19,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
         android:layout_height="match_parent"
         android:src="@drawable/profile_background"
         android:alpha="0.75"
+        android:contentDescription="@null"
         android:scaleType="centerCrop">
 
     </ImageView>
@@ -95,8 +96,8 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="30dp"
+
                 android:orientation="horizontal">
 
                 <TextView
@@ -149,7 +150,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:padding="5dp"
                 android:text="Description:"
                 android:textColor="#FFFFFF"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
             <EditText
                 android:id="@+id/eventDescriptionEA"
@@ -209,7 +210,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                 android:backgroundTint="?colorAddHabit"
                 android:fontFamily="@font/lato_black"
                 android:text="Publish"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
