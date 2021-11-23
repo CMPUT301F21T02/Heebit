@@ -58,16 +58,15 @@ public class gpsActivity extends AppCompatActivity {
                     openGPS2();
                 } else {
                     if (ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(gpsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        onPause();
                         ActivityCompat.requestPermissions(gpsActivity.this,
                                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                 MY_PERMISSIONS_REQUEST_LOCATION);
-                        onResume();
                     }
-                    location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
-                    province.setText(String.valueOf(location.getLatitude()));
-                    city.setText(String.valueOf(location.getLongitude()));
-
+                    else {
+                        location = lm.getLastKnownLocation(lm.getBestProvider(new Criteria(), true));
+                        province.setText(String.valueOf(location.getLatitude()));
+                        city.setText(String.valueOf(location.getLongitude()));
+                    }
                 }
             }
         });
