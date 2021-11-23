@@ -17,7 +17,7 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 
 public class HabitEvent {
-    private String description;
+    private String description = "";
     private Date date;
     private String ImageUrl = null;
     private double longitude;

@@ -14,6 +14,16 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
     ID: backButtonFA
     USE: Exiting the activity
     -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:scaleType="centerCrop">
+
+    </ImageView>
+
     <ImageButton
         android:id="@+id/backButtonFA"
         android:layout_width="52dp"
@@ -21,12 +31,12 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
         android:layout_marginTop="16dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/button_back"
+        android:src="@drawable/black_back_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:colorPrimary" />
+        app:tint="@color/white" />
 
     <!--List View
     ID: listOfFollowingFA
@@ -58,29 +68,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "FA" AT THE END
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/lato_black"
         android:text="Following"
+        android:textColor="#FFFFFF"
         android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Text View
-     ID: textView3FA
-     USE: Prints out "Points"
-     -->
-    <TextView
-        android:id="@+id/textView3FA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="11dp"
-        android:text="Points"
-        app:layout_constraintBottom_toTopOf="@+id/listOfFollowingFA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

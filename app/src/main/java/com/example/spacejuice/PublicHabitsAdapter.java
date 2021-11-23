@@ -12,16 +12,13 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class FollowingList extends ArrayAdapter<Member> {
-    /**
-     * This sets the content for following list
-     */
-    private ArrayList<Member> names;
+public class PublicHabitsAdapter extends ArrayAdapter<String> {
+    private ArrayList<String> title;
     private Context context;
 
-    public FollowingList(Context context, ArrayList<Member> names){
-        super(context, 0, names);
-        this.names = names;
+    public PublicHabitsAdapter(Context context, ArrayList<String> titles){
+        super(context, 0, titles);
+        this.title = titles;
         this.context = context;
     }
     @NonNull
@@ -29,11 +26,11 @@ public class FollowingList extends ArrayAdapter<Member> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.following_content, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.follower_content, parent, false);
         }
-        Member member = names.get(position);
-        TextView name = view.findViewById(R.id.nameTextFC);
-        name.setText(member.getMemberName());
+        String string = title.get(position);
+        TextView name = view.findViewById(R.id.nameTextFC1);
+        name.setText(string);
 
         return view;
     }

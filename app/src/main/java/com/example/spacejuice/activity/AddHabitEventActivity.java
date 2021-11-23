@@ -109,7 +109,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 HabitEvent event = new HabitEvent();
                 event.setDone(true);
-                event.setEventId(null);
+                event.setEventId(MainActivity.getUser().getUniqueID());
                 event.setDescription(edit_text_description.getText().toString());
                 if (hasLocation){
                     event.setLocation(latitude,longitude);

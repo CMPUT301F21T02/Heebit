@@ -1,6 +1,7 @@
 package com.example.spacejuice;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class Schedule implements Serializable {
    // Helper class to store Schedule booleans
@@ -65,5 +66,26 @@ public class Schedule implements Serializable {
       this.thu = thu;
       this.fri = fri;
       this.sat = sat;
+   }
+
+   // checks if the schedule contains the day of week (1=SUN, 7=SAT)
+   public Boolean checkScheduleDay(int dayOfWeek) {
+      switch (dayOfWeek) {
+         case Calendar.SUNDAY:
+            return Sun();
+         case Calendar.MONDAY:
+            return Mon();
+         case Calendar.TUESDAY:
+            return Tue();
+         case Calendar.WEDNESDAY:
+            return Wed();
+         case Calendar.THURSDAY:
+            return Thu();
+         case Calendar.FRIDAY:
+            return Fri();
+         case Calendar.SATURDAY:
+            return Sat();
+      }
+      return false;
    }
 }

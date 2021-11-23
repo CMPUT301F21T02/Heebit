@@ -13,6 +13,8 @@ import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.controller.HabitController;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 
 // Yuchen: Add tests to create a member and add score and add/subtract followers/followings
@@ -31,6 +33,8 @@ public class Member {
    private int followers;
    private int followings;
    private Follow follow;
+   private Date nextMidnight;
+   private Date prevNextMidnight;
 
    /**
     * Constructor for generate a empty Member
@@ -101,41 +105,6 @@ public class Member {
             /*
       initialization of TEST DATA
        */
-
-      /*
-      Habit habit;
-      habit = new Habit("MWF Habit", "Reason #1", 0);
-      habit.getSchedule().changeTo(false, true, false, true, false, true, false);
-      HabitController.addHabit(habit);
-      habit = new Habit("TTh Habit", "Reason #2", 3);
-      habit.getSchedule().changeTo(false, false, true, false, true, true, false);
-      HabitController.addHabit(habit);
-      habit = new Habit("everyday habit", "reason #3", 9);
-      habit.getSchedule().changeTo(true, true, true, true, true, true, true);
-      HabitController.addHabit(habit);
-      habit = new Habit("weekend habit", "reason #4", 6);
-      habit.getSchedule().changeTo(true, false, false, false, false, false, true);
-      HabitController.addHabit(habit);
-      habit = new Habit("Thurs Fri Habit", "reason #5", 5);
-      habit.getSchedule().changeTo(false, false, false, false, true, true, false);
-      HabitController.addHabit(habit);
-      habit = new Habit("Friday Habit", "reason #6", 7);
-      habit.getSchedule().changeTo(false, false, false, false, false, true, false);
-      HabitController.addHabit(habit);
-      habit = new Habit("Sat Tues Habit", "reason #7", 3);
-      habit.getSchedule().changeTo(false, false, true, false, false, false, true);
-      HabitController.addHabit(habit);
-      habit = new Habit("Sun Mon Habit", "reason #8", 4);
-      habit.getSchedule().changeTo(true, true , false, false, false, false, false);
-      HabitController.addHabit(habit);
-      habit = new Habit("ThFSS Habit", "reason #9", -1);
-      habit.getSchedule().changeTo(true, false, false, false, true, true, true);
-      HabitController.addHabit(habit);
-      Log.d("debugInfo", "is this the user? " + isUser());
-
-
-       */
-
    }
 
    /**
@@ -286,6 +255,22 @@ public class Member {
     * @param habitDelete   The habit want to delete
     */
    public void deleteHabit(Habit habitDelete){ habitListItems.remove(habitDelete);
+   }
+
+   public void setNextMidnight(Date midn) {
+      this.nextMidnight = midn;
+   }
+
+   public Date getNextMidnight() {
+      return this.nextMidnight;
+   }
+
+   public void setPrevNextMidnight(Date midn) {
+      this.prevNextMidnight = midn;
+   }
+
+   public Date getPrevNextMidnight() {
+      return this.prevNextMidnight;
    }
 
 }

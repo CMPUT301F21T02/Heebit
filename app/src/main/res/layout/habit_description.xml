@@ -88,6 +88,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
     <!--        tools:ignore="MissingConstraints"-->
     <!--        tools:layout_editor_absoluteY="286dp" />-->
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:scaleType="centerCrop">
+
+    </ImageView>
+
     <LinearLayout
         android:id="@+id/LL_Main_Vertical_HD"
         android:layout_width="match_parent"
@@ -117,8 +126,8 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                     android:layout_marginTop="15dp"
                     android:background="@null"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/button_back"
-                    app:tint="?android:colorPrimary" />
+                    android:src="@drawable/black_back_button"
+                    app:tint="@color/white" />
 
                 <LinearLayout
                     android:id="@+id/LL_Indicator"
@@ -168,8 +177,10 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="15dp"
+                        android:fontFamily="@font/lato_black"
                         android:maxLines="1"
                         android:text="Habit Name"
+                        android:textColor="#FFFFFF"
                         android:textSize="40sp"
                         android:textStyle="bold"
                         app:autoSizeTextType="uniform"
@@ -189,7 +200,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_marginEnd="5dp"
                         android:tooltipText="Edit this habit"
                         app:srcCompat="@drawable/habit_edit"
-                        app:tint="?colorPrimary" />
+                        app:tint="@color/DarkSlateBlue" />
 
                     <ImageView
                         android:id="@+id/desc_delete_button"
@@ -198,7 +209,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                         android:layout_marginTop="15dp"
                         android:tooltipText="Delete this habit"
                         app:srcCompat="@drawable/habit_delete"
-                        app:tint="?colorDenyRequest" />
+                        app:tint="@color/Brown" />
 
                 </LinearLayout>
 
@@ -207,8 +218,9 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:fontFamily="@font/lato"
                     android:text="because I should"
-                    android:textColor="?colorAccent"
+                    android:textColor="@color/Black"
                     android:textStyle="italic" />
 
                 <TextView
@@ -216,7 +228,9 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:fontFamily="@font/lato"
                     android:text="Selected Date"
+                    android:textColor="#FFFFFF"
                     android:textSize="12dp" />
 
                 <LinearLayout
@@ -224,12 +238,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <TextView
                         android:id="@+id/habit_desc_private_textBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:text="Private:"/>
+                        android:fontFamily="@font/lato"
+                        android:text="Private:"
+                        android:textColor="#FFFFFF" />
                     <CheckBox
                         android:id="@+id/habit_desc_privacy_checkbox"
                         android:layout_width="wrap_content"

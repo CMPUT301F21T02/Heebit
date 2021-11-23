@@ -4,6 +4,8 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.spacejuice.controller.HabitEventController;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -221,18 +223,20 @@ public class Habit implements Serializable {
      *
      * @return Return the level of the habit
      */
-    public int calculateScore() {
+    public void calculateScore() {
+        this.indicator.setXp(0);
 
         if (this.events.size() > 0) {
             for (HabitEvent eventItem : this.events) {
                 if (eventItem.isDone()) {
                     this.indicator.increase();
+                    Log.d("scoreCalculation", "habit " + getTitle() + " increased.");
                 } else {
                     this.indicator.decrease();
+                    Log.d("scoreCalculation", "habit " + getTitle() + " decreased.");
                 }
             }
         }
-        return this.indicator.getLevel();
     }
 
     /**
@@ -251,6 +255,16 @@ public class Habit implements Serializable {
      */
     public void addEvent(HabitEvent habitEvent) {
         this.events.add(habitEvent);
+    }
+
+    public void addMissedEvent(Calendar eventDay) {
+        HabitEvent missedEvent = new HabitEvent();
+        missedEvent.setDate(eventDay.getTime());
+        missedEvent.setDone(false);
+        missedEvent.setEventId(MainActivity.getUser().getUniqueID());
+        HabitEventController.addHabitEvent(this, missedEvent);
+        Log.d("debugInfo", "generated missed event for " + getTitle() + "... " +
+                " id#" + missedEvent.getEventId() + " on day: " + eventDay.toString());
     }
 
     /**
@@ -300,7 +314,13 @@ public class Habit implements Serializable {
         if (events.size() == 0) {
             return null;
         }
-        return events.get(events.size() - 1);
+        HabitEvent latestEvent = events.get(0);
+        for (HabitEvent e: events) {
+            if (e.getDate().compareTo(latestEvent.getDate()) > 0) {
+                latestEvent = e;
+            }
+        }
+        return latestEvent;
     }
 
     public Boolean isPrivate() {
@@ -311,22 +331,30 @@ public class Habit implements Serializable {
         this.privateHabit = bool;
     }
 
-    public Boolean completedToday() {
+    public Boolean completedOnDay(Calendar checkDay) {
         HabitEvent lastEvent = getLastEvent();
         if (lastEvent == null) {
             return false;
         }
 
-        Calendar calendar = Calendar.getInstance();
-        Date currentDate = calendar.getTime();
         Date eventDate = getLastEvent().getDate();
-        currentDate.setTime(eventDate.getTime());
-        if (currentDate.getTime() == eventDate.getTime()) {
-            Log.d("debugInfo", getTitle() + " was completed today");
+        Calendar eventDay = Calendar.getInstance();
+        eventDay.setTime(eventDate);
+
+        if (checkDay.get(Calendar.YEAR) == eventDay.get(Calendar.YEAR) &&
+        checkDay.get(Calendar.MONTH) == eventDay.get(Calendar.MONTH) &&
+        checkDay.get(Calendar.DAY_OF_MONTH) == eventDay.get(Calendar.DAY_OF_MONTH)) {
+            Log.d("debugInfo", getTitle() + " was completed on that day");
             return true;
         }
-        Log.d("debugInfo", "currentDate: " + currentDate + "  eventDate: " + eventDate);
         return false;
+
+    }
+
+    public Boolean completedToday() {
+        Calendar today = Calendar.getInstance();
+        Log.d("debugInfo", "checking if habit was completed on day of week #" + today.get(Calendar.DAY_OF_WEEK));
+        return completedOnDay(today);
     }
 
 
