@@ -45,6 +45,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         TextView eventDateText;
         ImageView eventIndicator;
         ImageView eventImage;
+        TextView eventLocation;
     }
 
     @Override
@@ -69,6 +70,7 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventDescription = row.findViewById(R.id.habit_event_description);
             viewHolder.eventDateText = row.findViewById(R.id.habit_event_date);
             viewHolder.eventImage = row.findViewById(R.id.eventImage);
+            viewHolder.eventLocation = row.findViewById(R.id.location_text);
             row.setTag(viewHolder);
         } else { // If the viewHolder was already initialized
             viewHolder = (ViewHolder) row.getTag();
@@ -92,6 +94,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.eventDescription.setClickable(false);
         viewHolder.eventDateText.setText(dateText);
         viewHolder.eventDateText.setClickable(false);
+        viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
         //
         //
         //

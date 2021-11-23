@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.Habit;
@@ -42,6 +43,10 @@ public class AddHabitEventActivity extends AppCompatActivity {
     public TextView habit_title_text;
     public TextView habit_reason_text;
     public TextView habit_date_completed;
+    public Button gpsButton;
+    private double longitude;
+    private double latitude;
+    private boolean hasLocation =  false;
     Habit currentHabit;
 
     @Override
@@ -57,6 +62,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
         habit_reason_text = findViewById(R.id.habit_reason_value);
         habit_date_completed = findViewById(R.id.dateofcompletion);
         add_image_button = findViewById(R.id.add_an_image_button);
+        gpsButton = findViewById(R.id.GPS);
 
         /*
             Get the Unique Identifier of the Habit that we are creating an event for
@@ -105,6 +111,9 @@ public class AddHabitEventActivity extends AppCompatActivity {
                 event.setDone(true);
                 event.setEventId(MainActivity.getUser().getUniqueID());
                 event.setDescription(edit_text_description.getText().toString());
+                if (hasLocation){
+                    event.setLocation(latitude,longitude);
+                }
                 DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
                         .document(MainActivity.getUser().getMemberName())
                         .collection("Habits").document(currentHabit.getTitle());
@@ -142,7 +151,28 @@ public class AddHabitEventActivity extends AppCompatActivity {
             }
         });
 
+        gpsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddHabitEventActivity.this, gpsActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
 
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                longitude = data.getDoubleExtra("longitude", 0.00);
+                latitude = data.getDoubleExtra("latitude", 0.00);
+                hasLocation = true;
+            }
+        }
     }
 }
 
