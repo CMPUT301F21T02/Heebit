@@ -415,7 +415,11 @@ public class FollowController {
     }
 
 
-
+    /**
+     * Finds the target member
+     * @param memberName
+     * @param callback
+     */
     public void findMember(String memberName, final LoginController.OnCompleteCallback callback){
         DocumentReference documentReference = db.collection("Members").document(memberName);
         documentReference.get().addOnCompleteListener(task -> {
