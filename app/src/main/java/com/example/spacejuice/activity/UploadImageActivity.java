@@ -135,8 +135,6 @@ public class UploadImageActivity extends AppCompatActivity {
                 }
                 else {
                     uploadFile();
-                    Toast.makeText(UploadImageActivity.this, imageUri.toString()
-                            , Toast.LENGTH_LONG).show();
                 }
             }
         });
