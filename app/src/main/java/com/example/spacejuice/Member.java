@@ -35,7 +35,6 @@ public class Member {
    private Follow follow;
    private Date nextMidnight;
    private Date prevNextMidnight;
-   public Boolean generatingMissedEventsFlag = false;
 
    /**
     * Constructor for generate a empty Member

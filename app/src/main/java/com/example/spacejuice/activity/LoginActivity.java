@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userDoc = db.collection("Members").document(MainActivity.getUser().getMemberName());
         MainActivity.getUser().setNextMidnight(LoginController.getNextMidnight());
-        userDoc.update("nextMidnight", LoginController.getNextMidnight());
+        userDoc.update("NextMidnight", LoginController.getNextMidnight());
         LoginController.updateMaxID();
         Intent intent = new Intent(LoginActivity.this, OverviewActivity.class);
         startActivity(intent);

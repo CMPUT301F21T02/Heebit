@@ -263,7 +263,8 @@ public class Habit implements Serializable {
         missedEvent.setDone(false);
         missedEvent.setEventId(MainActivity.getUser().getUniqueID());
         HabitEventController.addHabitEvent(this, missedEvent);
-        Log.d("debugInfo", "generated missed event for " + getTitle() + "... ");
+        Log.d("debugInfo", "generated missed event for " + getTitle() + "... " +
+                " id#" + missedEvent.getEventId() + " on day: " + eventDay.toString());
     }
 
     /**
@@ -313,7 +314,13 @@ public class Habit implements Serializable {
         if (events.size() == 0) {
             return null;
         }
-        return events.get(events.size() - 1);
+        HabitEvent latestEvent = events.get(0);
+        for (HabitEvent e: events) {
+            if (e.getDate().compareTo(latestEvent.getDate()) > 0) {
+                latestEvent = e;
+            }
+        }
+        return latestEvent;
     }
 
     public Boolean isPrivate() {
