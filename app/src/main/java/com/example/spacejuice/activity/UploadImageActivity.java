@@ -197,7 +197,7 @@ public class UploadImageActivity extends AppCompatActivity {
     private void uploadFile(){
         if(imageUri != null){
             StorageReference fileReference = storageReference.child(
-                    MainActivity.getUser().getMemberName()+ getIntent().getExtras().getString("habit")
+                    MainActivity.getUser().getMemberName()+ getIntent().getExtras().getString("habit") + String.valueOf(System.currentTimeMillis())
                             +"."+ getFileExtension(imageUri));
             uploadTask = fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
