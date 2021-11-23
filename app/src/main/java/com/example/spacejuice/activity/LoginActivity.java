@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        final LoadingDialog loadingDialog = new LoadingDialog(LoginActivity.this);
         loginButton = findViewById(R.id.loginButton);
         cancelButton = findViewById(R.id.cancelButton);
         UserNameET = findViewById(R.id.userName);
@@ -48,21 +49,24 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.startLoadingAlertDialog();
                 loginController.login(UserNameET.getText().toString(), PassWordET.getText().toString(), new LoginController.OnCompleteCallback() {
                     @Override
                     public void onComplete(boolean suc) {
                         success = suc;
                         if (success) {
-                            Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                             HabitController.loadHabitsFromFirebase(MainActivity.getUser(), new LoginController.OnCompleteCallback() {
                                 @Override
                                 public void onComplete(boolean suc) {
                                     HabitEventController.generateMissedEvents(LoginActivity.this);
+                                    loadingDialog.dismissDialog();
+                                    Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
                             Toast.makeText(LoginActivity.this, "login failure", Toast.LENGTH_SHORT).show();
                             PassWordET.setText(""); // clear the Text
+                            loadingDialog.dismissDialog();
                         }
                     }
                 });
