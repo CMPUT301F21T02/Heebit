@@ -14,28 +14,31 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
     ID: backButtonMPA
     USE: Exiting the activity
     -->
-    <ImageButton
-        android:id="@+id/backButtonMPA"
-        android:layout_width="52dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="16dp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/black_back_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?android:colorPrimary" />
 
     <!--List View
     ID: followingHabitsMPA
     USE: Displays the list of Habits
     -->
+
+    <ImageButton
+        android:id="@+id/backButtonMPA"
+        android:layout_width="52dp"
+        android:layout_height="72dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/black_back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.075"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024"
+        app:tint="?android:colorPrimary" />
+
     <ListView
         android:id="@+id/followingHabitsMPA"
         android:layout_width="406dp"
-        android:layout_height="186dp"
+        android:layout_height="350dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="5dp"
         android:paddingStart="10dp"
@@ -52,6 +55,17 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
     ID: textViewMPA
     USE: Prints out "Habits"
     -->
+
+    <!--Text View
+    ID: memberNameMPA
+    USE: Displays the members name
+    -->
+
+    <!--Text View
+    ID: textView2MPA
+    USE: Prints out "Score"
+    -->
+
     <TextView
         android:id="@+id/textViewMPA"
         android:layout_width="wrap_content"
@@ -64,10 +78,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Text View
-    ID: memberNameMPA
-    USE: Displays the members name
-    -->
     <TextView
         android:id="@+id/memberNameMPA"
         android:layout_width="wrap_content"
@@ -78,20 +88,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058" />
-
-    <!--Text View
-    ID: textView2MPA
-    USE: Prints out "Score"
-    -->
+        app:layout_constraintVertical_bias="0.041" />
 
     <!--Score
     ID: scoreMPA
     USE: Displays the score
     -->
+
     <TextView
         android:id="@+id/textView2MPA"
         android:layout_width="wrap_content"
@@ -100,17 +105,21 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         android:fontFamily="@font/lato_black"
         android:text="Score"
         android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/memberNameMPA" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.209" />
 
     <TextView
         android:id="@+id/scoreMPA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="4dp"
+
         android:fontFamily="@font/lato_black"
+
         android:padding="10dp"
         android:text="0"
         android:textSize="30dp"
@@ -129,7 +138,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.155" />
+        app:layout_constraintVertical_bias="0.128" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

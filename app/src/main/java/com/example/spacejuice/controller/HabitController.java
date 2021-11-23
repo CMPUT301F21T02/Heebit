@@ -55,6 +55,7 @@ public class HabitController {
         boolean thu = habit.getSchedule().Thu();
         boolean fri = habit.getSchedule().Fri();
         boolean sat = habit.getSchedule().Sat();
+        boolean privateHabit = habit.isPrivate();
 
         DocumentReference documentReference = db.collection("Members").document(username)
                 .collection("Habits").document(habitName);
@@ -75,6 +76,7 @@ public class HabitController {
                     data.put("Thu", thu);
                     data.put("Fri", fri);
                     data.put("Sat", sat);
+                    data.put("PrivateHabit", privateHabit);
                     documentReference.set(data)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
