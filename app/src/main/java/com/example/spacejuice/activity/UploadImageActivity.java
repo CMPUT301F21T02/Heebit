@@ -86,7 +86,7 @@ public class UploadImageActivity extends AppCompatActivity {
 
         chooseImage = findViewById(R.id.button_choose_image);
         uploadImage = findViewById(R.id.upload_button);
-        imageView = findViewById(R.id.imageView);
+        imageView = findViewById(R.id.image_view);
         progressBar = findViewById(R.id.progress_bar);
         backButton = findViewById(R.id.back_button);
         takePhoto = findViewById(R.id.take_photo_button);
@@ -168,8 +168,7 @@ public class UploadImageActivity extends AppCompatActivity {
             Log.d(TAG, "The start event");
             imageUri = data.getData();
             // todo can't load image
-            //Picasso.get().load(imageUri).into(imageView);
-            //imageView.setImageURI(imageUri);
+            imageView.setImageURI(imageUri);
         }
 
         if(requestCode == 100 && resultCode == RESULT_OK)
@@ -177,6 +176,8 @@ public class UploadImageActivity extends AppCompatActivity {
             Log.d(TAG, "The start photo event");
             photo = (Bitmap) data.getExtras().get("data");
             imageUri = getImageUri(UploadImageActivity.this, photo);
+            // todo can't load image
+            imageView.setImageBitmap(photo);
         }
 
     }
