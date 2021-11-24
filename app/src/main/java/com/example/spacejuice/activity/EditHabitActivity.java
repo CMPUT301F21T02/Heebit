@@ -26,6 +26,7 @@ import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
 import com.example.spacejuice.controller.HabitController;
+import com.example.spacejuice.controller.TimeController;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -164,7 +165,7 @@ This Activity is used to edit a habit
     }
     @Override
     public void onClick(View view) {
-        final Calendar c = Calendar.getInstance();
+        Calendar c = TimeController.getCurrentTime();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);

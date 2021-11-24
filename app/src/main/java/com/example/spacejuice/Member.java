@@ -277,6 +277,8 @@ public class Member {
 
    public Boolean isAdmin() { return this.admin; }
 
+   public void setAdmin(Boolean bool) { this.admin = bool; }
+
    public Long getAdminTimeOffset() { return this.adminTimeOffset; }
 
    public void setAdminTimeOffset(Long offset) { this.adminTimeOffset += offset; }

@@ -82,9 +82,22 @@ public class LoginController {
                             }
                             account = new Member(userName, password);
                             MainActivity.setUser(account);
-                            Date prevMidnight = Calendar.getInstance().getTime();
+                            Date prevMidnight = TimeController.getCurrentTime().getTime();
                             if (document.getDate("NextMidnight") != null) {
                                 prevMidnight = document.getDate("NextMidnight");
+                            }
+                            if (document.getBoolean("admin") != null) {
+                                //noinspection ConstantConditions
+                                if (document.getBoolean("admin")) {
+                                    account.setAdmin(true);
+                                    if (document.getLong("adminTimeOffset") != null) {
+                                        account.setAdminTimeOffset(document.getLong("adminTimeOffset"));
+                                        Log.d("debugInfo", "document admin time offset was retrieved");
+                                    } else {
+                                        documentReference.update("adminTimeOffset", (long) 0);
+                                        Log.d("debugInfo", "document admin time offset was initialized");
+                                    }
+                                }
                             }
 
                             account.setPrevNextMidnight(prevMidnight);
@@ -147,7 +160,7 @@ public class LoginController {
     }
 
     public static Date getNextMidnight() {
-        Calendar midn = Calendar.getInstance();
+        Calendar midn = TimeController.getCurrentTime();
         midn.set(Calendar.HOUR_OF_DAY, 0);
         midn.set(Calendar.MINUTE, 0);
         midn.set(Calendar.SECOND, 0);

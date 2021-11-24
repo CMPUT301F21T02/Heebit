@@ -20,6 +20,7 @@ import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 import com.example.spacejuice.Schedule;
 import com.example.spacejuice.controller.HabitController;
+import com.example.spacejuice.controller.TimeController;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -101,7 +102,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        final Calendar c = Calendar.getInstance();
+        Calendar c = TimeController.getCurrentTime();
         int mYear = c.get(Calendar.YEAR);
         int mMonth = c.get(Calendar.MONTH);
         int mDay = c.get(Calendar.DAY_OF_MONTH);
