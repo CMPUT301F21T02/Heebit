@@ -167,7 +167,6 @@ public class UploadImageActivity extends AppCompatActivity {
         {
             Log.d(TAG, "The start event");
             imageUri = data.getData();
-            // todo can't load image
             imageView.setImageURI(imageUri);
         }
 
@@ -176,7 +175,6 @@ public class UploadImageActivity extends AppCompatActivity {
             Log.d(TAG, "The start photo event");
             photo = (Bitmap) data.getExtras().get("data");
             imageUri = getImageUri(UploadImageActivity.this, photo);
-            // todo can't load image
             imageView.setImageBitmap(photo);
         }
 
