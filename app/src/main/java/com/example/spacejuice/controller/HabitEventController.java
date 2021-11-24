@@ -169,7 +169,7 @@ public class HabitEventController {
         Member user = MainActivity.getUser();
         Calendar dateIterator = Calendar.getInstance();
         dateIterator.setTime(user.getPrevNextMidnight());
-        Calendar currentDate = Calendar.getInstance();
+        Calendar currentDate = TimeController.getCurrentTime();
         dateIterator.add(Calendar.MILLISECOND, -1); // set the date Iterator to 11:59:59.999 previous day
 
         // check first day separately

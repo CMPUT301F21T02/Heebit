@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.spacejuice.controller.HabitEventController;
+import com.example.spacejuice.controller.TimeController;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class Habit implements Serializable {
     public Habit(String title, String reason, int xp) {
         setTitle(title);
         setReason(reason);
-        setStartDate(new Date());
+        setStartDate(TimeController.getCurrentTime().getTime());
         this.indicator = new Indicator();
         if (xp != -1) {
             indicator.setXp(xp);
@@ -324,7 +325,7 @@ public class Habit implements Serializable {
     }
 
     public Boolean completedToday() {
-        Calendar today = Calendar.getInstance();
+        Calendar today = TimeController.getCurrentTime();
         Log.d("debugInfo", "checking if habit was completed on day of week #" + today.get(Calendar.DAY_OF_WEEK));
         return completedOnDay(today);
     }
