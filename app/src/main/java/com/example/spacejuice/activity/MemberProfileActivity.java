@@ -48,7 +48,6 @@ public class MemberProfileActivity extends AppCompatActivity {
 
        backButton = findViewById(R.id.backButtonMPA);
        displayName = findViewById(R.id.memberNameMPA);
-       displayScore = findViewById(R.id.scoreMPA);
        displayHabits = findViewById(R.id.followingHabitsMPA);
 
        loadingDialog.startLoadingAlertDialog();
@@ -70,7 +69,6 @@ public class MemberProfileActivity extends AppCompatActivity {
                        @Override
                        public void onComplete(boolean suc) {
                            String score = followController.getScore();
-                           displayScore.setText(score);
                        }
                    });
 
@@ -91,7 +89,6 @@ public class MemberProfileActivity extends AppCompatActivity {
                    });
                } else {
                    Log.d("message", "is not following");
-                   displayScore.setText("?");
                    TextView HabitText = findViewById(R.id.textViewMPA);
                    HabitText.setText("Must Follow to View Habits");
                    loadingDialog.dismissDialog();
