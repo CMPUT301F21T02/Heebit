@@ -65,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
     public static Boolean checkForSmallDisplay(Context context) {
         /* if the display is small, adjusts the title width to fit properly */
         float densityDpi = context.getResources().getDisplayMetrics().densityDpi;
-        if (densityDpi > 460) {
-            return true;
-        }
-        return false;
+        return densityDpi > 460;
     }
 
 

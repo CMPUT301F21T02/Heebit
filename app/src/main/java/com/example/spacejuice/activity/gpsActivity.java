@@ -71,7 +71,7 @@ public class gpsActivity extends AppCompatActivity {
                                 MY_PERMISSIONS_REQUEST_LOCATION);
                     }
                     else {
-                        location = lm.getLastKnownLocation(lm.PASSIVE_PROVIDER);
+                        location = lm.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
                         if (location != null){
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
@@ -123,7 +123,7 @@ public class gpsActivity extends AppCompatActivity {
 
     }
     private boolean isGpsAble(LocationManager lm) {
-        return lm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER) ? true : false;
+        return lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
 }
