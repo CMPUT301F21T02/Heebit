@@ -13,8 +13,8 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class PublicHabitsAdapter extends ArrayAdapter<String> {
-    private ArrayList<String> title;
-    private Context context;
+    private final ArrayList<String> title;
+    private final Context context;
 
     public PublicHabitsAdapter(Context context, ArrayList<String> titles){
         super(context, 0, titles);

@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onComplete(boolean suc) {
                                     HabitEventController.generateMissedEvents(LoginActivity.this);
                                     loadingDialog.dismissDialog();
-                                    Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {

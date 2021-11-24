@@ -21,8 +21,8 @@ import com.example.spacejuice.R;
 import java.util.ArrayList;
 
 public class FollowRequestAdapter extends ArrayAdapter {
-   ArrayList<Member> requestingMembers;
-   Context context;
+   private final ArrayList<Member> requestingMembers;
+   private final Context context;
 
    public FollowRequestAdapter(Context context, int layout, ArrayList<Member> requestingMembers)
    {

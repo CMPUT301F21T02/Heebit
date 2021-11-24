@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import com.example.spacejuice.R;
 
 public class LoadingDialog {
-    private Activity activity;
+    private final Activity activity;
     private AlertDialog dialog;
 
     public LoadingDialog(Activity currentActivity){

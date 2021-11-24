@@ -99,14 +99,6 @@ public class AllHabitsActivity extends AppCompatActivity {
          }
       });
 
-      back_imagebutton = findViewById(R.id.AllHabitsBackButton);
-      back_imagebutton.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            finish();
-         }
-      });
-
 
 
    }

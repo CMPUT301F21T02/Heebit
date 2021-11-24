@@ -45,7 +45,7 @@
             android:layout_gravity="center"
             android:layout_weight="90"
             android:text="This is a test Habit"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
 
         <CheckBox
             android:id="@+id/overview_checkBox"

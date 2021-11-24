@@ -42,7 +42,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
     private CheckBox Saturday;
     private CheckBox Sunday;
     private TextView SelectedDate;
-    private Date date;
+    private Date date = new Date();
     private Schedule schedule;
     private Habit habitReturn;
     private CheckBox habitPrivate;
@@ -111,9 +111,12 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        date = new Date(year - 1900, monthOfYear, dayOfMonth);
-                        SelectedDate.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-
+                        Calendar cal = Calendar.getInstance();
+                        cal.set(Calendar.YEAR, year);
+                        cal.set(Calendar.MONTH, monthOfYear);
+                        cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        date = cal.getTime();
+                        SelectedDate.setText(getString(R.string.dateString, year, monthOfYear+1, dayOfMonth));
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();

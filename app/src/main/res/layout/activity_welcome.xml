@@ -25,6 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
             android:scaleType="fitCenter"
+            android:contentDescription="Welcome"
             app:srcCompat="@drawable/welcomepage" />
 
         <LinearLayout

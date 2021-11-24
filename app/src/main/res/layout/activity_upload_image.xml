@@ -14,12 +14,12 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="400dp"
-        android:layout_height="450dp"
+        android:layout_width="363dp"
+        android:layout_height="405dp"
         android:layout_above="@+id/upload_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="162dp"
         android:autofillHints="this is " />
 
     <ProgressBar
@@ -29,38 +29,46 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="185dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginBottom="242dp" />
 
     <Button
         android:id="@+id/button_choose_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="125dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="110dp"
         android:text="Choose file" />
 
     <Button
         android:id="@+id/upload_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="125dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-200dp"
+        android:layout_marginBottom="60dp"
         android:layout_toEndOf="@+id/button_choose_image"
         android:text="upload" />
 
     <Button
         android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="125dp"
-        android:layout_toEndOf="@+id/upload_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:text="back" />
+
+    <Button
+        android:id="@+id/take_photo_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="160dp"
+        android:text="Take photo" />
 
 </RelativeLayout>

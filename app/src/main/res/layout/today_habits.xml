@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         android:src="@drawable/profile_background"
         android:alpha="0.75"
+        android:contentDescription="@null"
         android:scaleType="centerCrop">
 
     </ImageView>
@@ -26,6 +27,8 @@
         app:layout_constraintBottom_toTopOf="@id/overview_habit_listview">
 
         <LinearLayout
+            android:id="@+id/Top_LLSpacer"
+            android:orientation="horizontal"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -39,7 +42,7 @@
             android:backgroundTint="?colorPrimary"
             android:fontFamily="@font/lato"
             android:scaleType="fitXY"
-            android:text="Today's"
+            android:text="@string/todays"
             android:textColor="@color/White"
             android:textSize="16sp" />
         <androidx.appcompat.widget.AppCompatButton
@@ -62,11 +65,14 @@
             android:gravity="center_vertical"
             android:paddingStart="20dp"
             android:scaleType="fitXY"
-            android:text="Habits"
+            android:text="@string/habits"
             android:textColor="@color/White"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="RtlSymmetry" />
 
         <LinearLayout
+            android:id="@+id/Top_LLSpacer2"
+            android:orientation="horizontal"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -78,17 +84,17 @@
         android:id="@+id/profile_imagebutton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_gravity="center_vertical|right"
+        android:layout_gravity="center_vertical|end"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:layout_weight="50"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:tooltipText="My Profile"
+        android:contentDescription="@string/CD_ProfileButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/button_profile"
-        app:tint="@color/BlueViolet" />
+        app:srcCompat="@drawable/profile_button_black"
+        app:tint="@color/white" />
 
 
     <ListView
@@ -103,52 +109,26 @@
         android:dividerHeight="5dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/add_habit_imagebutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Top_LL" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        android:weightSum="120"
+    <ImageButton
+        android:id="@+id/add_habit_imagebutton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/CD_AddNewHabit"
+        app:srcCompat="@drawable/button_add"
+        app:layout_constraintTop_toBottomOf="@id/overview_habit_listview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="1dp">
+        android:layout_marginBottom="10dp"
+        app:tint="@color/Bisque" />
 
-        <!--
-        <Button
-            android:id="@+id/all_habits_button"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical|left"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="20"
-            android:autoSizeTextType="uniform"
-            android:background="@drawable/button_bg"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:scaleType="fitCenter"
-            android:text="All Habits"
-            android:textAllCaps="false"
-            android:tooltipText="View All Habits" />
-        -->
-
-        <ImageButton
-            android:id="@+id/add_habit_imagebutton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="50"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:tooltipText="Add New Habit"
-            app:srcCompat="@drawable/button_add"
-            app:tint="@color/Bisque" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

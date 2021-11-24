@@ -1,10 +1,18 @@
 package com.example.spacejuice;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.Image;
 import android.telephony.CarrierConfigManager;
 import android.util.Log;
 
+import com.example.spacejuice.activity.gpsActivity;
+
+import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import javax.annotation.Nullable;
 
@@ -12,16 +20,19 @@ public class HabitEvent {
     private String description = "";
     private Date date;
     private String ImageUrl = null;
-    private CarrierConfigManager.Gps location;
+    private double longitude;
+    private double latitude;
     private Boolean done;
-    public int DESC_LENGTH = 80; //cutoff for a short description
+    public final int DESC_LENGTH = 80; //cutoff for a short description
     private long eventId;
-    private int uid; // a unique ID allowing easier tracking between activities
+    private final int uid; // a unique ID allowing easier tracking between activities
 
     public HabitEvent() {
         this.setDate(null);
         this.uid = MainActivity.getUser().getUniqueID();
         this.done = false;
+        this.longitude = 0.00;
+        this.latitude = 0.00;
     }
 
     public int getEventIndicator() {
@@ -91,4 +102,30 @@ public class HabitEvent {
         return this.ImageUrl;
     }
 
+    public void setLocation(double la, double lo){
+        this.latitude = la;
+        this.longitude = lo;
+    }
+
+    public double getLatitude(){
+        return this.latitude;
+    }
+
+    public double getLongitude(){
+        return this.longitude;
+    }
+
+    public String getLocation(Context context){
+        if (this.latitude == 0.00 && this.longitude == 0.00){
+            return "Null";
+        }
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(this.latitude, this.longitude, 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return (addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea());
+    }
 }
