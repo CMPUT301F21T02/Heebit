@@ -1,5 +1,6 @@
 package com.example.spacejuice.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -153,7 +154,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
         gpsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddHabitEventActivity.this, gpsActivity.class);
+                Intent intent = new Intent(AddHabitEventActivity.this, MapsActivity.class);
                 startActivityForResult(intent, 1);
             }
         });
