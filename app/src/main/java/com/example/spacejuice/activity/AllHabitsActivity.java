@@ -70,7 +70,7 @@ public class AllHabitsActivity extends AppCompatActivity {
 
       profile_imagebutton = findViewById(R.id.today_button_profile);
       add_habit_imagebutton = findViewById(R.id.today_button_add_habit);
-      today_habits_button = (Button) findViewById(R.id.today_habits_button);
+      today_habits_button = findViewById(R.id.today_habits_button);
 
       refreshData();
       habitAdapter = new HabitListAdapter(this, R.layout.habit_content, habitListItems);

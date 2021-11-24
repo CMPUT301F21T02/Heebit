@@ -54,12 +54,15 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/location_container"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
                     android:focusable="true"
@@ -80,13 +83,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:text="Edmonton, AB" />
+                        android:maxLines="2"
+                        android:text="Sherwood Park, Alberta" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/date_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -100,11 +104,12 @@
                         android:id="@+id/habit_event_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="bottom|end"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="10dp"
                         android:text="Thu 10/25"
                         android:textColor="?android:colorPrimary" />
+                </LinearLayout>
                 </LinearLayout>
             </RelativeLayout>
 

@@ -171,47 +171,19 @@ public class Habit implements Serializable {
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         switch (day) {
             case Calendar.SUNDAY:
-                if (schedule.Sun()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Sun();
             case Calendar.MONDAY:
-                if (schedule.Mon()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Mon();
             case Calendar.TUESDAY:
-                if (schedule.Tue()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Tue();
             case Calendar.WEDNESDAY:
-                if (schedule.Wed()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Wed();
             case Calendar.THURSDAY:
-                if (schedule.Thu()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Thu();
             case Calendar.FRIDAY:
-                if (schedule.Fri()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Fri();
             case Calendar.SATURDAY:
-                if (schedule.Sat()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Sat();
         }
         return false;
     }
