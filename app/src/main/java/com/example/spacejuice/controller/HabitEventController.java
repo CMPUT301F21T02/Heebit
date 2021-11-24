@@ -1,5 +1,6 @@
 package com.example.spacejuice.controller;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
@@ -62,7 +63,8 @@ public class HabitEventController {
                 DocumentReference habitRef = Objects.requireNonNull(habitQueryTask
                         .getResult()).getDocuments().get(0).getReference();
                 DocumentReference eventDocRef;
-                eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
+                //eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
+                eventDocRef = habitRef.collection("Events").document(getDocumentIdString(habitEvent));
                 eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -196,6 +198,11 @@ public class HabitEventController {
 
         }
 
+    }
+
+    public static String getDocumentIdString(HabitEvent event) {
+        @SuppressLint("DefaultLocale") String idString = String.format("%012d", event.getEventId());
+        return idString;
     }
 
     public interface OnCompleteCallback {
