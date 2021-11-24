@@ -44,4 +44,5 @@
     <string name="DAY_Th">Th</string>
     <string name="DAY_F">F</string>
     <string name="DAY_Sa">Sa</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
