@@ -27,10 +27,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         app:layout_constraintVertical_bias="0.024"
         app:tint="?android:colorPrimary" />
 
+
     <ListView
         android:id="@+id/followingHabitsMPA"
         android:layout_width="406dp"
-        android:layout_height="350dp"
+        android:layout_height="500dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="5dp"
         android:paddingStart="10dp"
@@ -41,22 +42,20 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewMPA"
-        app:layout_constraintVertical_bias="0.306" />
-
+        app:layout_constraintVertical_bias="0.309" />
 
     <TextView
         android:id="@+id/textViewMPA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="92dp"
         android:fontFamily="@font/lato_black"
         android:text="Habits"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/memberNameMPA"
@@ -73,35 +72,6 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.038" />
 
-    <TextView
-        android:id="@+id/textView2MPA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/lato_black"
-        android:text="Score"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.024" />
-
-    <TextView
-        android:id="@+id/scoreMPA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-
-        android:fontFamily="@font/lato_black"
-
-        android:padding="10dp"
-        android:text="0"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2MPA" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,10 +26,10 @@ public class PublicHabitsAdapter extends ArrayAdapter<String> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
         if(view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.follower_content, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.public_habit_content, parent, false);
         }
         String string = title.get(position);
-        TextView name = view.findViewById(R.id.nameTextFC1);
+        TextView name = view.findViewById(R.id.habit_textPHC);
         name.setText(string);
 
         return view;
