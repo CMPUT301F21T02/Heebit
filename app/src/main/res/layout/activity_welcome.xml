@@ -26,7 +26,7 @@
             android:layout_marginBottom="30dp"
             android:scaleType="fitCenter"
             android:contentDescription="Welcome"
-            app:srcCompat="@drawable/welcomepage" />
+            app:srcCompat="@drawable/welcome" />
 
         <LinearLayout
             android:id="@+id/LoginButtonContainer"
