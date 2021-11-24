@@ -14,9 +14,6 @@
 .externalNativeBuild
 .cxx
 local.properties
-app/src/main/java/com/example/spacejuice/activity/LoginActivity.java
-app/src/main/java/com/example/spacejuice/activity/LoginActivity.java
 .idea/discord.xml
 .idea/deploymentTargetDropDown.xml
-.idea/deploymentTargetDropDown.xml
-.idea/deploymentTargetDropDown.xml
+
