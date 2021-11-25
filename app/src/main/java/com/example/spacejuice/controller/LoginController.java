@@ -6,6 +6,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.spacejuice.Habit;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.activity.LoginActivity;
@@ -158,6 +159,23 @@ public class LoginController {
             });
 
 
+        }
+    }
+
+    public static void adminResetAccount(Member member) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        String userName = member.getMemberName();
+        member.setAdminTimeOffset((long)0);
+        Date midn = getNextMidnight();
+        member.setPrevNextMidnight(midn);
+        member.setNextMidnight(midn);
+        DocumentReference documentReference = db.collection("Members").document(userName);
+        documentReference.update("adminTimeOffset", (long)0);
+        documentReference.update("NextMidnight", midn);
+
+
+        for (Habit habit : member.getHabitListItems()) {
+            HabitController.adminDeleteHabitEvents(member, habit);
         }
     }
 

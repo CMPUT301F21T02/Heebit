@@ -7,7 +7,10 @@ import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
+import com.example.spacejuice.controller.LoginController;
 import com.example.spacejuice.controller.TimeController;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
@@ -22,6 +25,7 @@ This Activity is used to access admin commands in an admin account
         setContentView(R.layout.admin_menu);
         Button nextDayButton = findViewById(R.id.IncrementDayAM);
         Button confirmButton = findViewById(R.id.confirmButtonAM);
+        Button resetButton = findViewById(R.id.resetAccountAM);
 
         nextDayButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +38,13 @@ This Activity is used to access admin commands in an admin account
             @Override
             public void onClick(View v) {
                 ProcessPhoenix.triggerRebirth(AdminMenuActivity.this);
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginController.adminResetAccount(MainActivity.getUser());
             }
         });
 

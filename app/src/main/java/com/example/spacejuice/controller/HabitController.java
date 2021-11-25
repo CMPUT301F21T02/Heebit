@@ -268,4 +268,37 @@ public class HabitController {
             });
         }
     }
+
+    public static void adminDeleteHabitEvents(Member member, Habit habit) {
+        if (member.getHabitListItems().contains(habit)) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            String username = member.getMemberName();
+            long uid = habit.getUidLong();
+
+            Task<QuerySnapshot> querySnap = db.collection("Members").document(username)
+                    .collection("Habits").whereEqualTo("ID", uid).get();
+
+            querySnap.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> habitTask) {
+                    List<DocumentSnapshot> docs = habitTask.getResult().getDocuments();
+                    DocumentReference habitRef = docs.get(0).getReference();
+                    CollectionReference eventsRef = habitRef.collection("Events");
+                    Task<QuerySnapshot> eventQuery = eventsRef.get();
+                    eventQuery.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> eventTask) {
+                            List<DocumentSnapshot> eventsCol = eventTask.getResult().getDocuments();
+                            if (eventsCol.size() != 0) {
+                                DocumentReference referenceToDelete = eventsCol.get(0).getReference();
+                                referenceToDelete.delete();
+                                Log.d("debugInfo", "deleting all events for habit " + habit.getTitle());
+                            }
+
+                        }
+                    });
+                }
+            });
+        }
+    }
 }

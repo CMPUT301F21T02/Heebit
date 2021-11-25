@@ -25,7 +25,7 @@ public class Habit implements Serializable {
     private Schedule schedule;
     private Boolean privateHabit = false;
     private int uid; // unique identifier for habit
-    private final ArrayList<HabitEvent> events;
+    private ArrayList<HabitEvent> events;
 
     /**
      * The constructor use for create a new habit
@@ -337,5 +337,9 @@ public class Habit implements Serializable {
             }
         }
         return false;
+    }
+
+    public void adminDeleteAllEvents() {
+        this.events = null;
     }
 }
