@@ -1,16 +1,10 @@
 package com.example.spacejuice.controller;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
@@ -18,11 +12,8 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
-import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.LoginActivity;
-import com.example.spacejuice.activity.UploadImageActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -38,7 +29,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 //import com.google.firebase.storage.StorageTask;
 //import com.google.firebase.storage.UploadTask;
 
-import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -93,18 +83,19 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit, String name, final HabitController.OnHabitLoaded callback) {
+    public static void loadHabitEventsFromFirebase(Habit habit, String name, final HabitController.OnHabitEventsLoaded callback) {
+        Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - initialized for " + habit.getTitle());
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
-        Query habitQuery =
+        Query habitEventQuery =
                 db.collection("Members").document(name).collection("Habits")
                         .whereEqualTo("ID", uid);
-        Task<QuerySnapshot> habitQueryTask = habitQuery.get();
-        habitQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Task<QuerySnapshot> habitEventQueryTask = habitEventQuery.get();
+        habitEventQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {    //get the document with the proper habit uID
-                Log.d("debugInfo", "retrieved habit events from firebase");
-                DocumentReference habitRef = Objects.requireNonNull(habitQueryTask
+                Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - habitEventQueryTask onSuccess for " + habit.getTitle());
+                DocumentReference habitRef = Objects.requireNonNull(habitEventQueryTask
                         .getResult()).getDocuments().get(0).getReference();
                 CollectionReference collectionReference = habitRef.collection("Events");
                 Task<QuerySnapshot> habitEventRef = collectionReference.get();
@@ -112,11 +103,19 @@ public class HabitEventController {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                        Log.d("debugInfo", "retrieved the habit events document");
+                        Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - HabitEventRef onSuccss for " + habit.getTitle());
 
                         List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
+                        int docs_loaded = 0;
+                        int docs_size = docs.size();
+
+                        if (docs_size == 0) {
+                            callback.onHabitEventsComplete(true);
+                            Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - docs size = 0 for " + habit.getTitle() + "... sending callback");
+                        }
 
                         for (DocumentSnapshot doc : docs) {
+                            docs_loaded += 1;
                             int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
                             Map<String, Object> data = doc.getData();
                             assert data != null;
@@ -140,12 +139,16 @@ public class HabitEventController {
                             if (!habit.containsEventId(id)) {
                                 habit.addEvent(habitEvent);
                             }
-                            Log.d("iterChecker", "document #" + id);
+                            Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - loading doc #" + docs_loaded + " for " + habit.getTitle());
+                            if (docs_loaded == docs_size) {
+                                Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - last doc for " + habit.getTitle() + "... sending callback");
+                                Log.d("iterChecker", "COMPLETE - LAST EVENT LOADEO FOR " + habit.getTitle());
+                                callback.onHabitEventsComplete(true);
+                            }
+
 
                         }
-                        Log.d("iterChecker", "COMPLETE");
 
-                        callback.onComplete(true);
 
                     }
 
@@ -158,7 +161,7 @@ public class HabitEventController {
 
         Member user = MainActivity.getUser();
         int size = user.getHabitListItems().size();
-        Log.d("debugInfo", "generateMissedEvents was called.... " + size + " habits found..");
+        Log.d("debugInfoLogin", "HabitEventController.generateMissedEvents - initialized..");
         for (Habit h : user.getHabitListItems()) {
             generateHabitMissedEvents(h);
         }
@@ -166,7 +169,7 @@ public class HabitEventController {
     }
 
     public static void generateHabitMissedEvents(Habit habit) {
-        Log.d("debugInfo", "checking habit: " + habit.getTitle() + " for missed events...");
+        Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - intialized for " + habit.getTitle());
         Member user = MainActivity.getUser();
         Calendar dateIterator = Calendar.getInstance();      //iterator used to generated missed events day by day
         Calendar prevMidnightCal = Calendar.getInstance();   //the calendar object for the user's "next midnight" after their last login
@@ -192,10 +195,10 @@ public class HabitEventController {
             int dayOfWeek = dateIterator.get(Calendar.DAY_OF_WEEK);
             if (habit.getSchedule().checkScheduleDay(dayOfWeek)) {
                 if (!habit.completedOnDay(dateIterator)) {
-                    Log.d("debugInfo", "missed event generated for " + habit.getTitle() + " on " + (dateIterator.getTime()).toString());
+                    Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - ** MISSED EVENT GENERATED ** for " + habit.getTitle() + " on " + (dateIterator.getTime()).toString());
                     habit.addMissedEvent(dateIterator);
                 } else {
-                    Log.d("debugInfo", habit.getTitle() + " was completed on day " + dayOfWeek + "....");
+                    Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - " + habit.getTitle() + " was completed on day of week #" + (dateIterator.get(Calendar.DAY_OF_WEEK)));
                 }
 
 
@@ -219,8 +222,10 @@ public class HabitEventController {
         @SuppressLint("DefaultLocale") String idString = String.format("%012d", event.getEventId());
         return idString;
     }
-
+/*
     public interface OnCompleteCallback {
         void onComplete(boolean suc);
     }
+
+ */
 }

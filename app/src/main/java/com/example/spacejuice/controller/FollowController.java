@@ -41,7 +41,7 @@ public class FollowController {
      * their user name
      * @param userName The user name of the member you tried to send request on
      */
-    public void sendRequest(String userName, final LoginController.OnCompleteCallback callback){
+    public void sendRequest(String userName, final LoginController.OnRequestCompleteCallback callback){
         DocumentReference documentReference = db.collection("Members").document(userName);
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -68,14 +68,14 @@ public class FollowController {
                                                     @Override
                                                     public void onSuccess(Void unused) {
                                                         Log.d("message", "Data has been added successfully");
-                                                        callback.onComplete(true);
+                                                        callback.onRequestComplete(true);
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
                                                         Log.d("message", "Data already exist");
-                                                        callback.onComplete(false);
+                                                        callback.onRequestComplete(false);
                                                     }
                                                 });
                                     }
@@ -86,14 +86,14 @@ public class FollowController {
                                                     @Override
                                                     public void onSuccess(Void unused) {
                                                         Log.d("message", "Data has been CREATED successfully");
-                                                        callback.onComplete(true);
+                                                        callback.onRequestComplete(true);
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
                                                     @Override
                                                     public void onFailure(@NonNull Exception e) {
                                                         Log.d("message", "Data already exist");
-                                                        callback.onComplete(false);
+                                                        callback.onRequestComplete(false);
                                                     }
                                                 });
                                     }
@@ -103,7 +103,7 @@ public class FollowController {
                     }
                     else {
                         // if other problems exist
-                        callback.onComplete(false);
+                        callback.onRequestComplete(false);
                     }
                 }
             }
@@ -115,7 +115,7 @@ public class FollowController {
     /**
      * Update the requests
      */
-    public void getRequests(final LoginController.OnCompleteCallback callback){
+    public void getRequests(final LoginController.OnRequestCompleteCallback callback){
         DocumentReference documentReference = db
                 .collection("Members")
                 .document(MainActivity.getUser().getMemberName());
@@ -137,10 +137,10 @@ public class FollowController {
                             }
                         }
                         MainActivity.getUser().getFollow().setRequests(list);
-                        callback.onComplete(true);
+                        callback.onRequestComplete(true);
                     }
                     else{
-                        callback.onComplete(false);
+                        callback.onRequestComplete(false);
                     }
                 }
             }
@@ -151,7 +151,7 @@ public class FollowController {
      * Update follower to local
      * @param callback
      */
-    public void getFollower(final LoginController.OnCompleteCallback callback){
+    public void getFollower(final LoginController.OnFollowerCompleteCallback callback){
         DocumentReference documentReference = db
                 .collection("Members")
                 .document(MainActivity.getUser().getMemberName());
@@ -173,10 +173,10 @@ public class FollowController {
                             }
                         }
                         MainActivity.getUser().getFollow().setFollowers(list);
-                        callback.onComplete(true);
+                        callback.onFollowerComplete(true);
                     }
                     else{
-                        callback.onComplete(false);
+                        callback.onFollowerComplete(false);
                     }
                 }
             }
@@ -187,7 +187,7 @@ public class FollowController {
      * Update following to local
      * @param callback
      */
-    public void getFollowing(final LoginController.OnCompleteCallback callback){
+    public void getFollowing(final LoginController.OnFollowingCompleteCallback callback){
         DocumentReference documentReference = db
                 .collection("Members")
                 .document(MainActivity.getUser().getMemberName());
@@ -209,10 +209,10 @@ public class FollowController {
                             }
                         }
                         MainActivity.getUser().getFollow().setFollowings(list);
-                        callback.onComplete(true);
+                        callback.onFollowingComplete(true);
                     }
                     else{
-                        callback.onComplete(false);
+                        callback.onFollowingComplete(false);
                     }
                 }
             }
@@ -224,7 +224,7 @@ public class FollowController {
      * @param userName  the user name you want to accept/delete
      * @param accept    accept or deny
      */
-    public void responseRequest(String userName, boolean accept, final LoginController.OnCompleteCallback callback){
+    public void responseRequest(String userName, boolean accept, final LoginController.OnResponseCallback callback){
         DocumentReference documentReference = db
                 .collection("Members")
                 .document(MainActivity.getUser().getMemberName());
@@ -311,14 +311,14 @@ public class FollowController {
                                                             @Override
                                                             public void onSuccess(Void unused) {
                                                                 Log.d("message", "User has been added to Following successfully");
-                                                                callback.onComplete(true);
+                                                                callback.onResponseComplete(true);
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
                                                                 Log.d("message", "Failed to add User to Following");
-                                                                callback.onComplete(false);
+                                                                callback.onResponseComplete(false);
                                                             }
                                                         });
                                             } else {
@@ -328,14 +328,14 @@ public class FollowController {
                                                             @Override
                                                             public void onSuccess(Void unused) {
                                                                 Log.d("message", "User has been added to Following successfully");
-                                                                callback.onComplete(true);
+                                                                callback.onResponseComplete(true);
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
                                                                 Log.d("message", "Failed to add User to Following");
-                                                                callback.onComplete(false);
+                                                                callback.onResponseComplete(false);
                                                             }
                                                         });
                                             }
@@ -344,14 +344,14 @@ public class FollowController {
                                 });
                             }
                             else {
-                                callback.onComplete(false);
+                                callback.onResponseComplete(false);
                             }
                         }
                     });
 
                 }
                 else{
-                    callback.onComplete(false);
+                    callback.onResponseComplete(false);
                 }
 
             }
@@ -363,7 +363,7 @@ public class FollowController {
      * @param memberName
      * @param callback
      */
-    public void findPublicHabits(String memberName, final LoginController.OnCompleteCallback callback){
+    public void findPublicHabits(String memberName, final LoginController.OnGetPublicHabitsCallback callback){
         publicHabits = new ArrayList<>();
 
         Query query = db.collection("Members").document(memberName).collection("Habits")
@@ -374,13 +374,13 @@ public class FollowController {
                 Log.d("message", "task is successful");
                 if (querySnapshot.isEmpty()) {
                     Log.d("message", "is empty");
-                    callback.onComplete(true);
+                    callback.onPublicHabitsComplete(true);
                 } else {
                     Log.d("message", "is not empty");
-                        loadEvents(querySnapshot, memberName, new LoginController.OnCompleteCallback(){
+                        loadEvents(querySnapshot, memberName, new LoginController.OnLoadEventsCallback(){
                             @Override
-                            public void onComplete(boolean suc) {
-                                callback.onComplete(true);
+                            public void onLoadEventsComplete(boolean suc) {
+                                callback.onPublicHabitsComplete(true);
                             }
                         });
 
@@ -396,7 +396,7 @@ public class FollowController {
      * @param memberName
      * @param callback
      */
-    public void checkFollowing(String memberName, final LoginController.OnCompleteCallback callback){
+    public void checkFollowing(String memberName, final LoginController.OnCheckFollowingCallback callback){
         DocumentReference documentReference = db.collection("Members")
                 .document(MainActivity.getUser().getMemberName())
                 .collection("Follow")
@@ -408,7 +408,7 @@ public class FollowController {
                 if (string != null){
                     isFollowing = true;
                 }
-                callback.onComplete(true);
+                callback.onCheckFollowingComplete(true);
             }
         });
     }
@@ -419,7 +419,7 @@ public class FollowController {
      * @param memberName
      * @param callback
      */
-    public void findMember(String memberName, final LoginController.OnCompleteCallback callback){
+    public void findMember(String memberName, final LoginController.OnFindMemberCompleteCallback callback){
         DocumentReference documentReference = db.collection("Members").document(memberName);
         documentReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
@@ -428,26 +428,26 @@ public class FollowController {
                 // if this name exist
                 assert document != null;
                 if (document.exists()){
-                    callback.onComplete(true);
+                    callback.onFindMemberComplete(true);
                 }
-                callback.onComplete(true);
+                callback.onFindMemberComplete(true);
             }
         });
     }
 
-    public void loadEvents(QuerySnapshot querySnapshot, String memberName, final LoginController.OnCompleteCallback callback){
+    public void loadEvents(QuerySnapshot querySnapshot, String memberName, final LoginController.OnLoadEventsCallback callback){
         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
             Habit habit = new Habit(document.getId(), document.getString("Reason"), 0);
             int uid = Integer.valueOf(document.get("ID").toString());
             habit.forceUid(uid);
-            habitEventController.loadHabitEventsFromFirebase(habit, memberName, new HabitController.OnHabitLoaded() {
+            habitEventController.loadHabitEventsFromFirebase(habit, memberName, new HabitController.OnHabitEventsLoaded() {
                 @Override
-                public void onComplete(Boolean success) {
+                public void onHabitEventsComplete(Boolean success) {
                     if (success) {
                         Log.d("message", "being read");
                         habit.calculateScore();
                         publicHabits.add(habit);
-                        callback.onComplete(true);
+                        callback.onLoadEventsComplete(true);
                     }
                 }
             });

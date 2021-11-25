@@ -46,9 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
                 String p = password.getText().toString();
                 if(p.equals(repeat_password.getText().toString())) {
                     logincontroller.signUp(username.getText().toString(),
-                            p, new LoginController.OnCompleteCallback() {
+                            p, new LoginController.OnSignUpCompleteCallback() {
                                 @Override
-                                public void onComplete(boolean suc) {
+                                public void onSignUpComplete(boolean suc) {
                                     if (suc) {
                                         Toast.makeText(RegisterActivity.this, "Signed Up!",
                                                 Toast.LENGTH_SHORT).show();

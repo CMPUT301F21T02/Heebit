@@ -46,9 +46,9 @@ public class FollowerRequestsActivity extends AppCompatActivity {
       followerList = findViewById(R.id.followersList);
       followController = new FollowController();
       requestingMembers = new ArrayList<>();
-      followController.getRequests(new LoginController.OnCompleteCallback() {
+      followController.getRequests(new LoginController.OnRequestCompleteCallback() {
          @Override
-         public void onComplete(boolean suc) {
+         public void onRequestComplete(boolean suc) {
             if (suc){
                ArrayList<String> list = MainActivity.getUser().getFollow().getRequests();
                for (int i = 0; i < list.size(); i++){
@@ -81,9 +81,9 @@ public class FollowerRequestsActivity extends AppCompatActivity {
          public void onClick(View view) {
             if(!requestName.getText().toString().matches("")){
                FollowController followController = new FollowController();
-               followController.sendRequest(requestName.getText().toString(), new LoginController.OnCompleteCallback() {
+               followController.sendRequest(requestName.getText().toString(), new LoginController.OnRequestCompleteCallback() {
                   @Override
-                  public void onComplete(boolean suc) {
+                  public void onRequestComplete(boolean suc) {
                      //MainActivity.setUser(member);
                      if (suc) {
                         Toast.makeText(FollowerRequestsActivity.this, "Sent request successfully!", Toast.LENGTH_SHORT).show();
@@ -111,9 +111,9 @@ public class FollowerRequestsActivity extends AppCompatActivity {
 
       Context context = getApplicationContext();
       String memName = requestingMembers.get(position).getMemberName();
-      followController.responseRequest(memName, true, new LoginController.OnCompleteCallback() {
+      followController.responseRequest(memName, true, new LoginController.OnResponseCallback() {
          @Override
-         public void onComplete(boolean suc) {
+         public void onResponseComplete(boolean suc) {
             CharSequence text = memName + " is now following you";
             int duration = Toast.LENGTH_SHORT;
             MediaPlayer song = MediaPlayer.create(context, R.raw.pop);
@@ -131,9 +131,9 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    public void denyFollowRequest(int position) {
       String memName = requestingMembers.get(position).getMemberName();
       Context context = getApplicationContext();
-      followController.responseRequest(memName, false, new LoginController.OnCompleteCallback() {
+      followController.responseRequest(memName, false, new LoginController.OnResponseCallback() {
          @Override
-         public void onComplete(boolean suc) {
+         public void onResponseComplete(boolean suc) {
             requestingMembers.remove(position);
             MediaPlayer song = MediaPlayer.create(context, R.raw.pop2);
             song.start();

@@ -55,17 +55,17 @@ public class MyProfileActivity extends AppCompatActivity {
        followersText = findViewById(R.id.followers);
        followController = new FollowController();
 
-       followController.getFollower(new LoginController.OnCompleteCallback() {
+       followController.getFollower(new LoginController.OnFollowerCompleteCallback() {
            @Override
-           public void onComplete(boolean suc) {
+           public void onFollowerComplete(boolean suc) {
                followersCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowers().size()));
 
            }
        });
 
-       followController.getFollowing(new LoginController.OnCompleteCallback() {
+       followController.getFollowing(new LoginController.OnFollowingCompleteCallback() {
            @Override
-           public void onComplete(boolean suc) {
+           public void onFollowingComplete(boolean suc) {
                followingCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowings().size()));
            }
        });

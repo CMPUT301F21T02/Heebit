@@ -46,9 +46,9 @@ public class FollowingActivity extends AppCompatActivity {
         followListView = findViewById(R.id.listOfFollowingFA);
         followList = new ArrayList<>();
         followController = new FollowController();
-        followController.getFollowing(new LoginController.OnCompleteCallback() {
+        followController.getFollowing(new LoginController.OnFollowingCompleteCallback() {
             @Override
-            public void onComplete(boolean suc) {
+            public void onFollowingComplete(boolean suc) {
                 if (suc){
                     ArrayList<String> list = MainActivity.getUser().getFollow().getFollowings();
                     for (int i = 0; i < list.size(); i++){
