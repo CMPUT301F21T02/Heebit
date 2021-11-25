@@ -51,11 +51,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         addButton = findViewById(R.id.add_maps);
-        cancelButton = findViewById(R.id.cancel_gps);
+        cancelButton = findViewById(R.id.cancel_maps);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getDeviceLocation(true);
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
