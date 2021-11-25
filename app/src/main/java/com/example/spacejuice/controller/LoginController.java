@@ -62,20 +62,24 @@ public class LoginController {
     }
 
 
-    public void login(String userName, String password, final OnCompleteCallback callback) {
-        if(userName.length()>0 && password.length()>0) {
+    public void login(String userName, String password, final OnLoginCompleteCallback callback) {
+        Log.d("debugInfoLogin", "LoginController.login() - initialized");
+        if (userName.length() > 0 && password.length() > 0) {
             DocumentReference documentReference = db.collection("Members").document(userName);
             documentReference.get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    Log.d("debugInfoLogin", "LoginController.login() - DocumentReference Task Successful");
                     DocumentSnapshot document = task.getResult();
                     // if this name exist
                     assert document != null;
                     if (document.exists()) {
+                        Log.d("debugInfoLogin", "LoginController.login() - Document Exists");
 
                         String p = document.getString("Password");
                         // then check password
                         assert p != null;
                         if (p.equals(password)) {
+                            Log.d("debugInfoLogin", "LoginController.login() - Password Match");
                             int maxUniqueId = 0;
                             if (document.getLong("currentMaxID") != null) {
                                 maxUniqueId = Integer.parseInt(Objects.requireNonNull(document.getLong("currentMaxID")).toString());
@@ -92,34 +96,32 @@ public class LoginController {
                                     account.setAdmin(true);
                                     if (document.getLong("adminTimeOffset") != null) {
                                         account.setAdminTimeOffset(document.getLong("adminTimeOffset"));
-                                        Log.d("debugInfo", "document admin time offset was retrieved");
                                     } else {
                                         documentReference.update("adminTimeOffset", (long) 0);
-                                        Log.d("debugInfo", "document admin time offset was initialized");
                                     }
                                 }
                             }
 
                             account.setPrevNextMidnight(prevMidnight);
                             account.setUniqueId(maxUniqueId);
-                            callback.onComplete(true);
+                            callback.onLoginComplete(true);
                         } else {
                             // if the password is wrong
-                            Log.d("login", "wrong password ");
-                            callback.onComplete(false);
+                            Log.d("debugInfoLogin", "LoginController.login() - Password Mismatch");
+                            callback.onLoginComplete(false);
                         }
                     } else {
                         // if other problems exist
                         Log.d("login", "get failed with ", task.getException());
-                        callback.onComplete(false);
+                        callback.onLoginComplete(false);
                     }
                 }
             });
         }
 
     }
-    
-    public void signUp(String userName, String password, final OnCompleteCallback callback) {
+
+    public void signUp(String userName, String password, final OnSignUpCompleteCallback callback) {
         Map<String, Object> user = new HashMap<>();
         if (userName.length() > 0 && password.length() > 0) {
             DocumentReference documentReference = db.collection("Members").document(userName);
@@ -129,7 +131,7 @@ public class LoginController {
                     // if this name is used
                     assert document != null;
                     if (document.exists()) {
-                        callback.onComplete(false);
+                        callback.onSignUpComplete(false);
                     } else {
                         // if this name is not used
                         account = new Member(userName, password);
@@ -148,10 +150,10 @@ public class LoginController {
                         collectionReference.document(userName)
                                 .set(user)
                                 .addOnSuccessListener(unused -> Log.d("message", "Data has been added successfully"));
-                        callback.onComplete(true);
+                        callback.onSignUpComplete(true);
                     }
                 } else {
-                    callback.onComplete(false);
+                    callback.onSignUpComplete(false);
                 }
             });
 
@@ -169,8 +171,47 @@ public class LoginController {
         return midn.getTime();
     }
 
+    public interface OnRequestCompleteCallback {
+        void onRequestComplete(boolean suc);
+    }
 
-public interface OnCompleteCallback {
-    void onComplete(boolean suc);
-}
+    public interface OnFollowerCompleteCallback {
+        void onFollowerComplete(boolean suc);
+    }
+
+    public interface OnFollowingCompleteCallback {
+        void onFollowingComplete(boolean suc);
+    }
+
+    public interface OnResponseCallback {
+        void onResponseComplete(boolean suc);
+    }
+
+    public interface OnFindMemberCompleteCallback {
+        void onFindMemberComplete(boolean suc);
+    }
+
+    public interface OnSignUpCompleteCallback {
+        void onSignUpComplete(boolean suc);
+    }
+
+    public interface OnGetPublicHabitsCallback {
+        void onPublicHabitsComplete(boolean suc);
+    }
+
+    public interface OnLoadEventsCallback {
+        void onLoadEventsComplete(boolean suc);
+    }
+
+    public interface OnCheckFollowingCallback {
+        void onCheckFollowingComplete(boolean suc);
+    }
+
+    public interface OnLoginCompleteCallback {
+        void onLoginComplete(boolean suc);
+    }
+
+    public interface OnHabitsLoadedCompleteCallback {
+        void onHabitsComplete(boolean suc);
+    }
 }

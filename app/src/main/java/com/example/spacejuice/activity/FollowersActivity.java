@@ -54,9 +54,9 @@ public class FollowersActivity extends AppCompatActivity {
         text = findViewById(R.id.textViewFA);
         text.setText(getString(R.string.followers));
         followController = new FollowController();
-        followController.getFollower(new LoginController.OnCompleteCallback() {
+        followController.getFollower(new LoginController.OnFollowerCompleteCallback() {
             @Override
-            public void onComplete(boolean suc) {
+            public void onFollowerComplete(boolean suc) {
                 if (suc){
                     ArrayList<String> list = MainActivity.getUser().getFollow().getFollowers();
                     for (int i = 0; i < list.size(); i++){

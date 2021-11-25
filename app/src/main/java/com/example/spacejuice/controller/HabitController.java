@@ -99,7 +99,8 @@ public class HabitController {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitsFromFirebase(Member member, final LoginController.OnCompleteCallback callback) {
+    public static void loadHabitsFromFirebase(Member member, final LoginController.OnHabitsLoadedCompleteCallback callback) {
+        Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - initialized");
         /* This method should load a member's habits from firebase */
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String username = member.getMemberName();
@@ -112,9 +113,11 @@ public class HabitController {
         habitRef.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot querySnapshot) {
+                Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - Task habitRef onSuccess() triggered");
                 List<DocumentSnapshot> docs = querySnapshot.getDocuments();
                 final boolean[] lastDocument = {false};
                 if (!docs.isEmpty()) {
+                    Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - !docs.isEmpty().. iterating through docs");
 
                     for (DocumentSnapshot doc : docs) {
                         String title = doc.getString("Title");
@@ -139,19 +142,9 @@ public class HabitController {
                         habit.forceUid(uid);
                         if (doc == docs.get(docs.size() - 1)) {
                             lastDocument[0] = true;
-                            Log.d("debugInfo", "last document is being retrieved in HabitController");
+                            Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - lastDocument[0] set to true");
                         }
-                        HabitEventController.loadHabitEventsFromFirebase(habit, MainActivity.getUser().getMemberName(), new OnHabitLoaded() {
-
-                            @Override
-                            public void onComplete(Boolean success) {
-                                if (success) {
-                                    if (lastDocument[0]) {
-                                        callback.onComplete(true);
-                                    }
-                                }
-                            }
-                        });
+                        Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - Launching loadHabitEventsFromFirebase for " + habit.getTitle());
 
                         if (MainActivity.getUser().getMaxUID() <= uid) {
                             MainActivity.getUser().setUniqueId(uid + 1);
@@ -159,10 +152,25 @@ public class HabitController {
 
                         HabitController.addLocalHabit(habit);
 
-                        Log.d("debugInfo", "doc uid: " + uid);
+                        HabitEventController.loadHabitEventsFromFirebase(habit, MainActivity.getUser().getMemberName(), new OnHabitEventsLoaded() {
+
+                            @Override
+                            public void onHabitEventsComplete(Boolean success) {
+                                if (success) {
+                                    if (lastDocument[0]) {
+                                        Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - onHabitEventsComplete triggered for last habit");
+                                        callback.onHabitsComplete(true);
+                                    } else {
+                                        Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - onHabitEventsComplete triggered but not last habit");
+                                    }
+                                }
+                            }
+                        });
+
                     }
                 } else {
-                    callback.onComplete(true);
+                    Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - onHabitEventsComplete triggered since docs is empty");
+                    callback.onHabitsComplete(true);
                 }
 
             }
@@ -170,8 +178,8 @@ public class HabitController {
 
     }
 
-    public interface OnHabitLoaded {
-        void onComplete(Boolean success);
+    public interface OnHabitEventsLoaded {
+        void onHabitEventsComplete(Boolean success);
     }
 
     public static ArrayList<Habit> getHabitListItems() {

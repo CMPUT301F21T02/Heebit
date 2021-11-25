@@ -58,23 +58,23 @@ public class MemberProfileActivity extends AppCompatActivity {
        displayName.setText(memberName);
 
 
-       followController.checkFollowing(memberName, new LoginController.OnCompleteCallback(){
+       followController.checkFollowing(memberName, new LoginController.OnCheckFollowingCallback(){
            @Override
-           public void onComplete(boolean suc) {
+           public void onCheckFollowingComplete(boolean suc) {
                boolean isFollowing = followController.getIsFollowing();
                Log.d("message", "being read");
                if (isFollowing == true) {
                    Log.d("message", "is following");
-                   followController.findMember(memberName, new LoginController.OnCompleteCallback(){
+                   followController.findMember(memberName, new LoginController.OnFindMemberCompleteCallback(){
                        @Override
-                       public void onComplete(boolean suc) {
+                       public void onFindMemberComplete(boolean suc) {
 
                        }
                    });
 
-                   followController.findPublicHabits(memberName, new LoginController.OnCompleteCallback(){
+                   followController.findPublicHabits(memberName, new LoginController.OnGetPublicHabitsCallback(){
                        @Override
-                       public void onComplete(boolean suc) {
+                       public void onPublicHabitsComplete(boolean suc) {
                            publicHabits = followController.getPublicHabits();
                            if (publicHabits.isEmpty()){
                                TextView HabitText = findViewById(R.id.textViewMPA);

@@ -2,6 +2,7 @@ package com.example.spacejuice.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,18 +50,20 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("debugInfoLogin", "LoginActivity login.onClick() - Login Button Clicked");
                 loadingDialog.startLoadingAlertDialog();
-                loginController.login(UserNameET.getText().toString(), PassWordET.getText().toString(), new LoginController.OnCompleteCallback() {
+                loginController.login(UserNameET.getText().toString(), PassWordET.getText().toString(), new LoginController.OnLoginCompleteCallback() {
                     @Override
-                    public void onComplete(boolean suc) {
+                    public void onLoginComplete(boolean suc) {
+                        Log.d("debugInfoLogin", "LoginActivity login - onLoginComplete(true) received");
                         success = suc;
                         if (success) {
-                            HabitController.loadHabitsFromFirebase(MainActivity.getUser(), new LoginController.OnCompleteCallback() {
+                            HabitController.loadHabitsFromFirebase(MainActivity.getUser(), new LoginController.OnHabitsLoadedCompleteCallback() {
                                 @Override
-                                public void onComplete(boolean suc) {
+                                public void onHabitsComplete(boolean suc) {
+                                    Log.d("debugInfoLogin", "LoginActivity login - onHabitsComplete(true) received");
                                     HabitEventController.generateMissedEvents(LoginActivity.this);
                                     loadingDialog.dismissDialog();
-                                    //Toast.makeText(LoginActivity.this, "Login Success!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         } else {
@@ -81,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void finishLogin() {
+        Log.d("debugInfoLogin", "LoginActivity.finishLogin() - Finish Login was initialized");
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference userDoc = db.collection("Members").document(MainActivity.getUser().getMemberName());
         MainActivity.getUser().setNextMidnight(LoginController.getNextMidnight());
