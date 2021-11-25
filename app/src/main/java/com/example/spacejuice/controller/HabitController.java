@@ -115,9 +115,6 @@ public class HabitController {
             public void onSuccess(QuerySnapshot querySnapshot) {
                 Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - Task habitRef onSuccess() triggered");
                 List<DocumentSnapshot> docs = querySnapshot.getDocuments();
-                final boolean[] lastDocument = {false};
-                Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - lastDocument[0] set to false");
-                lastDocument[0] = false;
                 if (!docs.isEmpty()) {
                     Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - !docs.isEmpty().. iterating through docs");
                     int habits_loaded = 0;
@@ -145,12 +142,7 @@ public class HabitController {
                         habit.setStartDate(habitStartDate);
                         habit.setPrivacy(privateHabit);
                         habit.forceUid(uid);
-                        if (habits_loaded == docs_size) {
-                            lastDocument[0] = true;
-                            Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - lastDocument[0] set to true");
-                        } else {
-                            Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - lastDocument[0] was not set to true");
-                        }
+
                         Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - Launching loadHabitEventsFromFirebase for " + habit.getTitle());
 
                         if (MainActivity.getUser().getMaxUID() <= uid) {
@@ -159,12 +151,14 @@ public class HabitController {
 
                         HabitController.addLocalHabit(habit);
 
+                        int finalHabits_loaded = habits_loaded;
                         HabitEventController.loadHabitEventsFromFirebase(habit, MainActivity.getUser().getMemberName(), new OnHabitEventsLoaded() {
 
                             @Override
                             public void onHabitEventsComplete(Boolean success) {
                                 if (success) {
-                                    if (lastDocument[0]) {
+                                    if (finalHabits_loaded == docs_size) {
+
                                         Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - onHabitEventsComplete triggered for last habit");
                                         callback.onHabitsComplete(true);
                                     } else {
