@@ -96,7 +96,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
 
                 android:orientation="horizontal">
 
@@ -116,6 +116,30 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
                     android:text="Habit_reason"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/habit_gps_title"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="GPS:"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/habit_gps_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="Habit_gps"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

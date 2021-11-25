@@ -44,4 +44,6 @@
     <string name="DAY_Th">Th</string>
     <string name="DAY_F">F</string>
     <string name="DAY_Sa">Sa</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC0eSs4Mb2oQVZxc9LIzsSW9iZejLj_jGM</string>
 </resources>

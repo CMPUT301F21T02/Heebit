@@ -12,13 +12,13 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class PublicHabitsAdapter extends ArrayAdapter<String> {
-    private final ArrayList<String> title;
+public class PublicHabitsAdapter extends ArrayAdapter<Habit> {
+    private final ArrayList<Habit> habits;
     private final Context context;
 
-    public PublicHabitsAdapter(Context context, ArrayList<String> titles){
-        super(context, 0, titles);
-        this.title = titles;
+    public PublicHabitsAdapter(Context context, ArrayList<Habit> habits){
+        super(context, 0, habits);
+        this.habits = habits;
         this.context = context;
     }
     @NonNull
@@ -28,10 +28,11 @@ public class PublicHabitsAdapter extends ArrayAdapter<String> {
         if(view == null){
             view = LayoutInflater.from(context).inflate(R.layout.public_habit_content, parent, false);
         }
-        String string = title.get(position);
+        String string = habits.get(position).getTitle();
         TextView name = view.findViewById(R.id.habit_textPHC);
+        TextView level = view.findViewById(R.id.habit_content_habit_levelPHC);
         name.setText(string);
-
+        level.setText(habits.get(position).getIndicator().getIndicatorText());
         return view;
     }
 }

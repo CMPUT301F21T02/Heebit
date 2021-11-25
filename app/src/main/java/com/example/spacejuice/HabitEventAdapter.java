@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -46,6 +49,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         ImageView eventIndicator;
         ImageView eventImage;
         TextView eventLocation;
+        ImageView gpsIcon;
     }
 
     @Override
@@ -71,6 +75,7 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventDateText = row.findViewById(R.id.habit_event_date);
             viewHolder.eventImage = row.findViewById(R.id.eventImage);
             viewHolder.eventLocation = row.findViewById(R.id.location_text);
+            viewHolder.gpsIcon = row.findViewById(R.id.location_icon);
             row.setTag(viewHolder);
         } else { // If the viewHolder was already initialized
             viewHolder = (ViewHolder) row.getTag();
@@ -94,7 +99,14 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.eventDescription.setClickable(false);
         viewHolder.eventDateText.setText(dateText);
         viewHolder.eventDateText.setClickable(false);
-        viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
+        if (eventItems.get(position).getLocation(context).equals("Null")){
+            viewHolder.eventLocation.setVisibility(View.INVISIBLE);
+            viewHolder.gpsIcon.setVisibility(View.INVISIBLE);
+        }
+        else{
+            viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
+        }
+
         //
         //
         //
@@ -103,10 +115,14 @@ public class HabitEventAdapter extends ArrayAdapter {
         //
         String stringUri = eventItems.get(position).getImage();
         if(stringUri!=null) {
+            Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
+            Log.d("debugInfo", stringUri);
             Uri uri = Uri.parse(stringUri);
-            viewHolder.eventImage.setImageURI(uri);
+            //viewHolder.eventImage.setImageResource(R.drawable.empty_image);
+            Picasso.get().load(uri).into(viewHolder.eventImage);
+
         }else {
-            viewHolder.eventImage.setImageResource(R.drawable.empty_image);
+            Picasso.get().load(R.drawable.empty_image).into(viewHolder.eventImage);
         }
         View.OnClickListener goToEventDetails;
 

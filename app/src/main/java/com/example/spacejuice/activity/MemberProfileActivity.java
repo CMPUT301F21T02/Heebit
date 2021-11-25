@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.FollowingList;
+import com.example.spacejuice.Habit;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.PublicHabitsAdapter;
 import com.example.spacejuice.R;
@@ -28,11 +29,10 @@ public class MemberProfileActivity extends AppCompatActivity {
     */
    private ImageButton backButton;
    private FollowController followController;
-   ArrayList<String> publicHabits;
-   private ArrayAdapter<String> ListAdapter;
+   ArrayList<Habit> publicHabits;
+   private ArrayAdapter<Habit> ListAdapter;
 
    private TextView displayName;
-   private TextView displayScore;
    private ListView displayHabits;
 
 
@@ -68,7 +68,7 @@ public class MemberProfileActivity extends AppCompatActivity {
                    followController.findMember(memberName, new LoginController.OnCompleteCallback(){
                        @Override
                        public void onComplete(boolean suc) {
-                           String score = followController.getScore();
+
                        }
                    });
 
@@ -96,11 +96,6 @@ public class MemberProfileActivity extends AppCompatActivity {
 
            }
        });
-
-
-
-
-
 
 
        backButton.setOnClickListener(new View.OnClickListener() {

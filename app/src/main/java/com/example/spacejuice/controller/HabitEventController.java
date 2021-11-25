@@ -81,7 +81,7 @@ public class HabitEventController {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Log.d("debugInfo", "Habit Event has been added successfully");
+                                            Log.d("debugInfo", "Habit has been added successfully");
                                             LoginController.updateMaxID();
                                         }
                                     });
@@ -93,12 +93,11 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit, final HabitController.OnHabitLoaded eventsCallback) {
+    public static void loadHabitEventsFromFirebase(Habit habit, String name, final HabitController.OnHabitLoaded callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
         Query habitQuery =
-                db.collection("Members").document(MainActivity.getUser()
-                        .getMemberName()).collection("Habits")
+                db.collection("Members").document(name).collection("Habits")
                         .whereEqualTo("ID", uid);
         Task<QuerySnapshot> habitQueryTask = habitQuery.get();
         habitQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -117,10 +116,7 @@ public class HabitEventController {
 
                         List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
 
-                        int doc_number = 0;
-
                         for (DocumentSnapshot doc : docs) {
-                            doc_number += 1;
                             int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
                             Map<String, Object> data = doc.getData();
                             assert data != null;
@@ -134,27 +130,23 @@ public class HabitEventController {
                             habitEvent.setDescription(des);
                             habitEvent.setDate(date);
                             habitEvent.setImage(Url);
+
                             assert loc != null;
-                            habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
+                            if (name == MainActivity.getUser().getMemberName()) {
+                                habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
+                            }
                             habitEvent.setDone(isDone);
 
                             if (!habit.containsEventId(id)) {
                                 habit.addEvent(habitEvent);
-                                Log.d("iterChecker", "document #" + id + " added to " + habit.getTitle());
-                            } else {
-                                Log.d("iterChecker", "document #" + id + " not added to  " + habit.getTitle() + " since it already contains it.");
                             }
+                            Log.d("iterChecker", "document #" + id);
 
-                            if (doc_number == docs.size()) {
-                                Log.d("iterChecker", "COMPLETE - doc#" + doc_number);
-                                eventsCallback.onLoaded(true);
-                            }
                         }
+                        Log.d("iterChecker", "COMPLETE");
 
-                        if (docs.size() == 0) {
-                            Log.d("iterChecker", "docs size = 0");
-                            eventsCallback.onLoaded(true);
-                        }
+                        callback.onComplete(true);
+
                     }
 
                 });
