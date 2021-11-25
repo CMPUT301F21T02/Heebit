@@ -141,15 +141,14 @@ public class HabitController {
                             lastDocument[0] = true;
                             Log.d("debugInfo", "last document is being retrieved in HabitController");
                         }
-                        HabitEventController.loadHabitEventsFromFirebase(habit, new OnHabitLoaded() {
-
-                            @Override
-                            public void onComplete(Boolean success) {
-                                if (success) {
-                                    if (lastDocument[0]) {
-                                        callback.onComplete(true);
-                                    }
+                        HabitEventController.loadHabitEventsFromFirebase(habit, success -> {
+                            if (success) {
+                                if (lastDocument[0]) {
+                                    Log.d("debugInfo", "loadHabitEventsFromFirebase callback received in HabitController");
+                                    callback.onComplete(true);
                                 }
+                            } else {
+                                Log.d("debugInfo", "loadHabitEventsFromFirebase callback returned as FALSE");
                             }
                         });
 
@@ -171,7 +170,7 @@ public class HabitController {
     }
 
     public interface OnHabitLoaded {
-        void onComplete(Boolean success);
+        void onLoaded(Boolean success);
     }
 
     public static ArrayList<Habit> getHabitListItems() {

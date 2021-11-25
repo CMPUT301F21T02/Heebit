@@ -81,7 +81,7 @@ public class HabitEventController {
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void unused) {
-                                            Log.d("debugInfo", "Habit has been added successfully");
+                                            Log.d("debugInfo", "Habit Event has been added successfully");
                                             LoginController.updateMaxID();
                                         }
                                     });
@@ -93,7 +93,7 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit, final HabitController.OnHabitLoaded callback) {
+    public static void loadHabitEventsFromFirebase(Habit habit, final HabitController.OnHabitLoaded eventsCallback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
         Query habitQuery =
@@ -117,7 +117,10 @@ public class HabitEventController {
 
                         List<DocumentSnapshot> docs = queryDocumentSnapshots.getDocuments();
 
+                        int doc_number = 0;
+
                         for (DocumentSnapshot doc : docs) {
+                            doc_number += 1;
                             int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
                             Map<String, Object> data = doc.getData();
                             assert data != null;
@@ -137,14 +140,21 @@ public class HabitEventController {
 
                             if (!habit.containsEventId(id)) {
                                 habit.addEvent(habitEvent);
+                                Log.d("iterChecker", "document #" + id + " added to " + habit.getTitle());
+                            } else {
+                                Log.d("iterChecker", "document #" + id + " not added to  " + habit.getTitle() + " since it already contains it.");
                             }
-                            Log.d("iterChecker", "document #" + id);
 
+                            if (doc_number == docs.size()) {
+                                Log.d("iterChecker", "COMPLETE - doc#" + doc_number);
+                                eventsCallback.onLoaded(true);
+                            }
                         }
-                        Log.d("iterChecker", "COMPLETE");
 
-                        callback.onComplete(true);
-
+                        if (docs.size() == 0) {
+                            Log.d("iterChecker", "docs size = 0");
+                            eventsCallback.onLoaded(true);
+                        }
                     }
 
                 });
