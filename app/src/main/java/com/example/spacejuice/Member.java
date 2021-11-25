@@ -35,6 +35,8 @@ public class Member {
    private final Follow follow;
    private Date nextMidnight;
    private Date prevNextMidnight;
+   private Boolean admin = false;
+   private long adminTimeOffset = 0;
 
    /**
     * Constructor for generate a empty Member
@@ -272,6 +274,14 @@ public class Member {
    public Date getPrevNextMidnight() {
       return this.prevNextMidnight;
    }
+
+   public Boolean isAdmin() { return this.admin; }
+
+   public void setAdmin(Boolean bool) { this.admin = bool; }
+
+   public Long getAdminTimeOffset() { return this.adminTimeOffset; }
+
+   public void setAdminTimeOffset(Long offset) { this.adminTimeOffset += offset; }
 
 }
 

@@ -23,14 +23,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/habit_content_habit_level"
-                android:layout_width="19dp"
+                android:id="@+id/habit_content_habit_levelPHC"
+                android:layout_width="41dp"
                 android:layout_height="41dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:maxLines="1"
                 android:paddingStart="2dp"
-                android:textSize="13sp" />
+                android:paddingEnd="2dp"
+                android:shadowColor="@color/DarkSlateGray"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="4"
+                android:text="Lv10"
+                android:textColor="@color/LightSalmon"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/habit_textPHC"
                 android:layout_width="wrap_content"

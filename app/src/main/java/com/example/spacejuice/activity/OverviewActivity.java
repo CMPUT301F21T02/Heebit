@@ -33,6 +33,7 @@ public class OverviewActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> addEventLaunch;
     Boolean filterToday = true;
     Button today_all_toggle;
+    Button admin_button;
     ArrayList<Habit> habitListItems;
     ArrayList<Habit> today_habit_items;
     /*
@@ -70,6 +71,7 @@ public class OverviewActivity extends AppCompatActivity {
         add_habit_imagebutton = findViewById(R.id.add_habit_imagebutton);
         today_all_toggle = findViewById(R.id.list_toggle_button_switch);
         today_habit_list = findViewById(R.id.overview_habit_listview);
+        admin_button = findViewById(R.id.adminButton);
         refreshData();
 
         int score = MainActivity.getUser().getScore();
@@ -82,6 +84,10 @@ public class OverviewActivity extends AppCompatActivity {
                 refreshData();
             }
         });
+
+        if (MainActivity.getUser().isAdmin()) {
+            admin_button.setVisibility(View.VISIBLE);
+        }
 
         add_habit_imagebutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +102,14 @@ public class OverviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OverviewActivity.this, MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        admin_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OverviewActivity.this, AdminMenuActivity.class);
                 startActivity(intent);
             }
         });

@@ -25,6 +25,7 @@ import com.example.spacejuice.Member;
 import com.example.spacejuice.R;
 import com.example.spacejuice.controller.HabitController;
 import com.example.spacejuice.controller.HabitEventController;
+import com.example.spacejuice.controller.TimeController;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -90,7 +91,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
             habitUid = (int) savedInstanceState.getSerializable("habitUid");
         }
         currentHabit = HabitController.getHabitFromUid(habitUid);
-        Date date = new Date();
+        Date date = TimeController.getCurrentTime().getTime();
 
         /* date formatting retrieved from
         https://stackoverflow.com/questions/17192776/get-value-of-day-month-from-date-object-in-android

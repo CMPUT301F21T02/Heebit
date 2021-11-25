@@ -1,5 +1,6 @@
 package com.example.spacejuice.controller;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
@@ -37,6 +38,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 //import com.google.firebase.storage.StorageTask;
 //import com.google.firebase.storage.UploadTask;
 
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -62,7 +64,8 @@ public class HabitEventController {
                 DocumentReference habitRef = Objects.requireNonNull(habitQueryTask
                         .getResult()).getDocuments().get(0).getReference();
                 DocumentReference eventDocRef;
-                eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
+                //eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
+                eventDocRef = habitRef.collection("Events").document(getDocumentIdString(habitEvent));
                 eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -90,12 +93,11 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit, final HabitController.OnHabitLoaded callback) {
+    public static void loadHabitEventsFromFirebase(Habit habit, String name, final HabitController.OnHabitLoaded callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
         Query habitQuery =
-                db.collection("Members").document(MainActivity.getUser()
-                        .getMemberName()).collection("Habits")
+                db.collection("Members").document(name).collection("Habits")
                         .whereEqualTo("ID", uid);
         Task<QuerySnapshot> habitQueryTask = habitQuery.get();
         habitQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -116,31 +118,32 @@ public class HabitEventController {
 
                         for (DocumentSnapshot doc : docs) {
                             int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
-                            Log.d("debugInfo", "got id: " + id);
-                            String Url = doc.getString("Url");
-                            Log.d("debugInfo", "got Url:: " + Url);
-                            Date date = doc.getDate("Date");
-                            Log.d("debugInfo", "got date: " + date);
-                            String des = doc.getString("Description");
-                            Log.d("debugInfo", "got des: " + des);
-
-                            GeoPoint loc = doc.getGeoPoint("Location");
-                            Boolean isDone = doc.getBoolean("Done");
+                            Map<String, Object> data = doc.getData();
+                            assert data != null;
+                            String Url = (String) data.get("Url");
+                            Date date = ((com.google.firebase.Timestamp) data.get("Date")).toDate();
+                            String des = (String) data.get("Description");
+                            GeoPoint loc = (GeoPoint) data.get("Location");
+                            Boolean isDone = (Boolean) data.get("Done");
                             HabitEvent habitEvent = new HabitEvent();
                             habitEvent.setEventId(id);
                             habitEvent.setDescription(des);
                             habitEvent.setDate(date);
                             habitEvent.setImage(Url);
 
-                            habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
-
+                            assert loc != null;
+                            if (name == MainActivity.getUser().getMemberName()) {
+                                habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
+                            }
                             habitEvent.setDone(isDone);
 
                             if (!habit.containsEventId(id)) {
                                 habit.addEvent(habitEvent);
                             }
+                            Log.d("iterChecker", "document #" + id);
 
                         }
+                        Log.d("iterChecker", "COMPLETE");
 
                         callback.onComplete(true);
 
@@ -165,17 +168,31 @@ public class HabitEventController {
     public static void generateHabitMissedEvents(Habit habit) {
         Log.d("debugInfo", "checking habit: " + habit.getTitle() + " for missed events...");
         Member user = MainActivity.getUser();
-        Calendar dateIterator = Calendar.getInstance();
-        dateIterator.setTime(user.getPrevNextMidnight());
-        Calendar currentDate = Calendar.getInstance();
+        Calendar dateIterator = Calendar.getInstance();      //iterator used to generated missed events day by day
+        Calendar prevMidnightCal = Calendar.getInstance();   //the calendar object for the user's "next midnight" after their last login
+        Calendar habitCreationTime = Calendar.getInstance(); //the calendar object for the habit's creation time
+        Date prevMidnightDate = user.getPrevNextMidnight();
+        Date habitStartDate = habit.getStartDate();
+
+        habitCreationTime.setTime(habitStartDate);
+        prevMidnightCal.setTime(prevMidnightDate);
+
+        //convert to millis to compare dates
+        if (prevMidnightDate.compareTo(habitStartDate) < 0) {
+            prevMidnightDate = habitStartDate;
+        }
+
+        dateIterator.setTime(prevMidnightDate);
+        Calendar currentDate = TimeController.getCurrentTime();
         dateIterator.add(Calendar.MILLISECOND, -1); // set the date Iterator to 11:59:59.999 previous day
 
         // check first day separately
         // because it might still have been completed on that day
-        if (dateIterator.getTimeInMillis() < currentDate.getTimeInMillis()) {
+        if (TimeController.compareCalendarDays(dateIterator, currentDate) < 0) {
             int dayOfWeek = dateIterator.get(Calendar.DAY_OF_WEEK);
             if (habit.getSchedule().checkScheduleDay(dayOfWeek)) {
                 if (!habit.completedOnDay(dateIterator)) {
+                    Log.d("debugInfo", "missed event generated for " + habit.getTitle() + " on " + (dateIterator.getTime()).toString());
                     habit.addMissedEvent(dateIterator);
                 } else {
                     Log.d("debugInfo", habit.getTitle() + " was completed on day " + dayOfWeek + "....");
@@ -196,6 +213,11 @@ public class HabitEventController {
 
         }
 
+    }
+
+    public static String getDocumentIdString(HabitEvent event) {
+        @SuppressLint("DefaultLocale") String idString = String.format("%012d", event.getEventId());
+        return idString;
     }
 
     public interface OnCompleteCallback {

@@ -111,10 +111,10 @@ public class HabitEventAdapter extends ArrayAdapter {
         //
         //
         String stringUri = eventItems.get(position).getImage();
-        if(stringUri != null){
-        Uri uri = Uri.parse(stringUri);
-        Picasso.get().load(uri).into(viewHolder.eventImage);
-        } else {
+        if(stringUri!=null) {
+            Uri uri = Uri.parse(stringUri);
+            viewHolder.eventImage.setImageURI(uri);
+        }else {
             viewHolder.eventImage.setImageResource(R.drawable.empty_image);
         }
         View.OnClickListener goToEventDetails;

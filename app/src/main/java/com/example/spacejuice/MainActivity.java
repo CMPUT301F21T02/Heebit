@@ -20,6 +20,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,15 +69,7 @@ public class MainActivity extends AppCompatActivity {
         return densityDpi > 460;
     }
 
-
-
-    /**
-     * Checks if Google Play Services is on the device
-     *
-     * @return Boolean
-     */
-     // Source: https://gist.github.com/kristopherjohnson/7554793
-    private boolean checkPlayServices() {
+    boolean checkPlayServices() {
         GoogleApiAvailability gApi = GoogleApiAvailability.getInstance();
         int resultCode = gApi.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {

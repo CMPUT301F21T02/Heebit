@@ -92,6 +92,11 @@
         <activity
             android:name=".activity.gpsActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".activity.AdminMenuActivity"
+            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

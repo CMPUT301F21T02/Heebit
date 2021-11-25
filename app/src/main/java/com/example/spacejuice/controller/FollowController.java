@@ -27,9 +27,9 @@ import java.util.Map;
 
 public class FollowController {
     private final FirebaseFirestore db;
-    private ArrayList<String> publicHabits;
-    private String score;
+    private ArrayList<Habit> publicHabits;
     boolean isFollowing = false;
+    HabitEventController habitEventController;
 
     //Empty constructor
     public FollowController(){
@@ -358,6 +358,11 @@ public class FollowController {
         });
     }
 
+    /**
+     * Finds list of habits
+     * @param memberName
+     * @param callback
+     */
     public void findPublicHabits(String memberName, final LoginController.OnCompleteCallback callback){
         publicHabits = new ArrayList<>();
 
@@ -372,31 +377,25 @@ public class FollowController {
                     callback.onComplete(true);
                 } else {
                     Log.d("message", "is not empty");
-                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
-                        String habit = document.getId();
-                        publicHabits.add(habit);
-                        callback.onComplete(true);
+                        loadEvents(querySnapshot, memberName, new LoginController.OnCompleteCallback(){
+                            @Override
+                            public void onComplete(boolean suc) {
+                                callback.onComplete(true);
+                            }
+                        });
+
                     }
                 }
 
-            }
         });
 
     }
 
-    public boolean isFollowing(String memberName){
-        ArrayList<String> following = MainActivity.getUser().getFollow().getFollowings();
-        boolean isFollowing = false;
-        for (int i = 0; i < following.size(); i++){
-            if (following.get(i) == memberName){
-                isFollowing = true;
-                break;
-            }
-        }
-
-        return isFollowing;
-    }
-
+    /**
+     * Checks if user is following target member
+     * @param memberName
+     * @param callback
+     */
     public void checkFollowing(String memberName, final LoginController.OnCompleteCallback callback){
         DocumentReference documentReference = db.collection("Members")
                 .document(MainActivity.getUser().getMemberName())
@@ -429,7 +428,6 @@ public class FollowController {
                 // if this name exist
                 assert document != null;
                 if (document.exists()){
-                    score = document.getString("Score");
                     callback.onComplete(true);
                 }
                 callback.onComplete(true);
@@ -437,17 +435,35 @@ public class FollowController {
         });
     }
 
-    public ArrayList<String> getPublicHabits(){
-        return publicHabits;
+    public void loadEvents(QuerySnapshot querySnapshot, String memberName, final LoginController.OnCompleteCallback callback){
+        for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            Habit habit = new Habit(document.getId(), document.getString("Reason"), 0);
+            int uid = Integer.valueOf(document.get("ID").toString());
+            habit.forceUid(uid);
+            habitEventController.loadHabitEventsFromFirebase(habit, memberName, new HabitController.OnHabitLoaded() {
+                @Override
+                public void onComplete(Boolean success) {
+                    if (success) {
+                        Log.d("message", "being read");
+                        habit.calculateScore();
+                        publicHabits.add(habit);
+                        callback.onComplete(true);
+                    }
+                }
+            });
+        }
     }
 
-    public String getScore(){
-        return score;
+
+    /**
+     * Getters
+     */
+    public ArrayList<Habit> getPublicHabits(){
+        return publicHabits;
     }
 
     public boolean getIsFollowing(){
         return isFollowing;
     }
-
 
 }
