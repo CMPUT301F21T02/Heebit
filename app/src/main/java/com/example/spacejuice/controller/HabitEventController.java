@@ -93,12 +93,11 @@ public class HabitEventController {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public static void loadHabitEventsFromFirebase(Habit habit, final HabitController.OnHabitLoaded callback) {
+    public static void loadHabitEventsFromFirebase(Habit habit, String name, final HabitController.OnHabitLoaded callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
         Query habitQuery =
-                db.collection("Members").document(MainActivity.getUser()
-                        .getMemberName()).collection("Habits")
+                db.collection("Members").document(name).collection("Habits")
                         .whereEqualTo("ID", uid);
         Task<QuerySnapshot> habitQueryTask = habitQuery.get();
         habitQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -131,8 +130,11 @@ public class HabitEventController {
                             habitEvent.setDescription(des);
                             habitEvent.setDate(date);
                             habitEvent.setImage(Url);
+
                             assert loc != null;
-                            habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
+                            if (name == MainActivity.getUser().getMemberName()) {
+                                habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
+                            }
                             habitEvent.setDone(isDone);
 
                             if (!habit.containsEventId(id)) {
