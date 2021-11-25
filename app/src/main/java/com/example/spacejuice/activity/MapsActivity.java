@@ -5,10 +5,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.spacejuice.R;
@@ -36,6 +39,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
     private Location lastKnownLocation;
+    private Button addButton;
+    private Button cancelButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,13 +50,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        addButton = findViewById(R.id.add_maps);
+        cancelButton = findViewById(R.id.cancel_gps);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getDeviceLocation(true);
+            }
+        });
     }
 
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -59,8 +70,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         getLocationPermission();
+        if (locationPermissionGranted){
+            updateLocationUI();
+            getDeviceLocation(false);
+        }
         // [END_EXCLUDE]
 
         // Add a marker in Sydney and move the camera
@@ -100,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     locationPermissionGranted = true;
                     updateLocationUI();
-                    getDeviceLocation();
+                    getDeviceLocation(false);
                 }
                 else{
                     Toast.makeText(this,"Don't have location permission!", Toast.LENGTH_SHORT).show();
@@ -121,6 +135,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (locationPermissionGranted) {
                 mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+                    @Override
+                    public boolean onMyLocationButtonClick() {
+                        getDeviceLocation(false);
+                        return false;
+                    }
+                });
             } else {
                 mMap.setMyLocationEnabled(false);
                 mMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -132,7 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    private void getDeviceLocation() {
+    private void getDeviceLocation(boolean isAdd) {
         /*
          * Get the best and most recent location of the device, which may be null in rare
          * cases when a location is not available.
@@ -152,6 +173,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()),
                                         DEFAULT_ZOOM));
+                                if (isAdd){
+                                    Intent intent = new Intent();
+                                    Log.d("debugInfo", "Pass longitude: " + String.valueOf(lastKnownLocation.getLongitude()));
+                                    intent.putExtra("longitude",lastKnownLocation.getLongitude());
+                                    Log.d("debugInfo", "Pass latitude: " + String.valueOf(lastKnownLocation.getLatitude()));
+                                    intent.putExtra("latitude", lastKnownLocation.getLatitude());
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                }
                             }
                         } else {
                             Log.d("debugInfo", "Current location is null. Using defaults.");
@@ -167,4 +197,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Log.e("Exception: %s", e.getMessage(), e);
         }
     }
+
+
 }
