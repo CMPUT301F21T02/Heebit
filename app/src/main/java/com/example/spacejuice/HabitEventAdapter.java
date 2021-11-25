@@ -122,7 +122,7 @@ public class HabitEventAdapter extends ArrayAdapter {
             Picasso.get().load(uri).into(viewHolder.eventImage);
 
         }else {
-            viewHolder.eventImage.setImageResource(R.drawable.empty_image);
+            Picasso.get().load(R.drawable.empty_image).into(viewHolder.eventImage);
         }
         View.OnClickListener goToEventDetails;
 
