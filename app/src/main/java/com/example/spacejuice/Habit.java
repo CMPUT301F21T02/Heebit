@@ -227,7 +227,18 @@ public class Habit implements Serializable {
      * @param habitEvent a habit event
      */
     public void addEvent(HabitEvent habitEvent) {
-        this.events.add(habitEvent);
+        int size = events.size();
+        ArrayList<HabitEvent> newEvents = new ArrayList<>();
+
+        for (int i = 0; i < size + 1; i++) {
+            newEvents.add(new HabitEvent());
+        }
+        for (int i = 0; i < size; i++) {
+            newEvents.set(i, events.get(i));
+        }
+        newEvents.set(size, habitEvent);
+        events = newEvents;
+
     }
 
     public void addMissedEvent(Calendar eventDay) {
