@@ -41,7 +41,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
             android:contentDescription="Back"
             android:scaleType="fitCenter"
             android:src="@drawable/black_back_button"
-            app:tint="@color/Black"
+            app:tint="@color/White"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <LinearLayout

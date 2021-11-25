@@ -28,6 +28,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -127,11 +128,13 @@ public class HabitController {
                         Boolean fri = doc.getBoolean("Fri");
                         Boolean sat = doc.getBoolean("Sat");
                         Boolean privateHabit = doc.getBoolean("PrivateHabit");
+                        Date habitStartDate = doc.getDate("Date");
                         int uid = Integer.valueOf(doc.get("ID").toString());
                         habit.getSchedule().changeTo(sun, mon, tue, wed, thu, fri, sat);
                         if (privateHabit == null) {
                             privateHabit = false;
                         }
+                        habit.setStartDate(habitStartDate);
                         habit.setPrivacy(privateHabit);
                         habit.forceUid(uid);
                         if (doc == docs.get(docs.size() - 1)) {

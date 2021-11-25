@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.spacejuice.controller.HabitEventController;
+import com.example.spacejuice.controller.TimeController;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ public class Habit implements Serializable {
     public Habit(String title, String reason, int xp) {
         setTitle(title);
         setReason(reason);
-        setStartDate(new Date());
+        setStartDate(TimeController.getCurrentTime().getTime());
         this.indicator = new Indicator();
         if (xp != -1) {
             indicator.setXp(xp);
@@ -171,47 +172,19 @@ public class Habit implements Serializable {
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         switch (day) {
             case Calendar.SUNDAY:
-                if (schedule.Sun()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Sun();
             case Calendar.MONDAY:
-                if (schedule.Mon()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Mon();
             case Calendar.TUESDAY:
-                if (schedule.Tue()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Tue();
             case Calendar.WEDNESDAY:
-                if (schedule.Wed()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Wed();
             case Calendar.THURSDAY:
-                if (schedule.Thu()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Thu();
             case Calendar.FRIDAY:
-                if (schedule.Fri()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Fri();
             case Calendar.SATURDAY:
-                if (schedule.Sat()) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return schedule.Sat();
         }
         return false;
     }
@@ -263,8 +236,6 @@ public class Habit implements Serializable {
         missedEvent.setDone(false);
         missedEvent.setEventId(MainActivity.getUser().getUniqueID());
         HabitEventController.addHabitEvent(this, missedEvent);
-        Log.d("debugInfo", "generated missed event for " + getTitle() + "... " +
-                " id#" + missedEvent.getEventId() + " on day: " + eventDay.toString());
     }
 
     /**
@@ -332,27 +303,28 @@ public class Habit implements Serializable {
     }
 
     public Boolean completedOnDay(Calendar checkDay) {
-        HabitEvent lastEvent = getLastEvent();
-        if (lastEvent == null) {
-            return false;
-        }
 
-        Date eventDate = getLastEvent().getDate();
+        // checks if a habit was completed on day checkDay
+
+        Date eventDate;
         Calendar eventDay = Calendar.getInstance();
-        eventDay.setTime(eventDate);
 
-        if (checkDay.get(Calendar.YEAR) == eventDay.get(Calendar.YEAR) &&
-        checkDay.get(Calendar.MONTH) == eventDay.get(Calendar.MONTH) &&
-        checkDay.get(Calendar.DAY_OF_MONTH) == eventDay.get(Calendar.DAY_OF_MONTH)) {
-            Log.d("debugInfo", getTitle() + " was completed on that day");
-            return true;
+        for (HabitEvent e: events) {
+            eventDate = e.getDate();
+            eventDay.setTime(eventDate);
+            if (TimeController.compareCalendarDays(eventDay, checkDay) == 0) {
+                Log.d("debugInfo", getTitle() + " was completed on that day");
+                return true;
+            }
         }
+        Log.d("debugInfo", "Habit " + getTitle() + " has " + events.size() +
+                " events, none of them done on " + (checkDay.getTime()).toString());
         return false;
 
     }
 
     public Boolean completedToday() {
-        Calendar today = Calendar.getInstance();
+        Calendar today = TimeController.getCurrentTime();
         Log.d("debugInfo", "checking if habit was completed on day of week #" + today.get(Calendar.DAY_OF_WEEK));
         return completedOnDay(today);
     }

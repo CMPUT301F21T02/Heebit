@@ -20,6 +20,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -65,21 +66,10 @@ public class MainActivity extends AppCompatActivity {
     public static Boolean checkForSmallDisplay(Context context) {
         /* if the display is small, adjusts the title width to fit properly */
         float densityDpi = context.getResources().getDisplayMetrics().densityDpi;
-        if (densityDpi > 460) {
-            return true;
-        }
-        return false;
+        return densityDpi > 460;
     }
 
-
-
-    /**
-     * Checks if Google Play Services is on the device
-     *
-     * @return Boolean
-     */
-     // Source: https://gist.github.com/kristopherjohnson/7554793
-    private boolean checkPlayServices() {
+    boolean checkPlayServices() {
         GoogleApiAvailability gApi = GoogleApiAvailability.getInstance();
         int resultCode = gApi.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {

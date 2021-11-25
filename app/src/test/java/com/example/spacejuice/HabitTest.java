@@ -1,6 +1,9 @@
 package com.example.spacejuice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.example.spacejuice.controller.TimeController;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.Date;
@@ -33,7 +36,7 @@ public class HabitTest {
 
     @Test
     void testDate(){
-        Date date = new Date();
+        Date date = TimeController.getCurrentTime().getTime();
         Habit habit = mockHabit();
         habit.setStartDate(date);
         assertEquals(date,habit.getStartDate());

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--habit_add_edit.xml
+This is the xml file for adding/viewing/editing fragment
+ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
+-->
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Back Button
+    ID: backButtonHAE
+    USE: Exiting the activity
+    -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/profile_background"
+        android:alpha="0.75"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop">
+    </ImageView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+            <TextView
+                android:id="@+id/textViewAM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/lato_black"
+                android:gravity="center_horizontal"
+                android:padding="15dp"
+                android:text="Admin Menu"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+
+            <Button
+                android:id="@+id/IncrementDayAM"
+                android:layout_width="180dp"
+                android:layout_height="39dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/lato_black"
+                android:layout_gravity="center_horizontal"
+                android:text="Next Day" />
+
+        <Button
+            android:id="@+id/confirmButtonAM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:backgroundTint="@color/Beige"
+            android:fontFamily="@font/lato_black"
+            android:text="RESTART"
+            android:textColor="#3B0A43" />
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

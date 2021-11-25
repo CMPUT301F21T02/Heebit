@@ -8,6 +8,7 @@ import android.telephony.CarrierConfigManager;
 import android.util.Log;
 
 import com.example.spacejuice.activity.gpsActivity;
+import com.example.spacejuice.controller.TimeController;
 
 import java.io.IOException;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class HabitEvent {
 
     public void setDate(@Nullable Date d) {
         if(d == null) {
-            this.date = new Date();
+            this.date = TimeController.getCurrentTime().getTime();
         } else {
             this.date = d;
         }
