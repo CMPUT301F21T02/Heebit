@@ -46,6 +46,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         ImageView eventIndicator;
         ImageView eventImage;
         TextView eventLocation;
+        ImageView gpsIcon;
     }
 
     @Override
@@ -71,6 +72,7 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventDateText = row.findViewById(R.id.habit_event_date);
             viewHolder.eventImage = row.findViewById(R.id.eventImage);
             viewHolder.eventLocation = row.findViewById(R.id.location_text);
+            viewHolder.gpsIcon = row.findViewById(R.id.location_icon);
             row.setTag(viewHolder);
         } else { // If the viewHolder was already initialized
             viewHolder = (ViewHolder) row.getTag();
@@ -94,7 +96,14 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.eventDescription.setClickable(false);
         viewHolder.eventDateText.setText(dateText);
         viewHolder.eventDateText.setClickable(false);
-        viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
+        if (eventItems.get(position).getLocation(context).equals("Null")){
+            viewHolder.eventLocation.setVisibility(View.INVISIBLE);
+            viewHolder.gpsIcon.setVisibility(View.INVISIBLE);
+        }
+        else{
+            viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
+        }
+
         //
         //
         //

@@ -2,6 +2,8 @@ package com.example.spacejuice.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -29,8 +31,11 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class AddHabitEventActivity extends AppCompatActivity {
@@ -48,6 +53,8 @@ public class AddHabitEventActivity extends AppCompatActivity {
     private double longitude;
     private double latitude;
     private boolean hasLocation =  false;
+    private TextView habit_gps_title;
+    private TextView habit_gps_content;
     Habit currentHabit;
 
     @Override
@@ -64,7 +71,10 @@ public class AddHabitEventActivity extends AppCompatActivity {
         habit_date_completed = findViewById(R.id.dateofcompletion);
         add_image_button = findViewById(R.id.add_an_image_button);
         gpsButton = findViewById(R.id.GPS);
-
+        habit_gps_title = findViewById(R.id.habit_gps_title);
+        habit_gps_content = findViewById(R.id.habit_gps_value);
+        habit_gps_content.setVisibility(View.INVISIBLE);
+        habit_gps_title.setVisibility(View.INVISIBLE);
         /*
             Get the Unique Identifier of the Habit that we are creating an event for
          */
@@ -171,6 +181,16 @@ public class AddHabitEventActivity extends AppCompatActivity {
                 longitude = data.getDoubleExtra("longitude", 0.00);
                 latitude = data.getDoubleExtra("latitude", 0.00);
                 hasLocation = true;
+                habit_gps_content.setVisibility(View.VISIBLE);
+                habit_gps_title.setVisibility(View.VISIBLE);
+                Geocoder geocoder = new Geocoder(AddHabitEventActivity.this, Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                habit_gps_content.setText(addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea());
             }
         }
     }
