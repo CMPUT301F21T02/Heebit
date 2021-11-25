@@ -118,10 +118,7 @@ public class HabitEventAdapter extends ArrayAdapter {
             Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
             Log.d("debugInfo", stringUri);
             Uri uri = Uri.parse(stringUri);
-//          ViewHolder.eventImage.postInvalidate();
-//          viewHolder.eventImage.setImageURI(null);
-//          viewHolder.eventImage.setImageURI(uri);
-//          viewHolder.eventImage.postInvalidate();
+            //viewHolder.eventImage.setImageResource(R.drawable.empty_image);
             Picasso.get().load(uri).into(viewHolder.eventImage);
 
         }else {
