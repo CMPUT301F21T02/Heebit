@@ -236,8 +236,6 @@ public class Habit implements Serializable {
         missedEvent.setDone(false);
         missedEvent.setEventId(MainActivity.getUser().getUniqueID());
         HabitEventController.addHabitEvent(this, missedEvent);
-        Log.d("debugInfo", "generated missed event for " + getTitle() + "... " +
-                " id#" + missedEvent.getEventId() + " on day: " + eventDay.toString());
     }
 
     /**
@@ -305,21 +303,22 @@ public class Habit implements Serializable {
     }
 
     public Boolean completedOnDay(Calendar checkDay) {
-        HabitEvent lastEvent = getLastEvent();
-        if (lastEvent == null) {
-            return false;
-        }
 
-        Date eventDate = getLastEvent().getDate();
+        // checks if a habit was completed on day checkDay
+
+        Date eventDate;
         Calendar eventDay = Calendar.getInstance();
-        eventDay.setTime(eventDate);
 
-        if (checkDay.get(Calendar.YEAR) == eventDay.get(Calendar.YEAR) &&
-        checkDay.get(Calendar.MONTH) == eventDay.get(Calendar.MONTH) &&
-        checkDay.get(Calendar.DAY_OF_MONTH) == eventDay.get(Calendar.DAY_OF_MONTH)) {
-            Log.d("debugInfo", getTitle() + " was completed on that day");
-            return true;
+        for (HabitEvent e: events) {
+            eventDate = e.getDate();
+            eventDay.setTime(eventDate);
+            if (TimeController.compareCalendarDays(eventDay, checkDay) == 0) {
+                Log.d("debugInfo", getTitle() + " was completed on that day");
+                return true;
+            }
         }
+        Log.d("debugInfo", "Habit " + getTitle() + " has " + events.size() +
+                " events, none of them done on " + (checkDay.getTime()).toString());
         return false;
 
     }
