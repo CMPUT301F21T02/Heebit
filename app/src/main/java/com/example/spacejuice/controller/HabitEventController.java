@@ -65,7 +65,7 @@ public class HabitEventController {
                             data.put("Description", habitEvent.getDescription());
                             data.put("Date", habitEvent.getDate());
                             data.put("Url", habitEvent.getImage());
-                            data.put("Location",new GeoPoint(habitEvent.getLatitude(), habitEvent.getLongitude()));
+                            data.put("Location", new GeoPoint(habitEvent.getLatitude(), habitEvent.getLongitude()));
                             data.put("Done", habitEvent.isDone());
                             eventDocRef.set(data)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -110,40 +110,41 @@ public class HabitEventController {
                         int docs_size = docs.size();
 
                         if (docs_size == 0) {
-                            callback.onHabitEventsComplete(true);
                             Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - docs size = 0 for " + habit.getTitle() + "... sending callback");
-                        }
+                            callback.onHabitEventsComplete(true);
+                        } else {
 
-                        for (DocumentSnapshot doc : docs) {
-                            docs_loaded += 1;
-                            int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
-                            Map<String, Object> data = doc.getData();
-                            assert data != null;
-                            String Url = (String) data.get("Url");
-                            Date date = ((com.google.firebase.Timestamp) data.get("Date")).toDate();
-                            String des = (String) data.get("Description");
-                            GeoPoint loc = (GeoPoint) data.get("Location");
-                            Boolean isDone = (Boolean) data.get("Done");
-                            HabitEvent habitEvent = new HabitEvent();
-                            habitEvent.setEventId(id);
-                            habitEvent.setDescription(des);
-                            habitEvent.setDate(date);
-                            habitEvent.setImage(Url);
+                            for (DocumentSnapshot doc : docs) {
+                                docs_loaded += 1;
+                                int id = Objects.requireNonNull(doc.getLong("Id")).intValue();
+                                Map<String, Object> data = doc.getData();
+                                assert data != null;
+                                String Url = (String) data.get("Url");
+                                Date date = ((com.google.firebase.Timestamp) data.get("Date")).toDate();
+                                String des = (String) data.get("Description");
+                                GeoPoint loc = (GeoPoint) data.get("Location");
+                                Boolean isDone = (Boolean) data.get("Done");
+                                HabitEvent habitEvent = new HabitEvent();
+                                habitEvent.setEventId(id);
+                                habitEvent.setDescription(des);
+                                habitEvent.setDate(date);
+                                habitEvent.setImage(Url);
 
-                            assert loc != null;
-                            if (name == MainActivity.getUser().getMemberName()) {
-                                habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
-                            }
-                            habitEvent.setDone(isDone);
+                                assert loc != null;
+                                if (name == MainActivity.getUser().getMemberName()) {
+                                    habitEvent.setLocation(loc.getLatitude(), loc.getLongitude());
+                                }
+                                habitEvent.setDone(isDone);
 
-                            if (!habit.containsEventId(id)) {
-                                habit.addEvent(habitEvent);
-                            }
-                            Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - loading doc #" + docs_loaded + " for " + habit.getTitle());
-                            if (docs_loaded == docs_size) {
-                                Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - last doc for " + habit.getTitle() + "... sending callback");
-                                Log.d("iterChecker", "COMPLETE - LAST EVENT LOADEO FOR " + habit.getTitle());
-                                callback.onHabitEventsComplete(true);
+                                if (!habit.containsEventId(id)) {
+                                    habit.addEvent(habitEvent);
+                                }
+                                Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - loading doc #" + docs_loaded + " for " + habit.getTitle());
+                                if (docs_loaded == docs_size) {
+                                    Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - last doc for " + habit.getTitle() + "... sending callback");
+                                    Log.d("iterChecker", "COMPLETE - LAST EVENT LOADEO FOR " + habit.getTitle());
+                                    callback.onHabitEventsComplete(true);
+                                }
                             }
 
 

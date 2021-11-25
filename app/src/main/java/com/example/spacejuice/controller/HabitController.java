@@ -116,10 +116,15 @@ public class HabitController {
                 Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - Task habitRef onSuccess() triggered");
                 List<DocumentSnapshot> docs = querySnapshot.getDocuments();
                 final boolean[] lastDocument = {false};
+                Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - lastDocument[0] set to false");
+                lastDocument[0] = false;
                 if (!docs.isEmpty()) {
                     Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - !docs.isEmpty().. iterating through docs");
-
+                    int habits_loaded = 0;
+                    int docs_size = docs.size();
                     for (DocumentSnapshot doc : docs) {
+                        habits_loaded += 1;
+                        Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - checking habit #" + habits_loaded + " of " + docs_size);
                         String title = doc.getString("Title");
                         String reason = doc.getString("Reason");
                         Habit habit = new Habit(title, reason, -1);
@@ -140,9 +145,11 @@ public class HabitController {
                         habit.setStartDate(habitStartDate);
                         habit.setPrivacy(privateHabit);
                         habit.forceUid(uid);
-                        if (doc == docs.get(docs.size() - 1)) {
+                        if (habits_loaded == docs_size) {
                             lastDocument[0] = true;
                             Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - lastDocument[0] set to true");
+                        } else {
+                            Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - lastDocument[0] was not set to true");
                         }
                         Log.d("debugInfoLogin", "HabitController.loadHabitsFromFirebase() - Launching loadHabitEventsFromFirebase for " + habit.getTitle());
 
