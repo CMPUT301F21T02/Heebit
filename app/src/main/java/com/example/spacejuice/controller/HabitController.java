@@ -138,7 +138,7 @@ public class HabitController {
                             lastDocument[0] = true;
                             Log.d("debugInfo", "last document is being retrieved in HabitController");
                         }
-                        HabitEventController.loadHabitEventsFromFirebase(habit, new OnHabitLoaded() {
+                        HabitEventController.loadHabitEventsFromFirebase(habit, MainActivity.getUser().getMemberName(), new OnHabitLoaded() {
 
                             @Override
                             public void onComplete(Boolean success) {
