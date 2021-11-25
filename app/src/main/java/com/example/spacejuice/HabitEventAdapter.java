@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
@@ -25,6 +26,8 @@ import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -112,8 +115,15 @@ public class HabitEventAdapter extends ArrayAdapter {
         //
         String stringUri = eventItems.get(position).getImage();
         if(stringUri!=null) {
+            Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
+            Log.d("debugInfo", stringUri);
             Uri uri = Uri.parse(stringUri);
-            viewHolder.eventImage.setImageURI(uri);
+//          ViewHolder.eventImage.postInvalidate();
+//          viewHolder.eventImage.setImageURI(null);
+//          viewHolder.eventImage.setImageURI(uri);
+//          viewHolder.eventImage.postInvalidate();
+            Picasso.get().load(uri).into(viewHolder.eventImage);
+
         }else {
             viewHolder.eventImage.setImageResource(R.drawable.empty_image);
         }
