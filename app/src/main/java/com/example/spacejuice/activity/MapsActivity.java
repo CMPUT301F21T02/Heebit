@@ -41,8 +41,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location lastKnownLocation;
     private Button addButton;
     private Button cancelButton;
+    private LatLng marker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        marker = null;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -55,7 +57,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getDeviceLocation(true);
+                if(marker == null) {
+                    getDeviceLocation(true);
+                }
+                Intent intent = new Intent();
+                Log.d("debugInfo", "Pass longitude: " + String.valueOf(marker.longitude));
+                intent.putExtra("longitude",marker.longitude);
+                Log.d("debugInfo", "Pass latitude: " + String.valueOf(marker.latitude));
+                intent.putExtra("latitude", marker.latitude);
+                setResult(RESULT_OK, intent);
+                finish();
+
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +76,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 finish();
             }
         });
+
     }
 
     /**
@@ -81,6 +94,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             updateLocationUI();
             getDeviceLocation(false);
         }
+        else{
+            mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Marker in Edmonton"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation));
+        }
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng point) {
+                mMap.clear();
+                mMap.addMarker(new MarkerOptions().position(point));
+                marker = point;
+            }
+        });
         // [END_EXCLUDE]
 
         // Add a marker in Sydney and move the camera
@@ -124,7 +149,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 else{
                     Toast.makeText(this,"Don't have location permission!", Toast.LENGTH_SHORT).show();
-                    finish();
 
                 }
 
@@ -175,10 +199,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             lastKnownLocation = task.getResult();
                             Log.d("debugInfo", lastKnownLocation.toString());
                             if (lastKnownLocation != null) {
+                                mMap.clear();
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                         new LatLng(lastKnownLocation.getLatitude(),
                                                 lastKnownLocation.getLongitude()),
                                         DEFAULT_ZOOM));
+                                marker = null;
                                 if (isAdd){
                                     Intent intent = new Intent();
                                     Log.d("debugInfo", "Pass longitude: " + String.valueOf(lastKnownLocation.getLongitude()));
