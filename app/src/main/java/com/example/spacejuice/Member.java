@@ -309,15 +309,14 @@ public class Member {
     */
    public Long getAdminTimeOffset() { return this.adminTimeOffset; }
 
-<<<<<<< HEAD
-   public void setAdminTimeOffset(Long offset) { this.adminTimeOffset = offset; }
-=======
-   /**
+  /**
     * set the admin time of this
     * @param offset long
     */
-   public void setAdminTimeOffset(Long offset) { this.adminTimeOffset += offset; }
->>>>>>> Javadoc
+   public void setAdminTimeOffset(Long offset) { this.adminTimeOffset = offset; }
+
+  
+
 
 }
 
