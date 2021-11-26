@@ -305,14 +305,27 @@ public class Habit implements Serializable {
         return latestEvent;
     }
 
+    /**
+     * get a bool to show this habit is private or not
+     * @return privateHabit
+     */
     public Boolean isPrivate() {
         return this.privateHabit;
     }
 
+    /**
+     * set this habit is private or not
+     * @param bool
+     */
     public void setPrivacy(Boolean bool) {
         this.privateHabit = bool;
     }
 
+    /**
+     * check this day is completed or not
+     * @param checkDay
+     * @return bool
+     */
     public Boolean completedOnDay(Calendar checkDay) {
 
         // checks if a habit was completed on day checkDay
@@ -334,13 +347,21 @@ public class Habit implements Serializable {
 
     }
 
+    /**
+     * set this day is complete
+     * @return complete
+     */
     public Boolean completedToday() {
         Calendar today = TimeController.getCurrentTime();
         Log.d("debugInfo", "checking if habit was completed on day of week #" + today.get(Calendar.DAY_OF_WEEK));
         return completedOnDay(today);
     }
 
-
+    /**
+     * check this event is valid in this habit or not
+     * @param id
+     * @return bool
+     */
     public boolean containsEventId(int id) {
         for (HabitEvent e : events) {
             if (e.getEventId() == id) {
@@ -350,6 +371,9 @@ public class Habit implements Serializable {
         return false;
     }
 
+    /**
+     * delete all the events in this habit
+     */
     public void adminDeleteAllEvents() {
         this.events = null;
     }
