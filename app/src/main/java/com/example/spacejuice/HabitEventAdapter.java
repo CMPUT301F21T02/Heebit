@@ -138,6 +138,14 @@ public class HabitEventAdapter extends ArrayAdapter {
             }
         };
 
+        viewHolder.eventImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HabitDetailsActivity inst = (HabitDetailsActivity) context;
+                inst.launchUpload(eventItems.get(position).getUid(), eventItems.get(position));
+            }
+        });
+
         row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
         // todo implement click events
         return row;

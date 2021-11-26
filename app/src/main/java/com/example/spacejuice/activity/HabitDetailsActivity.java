@@ -235,7 +235,11 @@ This Activity is used to edit a habit
 
     public void launchEventDetails(int uid, HabitEvent event) {
         Log.d("debugInfo", "event details launched for habit uid #" + uid);
-        Intent intent = new Intent(this, EventDetailActivity.class);
+    }
+
+    public void launchUpload(int uid, HabitEvent event) {
+        Log.d("debugInfo", "event details launched for habit uid #" + uid);
+        Intent intent = new Intent(this, UploadImageActivity.class);
         startActivity(intent);
     }
 
