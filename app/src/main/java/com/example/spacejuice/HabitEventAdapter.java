@@ -107,18 +107,21 @@ public class HabitEventAdapter extends ArrayAdapter {
         }
         else{
             viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
+            viewHolder.eventLocation.setVisibility(View.VISIBLE);
+            viewHolder.gpsIcon.setVisibility(View.VISIBLE);
         }
         if (!eventItems.get(position).isDone()) {
             viewHolder.eventImage.setVisibility(View.INVISIBLE);
             viewHolder.eventImage.setClickable(false);
             viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.DarkGray));
+        } else {
+            viewHolder.eventImage.setVisibility(View.VISIBLE);
+            viewHolder.eventImage.setClickable(true);
+            viewHolder.eventDateText.setTextColor(R.attr.colorPrimary);
         }
 
         //
-        //
-        //
         // reset the image if user upload one
-        //
         //
         String stringUri = eventItems.get(position).getImage();
         if(stringUri!=null) {
