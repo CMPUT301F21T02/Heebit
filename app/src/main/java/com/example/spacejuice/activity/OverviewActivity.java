@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -22,8 +23,10 @@ import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 import com.example.spacejuice.controller.HabitController;
 import com.example.spacejuice.controller.HabitEventController;
+import com.example.spacejuice.controller.TimeController;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class OverviewActivity extends AppCompatActivity {
 
@@ -36,6 +39,7 @@ public class OverviewActivity extends AppCompatActivity {
     Button admin_button;
     ArrayList<Habit> habitListItems;
     ArrayList<Habit> today_habit_items;
+    TextView adminText;
     /*
     This Activity is used my main page which shows an overlay of today's habits
     and various menus
@@ -72,6 +76,7 @@ public class OverviewActivity extends AppCompatActivity {
         today_all_toggle = findViewById(R.id.list_toggle_button_switch);
         today_habit_list = findViewById(R.id.overview_habit_listview);
         admin_button = findViewById(R.id.adminButton);
+        adminText = findViewById(R.id.adminDateText);
         refreshData();
 
         int score = MainActivity.getUser().getScore();
@@ -151,6 +156,14 @@ public class OverviewActivity extends AppCompatActivity {
     public void refreshData() {
         /* updates the list of Habits */
         habitListItems = HabitController.getHabitListItems();
+        if (MainActivity.getUser().isAdmin()) {
+            Calendar fakeDay = TimeController.getCurrentTime();
+            String dayOfWeek = TimeController.getDayOfWeek(fakeDay);
+            String month = TimeController.getMonth(fakeDay);
+            int day = fakeDay.get(Calendar.DAY_OF_MONTH);
+            adminText.setText(dayOfWeek + ", " + month + " " + day);
+            adminText.setVisibility(View.VISIBLE);
+        }
         if (filterToday) {
             today_all_toggle.setText(getString(R.string.todays));
             populateTodayItems();

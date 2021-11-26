@@ -291,8 +291,9 @@ public class HabitController {
                         public void onComplete(@NonNull Task<QuerySnapshot> eventTask) {
                             List<DocumentSnapshot> eventsCol = eventTask.getResult().getDocuments();
                             if (eventsCol.size() != 0) {
-                                DocumentReference referenceToDelete = eventsCol.get(0).getReference();
-                                referenceToDelete.delete();
+                                for (int i = eventsCol.size() - 1; i >= 0; i--) {
+                                    eventsCol.get(i).getReference().delete();
+                                }
                                 Log.d("debugInfo", "deleting all events for habit " + habit.getTitle());
                             }
 

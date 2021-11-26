@@ -281,7 +281,7 @@ public class Member {
 
    public Long getAdminTimeOffset() { return this.adminTimeOffset; }
 
-   public void setAdminTimeOffset(Long offset) { this.adminTimeOffset += offset; }
+   public void setAdminTimeOffset(Long offset) { this.adminTimeOffset = offset; }
 
 }
 
