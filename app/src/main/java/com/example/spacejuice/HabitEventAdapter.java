@@ -1,5 +1,7 @@
 package com.example.spacejuice;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -26,6 +28,7 @@ import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.example.spacejuice.activity.UploadImageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -113,13 +116,6 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventImage.setClickable(false);
             viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.DarkGray));
         }
-
-        //
-        //
-        //
-        // reset the image if user upload one
-        //
-        //
         String stringUri = eventItems.get(position).getImage();
         if(stringUri!=null) {
             Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
@@ -138,13 +134,12 @@ public class HabitEventAdapter extends ArrayAdapter {
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
                 HabitDetailsActivity inst = (HabitDetailsActivity) context;
-                inst.launchEventDetails(eventItems.get(position).getUid());
+                inst.launchEventDetails(eventItems.get(position).getUid(), eventItems.get(position));
             }
         };
 
         row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
         // todo implement click events
-
         return row;
     }
 }

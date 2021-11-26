@@ -233,8 +233,10 @@ This Activity is used to edit a habit
         }
     }
 
-    public void launchEventDetails(int uid) {
+    public void launchEventDetails(int uid, HabitEvent event) {
         Log.d("debugInfo", "event details launched for habit uid #" + uid);
+        Intent intent = new Intent(this, EventDetailActivity.class);
+        startActivity(intent);
     }
 
     public void refreshData() {
