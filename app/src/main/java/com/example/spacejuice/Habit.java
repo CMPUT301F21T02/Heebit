@@ -227,18 +227,40 @@ public class Habit implements Serializable {
      * @param habitEvent a habit event
      */
     public void addEvent(HabitEvent habitEvent) {
-        int size = events.size();
-        ArrayList<HabitEvent> newEvents = new ArrayList<>();
 
-        for (int i = 0; i < size + 1; i++) {
-            newEvents.add(new HabitEvent());
-        }
-        for (int i = 0; i < size; i++) {
-            newEvents.set(i, events.get(i));
-        }
-        newEvents.set(size, habitEvent);
-        events = newEvents;
+        // inserts the habitEvent into the appropriate chronological position of the events array
 
+        int i = events.size() - 1;
+
+        if (i == -1) {
+            events.add(habitEvent);
+        } else {
+
+            Date eventDate = habitEvent.getDate();
+            int dateComparison = TimeController.compareDates(eventDate, events.get(i).getDate());
+            if (dateComparison > 0) {
+                events.add(habitEvent);
+            } else {
+                while (i > 0 && dateComparison < 0) {
+                    if (dateComparison == 0) {
+                        break;
+                    }
+                    i--;
+                    dateComparison = TimeController.compareDates(eventDate, events.get(i).getDate());
+                }
+                if (dateComparison != 0) {
+                    events.add(i, habitEvent);
+                } else {
+                    if (!events.get(i).isDone()) {
+                        events.remove(i);
+                        events.add(i, habitEvent);
+                        Log.d("debugInfo", "habit event replacing erroneous missed habit event on that day");
+                    } else {
+                        Log.d("debugInfo", "habit event not added since completed event already exists on that day");
+                    }
+                }
+            }
+        }
     }
 
     public void addMissedEvent(Calendar eventDay) {
@@ -297,7 +319,7 @@ public class Habit implements Serializable {
             return null;
         }
         HabitEvent latestEvent = events.get(0);
-        for (HabitEvent e: events) {
+        for (HabitEvent e : events) {
             if (e.getDate().compareTo(latestEvent.getDate()) > 0) {
                 latestEvent = e;
             }
@@ -307,6 +329,7 @@ public class Habit implements Serializable {
 
     /**
      * get a bool to show this habit is private or not
+     *
      * @return privateHabit
      */
     public Boolean isPrivate() {
@@ -315,6 +338,7 @@ public class Habit implements Serializable {
 
     /**
      * set this habit is private or not
+     *
      * @param bool
      */
     public void setPrivacy(Boolean bool) {
@@ -323,6 +347,7 @@ public class Habit implements Serializable {
 
     /**
      * check this day is completed or not
+     *
      * @param checkDay
      * @return bool
      */
@@ -333,7 +358,7 @@ public class Habit implements Serializable {
         Date eventDate;
         Calendar eventDay = Calendar.getInstance();
 
-        for (HabitEvent e: events) {
+        for (HabitEvent e : events) {
             eventDate = e.getDate();
             eventDay.setTime(eventDate);
             if (TimeController.compareCalendarDays(eventDay, checkDay) == 0) {
@@ -349,6 +374,7 @@ public class Habit implements Serializable {
 
     /**
      * set this day is complete
+     *
      * @return complete
      */
     public Boolean completedToday() {
@@ -359,6 +385,7 @@ public class Habit implements Serializable {
 
     /**
      * check this event is valid in this habit or not
+     *
      * @param id
      * @return bool
      */
