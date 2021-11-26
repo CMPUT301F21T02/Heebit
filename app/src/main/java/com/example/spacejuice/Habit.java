@@ -59,6 +59,14 @@ public class Habit implements Serializable {
         this.schedule = s;
     }
 
+    public HabitEvent getEventFromUid(int id) {
+        for (HabitEvent event : events) {
+            if (event.getUid() == id) {
+                return event;
+            }
+        }
+        return null;
+    }
     /**
      * Set title for the habit
      *

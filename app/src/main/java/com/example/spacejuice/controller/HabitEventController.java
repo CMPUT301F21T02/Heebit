@@ -38,6 +38,28 @@ import java.util.Map;
 import java.util.Objects;
 
 public class HabitEventController {
+    public static void editHabitEvent(Habit habit, HabitEvent habitEvent){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        int uid = habit.getUid();
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
+                .document(MainActivity.getUser().getMemberName())
+                .collection("Habits").document(habit.getTitle()).collection("Events")
+                .document(String.valueOf(habitEvent.getEventId()));
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    // if this name exist
+                    if (document.exists()) {
+                        documentReference.update("url",habitEvent.getImage());
+                        documentReference.update("Description", habitEvent.getDescription());
+                        }
+                    }
+                }
+        });
+
+    }
 
     /**
      * Add a habit event to the habit
@@ -102,7 +124,8 @@ public class HabitEventController {
                         .getResult()).getDocuments().get(0).getReference();
                 DocumentReference eventDocRef;
                 //eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
-                eventDocRef = habitRef.collection("Events").document(getDocumentIdString(habitEvent));
+                String id = String.valueOf(habitEvent.getEventId());
+                eventDocRef = habitRef.collection("Events").document(id);
                 eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {

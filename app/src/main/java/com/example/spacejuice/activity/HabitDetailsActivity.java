@@ -233,8 +233,17 @@ This Activity is used to edit a habit
         }
     }
 
-    public void launchEventDetails(int uid) {
-        Log.d("debugInfo", "event details launched for habit uid #" + uid);
+    public void launchEventDetails(HabitEvent event, String stringUri) {
+        Log.d("debugInfo",habit.getTitle());
+        Log.d("debugInfo",String.valueOf(event.getEventId()));
+        Log.d("debugInfo",String.valueOf(habit.getUid()));
+        Intent intent = new Intent(HabitDetailsActivity.this, EventDetailActivity.class);
+        intent.putExtra("uri",stringUri);
+        intent.putExtra( "habit",habit.getTitle());
+        intent.putExtra("event",event.getUid());
+        intent.putExtra("eventId",event.getEventId());
+        intent.putExtra("habitId",habit.getUid());
+        startActivity(intent);
     }
 
     public void refreshData() {
