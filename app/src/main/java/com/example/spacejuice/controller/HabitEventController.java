@@ -37,6 +37,28 @@ import java.util.Map;
 import java.util.Objects;
 
 public class HabitEventController {
+    public static void editHabitEvent(Habit habit, HabitEvent habitEvent){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        int uid = habit.getUid();
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
+                .document(MainActivity.getUser().getMemberName())
+                .collection("Habits").document(habit.getTitle()).collection("Events")
+                .document(String.valueOf(habitEvent.getEventId()));
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    // if this name exist
+                    if (document.exists()) {
+                        documentReference.update("url",habitEvent.getImage());
+                        documentReference.update("Description", habitEvent.getDescription());
+                        }
+                    }
+                }
+        });
+
+    }
 
     public static void addHabitEvent(Habit habit, HabitEvent habitEvent) {
         // adds a HabitEvent to the array of events contained by a Habit

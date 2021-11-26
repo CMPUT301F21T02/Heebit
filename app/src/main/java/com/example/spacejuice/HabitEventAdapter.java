@@ -135,18 +135,9 @@ public class HabitEventAdapter extends ArrayAdapter {
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
                 HabitDetailsActivity inst = (HabitDetailsActivity) context;
-                inst.launchEventDetails(eventItems.get(position).getUid(), eventItems.get(position));
+                inst.launchEventDetails(eventItems.get(position));
             }
         };
-
-        viewHolder.eventImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
-                HabitDetailsActivity inst = (HabitDetailsActivity) context;
-                inst.launchUpload(eventItems.get(position).getUid(), eventItems.get(position));
-            }
-        });
 
         row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
         // todo implement click events

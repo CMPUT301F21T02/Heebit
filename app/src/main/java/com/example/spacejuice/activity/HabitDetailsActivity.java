@@ -233,14 +233,11 @@ This Activity is used to edit a habit
         }
     }
 
-    public void launchEventDetails(int uid, HabitEvent event) {
-        Log.d("debugInfo", "event details launched for habit uid #" + uid);
-    }
-
-    public void launchUpload(int uid, HabitEvent event) {
-        Log.d("debugInfo", "event details launched for habit uid #" + uid);
-        Intent intent = new Intent(HabitDetailsActivity.this, UploadImageActivity.class);
+    public void launchEventDetails(HabitEvent event) {
+        Intent intent = new Intent(HabitDetailsActivity.this, EventDetailActivity.class);
         intent.putExtra( "habit",habit.getTitle());
+        intent.putExtra("event",event.getEventId());
+        intent.putExtra("habitId",habit.getUid());
         startActivity(intent);
     }
 
