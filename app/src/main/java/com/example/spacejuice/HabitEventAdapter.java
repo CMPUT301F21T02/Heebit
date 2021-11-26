@@ -135,7 +135,7 @@ public class HabitEventAdapter extends ArrayAdapter {
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
                 HabitDetailsActivity inst = (HabitDetailsActivity) context;
-                inst.launchEventDetails(eventItems.get(position));
+                inst.launchEventDetails(eventItems.get(position),stringUri);
             }
         };
 
