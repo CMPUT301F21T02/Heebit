@@ -29,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 //import com.google.firebase.storage.StorageTask;
 //import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,9 +39,55 @@ import java.util.Objects;
 
 public class HabitEventController {
 
+    /**
+     * Add a habit event to the habit
+     *
+     * @param habit a habit
+     * @param habitEvent a habit event
+     */
+
+    public static void addHabitEventLocal(Habit habit, HabitEvent habitEvent) {
+        // inserts the habitEvent into the appropriate chronological position of the events array
+
+        ArrayList<HabitEvent> events = habit.getEvents();
+
+        int i = events.size() - 1;
+
+        if (i == -1) {
+            events.add(habitEvent);
+        } else {
+
+            Date eventDate = habitEvent.getDate();
+            int dateComparison = TimeController.compareDates(eventDate, events.get(i).getDate());
+            if (dateComparison > 0) {
+                events.add(habitEvent);
+            } else {
+                while (i > 0 && dateComparison < 0) {
+                    if (dateComparison == 0) {
+                        break;
+                    }
+                    i--;
+                    dateComparison = TimeController.compareDates(eventDate, events.get(i).getDate());
+                }
+                if (dateComparison != 0) {
+                    events.add(i, habitEvent);
+                } else {
+                    if (!events.get(i).isDone()) {
+                        events.remove(i);
+                        events.add(i, habitEvent);
+                        Log.d("debugInfo", "habit event replacing erroneous missed habit event on that day");
+                    } else {
+                        Log.d("debugInfo", "habit event not added since completed event already exists on that day");
+                    }
+                }
+            }
+        }
+        habit.setEvents(events);
+    }
+
     public static void addHabitEvent(Habit habit, HabitEvent habitEvent) {
         // adds a HabitEvent to the array of events contained by a Habit
-        habit.addEvent(habitEvent);
+        addHabitEventLocal(habit, habitEvent);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
         Query habitQuery =
@@ -136,9 +183,8 @@ public class HabitEventController {
                                 }
                                 habitEvent.setDone(isDone);
 
-                                if (!habit.containsEventId(id)) {
-                                    habit.addEvent(habitEvent);
-                                }
+                                addHabitEventLocal(habit, habitEvent);
+
                                 Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - loading doc #" + docs_loaded + " for " + habit.getTitle());
                                 if (docs_loaded == docs_size) {
                                     Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - last doc for " + habit.getTitle() + "... sending callback");
@@ -156,6 +202,14 @@ public class HabitEventController {
                 });
             }
         });
+    }
+
+    public static void addMissedEvent(Habit habit, Calendar eventDay) {
+        HabitEvent missedEvent = new HabitEvent();
+        missedEvent.setDate(eventDay.getTime());
+        missedEvent.setDone(false);
+        missedEvent.setEventId(MainActivity.getUser().getUniqueID());
+        HabitEventController.addHabitEvent(habit, missedEvent);
     }
 
     public static void generateMissedEvents(Context context) {
@@ -195,9 +249,9 @@ public class HabitEventController {
         if (TimeController.compareCalendarDays(dateIterator, currentDate) < 0) {
             int dayOfWeek = dateIterator.get(Calendar.DAY_OF_WEEK);
             if (habit.getSchedule().checkScheduleDay(dayOfWeek)) {
-                if (!habit.completedOnDay(dateIterator)) {
+                if (!HabitController.completedOnDay(habit, dateIterator)) {
                     Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - ** MISSED EVENT GENERATED ** for " + habit.getTitle() + " on " + (dateIterator.getTime()).toString());
-                    habit.addMissedEvent(dateIterator);
+                    addMissedEvent(habit, dateIterator);
                 } else {
                     Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - " + habit.getTitle() + " was completed on day of week #" + (dateIterator.get(Calendar.DAY_OF_WEEK)));
                 }
@@ -212,7 +266,7 @@ public class HabitEventController {
         for (; dateIterator.getTimeInMillis() < currentDate.getTimeInMillis(); dateIterator.add(Calendar.DATE, 1)) {
             int dayOfWeek = dateIterator.get(Calendar.DAY_OF_WEEK);
             if (habit.getSchedule().checkScheduleDay(dayOfWeek)) {
-                habit.addMissedEvent(dateIterator);
+                addMissedEvent(habit, dateIterator);
             }
 
         }

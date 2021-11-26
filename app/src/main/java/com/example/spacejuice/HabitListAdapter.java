@@ -28,6 +28,7 @@ import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.EditHabitActivity;
 import com.example.spacejuice.activity.OverviewActivity;
+import com.example.spacejuice.controller.HabitController;
 import com.example.spacejuice.controller.HabitEventController;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class HabitListAdapter extends ArrayAdapter {
         row = convertView;
         CheckBox checkBox;
 
-        items.get(position).calculateScore();
+        HabitController.calculateScore(items.get(position));
 
         ViewHolder viewHolder;
         if (row == null) // If the viewHolder was not previously initialized
@@ -92,17 +93,11 @@ public class HabitListAdapter extends ArrayAdapter {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + items.get(position).getUid());
                 ActivityResultLauncher<String> launchEdit;
 
-                items.get(position).completedToday(); //test
-                // todo loadHabitEventFromFirebase
-                //HabitEventController.loadHabitEventsFromFirebase(items.get(position));
-
                 if (context.getClass() == OverviewActivity.class) {
                     OverviewActivity inst = (OverviewActivity) context;
-                    //Toast.makeText(inst,"loadSuccess",Toast.LENGTH_SHORT).show();
                     inst.launchHabitDetails(items.get(position).getUid());
                 } else if (context.getClass() == AllHabitsActivity.class) {
                     AllHabitsActivity inst = (AllHabitsActivity) context;
-                    //Toast.makeText(inst,"loadSuccess",Toast.LENGTH_SHORT).show();
                     inst.launchHabitDetails(items.get(position).getUid());
                 }
             }
@@ -113,10 +108,10 @@ public class HabitListAdapter extends ArrayAdapter {
 
         if (items.get(position).isToday()) {
             checkBox.setVisibility(View.VISIBLE);
-            if (items.get(position).completedToday()) {
+            if (HabitController.completedToday(items.get(position))) {
                 checkBox.setChecked(true);
                 checkBox.setClickable(false);
-            } else {
+            } else{
                 checkBox.setChecked(false);
                 checkBox.setClickable(true);
 
