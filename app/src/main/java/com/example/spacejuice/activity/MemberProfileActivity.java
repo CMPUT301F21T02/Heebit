@@ -103,9 +103,10 @@ public class MemberProfileActivity extends AppCompatActivity {
                            .setPositiveButton("Send Follow Request", new DialogInterface.OnClickListener() {
                                @Override
                                public void onClick(DialogInterface dialogInterface, int x) {
-                                   followController.sendRequest(memberName, new LoginController.OnCompleteCallback() {
+                                   followController.sendRequest(memberName, new LoginController.OnRequestCompleteCallback() {
+
                                        @Override
-                                       public void onComplete(boolean suc) {
+                                       public void onRequestComplete(boolean suc) {
                                            if (suc) {
                                                Toast.makeText(MemberProfileActivity.this, "Sent request successfully!", Toast.LENGTH_SHORT).show();
                                            }
