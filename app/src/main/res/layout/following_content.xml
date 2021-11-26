@@ -18,10 +18,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "FC" AT THE END
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="Example Name"
         android:textSize="30sp"
-        android:layout_gravity="center_vertical"/>
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/White"/>
 
 
 </LinearLayout>
