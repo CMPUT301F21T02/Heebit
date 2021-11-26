@@ -2,6 +2,9 @@ package com.example.spacejuice;
 
 import java.io.Serializable;
 
+/**
+ * this is a indicator of each habit
+ */
 public class Indicator implements Serializable {
    // A class to manage indicator level and image resources
    private final int LEVEL1_XP = 3;
@@ -18,17 +21,27 @@ public class Indicator implements Serializable {
    private int image;
    private int xp; // total experience of the habit
 
+   /**
+    * create a new indicator
+    */
    public Indicator() {
       string = "new";
       level = 0;
       image = R.drawable.indicatornew;
    }
 
+   /**
+    * get the level of this habit in string
+    * @return level
+    */
    public String getIndicatorText() {
       String levelString = String.valueOf(getLevel());
       return "Lv" + levelString;
    }
 
+   /**
+    * up level the habit
+    */
    public void updateLevelAndProgress() {
       int xp_remain = this.xp;
       int next_level = LEVEL1_XP;
@@ -55,14 +68,26 @@ public class Indicator implements Serializable {
       this.string = "Level " + level;
    }
 
+   /**
+    * get the level of this habit
+    * @return level
+    */
    public int getLevel() {
       return this.level;
    }
 
+   /**
+    * get the xp of this habit
+    * @return xp
+    */
    public int getXp() {
       return this.xp;
    }
 
+   /**
+    * get the progress of this indicator
+    * @return indicatorVal
+    */
    public int getProgressIndicatorVal() {
       int indicatorVal;
       indicatorVal = (int) Math.floor(( (float) progress / (float) progressDenominator) * 40);
@@ -71,6 +96,11 @@ public class Indicator implements Serializable {
       }
       return indicatorVal;
    }
+
+   /**
+    * get this source image of this level
+    * @return image
+    */
    public int getImage() {
       int indicatorVal = getProgressIndicatorVal();
       image = R.drawable.progress_00;
@@ -202,7 +232,10 @@ public class Indicator implements Serializable {
       return image;
    }
 
-
+   /**
+    * set the xp of this habit
+    * @param ixp the xp of this habit
+    */
    public void setXp(int ixp) {
       if (ixp < 0) {
          ixp = 0;
@@ -210,12 +243,18 @@ public class Indicator implements Serializable {
       xp = ixp;
    }
 
+   /**
+    * increase the xp of this habit
+    */
    public void increase() {
       // increase the indicator level by the reward for completing the habit
       setXp(getXp() + INCREMENT);
       updateLevelAndProgress();
    }
 
+   /**
+    * decrease the xp of this habit
+    */
    public void decrease() {
       // decay the indicator level after missing a habit
       if (this.PERCENT_XP_DECAY) {
@@ -235,6 +274,10 @@ public class Indicator implements Serializable {
       updateLevelAndProgress();
    }
 
+   /**
+    * get the string of this indicator
+    * @return indicator a string of level
+    */
    @Override
    public String toString() {
       return string;

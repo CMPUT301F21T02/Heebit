@@ -259,28 +259,60 @@ public class Member {
    public void deleteHabit(Habit habitDelete){ habitListItems.remove(habitDelete);
    }
 
+   /**
+    * set the next midnight of this member
+    * @param midn date
+    */
    public void setNextMidnight(Date midn) {
       this.nextMidnight = midn;
    }
 
+   /**
+    * get the next midnight of this member
+    * @return nextMidnight date
+    */
    public Date getNextMidnight() {
       return this.nextMidnight;
    }
 
+   /**
+    * set the previous next midnight
+    * @param midn date
+    */
    public void setPrevNextMidnight(Date midn) {
       this.prevNextMidnight = midn;
    }
 
+   /**
+    * get the previous next midnight
+    * @return prevNextMidnight date
+    */
    public Date getPrevNextMidnight() {
       return this.prevNextMidnight;
    }
 
+   /**
+    * this is ad =min or not
+    * @return admin
+    */
    public Boolean isAdmin() { return this.admin; }
 
+   /**
+    * set the admin of this member
+    * @param bool if it is admin
+    */
    public void setAdmin(Boolean bool) { this.admin = bool; }
 
+   /**
+    * get the admin time of this
+    * @return bool adminTimeOffset
+    */
    public Long getAdminTimeOffset() { return this.adminTimeOffset; }
 
+   /**
+    * set the admin time of this
+    * @param offset long
+    */
    public void setAdminTimeOffset(Long offset) { this.adminTimeOffset += offset; }
 
 }

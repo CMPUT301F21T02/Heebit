@@ -19,11 +19,24 @@ public class FollowersList extends ArrayAdapter<Member> {
     private final ArrayList<Member> names;
     private final Context context;
 
+    /**
+     * create a new followerList
+     * @param context
+     * @param names
+     */
     public FollowersList(Context context, ArrayList<Member> names){
         super(context, 0, names);
         this.names = names;
         this.context = context;
     }
+
+    /**
+     * get tht view of follower_content
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return view
+     */
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
