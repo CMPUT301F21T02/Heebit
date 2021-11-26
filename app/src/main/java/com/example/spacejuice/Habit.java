@@ -168,7 +168,7 @@ public class Habit implements Serializable {
     public Boolean isToday() {
         // returns true if the Habit is scheduled for the current day of the week
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = TimeController.getCurrentTime();
         int day = calendar.get(Calendar.DAY_OF_WEEK);
         switch (day) {
             case Calendar.SUNDAY:

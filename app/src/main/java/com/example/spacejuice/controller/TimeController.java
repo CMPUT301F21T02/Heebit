@@ -19,6 +19,7 @@ public class TimeController {
         if (user.isAdmin()) {
             long timeInMilli = currentTime.getTimeInMillis();
             long timeOffset = user.getAdminTimeOffset();
+            Log.d("debugInfo", "getCurrentTime() --> timeOffset = " + (int) timeOffset);
             currentTime.setTimeInMillis(timeInMilli + timeOffset);
         }
         return currentTime;
@@ -27,13 +28,64 @@ public class TimeController {
     public static void adminIncrementDay() {
         if (user.isAdmin()) {
             Long offset = user.getAdminTimeOffset();
-            offset += 86000000;
+            offset = offset + 86400000;
             user.setAdminTimeOffset(offset);
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             String userName = user.getMemberName();
             DocumentReference documentReference = db.collection("Members").document(userName);
             documentReference.update("adminTimeOffset", offset);
         }
+    }
+
+    public static String getDayOfWeek(Calendar cal) {
+        switch (cal.get(Calendar.DAY_OF_WEEK)) {
+            case 1:
+                return "Sun";
+            case 2:
+                return "Mon";
+            case 3:
+                return "Tue";
+            case 4:
+                return "Wed";
+            case 5:
+                return "Thu";
+            case 6:
+                return "Fri";
+            case 7:
+                return "Sat";
+        }
+        return "";
+    }
+
+    public static String getMonth(Calendar cal) {
+        Log.d("debugInfo", "getMonth --> Current: " + Calendar.getInstance().get(Calendar.MONTH) + "   Adjusted: " + cal.get(Calendar.MONTH));
+        switch (cal.get(Calendar.MONTH)) {
+            case 0:
+                return "Jan";
+            case 1:
+                return "Feb";
+            case 2:
+                return "Mar";
+            case 3:
+                return "Apr";
+            case 4:
+                return "May";
+            case 5:
+                return "Jun";
+            case 6:
+                return "Jul";
+            case 7:
+                return "Aug";
+            case 8:
+                return "Sep";
+            case 9:
+                return "Oct";
+            case 10:
+                return "Nov";
+            case 11:
+                return "Dec";
+        }
+        return "";
     }
 
     public static int compareCalendarDays(Calendar cal1, Calendar cal2) {

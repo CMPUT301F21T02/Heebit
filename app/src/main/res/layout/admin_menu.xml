@@ -81,4 +81,15 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="100dp"
         />
+    <TextView
+        android:id="@+id/adminMenuDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="1dp"
+        android:textColor="@color/NavajoWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
