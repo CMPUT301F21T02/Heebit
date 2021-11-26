@@ -4,6 +4,9 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.example.spacejuice.controller.HabitController;
 import com.example.spacejuice.controller.HabitEventController;
 import com.example.spacejuice.controller.TimeController;
 
@@ -145,6 +148,7 @@ public class Habit implements Serializable {
      *
      * @return Return the title of the habit
      */
+    @NonNull
     @Override
     public String toString() {
         return this.title;
@@ -190,29 +194,6 @@ public class Habit implements Serializable {
     }
 
     /**
-     * iterates through a habits events to calculate its score,
-     * assigning it the appropriate indicator, and returning the
-     * score as an int.
-     *
-     * @return Return the level of the habit
-     */
-    public void calculateScore() {
-        this.indicator.setXp(0);
-
-        if (this.events.size() > 0) {
-            for (HabitEvent eventItem : this.events) {
-                if (eventItem.isDone()) {
-                    this.indicator.increase();
-                    Log.d("scoreCalculation", "habit " + getTitle() + " increased.");
-                } else {
-                    this.indicator.decrease();
-                    Log.d("scoreCalculation", "habit " + getTitle() + " decreased.");
-                }
-            }
-        }
-    }
-
-    /**
      * This returns all events of the habit
      *
      * @return return a list of events of the habit
@@ -222,53 +203,12 @@ public class Habit implements Serializable {
     }
 
     /**
-     * Add a habit event to the habit
+     * This sets the habit's HabitEvents array
      *
-     * @param habitEvent a habit event
+     * @param hEvents an ArrayList of HabitEvents
      */
-    public void addEvent(HabitEvent habitEvent) {
-
-        // inserts the habitEvent into the appropriate chronological position of the events array
-
-        int i = events.size() - 1;
-
-        if (i == -1) {
-            events.add(habitEvent);
-        } else {
-
-            Date eventDate = habitEvent.getDate();
-            int dateComparison = TimeController.compareDates(eventDate, events.get(i).getDate());
-            if (dateComparison > 0) {
-                events.add(habitEvent);
-            } else {
-                while (i > 0 && dateComparison < 0) {
-                    if (dateComparison == 0) {
-                        break;
-                    }
-                    i--;
-                    dateComparison = TimeController.compareDates(eventDate, events.get(i).getDate());
-                }
-                if (dateComparison != 0) {
-                    events.add(i, habitEvent);
-                } else {
-                    if (!events.get(i).isDone()) {
-                        events.remove(i);
-                        events.add(i, habitEvent);
-                        Log.d("debugInfo", "habit event replacing erroneous missed habit event on that day");
-                    } else {
-                        Log.d("debugInfo", "habit event not added since completed event already exists on that day");
-                    }
-                }
-            }
-        }
-    }
-
-    public void addMissedEvent(Calendar eventDay) {
-        HabitEvent missedEvent = new HabitEvent();
-        missedEvent.setDate(eventDay.getTime());
-        missedEvent.setDone(false);
-        missedEvent.setEventId(MainActivity.getUser().getUniqueID());
-        HabitEventController.addHabitEvent(this, missedEvent);
+    public void setEvents(ArrayList<HabitEvent> hEvents) {
+        this.events = hEvents;
     }
 
     /**
@@ -304,28 +244,9 @@ public class Habit implements Serializable {
      * @return Returns the unique id in long
      */
     public long getUidLong() {
-        long uidLong = this.uid;
-        return uidLong;
+        return this.uid;
     }
 
-    /**
-     * This returns the last event in the list of events attached to this habit
-     *
-     * @return Returns the HabitEvent (or null if no events are found)
-     */
-
-    public HabitEvent getLastEvent() {
-        if (events.size() == 0) {
-            return null;
-        }
-        HabitEvent latestEvent = events.get(0);
-        for (HabitEvent e : events) {
-            if (e.getDate().compareTo(latestEvent.getDate()) > 0) {
-                latestEvent = e;
-            }
-        }
-        return latestEvent;
-    }
 
     /**
      * get a bool to show this habit is private or not
@@ -343,65 +264,5 @@ public class Habit implements Serializable {
      */
     public void setPrivacy(Boolean bool) {
         this.privateHabit = bool;
-    }
-
-    /**
-     * check this day is completed or not
-     *
-     * @param checkDay
-     * @return bool
-     */
-    public Boolean completedOnDay(Calendar checkDay) {
-
-        // checks if a habit was completed on day checkDay
-
-        Date eventDate;
-        Calendar eventDay = Calendar.getInstance();
-
-        for (HabitEvent e : events) {
-            eventDate = e.getDate();
-            eventDay.setTime(eventDate);
-            if (TimeController.compareCalendarDays(eventDay, checkDay) == 0) {
-                Log.d("debugInfo", getTitle() + " was completed on that day");
-                return true;
-            }
-        }
-        Log.d("debugInfo", "Habit " + getTitle() + " has " + events.size() +
-                " events, none of them done on " + (checkDay.getTime()).toString());
-        return false;
-
-    }
-
-    /**
-     * set this day is complete
-     *
-     * @return complete
-     */
-    public Boolean completedToday() {
-        Calendar today = TimeController.getCurrentTime();
-        Log.d("debugInfo", "checking if habit was completed on day of week #" + today.get(Calendar.DAY_OF_WEEK));
-        return completedOnDay(today);
-    }
-
-    /**
-     * check this event is valid in this habit or not
-     *
-     * @param id
-     * @return bool
-     */
-    public boolean containsEventId(int id) {
-        for (HabitEvent e : events) {
-            if (e.getEventId() == id) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * delete all the events in this habit
-     */
-    public void adminDeleteAllEvents() {
-        this.events = null;
     }
 }

@@ -445,7 +445,7 @@ public class FollowController {
                 public void onHabitEventsComplete(Boolean success) {
                     if (success) {
                         Log.d("message", "being read");
-                        habit.calculateScore();
+                        HabitController.calculateScore(habit);
                         publicHabits.add(habit);
                         callback.onLoadEventsComplete(true);
                     }
