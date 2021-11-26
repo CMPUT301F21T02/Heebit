@@ -2,6 +2,7 @@ package com.example.spacejuice;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.text.format.DateFormat;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
@@ -105,6 +107,11 @@ public class HabitEventAdapter extends ArrayAdapter {
         }
         else{
             viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
+        }
+        if (!eventItems.get(position).isDone()) {
+            viewHolder.eventImage.setVisibility(View.INVISIBLE);
+            viewHolder.eventImage.setClickable(false);
+            viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.DarkGray));
         }
 
         //

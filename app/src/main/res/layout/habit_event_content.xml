@@ -30,7 +30,6 @@
                 android:paddingStart="3dp"
                 android:paddingEnd="3dp"
                 android:contentDescription="Event Level"
-                app:tint="?android:colorPrimary"
                 app:srcCompat="@android:drawable/btn_star_big_on" />
 
             <ImageView
