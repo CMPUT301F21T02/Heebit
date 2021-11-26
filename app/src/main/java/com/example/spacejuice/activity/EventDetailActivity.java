@@ -1,11 +1,10 @@
 package com.example.spacejuice.activity;
 
-import static android.content.ContentValues.TAG;
+import static com.example.spacejuice.controller.HabitEventController.getDocumentIdString;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,13 +18,11 @@ import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
-import com.example.spacejuice.controller.HabitEventController;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
 public class EventDetailActivity extends AppCompatActivity {
     Button back;
@@ -41,21 +38,21 @@ public class EventDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
-        back = findViewById(R.id.back);
+        back = findViewById(R.id.edit_back);
         upload = findViewById(R.id.upload);
         editImage = findViewById(R.id.edit_photo);
         editText = findViewById(R.id.edit_editText);
         imageView = findViewById(R.id.edit_imageView);
         habit = getIntent().getExtras().getString("habit");
         habitId = getIntent().getExtras().getInt("habitId");
-        eventId = getIntent().getExtras().getInt("eventId");
-        // todo bug here
+        eventId = getIntent().getExtras().getInt("event");
         Habit h = MainActivity.getUser().getHabitFromUid(habitId);
         HabitEvent e = h.getEventFromUid(eventId);
         editText.setText(e.getDescription());
+        Log.d("debugInfo", "url :" + e.getImage());
+        Log.d("debugInfo", "title:" + h.getTitle());
         Uri uri = Uri.parse(e.getImage());
-        Picasso.get().load(uri).into(imageView);
-
+        imageView.setImageURI(uri);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +91,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 });
                 Log.d("debugInfo", U.toString());
                 DocumentReference eventDocumentReference =documentReference.collection("Events")
-                        .document(String.valueOf(e.getEventId()));
+                        .document(getDocumentIdString(e));
                 eventDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {

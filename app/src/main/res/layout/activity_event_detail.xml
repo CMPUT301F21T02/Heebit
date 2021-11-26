@@ -59,7 +59,7 @@
         tools:layout_editor_absoluteY="534dp" />
 
     <Button
-        android:id="@+id/back"
+        android:id="@+id/edit_back"
         android:layout_width="230dp"
         android:layout_height="45dp"
         android:layout_alignParentEnd="true"

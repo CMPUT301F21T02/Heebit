@@ -234,6 +234,9 @@ This Activity is used to edit a habit
     }
 
     public void launchEventDetails(HabitEvent event) {
+        Log.d("Event",habit.getTitle());
+        Log.d("Event",String.valueOf(event.getEventId()));
+        Log.d("Event",String.valueOf(habit.getUid()));
         Intent intent = new Intent(HabitDetailsActivity.this, EventDetailActivity.class);
         intent.putExtra( "habit",habit.getTitle());
         intent.putExtra("event",event.getEventId());

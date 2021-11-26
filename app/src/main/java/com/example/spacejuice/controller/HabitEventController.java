@@ -77,7 +77,8 @@ public class HabitEventController {
                         .getResult()).getDocuments().get(0).getReference();
                 DocumentReference eventDocRef;
                 //eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
-                eventDocRef = habitRef.collection("Events").document(getDocumentIdString(habitEvent));
+                String id = String.valueOf(habitEvent.getEventId());
+                eventDocRef = habitRef.collection("Events").document(id);
                 eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {

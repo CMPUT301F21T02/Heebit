@@ -62,9 +62,7 @@ public class Habit implements Serializable {
                 return event;
             }
         }
-        HabitEvent habitEvent;
-        habitEvent = new HabitEvent();
-        return habitEvent;
+        return null;
     }
     /**
      * Set title for the habit
