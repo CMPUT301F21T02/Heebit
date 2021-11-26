@@ -1,5 +1,7 @@
 package com.example.spacejuice.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -7,11 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.FollowingList;
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.PublicHabitsAdapter;
 import com.example.spacejuice.R;
@@ -27,11 +31,12 @@ public class MemberProfileActivity extends AppCompatActivity {
    /*
    This Activity is used to view another member's profile
     */
-   private ImageButton backButton;
    private FollowController followController;
+
    ArrayList<Habit> publicHabits;
    private ArrayAdapter<Habit> ListAdapter;
 
+   private ImageButton backButton;
    private TextView displayName;
    private ListView displayHabits;
 
@@ -92,6 +97,35 @@ public class MemberProfileActivity extends AppCompatActivity {
                    TextView HabitText = findViewById(R.id.textViewMPA);
                    HabitText.setText(R.string.mustFollowToViewHabits);
                    loadingDialog.dismissDialog();
+                   AlertDialog.Builder builder = new AlertDialog.Builder(MemberProfileActivity.this);
+                   builder.setMessage("Must Follow to View Their Public Habits!")
+                           .setNegativeButton("Cancel", null)
+                           .setPositiveButton("Send Follow Request", new DialogInterface.OnClickListener() {
+                               @Override
+                               public void onClick(DialogInterface dialogInterface, int x) {
+                                   followController.sendRequest(memberName, new LoginController.OnCompleteCallback() {
+                                       @Override
+                                       public void onComplete(boolean suc) {
+                                           if (suc) {
+                                               Toast.makeText(MemberProfileActivity.this, "Sent request successfully!", Toast.LENGTH_SHORT).show();
+                                           }
+                                           else {
+                                               if (memberName.equals(MainActivity.getUser().getMemberName())){
+                                                   Toast.makeText(MemberProfileActivity.this, "Please don't send follow request to yourself!",
+                                                           Toast.LENGTH_SHORT).show();
+                                               }
+                                               else {
+                                                   Toast.makeText(MemberProfileActivity.this, "No such user exists!",
+                                                           Toast.LENGTH_SHORT).show();
+                                               }
+                                           }
+                                       }
+                                   });
+
+                               }
+                           });
+                   AlertDialog alert = builder.create();
+                   alert.show();
                }
 
            }

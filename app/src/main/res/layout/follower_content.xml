@@ -18,9 +18,11 @@ ALL ID FROM THIS FILE WILL CONTAIN "FC1" AT THE END
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="Example Name"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:fontFamily="@font/lato_black"
+        android:textColor="@color/White"/>
 
 
 </LinearLayout>
