@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.HabitEvent;
+import com.example.spacejuice.Indicator;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.Schedule;
@@ -28,6 +29,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -270,6 +272,46 @@ public class HabitController {
         }
     }
 
+    /**
+     * check this day is completed or not
+     *
+     * @param habit    a habit
+     * @param checkDay day to check
+     * @return bool
+     */
+    public static Boolean completedOnDay(Habit habit, Calendar checkDay) {
+        // checks if a habit was completed on day checkDay
+        Date eventDate;
+        ArrayList<HabitEvent> events = habit.getEvents();
+        Calendar eventDay = Calendar.getInstance();
+
+        for (HabitEvent e : events) {
+            eventDate = e.getDate();
+            eventDay.setTime(eventDate);
+            if (TimeController.compareCalendarDays(eventDay, checkDay) == 0) {
+                Log.d("debugInfo", habit.getTitle() + " was completed on that day");
+                return true;
+            }
+        }
+        Log.d("debugInfo", "Habit " + habit.getTitle() + " has " + events.size() +
+                " events, none of them done on " + (checkDay.getTime()).toString());
+        return false;
+
+    }
+
+    /**
+     * set this day is complete
+     *
+     * @param habit a habit
+     * @return complete
+     */
+    public static Boolean completedToday(Habit habit) {
+        Calendar today = TimeController.getCurrentTime();
+        Log.d("debugInfo", "checking if habit was completed on day of week #" + today.get(Calendar.DAY_OF_WEEK));
+        return HabitController.completedOnDay(habit, today);
+
+    }
+
     public static void adminDeleteHabitEvents(Member member, Habit habit) {
         if (member.getHabitListItems().contains(habit)) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -301,6 +343,30 @@ public class HabitController {
                     });
                 }
             });
+        }
+    }
+
+    /**
+     * iterates through a habits events to calculate its score,
+     * assigning it the appropriate indicator, and returning the
+     * score as an int.
+     *
+     * @param habit the habit to evaluate
+     */
+    public static void calculateScore(Habit habit) {
+        Indicator indicator = habit.getIndicator();
+        ArrayList<HabitEvent> events = habit.getEvents();
+        indicator.setXp(0);
+
+        if (events.size() > 0) {
+            for (HabitEvent eventItem : events) {
+                if (eventItem.isDone()) {
+                    indicator.increase();
+
+                } else {
+                    indicator.decrease();
+                }
+            }
         }
     }
 }
