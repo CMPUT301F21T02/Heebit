@@ -57,16 +57,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(marker == null) {
+                if(marker == null && locationPermissionGranted) {
                     getDeviceLocation(true);
                 }
-                Intent intent = new Intent();
-                Log.d("debugInfo", "Pass longitude: " + String.valueOf(marker.longitude));
-                intent.putExtra("longitude",marker.longitude);
-                Log.d("debugInfo", "Pass latitude: " + String.valueOf(marker.latitude));
-                intent.putExtra("latitude", marker.latitude);
-                setResult(RESULT_OK, intent);
-                finish();
+                else if(marker == null && !locationPermissionGranted){
+                    Toast.makeText(MapsActivity.this, "Please add a marker!", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent intent = new Intent();
+                    Log.d("debugInfo", "Pass longitude: " + String.valueOf(marker.longitude));
+                    intent.putExtra("longitude", marker.longitude);
+                    Log.d("debugInfo", "Pass latitude: " + String.valueOf(marker.latitude));
+                    intent.putExtra("latitude", marker.latitude);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
 
             }
         });
@@ -95,7 +100,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             getDeviceLocation(false);
         }
         else{
-            mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Marker in Edmonton"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation));
         }
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -148,6 +152,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     getDeviceLocation(false);
                 }
                 else{
+                    locationPermissionGranted = false;
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(defaultLocation));
                     Toast.makeText(this,"Don't have location permission!", Toast.LENGTH_SHORT).show();
 
                 }
