@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -141,6 +142,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.eventImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
                 HabitDetailsActivity inst = (HabitDetailsActivity) context;
                 inst.launchUpload(eventItems.get(position).getUid(), eventItems.get(position));
             }

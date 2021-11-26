@@ -78,6 +78,9 @@ public class UploadImageActivity extends AppCompatActivity {
     private Bitmap photo;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public UploadImageActivity(){
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
