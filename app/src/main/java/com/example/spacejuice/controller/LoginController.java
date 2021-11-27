@@ -41,7 +41,7 @@ public class LoginController {
     }
 
     /**
-     *
+     * gets the max number to calculate unique id
      */
     public static void updateMaxID() {
         Member user = MainActivity.getUser();
