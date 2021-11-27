@@ -60,13 +60,9 @@ public class EventDetailActivity extends AppCompatActivity {
     private Bitmap photo;
     Uri imageUri;
 
-    int habitId = getIntent().getExtras().getInt("habitId");
-    int event = getIntent().getExtras().getInt("event");
-    private StorageTask uploadTask;
+    int habitId;
+    int event;
     private StorageReference storageReference;
-    Habit h = MainActivity.getUser().getHabitFromUid(habitId);
-    HabitEvent e = h.getEventFromUid(event);
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("debugInfo", "onCrate");
@@ -79,7 +75,10 @@ public class EventDetailActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_editText);
         imageView = findViewById(R.id.edit_imageView);
         progressBar = findViewById(R.id.edit_progress_bar);
-
+        habitId = getIntent().getExtras().getInt("habitId");
+        event = getIntent().getExtras().getInt("event");
+        Habit h = MainActivity.getUser().getHabitFromUid(habitId);
+        HabitEvent e = h.getEventFromUid(event);
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         editText.setText(e.getShortDescription());
         Log.d("debugInfo", "url :" + e.getImage());
@@ -209,6 +208,8 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     private void uploadFile(){
+        Habit h = MainActivity.getUser().getHabitFromUid(habitId);
+        HabitEvent e = h.getEventFromUid(event);
         String id = String.valueOf(e.getEventId());
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
                 .document(MainActivity.getUser().getMemberName())
@@ -217,7 +218,7 @@ public class EventDetailActivity extends AppCompatActivity {
             StorageReference fileReference = storageReference.child(
                     MainActivity.getUser().getMemberName()+ getIntent().getExtras().getString("habit") + String.valueOf(System.currentTimeMillis())
                             +"."+ getFileExtension(imageUri));
-            uploadTask = fileReference.putFile(imageUri)
+            fileReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
