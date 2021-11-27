@@ -28,20 +28,16 @@ public class MainActivityTest {
     @Before
     public void setUp(){
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-    }
-
-    @Test
-    public void start(){
         Activity activity = rule.getActivity();
-    }
-
-    @Test
-    public void login(){
         solo.clickOnButton("Log in");
         assertTrue(solo.waitForActivity(LoginActivity.class));
         solo.enterText((EditText) solo.getView(R.id.userName), "Josh4");
         solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "12345");
         solo.clickOnButton("Login");
+    }
+
+    @Test
+    public void start(){
 
 
     }
