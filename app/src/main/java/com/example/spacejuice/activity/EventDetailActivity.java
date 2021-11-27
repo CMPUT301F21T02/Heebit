@@ -176,6 +176,16 @@ public class EventDetailActivity extends AppCompatActivity {
                 openFileChooser();
             }
         });
+
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open Camera
+                Log.d(TAG, "The take photo start");
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
     }
 
     private void openFileChooser(){
