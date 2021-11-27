@@ -263,7 +263,7 @@
                             android:fontFamily="@font/lato_black"
                             android:text="Requests"
                             android:textAlignment="center"
-                            android:textColor="@color/WhiteSmoke"
+                            android:textColor="?colorOnPrimary"
                             android:textSize="20sp"
                             android:textStyle="bold"
                             tools:ignore="MissingConstraints" />
@@ -278,7 +278,7 @@
                             android:fontFamily="@font/lato"
                             android:text="0"
                             android:textAlignment="center"
-                            android:textColor="@color/WhiteSmoke"
+                            android:textColor="?colorOnPrimary"
                             android:textSize="32sp"
                             tools:ignore="MissingConstraints" />
                     </LinearLayout>
