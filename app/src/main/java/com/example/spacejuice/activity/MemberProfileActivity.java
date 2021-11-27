@@ -15,11 +15,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.spacejuice.FollowingList;
 import com.example.spacejuice.Habit;
+import com.example.spacejuice.HabitEvent;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
 import com.example.spacejuice.PublicHabitsAdapter;
 import com.example.spacejuice.R;
 import com.example.spacejuice.controller.FollowController;
+import com.example.spacejuice.controller.HabitController;
 import com.example.spacejuice.controller.LoginController;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,6 +41,8 @@ public class MemberProfileActivity extends AppCompatActivity {
    private ImageButton backButton;
    private TextView displayName;
    private ListView displayHabits;
+   private String memberName;
+   private Member account;
 
 
    private FirebaseFirestore db;
@@ -59,16 +63,27 @@ public class MemberProfileActivity extends AppCompatActivity {
 
        followController = new FollowController();
 
-       String memberName = getIntent().getStringExtra("Member Name");
+       memberName = getIntent().getStringExtra("Member Name");
        displayName.setText(memberName);
+       displayName.setClickable(true);
 
+       /*
+       displayName.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Log.d("message", "name clicked");
+               refreshHabits();
+           }
+
+       });
+*/
 
        followController.checkFollowing(memberName, new LoginController.OnCheckFollowingCallback(){
            @Override
            public void onCheckFollowingComplete(boolean suc) {
                boolean isFollowing = followController.getIsFollowing();
                Log.d("message", "being read");
-               if (isFollowing == true) {
+               if (isFollowing) {
                    Log.d("message", "is following");
                    followController.findMember(memberName, new LoginController.OnFindMemberCompleteCallback(){
                        @Override
@@ -140,4 +155,17 @@ public class MemberProfileActivity extends AppCompatActivity {
            }
        });
    }
+
+/*
+   public void refreshHabits() {
+       for (Habit habit: publicHabits) {
+           ArrayList<HabitEvent> events = habit.getEvents();
+           HabitController.calculateScore(habit);
+           int score = habit.getIndicator().getXp();
+           Log.d("message", habit.getTitle() + " has " + events.size() + " events..  its score is " + score);
+       }
+       ListAdapter.notifyDataSetChanged();
+   }
+   */
+
 }
