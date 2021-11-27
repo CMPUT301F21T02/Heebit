@@ -184,6 +184,10 @@ public class FollowController {
     }
 
     /**
+     * Get
+     */
+
+    /**
      * Update following to local
      * @param callback
      */

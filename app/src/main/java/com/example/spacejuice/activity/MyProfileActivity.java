@@ -16,6 +16,8 @@ import com.example.spacejuice.R;
 import com.example.spacejuice.controller.FollowController;
 import com.example.spacejuice.controller.LoginController;
 
+import java.util.ArrayList;
+
 public class MyProfileActivity extends AppCompatActivity {
    /*
    This Activity is used to display my profile
@@ -36,15 +38,17 @@ public class MyProfileActivity extends AppCompatActivity {
     private TextView followersText;
     private CardView followerCard;
     private CardView followingCard;
+    private CardView requestCard;
+    private TextView requestCount;
+    private CardView requestCountCard;
     private FollowController followController;
-
-  
-
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        Log.d("debugInfo", "My Profile View Created from MyProfileActivity.java");
+       final LoadingDialog loadingDialog = new LoadingDialog(MyProfileActivity.this);
+       loadingDialog.startLoadingAlertDialog();
        setContentView(R.layout.my_profile_activity);
 
        user_name = findViewById(R.id.userName);
@@ -58,7 +62,23 @@ public class MyProfileActivity extends AppCompatActivity {
        followersText = findViewById(R.id.followers);
        followerCard = findViewById(R.id.followerCard);
        followingCard = findViewById(R.id.followingCard);
+       requestCard = findViewById(R.id.RequestCard);
+       requestCount = findViewById(R.id.requestCount);
+       requestCountCard = findViewById(R.id.RequestCountCard);
        followController = new FollowController();
+
+       followController.getRequests(new LoginController.OnRequestCompleteCallback() {
+           @Override
+           public void onRequestComplete(boolean suc) {
+               ArrayList<String> list = MainActivity.getUser().getFollow().getRequests();
+               int count = list.size();
+               String countString = "" + count;
+               if (count > 0){
+                    requestCard.setVisibility(View.VISIBLE);
+                    requestCount.setText(countString);
+               }
+           }
+       });
 
        followController.getFollower(new LoginController.OnFollowerCompleteCallback() {
            @Override
@@ -72,18 +92,16 @@ public class MyProfileActivity extends AppCompatActivity {
            @Override
            public void onFollowingComplete(boolean suc) {
                followingCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowings().size()));
+               loadingDialog.dismissDialog();
            }
        });
 
        user_name.setText(MainActivity.getUser().getMemberName());
-       go_to_requests.setOnClickListener(new View.OnClickListener() {
-
-
+       requestCountCard.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
             openFollowRequestActivity();
          }
-
       });
 
       // back button
@@ -94,16 +112,6 @@ public class MyProfileActivity extends AppCompatActivity {
          }
 
       });
-
-      // Discover button
-       /*
-       exploreButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               openDiscoverActivity();
-           }
-       });
-       */
 
       // Makes it so that if the user clicks on the following or following count, it goes to the list
       followingText.setOnClickListener(new View.OnClickListener(){
