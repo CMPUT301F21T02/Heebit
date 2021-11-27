@@ -35,6 +35,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -58,13 +59,13 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button uploadImage;
     private Bitmap photo;
     Uri imageUri;
-    int eventId;
-    int habitId;
-    int event;
-    String habit;
-    String U;
+
+    int habitId = getIntent().getExtras().getInt("habitId");
+    int event = getIntent().getExtras().getInt("event");
     private StorageTask uploadTask;
     private StorageReference storageReference;
+    Habit h = MainActivity.getUser().getHabitFromUid(habitId);
+    HabitEvent e = h.getEventFromUid(event);
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,21 +79,14 @@ public class EventDetailActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_editText);
         imageView = findViewById(R.id.edit_imageView);
         progressBar = findViewById(R.id.edit_progress_bar);
-        habit = getIntent().getExtras().getString("habit");
-        habitId = getIntent().getExtras().getInt("habitId");
-        event = getIntent().getExtras().getInt("event");
-        eventId = getIntent().getExtras().getInt("eventId");
-        String suri = getIntent().getExtras().getString("uri");
-        HabitEvent e;
-        Habit h = MainActivity.getUser().getHabitFromUid(habitId);
-        Log.d("debugInfo","h is not null");
-        Log.d("debugInfo","h is not null title:"+ h.getTitle());
-        e = h.getEventFromUid(event);
-        Log.d("debugInfo","e is not null");
+
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
         editText.setText(e.getShortDescription());
         Log.d("debugInfo", "url :" + e.getImage());
-        Uri uri = Uri.parse(suri);
-        Picasso.get().load(uri).into(imageView);
+        if(e.getImage() != null ) {
+            Uri uri = Uri.parse(e.getImage());
+            Picasso.get().load(uri).into(imageView);
+        }
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,73 +94,58 @@ public class EventDetailActivity extends AppCompatActivity {
             }
         });
 
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(uploadTask != null && uploadTask.isInProgress()){
-                    Toast.makeText(EventDetailActivity.this,"Upload in progress",Toast.LENGTH_SHORT).show();
-                }
-                else if(imageUri == null){
-                    Toast.makeText(EventDetailActivity.this, "No file selected", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    uploadFile();
-                }
-            }
-        });
-
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //e.setDescription(editText.getText().toString());
-                Log.d("debugInfo", "into upload");
-                Habit h = MainActivity.getUser().getHabitFromUid(habitId);
-                Log.d("debugInfo", "into upload"+ habitId);
-                HabitEvent e = h.getEventFromUid(event);
-                e.setDescription(editText.getText().toString());
-                Log.d("debugInfo", "into upload"+ event);
-                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
-                        .document(MainActivity.getUser().getMemberName())
-                        .collection("Habits").document(h.getTitle());
-                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            // if this name exist
-                            if (document.exists()) {
-                                U = document.getString("url");
-                                Log.d("debugInfo", "new image uri: u " + U);
-                                // then check url
-                                if (U != null){
-                                    e.setImage(U);
-                                    documentReference.update("url",null);
-                                    Log.d("debugInfo", "new image uri: u " + U);
-                                }
-                            }
-                        }
-                    }
-                });
-                Log.d("debugInfo", "new image uri: e.getImage " + e.getImage());
-                String id = String.valueOf(e.getEventId());
-                DocumentReference eventDocumentReference =documentReference.collection("Events")
-                        .document(id);
-                eventDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Log.d("debugInfo", "Task successful");
-                            DocumentSnapshot document = task.getResult();
-                            // if this name exist
-                            if (document.exists()) {
-                                Log.d("debugInfo", "document exist");
-                                eventDocumentReference.update("Url",e.getImage());
-                                eventDocumentReference.update("Description", editText.getText().toString());
-                            }
-                        }
-                    }
-                });
-
+//                //e.setDescription(editText.getText().toString());
+//                Log.d("debugInfo", "into upload");
+//                //Habit h = MainActivity.getUser().getHabitFromUid(habitId);
+//                Log.d("debugInfo", "into upload"+ habitId);
+//                //HabitEvent e = h.getEventFromUid(event);
+//                e.setDescription(editText.getText().toString());
+//                Log.d("debugInfo", "into upload"+ event);
+//                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
+//                        .document(MainActivity.getUser().getMemberName())
+//                        .collection("Habits").document(h.getTitle());
+//                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            // if this name exist
+//                            if (document.exists()) {
+//                                U = document.getString("url");
+//                                Log.d("debugInfo", "new image uri: u " + U);
+//                                // then check url
+//                                if (U != null){
+//                                    e.setImage(U);
+//                                    documentReference.update("url",null);
+//                                    Log.d("debugInfo", "new image uri: u " + U);
+//                                }
+//                            }
+//                        }
+//                    }
+//                });
+//                Log.d("debugInfo", "new image uri: e.getImage " + e.getImage());
+//                String id = String.valueOf(e.getEventId());
+//                DocumentReference eventDocumentReference =documentReference.collection("Events")
+//                        .document(id);
+//                eventDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            Log.d("debugInfo", "Task successful");
+//                            DocumentSnapshot document = task.getResult();
+//                            // if this name exist
+//                            if (document.exists()) {
+//                                Log.d("debugInfo", "document exist");
+//                                eventDocumentReference.update("Url",e.getImage());
+//                                eventDocumentReference.update("Description", editText.getText().toString());
+//                            }
+//                        }
+//                    }
+//                });
+                    uploadFile();
             }
         });
 
@@ -230,10 +209,11 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     private void uploadFile(){
+        String id = String.valueOf(e.getEventId());
+        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
+                .document(MainActivity.getUser().getMemberName())
+                .collection("Habits").document(h.getTitle()).collection("Events").document(id);
         if(imageUri != null){
-            DocumentReference docReference = FirebaseFirestore.getInstance().collection("Members")
-                    .document(MainActivity.getUser().getMemberName())
-                    .collection("Habits").document(getIntent().getExtras().getString("habit"));
             StorageReference fileReference = storageReference.child(
                     MainActivity.getUser().getMemberName()+ getIntent().getExtras().getString("habit") + String.valueOf(System.currentTimeMillis())
                             +"."+ getFileExtension(imageUri));
@@ -250,22 +230,24 @@ public class EventDetailActivity extends AppCompatActivity {
                             }, 500);
                             Toast.makeText(EventDetailActivity.this, "Upload successful"
                                     , Toast.LENGTH_LONG).show();
-                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
-                                public void onSuccess(Uri uri) {
-                                    String url = uri.toString();
-                                    Map<String,Object> Duri = new HashMap<>();
-                                    Duri.put("url", url);
-                                    docReference.update(Duri)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.d("message", "URL has been added successfully");
-                                                    //Picasso.get().load(imageUri).into(imageView);
-                                                }
-                                            });
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d("debugInfo", "Task successful");
+                                        DocumentSnapshot document = task.getResult();
+                                        // if this name exist
+                                        if (document.exists()) {
+                                            Log.d("debugInfo", "document exist");
+                                            documentReference.update("Url",imageUri.toString().trim());
+                                            documentReference.update("Description", editText.getText().toString());
+                                        }
+                                    }
                                 }
                             });
+
+
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -280,9 +262,25 @@ public class EventDetailActivity extends AppCompatActivity {
                             double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
                             progressBar.setProgress((int) progress);
                         }
-                    });
+                    })
+            ;
         }else{
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EventDetailActivity.this, "Upload successful"
+                    , Toast.LENGTH_LONG).show();
+            documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("debugInfo", "Task successful");
+                        DocumentSnapshot document = task.getResult();
+                        // if this name exist
+                        if (document.exists()) {
+                            Log.d("debugInfo", "document exist");
+                            documentReference.update("Description", editText.getText().toString());
+                        }
+                    }
+                }
+            });
         }
     }
 
