@@ -24,7 +24,7 @@ public class MyProfileActivity extends AppCompatActivity {
    public ImageButton back_button;
 
   
-   private Button exploreButton;
+   //private Button exploreButton;
   
    public TextView user_name;
 
@@ -47,7 +47,7 @@ public class MyProfileActivity extends AppCompatActivity {
        user_name = findViewById(R.id.userName);
        back_button = findViewById(R.id.backButtonMyProfile);
 
-       exploreButton = findViewById(R.id.discoverButton);
+       //exploreButton = findViewById(R.id.discoverButton);
        go_to_requests = findViewById(R.id.requestsButton);
        followingCount = findViewById(R.id.followingCount);
        followingText = findViewById(R.id.following);
@@ -91,12 +91,14 @@ public class MyProfileActivity extends AppCompatActivity {
       });
 
       // Discover button
+       /*
        exploreButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
                openDiscoverActivity();
            }
        });
+       */
 
       // Makes it so that if the user clicks on the following or following count, it goes to the list
       followingText.setOnClickListener(new View.OnClickListener(){
