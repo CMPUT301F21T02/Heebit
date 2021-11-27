@@ -67,7 +67,6 @@ public class EventDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("debugInfo", "onCrate");
         setContentView(R.layout.activity_event_detail);
-        uploadImage = findViewById(R.id.edit_upload);
         back = findViewById(R.id.edit_back);
         confirm = findViewById(R.id.edit_confirm);
         editImage = findViewById(R.id.choose_image);
@@ -144,7 +143,7 @@ public class EventDetailActivity extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-                    uploadFile();
+                uploadFile();
             }
         });
 
@@ -171,7 +170,6 @@ public class EventDetailActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-
     }
 
     @Override
@@ -231,6 +229,19 @@ public class EventDetailActivity extends AppCompatActivity {
                             }, 500);
                             Toast.makeText(EventDetailActivity.this, "Upload successful"
                                     , Toast.LENGTH_LONG).show();
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    documentReference.update("Url",url)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void unused) {
+                                                    Log.d("message", "URL has been added successfully");
+                                                }
+                                            });
+                                }
+                            });
                             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -240,7 +251,6 @@ public class EventDetailActivity extends AppCompatActivity {
                                         // if this name exist
                                         if (document.exists()) {
                                             Log.d("debugInfo", "document exist");
-                                            documentReference.update("Url",imageUri.toString().trim());
                                             documentReference.update("Description", editText.getText().toString());
                                         }
                                     }
@@ -284,8 +294,5 @@ public class EventDetailActivity extends AppCompatActivity {
             });
         }
     }
-
-
-
 
 }

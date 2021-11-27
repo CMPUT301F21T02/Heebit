@@ -38,7 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="39dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="105dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="220dp"
+        android:layout_marginBottom="142dp"
         android:text="choose image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,10 +78,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="315dp"
-        android:layout_marginBottom="683dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="312dp"
+        android:layout_marginBottom="640dp"
         android:text="back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,17 +93,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp"
+        android:layout_marginBottom="85dp"
         android:text="Take photo" />
-
-    <Button
-        android:id="@+id/edit_upload"
-        android:layout_width="231dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="86dp"
-        android:text="Upload" />
 
 
 </RelativeLayout>
