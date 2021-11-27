@@ -13,7 +13,11 @@ import java.util.Date;
 public class TimeController {
     private final static Member user = MainActivity.getUser();
 
-
+    /**
+     *
+     * gets the current time
+     * @return currentTime
+     */
     public static Calendar getCurrentTime() {
         Calendar currentTime = Calendar.getInstance();
         if (user.isAdmin()) {

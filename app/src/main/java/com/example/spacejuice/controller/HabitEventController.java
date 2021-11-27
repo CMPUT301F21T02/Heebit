@@ -106,6 +106,11 @@ public class HabitEventController {
         }
         habit.setEvents(events);
     }
+    /**
+     * able to add a habit event to the habit it belongs to
+     * @param habit
+     * @param habitEvent
+     */
 
     public static void addHabitEvent(Habit habit, HabitEvent habitEvent) {
         // adds a HabitEvent to the array of events contained by a Habit
@@ -151,7 +156,12 @@ public class HabitEventController {
             }
         });
     }
-
+    /**
+     * loads habit events from Firebase for each habit
+     * @param habit
+     * @param name
+     * @param callback
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static void loadHabitEventsFromFirebase(Habit habit, String name, final HabitController.OnHabitEventsLoaded callback) {
         Log.d("debugInfoLogin", "HabitEventController.loadHabitEventsFromFirebase() - initialized for " + habit.getTitle());
@@ -227,6 +237,11 @@ public class HabitEventController {
         });
     }
 
+    /**
+     * generates missed events on login
+     * @param habit
+     * @param eventDay
+     */
     public static void addMissedEvent(Habit habit, Calendar eventDay) {
         HabitEvent missedEvent = new HabitEvent();
         missedEvent.setDate(eventDay.getTime());
@@ -235,6 +250,10 @@ public class HabitEventController {
         HabitEventController.addHabitEvent(habit, missedEvent);
     }
 
+    /**
+     * makes missed events
+     * @param context
+     */
     public static void generateMissedEvents(Context context) {
 
         Member user = MainActivity.getUser();
@@ -245,7 +264,10 @@ public class HabitEventController {
         }
         ((LoginActivity) context).finishLogin();
     }
-
+    /**
+     * calculates the missed habits according to midnight calculation
+     * @param habit
+     */
     public static void generateHabitMissedEvents(Habit habit) {
         Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - intialized for " + habit.getTitle());
         Member user = MainActivity.getUser();
@@ -295,7 +317,11 @@ public class HabitEventController {
         }
 
     }
-
+    /**
+     * gets idString
+     * @param event
+     * @return idString
+     */
     public static String getDocumentIdString(HabitEvent event) {
         @SuppressLint("DefaultLocale") String idString = String.format("%012d", event.getEventId());
         return idString;

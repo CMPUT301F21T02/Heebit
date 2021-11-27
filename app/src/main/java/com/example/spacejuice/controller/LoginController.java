@@ -40,6 +40,9 @@ public class LoginController {
 
     }
 
+    /**
+     * gets the max number to calculate unique id
+     */
     public static void updateMaxID() {
         Member user = MainActivity.getUser();
         String username = user.getMemberName();
@@ -62,7 +65,13 @@ public class LoginController {
         });
     }
 
-
+    /**
+     * gets the necessary information to login
+     * authenticates using firestore
+     * @param userName
+     * @param password
+     * @param callback
+     */
     public void login(String userName, String password, final OnLoginCompleteCallback callback) {
         Log.d("debugInfoLogin", "LoginController.login() - initialized");
         if (userName.length() > 0 && password.length() > 0) {
@@ -122,6 +131,12 @@ public class LoginController {
 
     }
 
+    /**
+     * takes the user input to register a new user
+     * @param userName
+     * @param password
+     * @param callback
+     */
     public void signUp(String userName, String password, final OnSignUpCompleteCallback callback) {
         Map<String, Object> user = new HashMap<>();
         if (userName.length() > 0 && password.length() > 0) {
@@ -162,6 +177,10 @@ public class LoginController {
         }
     }
 
+    /**
+     * changes the time for the admin user
+     * @param member
+     */
     public static void adminResetAccount(Member member) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userName = member.getMemberName();
@@ -179,6 +198,10 @@ public class LoginController {
         }
     }
 
+    /**
+     * gets the next day
+     * @return midn.getTime()
+     */
     public static Date getNextMidnight() {
         Calendar midn = TimeController.getCurrentTime();
         midn.set(Calendar.HOUR_OF_DAY, 0);
