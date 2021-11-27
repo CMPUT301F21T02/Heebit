@@ -98,9 +98,9 @@ public class MemberProfileActivity extends AppCompatActivity {
                    HabitText.setText(R.string.mustFollowToViewHabits);
                    loadingDialog.dismissDialog();
                    AlertDialog.Builder builder = new AlertDialog.Builder(MemberProfileActivity.this);
-                   builder.setMessage("Must Follow to View Their Public Habits!")
+                   builder.setMessage("Must Follow to View Their Public Habits, Do You Wish to Follow?")
                            .setNegativeButton("Cancel", null)
-                           .setPositiveButton("Send Follow Request", new DialogInterface.OnClickListener() {
+                           .setPositiveButton("Send", new DialogInterface.OnClickListener() {
                                @Override
                                public void onClick(DialogInterface dialogInterface, int x) {
                                    followController.sendRequest(memberName, new LoginController.OnRequestCompleteCallback() {
