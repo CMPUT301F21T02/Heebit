@@ -60,8 +60,11 @@ public class EventDetailActivity extends AppCompatActivity {
         Log.d("debugInfo","e is not null");
         editText.setText(e.getShortDescription());
         Log.d("debugInfo", "url :" + e.getImage());
-        Uri uri = Uri.parse(suri);
-        Picasso.get().load(uri).into(imageView);
+        if (suri != null) {
+            Uri uri = Uri.parse(suri);
+            Picasso.get().load(uri).into(imageView);
+        }
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
