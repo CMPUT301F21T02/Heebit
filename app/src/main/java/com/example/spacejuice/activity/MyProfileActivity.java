@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
@@ -33,6 +34,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private TextView followersCount;
     private TextView followersText;
+    private CardView followerCard;
+    private CardView followingCard;
     private FollowController followController;
 
   
@@ -53,6 +56,8 @@ public class MyProfileActivity extends AppCompatActivity {
        followingText = findViewById(R.id.following);
        followersCount = findViewById(R.id.followersCount);
        followersText = findViewById(R.id.followers);
+       followerCard = findViewById(R.id.followerCard);
+       followingCard = findViewById(R.id.followingCard);
        followController = new FollowController();
 
        followController.getFollower(new LoginController.OnFollowerCompleteCallback() {
@@ -113,6 +118,12 @@ public class MyProfileActivity extends AppCompatActivity {
               openFollowingListView();
           }
       });
+       followingCard.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               openFollowingListView();
+           }
+       });
 
       // same for followers
        followersText.setOnClickListener(new View.OnClickListener(){
@@ -127,6 +138,13 @@ public class MyProfileActivity extends AppCompatActivity {
                openFollowersListView();
            }
        });
+       followerCard.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               openFollowersListView();
+           }
+       });
+
 
    }
 
