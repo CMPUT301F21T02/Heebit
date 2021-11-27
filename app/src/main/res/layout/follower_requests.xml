@@ -80,45 +80,4 @@ ALL ID FROM THIS FILE WILL CONTAIN "HAE" AT THE END
         app:layout_constraintTop_toBottomOf="@id/followerRequestsTextView"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/lato"
-        android:text="Send Request:"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/followersList" />
-
-    <EditText
-        android:id="@+id/requestingName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Please enter user name:"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <Button
-        android:id="@+id/sendRequestButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="18dp"
-        android:fontFamily="@font/lato_black"
-        android:text="Send Request"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/requestingName"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
