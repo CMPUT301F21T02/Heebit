@@ -12,11 +12,12 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
 
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/memberProfileAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
         android:theme="@style/Theme.SpaceJuice.AppBarOverlay"
-        app:layout_constraintBottom_toTopOf="@+id/textViewMPA"
+        app:layout_constraintBottom_toTopOf="@+id/MemberProfileLL"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints"
@@ -69,35 +70,43 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
 
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <ListView
-        android:id="@+id/followingHabitsMPA"
-        android:layout_width="406dp"
-        android:layout_height="500dp"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="5dp"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMPA"
-        app:layout_constraintVertical_bias="0.309" />
-
-    <TextView
-        android:id="@+id/textViewMPA"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/MemberProfileLL"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lato_black"
-        android:text="Habits"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/memberProfileAppBar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.145" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:layout_marginTop="15dp"
+            android:id="@+id/textViewMPA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_black"
+            android:text="Habits"
+            android:layout_gravity="center_horizontal"
+            android:textSize="25sp"
+            />
+        <ListView
+            android:id="@+id/followingHabitsMPA"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:layout_marginTop="10dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textSize="24sp"
+            />
+
+
+    </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
