@@ -175,7 +175,6 @@ public class UploadImageActivity extends AppCompatActivity {
             imageUri = getImageUri(UploadImageActivity.this, photo);
             imageView.setImageBitmap(photo);
         }
-
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
@@ -240,6 +239,7 @@ public class UploadImageActivity extends AppCompatActivity {
                             progressBar.setProgress((int) progress);
                         }
                     });
+            finish();
         }else{
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }

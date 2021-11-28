@@ -56,7 +56,6 @@ public class EventDetailActivity extends AppCompatActivity {
     Button takePhoto;
     EditText editText;
     ImageView imageView;
-    ProgressBar progressBar;
     private Button uploadImage;
     private Bitmap photo;
     Uri imageUri;
@@ -75,7 +74,6 @@ public class EventDetailActivity extends AppCompatActivity {
         takePhoto = findViewById(R.id.take_photo);
         editText = findViewById(R.id.edit_editText);
         imageView = findViewById(R.id.edit_imageView);
-        progressBar = findViewById(R.id.edit_progress_bar);
         habitId = getIntent().getExtras().getInt("habitId");
         event = getIntent().getExtras().getInt("event");
         Habit h = MainActivity.getUser().getHabitFromUid(habitId);
@@ -91,7 +89,7 @@ public class EventDetailActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finishActivity();
+                finish();
             }
         });
 
@@ -165,7 +163,8 @@ public class EventDetailActivity extends AppCompatActivity {
     private void uploadFile(){
         Habit h = MainActivity.getUser().getHabitFromUid(habitId);
         HabitEvent e = h.getEventFromUid(event);
-        String id = String.valueOf(e.getEventId());
+        //String id = String.valueOf(e.getEventId());
+        String id = getDocumentIdString(e);
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
                 .document(MainActivity.getUser().getMemberName())
                 .collection("Habits").document(h.getTitle()).collection("Events").document(id);
@@ -177,15 +176,6 @@ public class EventDetailActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.setProgress(0);
-                                }
-                            }, 500);
-                            Toast.makeText(EventDetailActivity.this, "Upload successful"
-                                    , Toast.LENGTH_LONG).show();
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -200,6 +190,8 @@ public class EventDetailActivity extends AppCompatActivity {
                                             });
                                 }
                             });
+                            Toast.makeText(EventDetailActivity.this, "Upload successful"
+                                    , Toast.LENGTH_LONG).show();
                             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -222,13 +214,6 @@ public class EventDetailActivity extends AppCompatActivity {
                         public void onFailure(@NonNull Exception e) {
                             Toast.makeText(EventDetailActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                            double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                            progressBar.setProgress((int) progress);
-                        }
                     });
             finishActivity();
         }else{
@@ -249,8 +234,8 @@ public class EventDetailActivity extends AppCompatActivity {
                     }
                 }
             });
-            finishActivity();
         }
+        finishActivity();
     }
 
     private void finishActivity(){
@@ -259,13 +244,21 @@ public class EventDetailActivity extends AppCompatActivity {
             HabitEvent e = h.getEventFromUid(event);
             Intent returnIntent = new Intent();
             returnIntent.putExtra("event", e.getUid());
-            returnIntent.putExtra("imageUri", returnUri);
+            returnIntent.putExtra("imageUri", returnUri.toString().trim());
             returnIntent.putExtra("des", editText.getText().toString());
             setResult(RESULT_OK, returnIntent);
             finish();
         }
         else{
             Log.d("debugInfo", "imageUri is null");
+            Habit h = MainActivity.getUser().getHabitFromUid(habitId);
+            HabitEvent e = h.getEventFromUid(event);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("event", e.getUid());
+            returnIntent.putExtra("imageUri", "0");
+            returnIntent.putExtra("des", editText.getText().toString());
+            setResult(RESULT_OK, returnIntent);
+            finish();
         }
     }
 

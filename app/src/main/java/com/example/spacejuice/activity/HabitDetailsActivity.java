@@ -259,9 +259,15 @@ This Activity is used to edit a habit
             int eventId = data.getExtras().getInt("event");
             String des = data.getExtras().getString("des");
             String stringUri = data.getExtras().getString("imageUri");
-            HabitEvent e = habit.getEventFromUid(eventId);
-            e.setDescription(des);
-            e.setImage(stringUri);
+            if(stringUri.equals("0")){
+                HabitEvent e = habit.getEventFromUid(eventId);
+                e.setDescription(des);
+            }
+            else {
+                HabitEvent e = habit.getEventFromUid(eventId);
+                e.setDescription(des);
+                e.setImage(stringUri);
+            }
             refreshData();
         }
     }
