@@ -1,11 +1,16 @@
 package com.example.spacejuice.activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
@@ -45,12 +50,15 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 //public class HabitDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 public class HabitDetailsActivity extends AppCompatActivity {
@@ -246,6 +254,28 @@ This Activity is used to edit a habit
         intent.putExtra("eventId", event.getEventId());
         intent.putExtra("habitId", habit.getUid());
         startActivity(intent);
+        intent.putExtra("event",event.getUid());
+        intent.putExtra("habitId",habit.getUid());
+        startActivityForResult(intent, 10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                double longitude = data.getDoubleExtra("longitude", 0.00);
+                double latitude = data.getDoubleExtra("latitude", 0.00);
+                int eventUid = data.getIntExtra("eventUid", -1);
+                HabitEvent event = habit.getEventFromUid(eventUid);
+                Log.d("debugInfo", "HabitDetailActivity onActivityResult: longitude:" + longitude + " latitude: " + latitude);
+                event.setLocation(latitude, longitude);
+                HabitEventController.editEventGps(habit, event, latitude, longitude);
+                refreshData();
+
+            }
+        }
+
     }
 
     public void refreshData() {

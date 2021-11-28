@@ -157,6 +157,46 @@ public class HabitEventController {
             }
         });
     }
+
+    public static void editEventGps(Habit habit, HabitEvent habitEvent, double la, double lo) {
+        // adds a HabitEvent to the array of events contained by a Habit
+        habitEvent.setLocation(la, lo);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        int uid = habit.getUid();
+        Query habitQuery =
+                db.collection("Members").document(MainActivity.getUser()
+                        .getMemberName()).collection("Habits")
+                        .whereEqualTo("ID", uid);
+        Task<QuerySnapshot> habitQueryTask = habitQuery.get();
+        habitQueryTask.addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {    //get the document with the proper habit uID
+                DocumentReference habitRef = Objects.requireNonNull(habitQueryTask
+                        .getResult()).getDocuments().get(0).getReference();
+                DocumentReference eventDocRef;
+                //eventDocRef = habitRef.collection("Events").document(String.valueOf(habitEvent.getEventId()));
+                String id = getDocumentIdString(habitEvent);
+                eventDocRef = habitRef.collection("Events").document(id);
+                eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("Location", new GeoPoint(la, lo));
+                            eventDocRef.update(data)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Log.d("debugInfo", "Habit event has been edited successfully");
+                                            LoginController.updateMaxID();
+                                        }
+                                    });
+                        }
+                    }
+                });
+            }
+        });
+    }
     /**
      * loads habit events from Firebase for each habit
      * @param habit

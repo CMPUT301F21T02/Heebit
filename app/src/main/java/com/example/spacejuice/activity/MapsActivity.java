@@ -42,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button addButton;
     private Button cancelButton;
     private LatLng marker;
+    private boolean isEdit;
+    private int eventUid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         marker = null;
@@ -51,6 +53,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        Bundle extra = getIntent().getExtras();
+        if (extra != null){
+            eventUid = extra.getInt("eventUid");
+            isEdit = true;
+        }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         addButton = findViewById(R.id.add_maps);
         cancelButton = findViewById(R.id.cancel_maps);
@@ -69,6 +76,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     intent.putExtra("longitude", marker.longitude);
                     Log.d("debugInfo", "Pass latitude: " + String.valueOf(marker.latitude));
                     intent.putExtra("latitude", marker.latitude);
+                    if (isEdit){
+                        intent.putExtra("eventUid", eventUid);
+                    }
                     setResult(RESULT_OK, intent);
                     finish();
                 }
@@ -217,6 +227,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     intent.putExtra("longitude",lastKnownLocation.getLongitude());
                                     Log.d("debugInfo", "Pass latitude: " + String.valueOf(lastKnownLocation.getLatitude()));
                                     intent.putExtra("latitude", lastKnownLocation.getLatitude());
+                                    if (isEdit){
+                                        intent.putExtra("eventUid", eventUid);
+                                    }
                                     setResult(RESULT_OK, intent);
                                     finish();
                                 }
