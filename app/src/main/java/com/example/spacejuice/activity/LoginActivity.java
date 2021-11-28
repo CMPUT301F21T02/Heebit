@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onHabitsComplete(boolean suc) {
                                     Log.d("debugInfoLogin", "LoginActivity login - onHabitsComplete(true) received");
-                                    HabitEventController.generateMissedEvents(LoginActivity.this);
+                                    HabitEventController.generateMissedEvents(LoginActivity.this, true);
                                     loadingDialog.dismissDialog();
                                 }
                             });
