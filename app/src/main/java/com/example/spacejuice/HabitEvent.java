@@ -3,11 +3,7 @@ package com.example.spacejuice;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
-import android.media.Image;
-import android.telephony.CarrierConfigManager;
-import android.util.Log;
 
-import com.example.spacejuice.activity.gpsActivity;
 import com.example.spacejuice.controller.TimeController;
 
 import java.io.IOException;
