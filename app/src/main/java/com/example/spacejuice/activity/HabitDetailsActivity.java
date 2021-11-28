@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
@@ -256,7 +257,11 @@ This Activity is used to edit a habit
         {
             Log.d("debugInfo", "the event detail activity end ");
             int eventId = data.getExtras().getInt("event");
-
+            String des = data.getExtras().getString("des");
+            String stringUri = data.getExtras().getString("imageUri");
+            HabitEvent e = habit.getEventFromUid(eventId);
+            e.setDescription(des);
+            e.setImage(stringUri);
             refreshData();
         }
     }

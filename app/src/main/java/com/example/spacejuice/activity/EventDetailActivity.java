@@ -60,6 +60,7 @@ public class EventDetailActivity extends AppCompatActivity {
     private Button uploadImage;
     private Bitmap photo;
     Uri imageUri;
+    Uri returnUri;
 
     int habitId;
     int event;
@@ -135,6 +136,7 @@ public class EventDetailActivity extends AppCompatActivity {
             Log.d(TAG, "The start event");
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
+            returnUri = imageUri;
         }
 
         if(requestCode == 100 && resultCode == RESULT_OK)
@@ -143,6 +145,7 @@ public class EventDetailActivity extends AppCompatActivity {
             photo = (Bitmap) data.getExtras().get("data");
             imageUri = getImageUri(EventDetailActivity.this, photo);
             imageView.setImageBitmap(photo);
+            returnUri = imageUri;
         }
     }
 
@@ -251,12 +254,19 @@ public class EventDetailActivity extends AppCompatActivity {
     }
 
     private void finishActivity(){
-        Habit h = MainActivity.getUser().getHabitFromUid(habitId);
-        HabitEvent e = h.getEventFromUid(event);
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("event",e.getUid());
-        setResult(RESULT_OK, returnIntent);
-        finish();
+        if(returnUri != null) {
+            Habit h = MainActivity.getUser().getHabitFromUid(habitId);
+            HabitEvent e = h.getEventFromUid(event);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("event", e.getUid());
+            returnIntent.putExtra("imageUri", returnUri);
+            returnIntent.putExtra("des", editText.getText().toString());
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        }
+        else{
+            Log.d("debugInfo", "imageUri is null");
+        }
     }
 
 }
