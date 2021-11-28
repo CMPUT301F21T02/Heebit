@@ -19,6 +19,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,7 +50,7 @@ import java.util.Map;
 //todo add call back
 public class EventDetailActivity extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
-    Button back;
+    ImageButton back;
     Button confirm;
     Button editImage;
     Button takePhoto;
@@ -88,61 +89,13 @@ public class EventDetailActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                finishActivity();
             }
         });
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                //e.setDescription(editText.getText().toString());
-//                Log.d("debugInfo", "into upload");
-//                //Habit h = MainActivity.getUser().getHabitFromUid(habitId);
-//                Log.d("debugInfo", "into upload"+ habitId);
-//                //HabitEvent e = h.getEventFromUid(event);
-//                e.setDescription(editText.getText().toString());
-//                Log.d("debugInfo", "into upload"+ event);
-//                DocumentReference documentReference = FirebaseFirestore.getInstance().collection("Members")
-//                        .document(MainActivity.getUser().getMemberName())
-//                        .collection("Habits").document(h.getTitle());
-//                documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            // if this name exist
-//                            if (document.exists()) {
-//                                U = document.getString("url");
-//                                Log.d("debugInfo", "new image uri: u " + U);
-//                                // then check url
-//                                if (U != null){
-//                                    e.setImage(U);
-//                                    documentReference.update("url",null);
-//                                    Log.d("debugInfo", "new image uri: u " + U);
-//                                }
-//                            }
-//                        }
-//                    }
-//                });
-//                Log.d("debugInfo", "new image uri: e.getImage " + e.getImage());
-//                String id = String.valueOf(e.getEventId());
-//                DocumentReference eventDocumentReference =documentReference.collection("Events")
-//                        .document(id);
-//                eventDocumentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            Log.d("debugInfo", "Task successful");
-//                            DocumentSnapshot document = task.getResult();
-//                            // if this name exist
-//                            if (document.exists()) {
-//                                Log.d("debugInfo", "document exist");
-//                                eventDocumentReference.update("Url",e.getImage());
-//                                eventDocumentReference.update("Description", editText.getText().toString());
-//                            }
-//                        }
-//                    }
-//                });
                 uploadFile();
             }
         });
@@ -233,6 +186,7 @@ public class EventDetailActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String url = uri.toString();
+                                    e.setImage(url);
                                     documentReference.update("Url",url)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
@@ -252,13 +206,11 @@ public class EventDetailActivity extends AppCompatActivity {
                                         if (document.exists()) {
                                             Log.d("debugInfo", "document exist");
                                             documentReference.update("Description", editText.getText().toString());
+                                            e.setDescription(editText.getText().toString());
                                         }
                                     }
                                 }
                             });
-
-
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -273,14 +225,14 @@ public class EventDetailActivity extends AppCompatActivity {
                             double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
                             progressBar.setProgress((int) progress);
                         }
-                    })
-            ;
+                    });
+            finishActivity();
         }else{
             Toast.makeText(EventDetailActivity.this, "Upload successful"
                     , Toast.LENGTH_LONG).show();
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                public void onComplete(@NonNull Task<DocumentSnapshot> task){
                     if (task.isSuccessful()) {
                         Log.d("debugInfo", "Task successful");
                         DocumentSnapshot document = task.getResult();
@@ -288,11 +240,22 @@ public class EventDetailActivity extends AppCompatActivity {
                         if (document.exists()) {
                             Log.d("debugInfo", "document exist");
                             documentReference.update("Description", editText.getText().toString());
+                            e.setDescription(editText.getText().toString());
                         }
                     }
                 }
             });
+            finishActivity();
         }
+    }
+
+    private void finishActivity(){
+        Habit h = MainActivity.getUser().getHabitFromUid(habitId);
+        HabitEvent e = h.getEventFromUid(event);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("event",e.getUid());
+        setResult(RESULT_OK, returnIntent);
+        finish();
     }
 
 }

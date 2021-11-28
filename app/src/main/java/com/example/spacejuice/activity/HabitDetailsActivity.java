@@ -1,10 +1,13 @@
 package com.example.spacejuice.activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -218,6 +221,7 @@ This Activity is used to edit a habit
             @Override
             public void onClick(View v) {
                 finish();
+
             }
         });
 
@@ -240,11 +244,22 @@ This Activity is used to edit a habit
         Intent intent = new Intent(HabitDetailsActivity.this, EventDetailActivity.class);
         intent.putExtra("event",event.getUid());
         intent.putExtra("habitId",habit.getUid());
-        startActivity(intent);
+        startActivityForResult(intent,10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10 && resultCode == RESULT_OK)
+        {
+            Log.d("debugInfo", "the event detail activity end ");
+            int eventId = data.getExtras().getInt("event");
+
+            refreshData();
+        }
     }
 
     public void refreshData() {
-
         Schedule currentSchedule = habit.getSchedule();
         indicatorImage.setBackground(AppCompatResources.getDrawable(this, habit.getIndicator().getImage()));
         level.setText(habit.getIndicator().getIndicatorText());
@@ -306,8 +321,8 @@ This Activity is used to edit a habit
         }
 
 
-
         /* updates the list of Habits */
+
         ArrayList<HabitEvent> habitEventListItems = HabitController.getHabitEvents(habit);
 
         HabitEventAdapter habitEventAdapter = new HabitEventAdapter(this, R.layout.habit_event_content, habitEventListItems);
