@@ -57,12 +57,9 @@ public class MyProfileActivity extends AppCompatActivity{
        user_name = findViewById(R.id.userName);
        back_button = findViewById(R.id.backButtonMyProfile);
 
-       //exploreButton = findViewById(R.id.discoverButton);
        go_to_requests = findViewById(R.id.requestsButton);
        followingCount = findViewById(R.id.followingCount);
-       followingText = findViewById(R.id.following);
        followersCount = findViewById(R.id.followersCount);
-       followersText = findViewById(R.id.followers);
        followerCard = findViewById(R.id.followerCard);
        followingCard = findViewById(R.id.followingCard);
        requestCard = findViewById(R.id.RequestCard);
@@ -80,7 +77,6 @@ public class MyProfileActivity extends AppCompatActivity{
             openFollowRequestActivity();
          }
       });
-
       // back button
       back_button.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -89,38 +85,10 @@ public class MyProfileActivity extends AppCompatActivity{
          }
 
       });
-
-      // Makes it so that if the user clicks on the following or following count, it goes to the list
-      followingText.setOnClickListener(new View.OnClickListener(){
-         @Override
-         public void onClick(View v) {
-            openFollowingListView();
-         }
-      });
-      followingCount.setOnClickListener(new View.OnClickListener(){
-          @Override
-          public void onClick(View v) {
-              openFollowingListView();
-          }
-      });
        followingCard.setOnClickListener(new View.OnClickListener(){
            @Override
            public void onClick(View v) {
                openFollowingListView();
-           }
-       });
-
-      // same for followers
-       followersText.setOnClickListener(new View.OnClickListener(){
-           @Override
-           public void onClick(View v) {
-               openFollowersListView();
-           }
-       });
-       followersCount.setOnClickListener(new View.OnClickListener(){
-           @Override
-           public void onClick(View v) {
-               openFollowersListView();
            }
        });
        followerCard.setOnClickListener(new View.OnClickListener(){
