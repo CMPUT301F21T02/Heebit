@@ -1,11 +1,17 @@
 package com.example.spacejuice.activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
@@ -45,12 +51,15 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 //public class HabitDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 public class HabitDetailsActivity extends AppCompatActivity {
@@ -220,6 +229,7 @@ This Activity is used to edit a habit
             @Override
             public void onClick(View v) {
                 finish();
+
             }
         });
 
@@ -240,16 +250,34 @@ This Activity is used to edit a habit
         Log.d("debugInfo", String.valueOf(event.getEventId()));
         Log.d("debugInfo", String.valueOf(habit.getUid()));
         Intent intent = new Intent(HabitDetailsActivity.this, EventDetailActivity.class);
-        intent.putExtra("uri", stringUri);
-        intent.putExtra("habit", habit.getTitle());
-        intent.putExtra("event", event.getUid());
-        intent.putExtra("eventId", event.getEventId());
-        intent.putExtra("habitId", habit.getUid());
-        startActivity(intent);
+        intent.putExtra("event",event.getUid());
+        intent.putExtra("habitId",habit.getUid());
+        startActivityForResult(intent,10);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 10 && resultCode == RESULT_OK)
+        {
+            Log.d("debugInfo", "the event detail activity end ");
+            int eventId = data.getExtras().getInt("event");
+            String des = data.getExtras().getString("des");
+            String stringUri = data.getExtras().getString("imageUri");
+            if(stringUri.equals("0")){
+                HabitEvent e = habit.getEventFromUid(eventId);
+                e.setDescription(des);
+            }
+            else {
+                HabitEvent e = habit.getEventFromUid(eventId);
+                e.setDescription(des);
+                e.setImage(stringUri);
+            }
+            refreshData();
+        }
     }
 
     public void refreshData() {
-
         Schedule currentSchedule = habit.getSchedule();
         indicatorImage.setBackground(AppCompatResources.getDrawable(this, habit.getIndicator().getImage()));
         level.setText(habit.getIndicator().getIndicatorText());
@@ -310,8 +338,8 @@ This Activity is used to edit a habit
         }
 
 
-
         /* updates the list of Habits */
+
         ArrayList<HabitEvent> habitEventListItems = HabitController.getHabitEvents(habit);
 
         HabitEventAdapter habitEventAdapter = new HabitEventAdapter(this, R.layout.habit_event_content, habitEventListItems);

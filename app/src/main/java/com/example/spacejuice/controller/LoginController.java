@@ -128,6 +128,9 @@ public class LoginController {
                 }
             });
         }
+        else{
+            callback.onLoginComplete(false);
+        }
 
     }
 

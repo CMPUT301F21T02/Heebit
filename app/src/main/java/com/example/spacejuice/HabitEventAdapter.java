@@ -1,10 +1,16 @@
 package com.example.spacejuice;
 
+import static android.app.Activity.RESULT_OK;
+import static android.content.ContentValues.TAG;
+import static androidx.core.app.ActivityCompat.startActivityForResult;
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,14 +34,18 @@ import androidx.core.content.ContextCompat;
 import com.example.spacejuice.activity.AddHabitEventActivity;
 import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.HabitDetailsActivity;
+import com.example.spacejuice.activity.MapsActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 import com.example.spacejuice.activity.UploadImageActivity;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class HabitEventAdapter extends ArrayAdapter {
     private final ArrayList<HabitEvent> eventItems;
@@ -105,9 +115,19 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.eventDescription.setClickable(false);
         viewHolder.eventDateText.setText(dateText);
         viewHolder.eventDateText.setClickable(false);
+        viewHolder.gpsIcon.setClickable(true);
+        viewHolder.gpsIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MapsActivity.class);
+                int eventUid = eventItems.get(position).getUid();
+                intent.putExtra("eventUid", eventUid);
+                ((Activity) context).startActivityForResult(intent, 1);;
+            }
+        });
         if (eventItems.get(position).getLocation(context).equals("Null")){
             viewHolder.eventLocation.setVisibility(View.INVISIBLE);
-            viewHolder.gpsIcon.setVisibility(View.INVISIBLE);
+            viewHolder.gpsIcon.setVisibility(View.VISIBLE);
         }
         else{
             viewHolder.eventLocation.setText(eventItems.get(position).getLocation(context));
@@ -118,6 +138,8 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventImage.setVisibility(View.INVISIBLE);
             viewHolder.eventImage.setClickable(false);
             viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.DarkGray));
+            viewHolder.gpsIcon.setVisibility(View.INVISIBLE);
+            viewHolder.gpsIcon.setClickable(false);
         } else {
             viewHolder.eventImage.setVisibility(View.VISIBLE);
             viewHolder.eventImage.setClickable(true);
@@ -135,18 +157,26 @@ public class HabitEventAdapter extends ArrayAdapter {
         }else {
             Picasso.get().load(R.drawable.empty_image).into(viewHolder.eventImage);
         }
-        View.OnClickListener goToEventDetails;
+//        View.OnClickListener goToEventDetails;
 
-        goToEventDetails = new View.OnClickListener() {
+        viewHolder.eventImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
                 HabitDetailsActivity inst = (HabitDetailsActivity) context;
                 inst.launchEventDetails(eventItems.get(position),stringUri);
             }
-        };
+        });
+        viewHolder.eventDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
+                HabitDetailsActivity inst = (HabitDetailsActivity) context;
+                inst.launchEventDetails(eventItems.get(position),stringUri);
+            }
+        });
 
-        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
+//        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
         // todo implement click events
         return row;
     }
