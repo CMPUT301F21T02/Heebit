@@ -138,6 +138,8 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventImage.setVisibility(View.INVISIBLE);
             viewHolder.eventImage.setClickable(false);
             viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.DarkGray));
+            viewHolder.gpsIcon.setVisibility(View.INVISIBLE);
+            viewHolder.gpsIcon.setClickable(false);
         } else {
             viewHolder.eventImage.setVisibility(View.VISIBLE);
             viewHolder.eventImage.setClickable(true);
