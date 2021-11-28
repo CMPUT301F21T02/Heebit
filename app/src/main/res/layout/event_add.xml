@@ -15,12 +15,13 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
     -->
 
     <ImageView
+        android:id="@+id/imageView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/profile_background"
         android:alpha="0.75"
         android:contentDescription="@null"
-        android:scaleType="centerCrop">
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile_background">
 
     </ImageView>
     <LinearLayout
@@ -238,6 +239,18 @@ ALL ID FROM THIS FILE WILL CONTAIN "EA" AT THE END
 
         </LinearLayout>
 
+
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/chosen_image"
+        android:layout_width="226dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

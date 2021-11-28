@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,6 +33,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.Date;
@@ -56,6 +59,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
     private boolean hasLocation =  false;
     private TextView habit_gps_title;
     private TextView habit_gps_content;
+    private ImageView imageView;
     Habit currentHabit;
 
     @Override
@@ -76,6 +80,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
         habit_gps_content = findViewById(R.id.habit_gps_value);
         habit_gps_content.setVisibility(View.INVISIBLE);
         habit_gps_title.setVisibility(View.INVISIBLE);
+        imageView = findViewById(R.id.chosen_image);
         /*
             Get the Unique Identifier of the Habit that we are creating an event for
          */
@@ -96,7 +101,6 @@ public class AddHabitEventActivity extends AppCompatActivity {
         /* date formatting retrieved from
         https://stackoverflow.com/questions/17192776/get-value-of-day-month-from-date-object-in-android
          */
-
         String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
         String day          = (String) DateFormat.format("dd",   date); // 20
         String monthString  = (String) DateFormat.format("MMMM",  date); // September
@@ -158,7 +162,7 @@ public class AddHabitEventActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(AddHabitEventActivity.this, UploadImageActivity.class);
                 intent.putExtra("habit",currentHabit.getTitle());
-                startActivity(intent);
+                startActivityForResult(intent,10);
             }
         });
 
@@ -194,6 +198,19 @@ public class AddHabitEventActivity extends AppCompatActivity {
                 habit_gps_content.setText(addresses.get(0).getLocality() + ", " + addresses.get(0).getAdminArea());
             }
         }
-    }
+        if (requestCode == 10) {
+            if (resultCode == RESULT_OK) {
+                String stringUri = data.getExtras().getString("Uri");
+                if(stringUri.equals("0")){
+                    Picasso.get().load(R.drawable.empty_image).into(imageView);
+                }
+                else {
+                    Picasso.get().load(Uri.parse(stringUri)).into(imageView);
+                }
+            }
+            }
+        }
+
+
 }
 
