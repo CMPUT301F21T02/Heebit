@@ -275,6 +275,19 @@ This Activity is used to edit a habit
             }
             refreshData();
         }
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                double longitude = data.getDoubleExtra("longitude", 0.00);
+                double latitude = data.getDoubleExtra("latitude", 0.00);
+                int eventUid = data.getIntExtra("eventUid", -1);
+                HabitEvent event = habit.getEventFromUid(eventUid);
+                Log.d("debugInfo", "HabitDetailActivity onActivityResult: longitude:" + longitude + " latitude: " + latitude);
+                event.setLocation(latitude, longitude);
+                HabitEventController.editEventGps(habit, event, latitude, longitude);
+                refreshData();
+
+            }
+        }
     }
 
     public void refreshData() {
