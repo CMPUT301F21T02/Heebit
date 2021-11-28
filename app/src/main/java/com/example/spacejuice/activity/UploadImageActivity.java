@@ -251,18 +251,15 @@ public class UploadImageActivity extends AppCompatActivity {
     }
 
     private void finishA(){
+        Intent returnIntent = new Intent();
         if(returnUri != null) {
-            Intent returnIntent = new Intent();
             returnIntent.putExtra("Uri",returnUri );
-            setResult(RESULT_OK, returnIntent);
-            finish();
         }
         else{
-            Intent returnIntent = new Intent();
             returnIntent.putExtra("Uri","0" );
-            setResult(RESULT_OK, returnIntent);
-            finish();
         }
+        setResult(RESULT_OK, returnIntent);
+        finish();
 
     }
 
