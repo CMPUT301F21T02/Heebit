@@ -157,18 +157,26 @@ public class HabitEventAdapter extends ArrayAdapter {
         }else {
             Picasso.get().load(R.drawable.empty_image).into(viewHolder.eventImage);
         }
-        View.OnClickListener goToEventDetails;
+//        View.OnClickListener goToEventDetails;
 
-        goToEventDetails = new View.OnClickListener() {
+        viewHolder.eventImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
                 HabitDetailsActivity inst = (HabitDetailsActivity) context;
                 inst.launchEventDetails(eventItems.get(position),stringUri);
             }
-        };
+        });
+        viewHolder.eventDescription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
+                HabitDetailsActivity inst = (HabitDetailsActivity) context;
+                inst.launchEventDetails(eventItems.get(position),stringUri);
+            }
+        });
 
-        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
+//        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToEventDetails);
         // todo implement click events
         return row;
     }

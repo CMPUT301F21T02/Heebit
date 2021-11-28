@@ -51,6 +51,7 @@ public class HabitController {
 
     /**
      * Can add a habit
+     *
      * @param habit
      */
 
@@ -196,6 +197,7 @@ public class HabitController {
 
     /**
      * returns list
+     *
      * @return habitList
      */
     public static ArrayList<Habit> getHabitListItems() {
@@ -204,7 +206,8 @@ public class HabitController {
     }
 
     /**
-     *gets habit events
+     * gets habit events
+     *
      * @param habit
      * @return events
      */
@@ -215,7 +218,8 @@ public class HabitController {
     }
 
     /**
-     *get habit from UID
+     * get habit from UID
+     *
      * @param uid
      * @return habit
      */
@@ -226,8 +230,10 @@ public class HabitController {
         habit = MainActivity.getUser().getHabitFromUid(uid);
         return habit;
     }
+
     /**
      * updates habit
+     *
      * @param habit
      */
     public static void updateHabit(Habit habit) {
@@ -276,8 +282,10 @@ public class HabitController {
             }
         });
     }
+
     /**
      * deletes habit
+     *
      * @param habit
      */
     public static void deleteHabit(Habit habit) {
@@ -399,5 +407,52 @@ public class HabitController {
                 }
             }
         }
+    }
+
+    public static int getHabitStreak(Habit habit) {
+        ArrayList<HabitEvent> events = habit.getEvents();
+        int size = events.size();
+        int streak = 0;
+        boolean successStreak = false;
+        if (size == 0) {
+            return 0;
+        }
+        if (size == 1) {
+            if (events.get(0).isDone()) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+        // start the streak off with the last event
+        if (events.get(size - 1).isDone()) {
+            streak = 1;
+            successStreak = true;
+        } else {
+            streak = -1;
+        }
+
+        // if streak is a success streak
+        if (successStreak) {
+            for (int i = size - 2; i >= 0; i--) {
+                boolean currEventDone = events.get(i).isDone();
+                if (currEventDone) {
+                    streak++;
+                } else {
+                    return streak;
+                }
+            }
+        } else {
+            for (int i = size - 2; i >= 0; i--) {
+                boolean currEventDone = events.get(i).isDone();
+                if (!currEventDone) {
+                    streak--;
+                } else {
+                    return streak;
+                }
+            }
+        }
+        return streak;
     }
 }

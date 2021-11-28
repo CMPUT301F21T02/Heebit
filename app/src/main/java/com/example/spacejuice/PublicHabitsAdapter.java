@@ -1,6 +1,7 @@
 package com.example.spacejuice;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
+
+import com.example.spacejuice.controller.HabitController;
 
 import java.util.ArrayList;
 
@@ -35,6 +38,13 @@ public class PublicHabitsAdapter extends ArrayAdapter<Habit> {
         name.setText(string);
         level.setBackground(AppCompatResources.getDrawable(context, habits.get(position).getIndicator().getImage()));
         level.setText(habits.get(position).getIndicator().getIndicatorText());
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Habit habit = habits.get(position);
+                Log.d("debugInfo", "success streak for " + habit.getTitle() + " is " + HabitController.getHabitStreak(habit));
+            }
+        });
         return view;
     }
 }

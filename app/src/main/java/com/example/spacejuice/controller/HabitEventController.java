@@ -283,33 +283,42 @@ public class HabitEventController {
      * @param habit
      * @param eventDay
      */
-    public static void addMissedEvent(Habit habit, Calendar eventDay) {
+    public static void addMissedEvent(Habit habit, Calendar eventDay, Boolean updateFirebase) {
         HabitEvent missedEvent = new HabitEvent();
         missedEvent.setDate(eventDay.getTime());
         missedEvent.setDone(false);
         missedEvent.setEventId(MainActivity.getUser().getUniqueID());
-        HabitEventController.addHabitEvent(habit, missedEvent);
+        if (updateFirebase) {
+            addHabitEvent(habit, missedEvent);
+        } else {
+            addHabitEventLocal(habit, missedEvent);
+        }
     }
 
     /**
      * makes missed events
      * @param context
+     * @param updateFirebase true if missed events are generated online, false if locally only
      */
-    public static void generateMissedEvents(Context context) {
+    public static void generateMissedEvents(Context context, boolean updateFirebase) {
 
         Member user = MainActivity.getUser();
         int size = user.getHabitListItems().size();
         Log.d("debugInfoLogin", "HabitEventController.generateMissedEvents - initialized..");
         for (Habit h : user.getHabitListItems()) {
-            generateHabitMissedEvents(h);
+            generateHabitMissedEvents(h, updateFirebase);
         }
-        ((LoginActivity) context).finishLogin();
+        if (context.getClass() == LoginActivity.class) {
+            ((LoginActivity) context).finishLogin();
+        }
     }
+
     /**
      * calculates the missed habits according to midnight calculation
      * @param habit
+     * @param updateFirebase true if missed events are generated online, false if locally only
      */
-    public static void generateHabitMissedEvents(Habit habit) {
+    public static void generateHabitMissedEvents(Habit habit, boolean updateFirebase) {
         Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - intialized for " + habit.getTitle());
         Member user = MainActivity.getUser();
         Calendar dateIterator = Calendar.getInstance();      //iterator used to generated missed events day by day
@@ -337,7 +346,7 @@ public class HabitEventController {
             if (habit.getSchedule().checkScheduleDay(dayOfWeek)) {
                 if (!HabitController.completedOnDay(habit, dateIterator)) {
                     Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - ** MISSED EVENT GENERATED ** for " + habit.getTitle() + " on " + (dateIterator.getTime()).toString());
-                    addMissedEvent(habit, dateIterator);
+                    addMissedEvent(habit, dateIterator, updateFirebase);
                 } else {
                     Log.d("debugInfoLogin", "HabitEventController.generateHabitMissedEvents() - " + habit.getTitle() + " was completed on day of week #" + (dateIterator.get(Calendar.DAY_OF_WEEK)));
                 }
@@ -352,12 +361,13 @@ public class HabitEventController {
         for (; dateIterator.getTimeInMillis() < currentDate.getTimeInMillis(); dateIterator.add(Calendar.DATE, 1)) {
             int dayOfWeek = dateIterator.get(Calendar.DAY_OF_WEEK);
             if (habit.getSchedule().checkScheduleDay(dayOfWeek)) {
-                addMissedEvent(habit, dateIterator);
+                addMissedEvent(habit, dateIterator, updateFirebase);
             }
 
         }
 
     }
+
     /**
      * gets idString
      * @param event

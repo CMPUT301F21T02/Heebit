@@ -32,6 +32,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
+import com.example.spacejuice.Habit;
+import com.example.spacejuice.HabitEvent;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 
@@ -72,6 +74,7 @@ public class UploadImageActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private Uri imageUri;
+    private Uri returnUri;
     private StorageReference storageReference;
     private DocumentReference documentReference;
     private StorageTask uploadTask;
@@ -166,6 +169,7 @@ public class UploadImageActivity extends AppCompatActivity {
             Log.d(TAG, "The start event");
             imageUri = data.getData();
             imageView.setImageURI(imageUri);
+            returnUri = imageUri;
         }
 
         if(requestCode == 100 && resultCode == RESULT_OK)
@@ -174,8 +178,8 @@ public class UploadImageActivity extends AppCompatActivity {
             photo = (Bitmap) data.getExtras().get("data");
             imageUri = getImageUri(UploadImageActivity.this, photo);
             imageView.setImageBitmap(photo);
+            returnUri = imageUri;
         }
-
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
@@ -240,10 +244,26 @@ public class UploadImageActivity extends AppCompatActivity {
                             progressBar.setProgress((int) progress);
                         }
                     });
+            finishA();
         }else{
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void finishA(){
+        Intent returnIntent = new Intent();
+        if(returnUri != null) {
+            returnIntent.putExtra("Uri",returnUri.toString().trim() );
+        }
+        else{
+            returnIntent.putExtra("Uri","0" );
+        }
+        setResult(RESULT_OK, returnIntent);
+        finish();
+
+    }
+
+
 
 
 
