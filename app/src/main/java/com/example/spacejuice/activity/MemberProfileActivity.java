@@ -92,7 +92,7 @@ public class MemberProfileActivity extends AppCompatActivity {
                        }
                    });
 
-                   followController.findPublicHabits(memberName, new LoginController.OnGetPublicHabitsCallback(){
+                   followController.findPublicHabits(memberName, MemberProfileActivity.this, new LoginController.OnGetPublicHabitsCallback(){
                        @Override
                        public void onPublicHabitsComplete(boolean suc) {
                            publicHabits = followController.getPublicHabits();

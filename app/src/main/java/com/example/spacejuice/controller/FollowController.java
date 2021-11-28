@@ -1,5 +1,6 @@
 package com.example.spacejuice.controller;
 
+import android.content.Context;
 import android.os.CountDownTimer;
 import android.util.Log;
 
@@ -8,6 +9,8 @@ import androidx.annotation.NonNull;
 import com.example.spacejuice.Habit;
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.Member;
+import com.example.spacejuice.activity.LoginActivity;
+import com.example.spacejuice.activity.MemberProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -367,7 +370,7 @@ public class FollowController {
      * @param memberName
      * @param callback
      */
-    public void findPublicHabits(String memberName, final LoginController.OnGetPublicHabitsCallback callback){
+    public void findPublicHabits(String memberName, Context context, final LoginController.OnGetPublicHabitsCallback callback){
         publicHabits = new ArrayList<>();
 
         Query query = db.collection("Members").document(memberName).collection("Habits")
@@ -381,7 +384,7 @@ public class FollowController {
                     callback.onPublicHabitsComplete(true);
                 } else {
                     Log.d("message", "is not empty");
-                        loadEvents(querySnapshot, memberName, new LoginController.OnLoadEventsCallback(){
+                        loadEvents(querySnapshot, memberName, context, new LoginController.OnLoadEventsCallback(){
                             @Override
                             public void onLoadEventsComplete(boolean suc) {
                                 callback.onPublicHabitsComplete(true);
@@ -439,7 +442,7 @@ public class FollowController {
         });
     }
 
-    public void loadEvents(QuerySnapshot querySnapshot, String memberName, final LoginController.OnLoadEventsCallback callback){
+    public void loadEvents(QuerySnapshot querySnapshot, String memberName, Context context, final LoginController.OnLoadEventsCallback callback){
         for (DocumentSnapshot document : querySnapshot.getDocuments()) {
             Habit habit = new Habit(document.getId(), document.getString("Reason"), 0);
             int uid = Integer.valueOf(document.get("ID").toString());
@@ -449,7 +452,7 @@ public class FollowController {
                 public void onHabitEventsComplete(Boolean success) {
                     if (success) {
                         Log.d("message", "being read");
-                        HabitController.calculateScore(habit);
+                        HabitEventController.generateMissedEvents(context, false);
                         publicHabits.add(habit);
                         callback.onLoadEventsComplete(true);
                     }
