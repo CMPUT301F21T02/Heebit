@@ -253,7 +253,7 @@ public class UploadImageActivity extends AppCompatActivity {
     private void finishA(){
         Intent returnIntent = new Intent();
         if(returnUri != null) {
-            returnIntent.putExtra("Uri",returnUri );
+            returnIntent.putExtra("Uri",returnUri.toString().trim() );
         }
         else{
             returnIntent.putExtra("Uri","0" );
