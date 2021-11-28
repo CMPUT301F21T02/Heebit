@@ -2,6 +2,7 @@ package com.example.spacejuice.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,6 +44,7 @@ public class MemberProfileActivity extends AppCompatActivity {
    private ListView displayHabits;
    private String memberName;
    private Member account;
+   private View notFollowing;
 
 
    private FirebaseFirestore db;
@@ -111,11 +113,13 @@ public class MemberProfileActivity extends AppCompatActivity {
                    Log.d("message", "is not following");
                    TextView HabitText = findViewById(R.id.textViewMPA);
                    HabitText.setText(R.string.mustFollowToViewHabits);
+                   notFollowing = findViewById(R.id.notFollowing);
+                   notFollowing.setVisibility(View.VISIBLE);
                    loadingDialog.dismissDialog();
                    AlertDialog.Builder builder = new AlertDialog.Builder(MemberProfileActivity.this);
                    builder.setMessage("Must Follow to View Their Public Habits, Do You Wish to Follow?")
                            .setNegativeButton("Cancel", null)
-                           .setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                           .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                @Override
                                public void onClick(DialogInterface dialogInterface, int x) {
                                    followController.sendRequest(memberName, new LoginController.OnRequestCompleteCallback() {

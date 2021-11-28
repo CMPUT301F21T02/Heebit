@@ -12,12 +12,12 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
 
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/memberProfileAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/memberProfileAppBar"
 
         android:theme="@style/Theme.SpaceJuice.AppBarOverlay"
-        app:layout_constraintBottom_toTopOf="@+id/MemberProfileLL"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints"
@@ -70,27 +70,31 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
 
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/MemberProfileLL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/memberProfileAppBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_marginBottom="180dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/memberProfileAppBar">
+
         <TextView
-            android:layout_marginTop="15dp"
             android:id="@+id/textViewMPA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
             android:fontFamily="@font/lato_black"
             android:text="Habits"
-            android:layout_gravity="center_horizontal"
             android:textSize="25sp"
-            />
+            android:textColor="@color/Gray"/>
+
         <ListView
             android:id="@+id/followingHabitsMPA"
             android:layout_width="match_parent"
@@ -100,13 +104,23 @@ ALL ID FROM THIS FILE WILL CONTAIN "MPA" AT THE END
             android:dividerHeight="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:textSize="24sp"
-            />
+            android:textSize="24sp" />
 
 
     </LinearLayout>
-
-
+    <ImageView
+        android:id="@+id/notFollowing"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4"
+        app:srcCompat="@drawable/warning"
+        app:tint="@color/Gray"
+        android:visibility="invisible"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

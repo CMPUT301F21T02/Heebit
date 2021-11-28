@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--follower_content.xml
-This is the xml for the content of following_activity.xml
-could potentially use the same format for member_profile_activity.xml
-ALL ID FROM THIS FILE WILL CONTAIN "FC1" AT THE END
--->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="60dp"
+    app:cardCornerRadius="16dp"
+    android:backgroundTint="@color/MediumPurple"
+    android:layout_margin="8dp">
 
     <!--Names
     ID: nameTextFC1
@@ -21,8 +21,7 @@ ALL ID FROM THIS FILE WILL CONTAIN "FC1" AT THE END
         android:padding="10dp"
         android:text="Example Name"
         android:textSize="30sp"
-        android:fontFamily="@font/lato_black"
-        android:textColor="@color/White"/>
+        android:textColor="@color/GhostWhite"/>
 
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>
