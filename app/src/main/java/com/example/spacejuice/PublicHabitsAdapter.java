@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class PublicHabitsAdapter extends ArrayAdapter<Habit> {
         TextView name = view.findViewById(R.id.habit_textPHC);
         TextView level = view.findViewById(R.id.habit_content_habit_levelPHC);
         name.setText(string);
+        level.setBackground(AppCompatResources.getDrawable(context, habits.get(position).getIndicator().getImage()));
         level.setText(habits.get(position).getIndicator().getIndicatorText());
         return view;
     }

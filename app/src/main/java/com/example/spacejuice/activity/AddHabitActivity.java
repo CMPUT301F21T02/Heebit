@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -11,6 +12,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -67,26 +69,34 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
             public void onClick(View view) {
                 NameEdit = findViewById(R.id.HabitNameHAE);
                 name = NameEdit.getText().toString();  //get the name
-                ReasonEdit = findViewById(R.id.HabitReasonHAE);
-                reason = ReasonEdit.getText().toString(); //Get the Description
-                Monday = findViewById(R.id.Monday);
-                Tuesday = findViewById(R.id.Tuesday);
-                Wednesday = findViewById(R.id.Wednesday);
-                Thursday = findViewById(R.id.Thursday);
-                Friday = findViewById(R.id.Friday);
-                Saturday = findViewById(R.id.Saturday);
-                Sunday = findViewById(R.id.Sunday);
-                habitPrivate = findViewById(R.id.private_checkbox);
-                schedule = new Schedule(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
-                        Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
-                habitReturn = new Habit(name, reason, -1);
-                habitReturn.setStartDate(date);
-                habitReturn.setSchedule(schedule);
-                habitReturn.setPrivacy(habitPrivate.isChecked());
-                HabitController.addHabit(habitReturn);
-                Intent resultIntent = new Intent();
-                setResult(Activity.RESULT_OK, resultIntent);
-                finish();
+                if (!name.matches("")) {
+                    Log.d("debugInfo", "name != null");
+
+                    ReasonEdit = findViewById(R.id.HabitReasonHAE);
+                    reason = ReasonEdit.getText().toString(); //Get the Description
+                    Monday = findViewById(R.id.Monday);
+                    Tuesday = findViewById(R.id.Tuesday);
+                    Wednesday = findViewById(R.id.Wednesday);
+                    Thursday = findViewById(R.id.Thursday);
+                    Friday = findViewById(R.id.Friday);
+                    Saturday = findViewById(R.id.Saturday);
+                    Sunday = findViewById(R.id.Sunday);
+                    habitPrivate = findViewById(R.id.private_checkbox);
+                    schedule = new Schedule(Sunday.isChecked(), Monday.isChecked(), Tuesday.isChecked(),
+                            Wednesday.isChecked(), Thursday.isChecked(), Friday.isChecked(), Saturday.isChecked());
+                    habitReturn = new Habit(name, reason, -1);
+                    habitReturn.setStartDate(date);
+                    habitReturn.setSchedule(schedule);
+                    habitReturn.setPrivacy(habitPrivate.isChecked());
+                    HabitController.addHabit(habitReturn);
+                    Intent resultIntent = new Intent();
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                } else {
+                    Log.d("debugInfo", "name IS null");
+                    Toast.makeText(AddHabitActivity.this, "Habit must have name", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -117,7 +127,7 @@ public class AddHabitActivity extends AppCompatActivity implements View.OnClickL
                         cal.set(Calendar.MONTH, monthOfYear);
                         cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                         date = cal.getTime();
-                        SelectedDate.setText(getString(R.string.dateString, year, monthOfYear+1, dayOfMonth));
+                        SelectedDate.setText(getString(R.string.dateString, year, monthOfYear + 1, dayOfMonth));
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();

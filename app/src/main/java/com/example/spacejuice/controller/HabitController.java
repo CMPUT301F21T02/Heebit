@@ -41,9 +41,18 @@ import javax.security.auth.callback.Callback;
 
 public class HabitController {
 
+    /**
+     * @param habit
+     */
+
     public static void addLocalHabit(Habit habit) {
         MainActivity.getUser().addHabit(habit);
     }
+
+    /**
+     * Can add a habit
+     * @param habit
+     */
 
     public static void addHabit(Habit habit) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -185,15 +194,31 @@ public class HabitController {
         void onHabitEventsComplete(Boolean success);
     }
 
+    /**
+     * returns list
+     * @return habitList
+     */
     public static ArrayList<Habit> getHabitListItems() {
         ArrayList<Habit> habitList = MainActivity.getUser().getHabitListItems();
         return habitList;
     }
 
+    /**
+     *gets habit events
+     * @param habit
+     * @return events
+     */
+
     public static ArrayList<HabitEvent> getHabitEvents(Habit habit) {
         ArrayList<HabitEvent> events = habit.getEvents();
         return events;
     }
+
+    /**
+     *get habit from UID
+     * @param uid
+     * @return habit
+     */
 
     public static Habit getHabitFromUid(int uid) {
         /*     retrieve a habit from a unique id     */
@@ -201,7 +226,10 @@ public class HabitController {
         habit = MainActivity.getUser().getHabitFromUid(uid);
         return habit;
     }
-
+    /**
+     * updates habit
+     * @param habit
+     */
     public static void updateHabit(Habit habit) {
         Member user = MainActivity.getUser();
         long uid = habit.getUidLong();
@@ -248,7 +276,10 @@ public class HabitController {
             }
         });
     }
-
+    /**
+     * deletes habit
+     * @param habit
+     */
     public static void deleteHabit(Habit habit) {
         Member user = MainActivity.getUser();
         if (user.getHabitListItems().contains(habit)) {

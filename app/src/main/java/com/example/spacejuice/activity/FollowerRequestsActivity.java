@@ -31,8 +31,6 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    private ListView followerList;
    private FollowRequestAdapter followRequestAdapter;
    private ArrayList<Member> requestingMembers;
-   private EditText requestName;
-   private Button send;
    private FollowController followController;
 
 
@@ -71,40 +69,11 @@ public class FollowerRequestsActivity extends AppCompatActivity {
       back_button.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+            setResult(RESULT_OK, null);
             finish();
          }
       });
-      requestName = findViewById(R.id.requestingName);
-      send = findViewById(R.id.sendRequestButton);
-      send.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-            if(!requestName.getText().toString().matches("")){
-               FollowController followController = new FollowController();
-               followController.sendRequest(requestName.getText().toString(), new LoginController.OnRequestCompleteCallback() {
-                  @Override
-                  public void onRequestComplete(boolean suc) {
-                     //MainActivity.setUser(member);
-                     if (suc) {
-                        Toast.makeText(FollowerRequestsActivity.this, "Sent request successfully!", Toast.LENGTH_SHORT).show();
-                     }
-                     else {
-                        if (requestName.getText().toString().equals(MainActivity.getUser().getMemberName())){
-                           Toast.makeText(FollowerRequestsActivity.this, "Please don't send follow request to yourself!",
-                                   Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                           Toast.makeText(FollowerRequestsActivity.this, "No such user exists!",
-                                   Toast.LENGTH_SHORT).show();
-                        }
-                     }
-                  }
-               });
-            }
 
-
-         }
-      });
    }
 
    public void acceptFollowRequest(int position) {

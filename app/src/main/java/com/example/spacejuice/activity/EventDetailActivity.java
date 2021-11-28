@@ -86,6 +86,7 @@ public class EventDetailActivity extends AppCompatActivity {
             Uri uri = Uri.parse(e.getImage());
             Picasso.get().load(uri).into(imageView);
         }
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -154,9 +154,9 @@ This Activity is used to edit a habit
         Date date = habit.getStartDate();
 
         String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
-        String day          = (String) DateFormat.format("dd", date); // 20
-        String monthString  = (String) DateFormat.format("MMMM", date); // September
-        String year         = (String) DateFormat.format("yyyy", date); // 2013
+        String day = (String) DateFormat.format("dd", date); // 20
+        String monthString = (String) DateFormat.format("MMMM", date); // September
+        String year = (String) DateFormat.format("yyyy", date); // 2013
 
         selectedDate.setText(getString(R.string.habitStartedOnDate, dayOfTheWeek, monthString, Integer.valueOf(day), Integer.valueOf(year)));
 
@@ -202,8 +202,10 @@ This Activity is used to edit a habit
         indicatorImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                habit.getIndicator().increase();
-                refreshData();
+                if (MainActivity.getUser().isAdmin()) {
+                    habit.getIndicator().increase();
+                    refreshData();
+                }
             }
         });
 
@@ -238,9 +240,9 @@ This Activity is used to edit a habit
     }
 
     public void launchEventDetails(HabitEvent event, String stringUri) {
-        Log.d("debugInfo",habit.getTitle());
-        Log.d("debugInfo",String.valueOf(event.getEventId()));
-        Log.d("debugInfo",String.valueOf(habit.getUid()));
+        Log.d("debugInfo", habit.getTitle());
+        Log.d("debugInfo", String.valueOf(event.getEventId()));
+        Log.d("debugInfo", String.valueOf(habit.getUid()));
         Intent intent = new Intent(HabitDetailsActivity.this, EventDetailActivity.class);
         intent.putExtra("event",event.getUid());
         intent.putExtra("habitId",habit.getUid());
@@ -314,8 +316,7 @@ This Activity is used to edit a habit
         if (habit.isPrivate()) {
             privateTextBox.setVisibility(View.VISIBLE);
             isPrivate.setVisibility(View.VISIBLE);
-        } else
-        {
+        } else {
             privateTextBox.setVisibility(View.INVISIBLE);
             isPrivate.setVisibility(View.INVISIBLE);
         }

@@ -1,5 +1,6 @@
 package com.example.spacejuice.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,23 +9,29 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.spacejuice.MainActivity;
 import com.example.spacejuice.R;
 import com.example.spacejuice.controller.FollowController;
 import com.example.spacejuice.controller.LoginController;
 
-public class MyProfileActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class MyProfileActivity extends AppCompatActivity{
    /*
    This Activity is used to display my profile
     */
 //    public view my_profile_activity;
    public Button go_to_requests;
    public ImageButton back_button;
-
   
-   private Button exploreButton;
+   //private Button exploreButton;
   
    public TextView user_name;
 
@@ -33,52 +40,45 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private TextView followersCount;
     private TextView followersText;
+    private CardView followerCard;
+    private CardView followingCard;
+    private CardView requestCard;
+    private TextView requestCount;
+    private CardView requestCountCard;
     private FollowController followController;
-
-  
-
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        Log.d("debugInfo", "My Profile View Created from MyProfileActivity.java");
+
        setContentView(R.layout.my_profile_activity);
 
        user_name = findViewById(R.id.userName);
        back_button = findViewById(R.id.backButtonMyProfile);
 
-       exploreButton = findViewById(R.id.discoverButton);
+       //exploreButton = findViewById(R.id.discoverButton);
        go_to_requests = findViewById(R.id.requestsButton);
        followingCount = findViewById(R.id.followingCount);
        followingText = findViewById(R.id.following);
        followersCount = findViewById(R.id.followersCount);
        followersText = findViewById(R.id.followers);
+       followerCard = findViewById(R.id.followerCard);
+       followingCard = findViewById(R.id.followingCard);
+       requestCard = findViewById(R.id.RequestCard);
+       requestCount = findViewById(R.id.requestCount);
+       requestCountCard = findViewById(R.id.RequestCountCard);
+
        followController = new FollowController();
 
-       followController.getFollower(new LoginController.OnFollowerCompleteCallback() {
-           @Override
-           public void onFollowerComplete(boolean suc) {
-               followersCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowers().size()));
-
-           }
-       });
-
-       followController.getFollowing(new LoginController.OnFollowingCompleteCallback() {
-           @Override
-           public void onFollowingComplete(boolean suc) {
-               followingCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowings().size()));
-           }
-       });
+        retrieveData();
 
        user_name.setText(MainActivity.getUser().getMemberName());
-       go_to_requests.setOnClickListener(new View.OnClickListener() {
-
-
+       requestCountCard.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
             openFollowRequestActivity();
          }
-
       });
 
       // back button
@@ -89,14 +89,6 @@ public class MyProfileActivity extends AppCompatActivity {
          }
 
       });
-
-      // Discover button
-       exploreButton.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               openDiscoverActivity();
-           }
-       });
 
       // Makes it so that if the user clicks on the following or following count, it goes to the list
       followingText.setOnClickListener(new View.OnClickListener(){
@@ -111,6 +103,12 @@ public class MyProfileActivity extends AppCompatActivity {
               openFollowingListView();
           }
       });
+       followingCard.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               openFollowingListView();
+           }
+       });
 
       // same for followers
        followersText.setOnClickListener(new View.OnClickListener(){
@@ -125,13 +123,26 @@ public class MyProfileActivity extends AppCompatActivity {
                openFollowersListView();
            }
        });
+       followerCard.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               openFollowersListView();
+           }
+       });
+       go_to_requests.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               new RequestSendFragment().show(getSupportFragmentManager(), "RequestSendFragment ");
+           }
+       });
+
 
    }
 
 
    public void openFollowRequestActivity() {
       Intent intent = new Intent(this, FollowerRequestsActivity.class);
-      startActivity(intent);
+       launchSomeActivity.launch(intent);
    }
    public void openFollowingListView() {
        // goes to following list view
@@ -149,4 +160,49 @@ public class MyProfileActivity extends AppCompatActivity {
        Intent intent = new Intent(this, DiscoverActivity.class);
        startActivity(intent);
     }
+    ActivityResultLauncher<Intent> launchSomeActivity = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        retrieveData();
+                    }
+                }
+            });
+   public void retrieveData(){
+       final LoadingDialog loadingDialog = new LoadingDialog(MyProfileActivity.this);
+       loadingDialog.startLoadingAlertDialog();
+       followController.getRequests(new LoginController.OnRequestCompleteCallback() {
+           @Override
+           public void onRequestComplete(boolean suc) {
+               ArrayList<String> list = MainActivity.getUser().getFollow().getRequests();
+               int count = list.size();
+               String countString = "" + count;
+               if (count > 0){
+                   requestCard.setVisibility(View.VISIBLE);
+                   requestCount.setText(countString);
+               }
+               else{
+                   requestCard.setVisibility(View.INVISIBLE);
+               }
+           }
+       });
+
+       followController.getFollower(new LoginController.OnFollowerCompleteCallback() {
+           @Override
+           public void onFollowerComplete(boolean suc) {
+               followersCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowers().size()));
+
+           }
+       });
+
+       followController.getFollowing(new LoginController.OnFollowingCompleteCallback() {
+           @Override
+           public void onFollowingComplete(boolean suc) {
+               followingCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowings().size()));
+               loadingDialog.dismissDialog();
+           }
+       });
+   }
 }
