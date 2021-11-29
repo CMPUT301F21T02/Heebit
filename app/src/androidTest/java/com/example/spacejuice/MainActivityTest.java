@@ -58,7 +58,7 @@ public class MainActivityTest {
         solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
         solo.clickOnButton(R.id.add_habit_imagebutton);
         solo.assertCurrentActivity("Wrong activity", AddHabitActivity.class);
-        
+
     }
 
 }
