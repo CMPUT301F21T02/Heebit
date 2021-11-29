@@ -2,26 +2,16 @@ package com.example.spacejuice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
-import android.widget.Toast;
 
-import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.GooglePlayNotFoundError;
-import com.example.spacejuice.activity.LoginActivity;
-import com.example.spacejuice.activity.OverviewActivity;
 import com.example.spacejuice.activity.WelcomeActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 3;
