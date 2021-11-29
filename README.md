@@ -1,9 +1,12 @@
 # SpaceJuice
 An app that tracks your habits growth
+
+You can find all the document in wiki
+
 Contributors:
-Brad\n
-Xuanhao\n
-Yuchen\n
-Beomyoon(Joshua)\n
-Heeba\n
-Harish\n
+* Brad
+* Xuanhao
+* Yuchen
+* Beomyoon(Joshua)
+* Heeba
+* Harish
