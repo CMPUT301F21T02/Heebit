@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class HabitEventController {
+    // not used
     public static void editHabitEvent(Habit habit, HabitEvent habitEvent){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         int uid = habit.getUid();
@@ -158,6 +159,13 @@ public class HabitEventController {
         });
     }
 
+    /**
+     * edit location
+     * @param habit
+     * @param habitEvent
+     * @param la
+     * @param lo
+     */
     public static void editEventGps(Habit habit, HabitEvent habitEvent, double la, double lo) {
         // adds a HabitEvent to the array of events contained by a Habit
         habitEvent.setLocation(la, lo);
