@@ -8,7 +8,9 @@ import android.widget.EditText;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.spacejuice.activity.AddHabitActivity;
 import com.example.spacejuice.activity.LoginActivity;
+import com.example.spacejuice.activity.OverviewActivity;
 import com.example.spacejuice.activity.WelcomeActivity;
 import com.robotium.solo.Solo;
 
@@ -49,6 +51,14 @@ public class MainActivityTest {
         solo.enterText((EditText) solo.getView(R.id.userName), "Obama");
         solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "Murica22");
         solo.clickOnButton("Login");
+    }
+
+    @Test
+    public void addHabitTest() {
+        solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
+        solo.clickOnButton(R.id.add_habit_imagebutton);
+        solo.assertCurrentActivity("Wrong activity", AddHabitActivity.class);
+        
     }
 
 }
