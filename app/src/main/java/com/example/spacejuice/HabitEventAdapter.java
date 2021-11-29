@@ -120,7 +120,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         } else {
             viewHolder.eventImage.setVisibility(View.VISIBLE);
             viewHolder.eventImage.setClickable(true);
-            viewHolder.eventDateText.setTextColor(R.attr.colorPrimary);
+            viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.Green));
         }
 
         String stringUri = eventItems.get(position).getImage();
