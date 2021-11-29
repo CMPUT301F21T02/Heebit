@@ -14,6 +14,7 @@ import com.example.spacejuice.activity.OverviewActivity;
 import com.example.spacejuice.activity.WelcomeActivity;
 import com.robotium.solo.Solo;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -51,14 +52,21 @@ public class MainActivityTest {
         solo.enterText((EditText) solo.getView(R.id.userName), "Obama");
         solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "Murica22");
         solo.clickOnButton("Login");
+        solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
     }
+
+
 
     @Test
     public void addHabitTest() {
-        solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
+        login();
         solo.clickOnButton(R.id.add_habit_imagebutton);
         solo.assertCurrentActivity("Wrong activity", AddHabitActivity.class);
+    }
 
+    @After
+    public void tearDown() throws Exception{
+        solo.finishOpenedActivities();
     }
 
 }
