@@ -28,18 +28,27 @@ public class MainActivityTest {
     @Before
     public void setUp(){
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
-        Activity activity = rule.getActivity();
-        solo.clickOnButton("Log in");
-        assertTrue(solo.waitForActivity(LoginActivity.class));
-        solo.enterText((EditText) solo.getView(R.id.userName), "Josh4");
-        solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "12345");
-        solo.clickOnButton("Login");
+
+//        solo.clickOnButton("Log in");
+//        assertTrue(solo.waitForActivity(LoginActivity.class));
+//        solo.enterText((EditText) solo.getView(R.id.userName), "Josh4");
+//        solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "12345");
+//        solo.clickOnButton("Login");
     }
 
     @Test
-    public void start(){
+    public void start() throws Exception{
+        Activity activity = rule.getActivity();
 
+    }
 
+    @Test
+    public void login() {
+        solo.clickOnButton("Log in");
+        assertTrue(solo.waitForActivity(LoginActivity.class));
+        solo.enterText((EditText) solo.getView(R.id.userName), "Obama");
+        solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "Murica22");
+        solo.clickOnButton("Login");
     }
 
 }
