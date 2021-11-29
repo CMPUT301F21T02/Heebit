@@ -469,6 +469,10 @@ public class FollowController {
         }
     }
 
+    /**
+     * add public habit to list
+     * @param habit
+     */
     public void addPublicHabit(Habit habit) {
 
         ArrayList<Habit> newHabitList = publicHabits;
