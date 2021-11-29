@@ -50,16 +50,16 @@ import java.util.Map;
 //todo add call back
 public class EventDetailActivity extends AppCompatActivity {
     public static final int PICK_IMAGE = 1;
-    ImageButton back;
-    Button confirm;
-    Button editImage;
-    Button takePhoto;
-    EditText editText;
-    ImageView imageView;
+    private ImageButton back;
+    private Button confirm;
+    private Button editImage;
+    private Button takePhoto;
+    private EditText editText;
+    private ImageView imageView;
     private Button uploadImage;
     private Bitmap photo;
-    Uri imageUri;
-    Uri returnUri;
+    private Uri imageUri;
+    private Uri returnUri;
 
     int habitId;
     int event;

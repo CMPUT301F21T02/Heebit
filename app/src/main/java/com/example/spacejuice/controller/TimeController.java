@@ -29,6 +29,9 @@ public class TimeController {
         return currentTime;
     }
 
+    /**
+     * admin, move forward one day
+     */
     public static void adminIncrementDay() {
         if (user.isAdmin()) {
             Long offset = user.getAdminTimeOffset();
@@ -41,6 +44,11 @@ public class TimeController {
         }
     }
 
+    /**
+     * get day of the week as a 3 letter string
+     * @param cal
+     * @return
+     */
     public static String getDayOfWeek(Calendar cal) {
         switch (cal.get(Calendar.DAY_OF_WEEK)) {
             case 1:
@@ -61,6 +69,11 @@ public class TimeController {
         return "";
     }
 
+    /**
+     * get the month
+     * @param cal
+     * @return
+     */
     public static String getMonth(Calendar cal) {
         Log.d("debugInfo", "getMonth --> Current: " + Calendar.getInstance().get(Calendar.MONTH) + "   Adjusted: " + cal.get(Calendar.MONTH));
         switch (cal.get(Calendar.MONTH)) {
@@ -92,6 +105,12 @@ public class TimeController {
         return "";
     }
 
+    /**
+     * compare the date
+     * @param date1
+     * @param date2
+     * @return
+     */
     public static int compareDates(Date date1, Date date2) {
         // returns 0 if two date objects are the same day
         // otherwise returns <0 if date1 is before date2
@@ -104,6 +123,12 @@ public class TimeController {
         return compareCalendarDays(cal1, cal2);
     }
 
+    /**
+     * compare the calendar day
+     * @param cal1
+     * @param cal2
+     * @return
+     */
     public static int compareCalendarDays(Calendar cal1, Calendar cal2) {
         // returns 0 if two calendar objects are the same day
         // otherwise returns <0 if cal1 is before cal2
