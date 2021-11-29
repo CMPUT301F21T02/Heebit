@@ -38,7 +38,7 @@ public class MyProfileActivity extends AppCompatActivity{
    private TextView followingCount;
    private TextView followingText;
 
-    private TextView followersCount;
+    public TextView followersCount;
     private TextView followersText;
     private CardView followerCard;
     private CardView followingCard;
