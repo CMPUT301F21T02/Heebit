@@ -52,41 +52,41 @@ public class HabitEventTest {
     }
 
 
-//    @Test
-//    public void addHabitEventUploadText(){
-//        // upload description
-//        assertTrue(solo.waitForActivity(OverviewActivity.class));
-//        OverviewActivity activity = (OverviewActivity) solo.getCurrentActivity();
-//        final ListView listView = activity.today_habit_list;
-//        View view = listView.getAdapter().getView(0, null, listView);
-//        CheckBox checkBoxButton = (CheckBox)view.findViewById(R.id.habitCheckBox);
-//        solo.clickOnView(checkBoxButton);
-//
-//        solo.assertCurrentActivity("Wrong activity", AddHabitEventActivity.class);
-//
-//        solo.enterText((EditText) solo.getView(R.id.eventDescriptionEA), "I did it!!");
-//        assertTrue(solo.waitForActivity(AddHabitEventActivity.class));
-//        solo.clickOnButton("Publish");
-//
-//    }
+    @Test
+    public void addHabitEventUploadText(){
+        // upload description
+        assertTrue(solo.waitForActivity(OverviewActivity.class));
+        OverviewActivity activity = (OverviewActivity) solo.getCurrentActivity();
+        final ListView listView = activity.today_habit_list;
+        View view = listView.getAdapter().getView(0, null, listView);
+        CheckBox checkBoxButton = (CheckBox)view.findViewById(R.id.habitCheckBox);
+        solo.clickOnView(checkBoxButton);
 
-//    @Test
-//    public void addHabitEventAddGPS(){
-//        // upload gps location
-//        assertTrue(solo.waitForActivity(OverviewActivity.class));
-//        OverviewActivity activity = (OverviewActivity) solo.getCurrentActivity();
-//        final ListView listView = activity.today_habit_list;
-//        View view = listView.getAdapter().getView(0, null, listView);
-//        CheckBox checkBoxButton = (CheckBox)view.findViewById(R.id.habitCheckBox);
-//        solo.clickOnView(checkBoxButton);
-//        solo.assertCurrentActivity("Wrong activity", AddHabitEventActivity.class);
-//        solo.clickOnButton("Add GPS");
-//        solo.assertCurrentActivity("Wrong activity", MapsActivity.class);
-//        solo.clickOnButton("Add");
-//        assertTrue(solo.waitForActivity(AddHabitEventActivity.class));
-//        solo.clickOnButton("Publish");
-//
-//    }
+        solo.assertCurrentActivity("Wrong activity", AddHabitEventActivity.class);
+
+        solo.enterText((EditText) solo.getView(R.id.eventDescriptionEA), "I did it!!");
+        assertTrue(solo.waitForActivity(AddHabitEventActivity.class));
+        solo.clickOnButton("Publish");
+
+    }
+
+    @Test
+    public void addHabitEventAddGPS(){
+        // upload gps location
+        assertTrue(solo.waitForActivity(OverviewActivity.class));
+        OverviewActivity activity = (OverviewActivity) solo.getCurrentActivity();
+        final ListView listView = activity.today_habit_list;
+        View view = listView.getAdapter().getView(0, null, listView);
+        CheckBox checkBoxButton = (CheckBox)view.findViewById(R.id.habitCheckBox);
+        solo.clickOnView(checkBoxButton);
+        solo.assertCurrentActivity("Wrong activity", AddHabitEventActivity.class);
+        solo.clickOnButton("Add GPS");
+        solo.assertCurrentActivity("Wrong activity", MapsActivity.class);
+        solo.clickOnButton("Add");
+        assertTrue(solo.waitForActivity(AddHabitEventActivity.class));
+        solo.clickOnButton("Publish");
+
+    }
 
         @Test
     public void editHabitEventText(){
@@ -124,7 +124,7 @@ public class HabitEventTest {
         solo.enterText((EditText) solo.getView(R.id.edit_editText), "Good job!!");
         solo.sleep(1000);
         solo.clickOnButton("Confirm");
-        assertTrue(solo.waitForActivity(AddHabitEventActivity.class));
+        solo.sleep(1000);
         solo.clickOnButton("Publish");
 
 
