@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat;
 import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.MapsActivity;
 import com.example.spacejuice.controller.HabitEventController;
+import com.example.spacejuice.controller.TimeController;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -170,12 +171,19 @@ public class HabitEventAdapter extends ArrayAdapter {
         viewHolder.deleteIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 HabitEvent event = eventItems.get(position);
-                event.setDescription("");
-                event.setLocation(0.00, 0.00);
-                event.setImage(null);
-                event.setDone(false);
-                HabitEventController.DeleteHabitEvent(habit, event);
+                if (TimeController.compareDates(event.getDate(), TimeController.getCurrentTime().getTime()) == 0){
+                    habit.deleteEvent(event);
+                    HabitEventController.DeleteHabitEvent(habit, event, false);
+                }
+                else{
+                    event.setDescription("");
+                    event.setLocation(0.00, 0.00);
+                    event.setImage(null);
+                    event.setDone(false);
+                    HabitEventController.DeleteHabitEvent(habit, event, true);
+                }
                 ((HabitDetailsActivity) context).refreshData();
 
             }

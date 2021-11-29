@@ -197,7 +197,7 @@ public class HabitEventController {
             }
         });
     }
-    public static void DeleteHabitEvent(Habit habit, HabitEvent habitEvent) {
+    public static void DeleteHabitEvent(Habit habit, HabitEvent habitEvent, boolean isMissed) {
         // adds a HabitEvent to the array of events contained by a Habit
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -221,19 +221,25 @@ public class HabitEventController {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-                            Map<String, Object> data = new HashMap<>();
-                            data.put("Description", "");
-                            data.put("Url", null);
-                            data.put("Location", new GeoPoint(0.00, 0.00));
-                            data.put("Done", false);
-                            eventDocRef.update(data)
-                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Log.d("debugInfo", "Habit has been deleted successfully");
-                                            LoginController.updateMaxID();
-                                        }
-                                    });
+                            if (isMissed){
+                                Map<String, Object> data = new HashMap<>();
+                                data.put("Description", "");
+                                data.put("Url", null);
+                                data.put("Location", new GeoPoint(0.00, 0.00));
+                                data.put("Done", false);
+                                eventDocRef.update(data)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void unused) {
+                                                Log.d("debugInfo", "Habit has been deleted successfully");
+                                                LoginController.updateMaxID();
+                                            }
+                                        });
+                            }
+                            else{
+                                eventDocRef.delete();
+                            }
+
                         }
                     }
                 });
