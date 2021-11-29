@@ -455,4 +455,76 @@ public class HabitController {
         }
         return streak;
     }
+
+    public static Habit copyHabit(Habit habit) {
+        String title = habit.getTitle();
+        int uid = habit.getUid();
+        String reason = habit.getReason();
+        Date date = habit.getStartDate();
+        Schedule schedule = habit.getSchedule();
+        Boolean privateHabit = habit.isPrivate();
+        ArrayList<HabitEvent> events = habit.getEvents();
+        Habit newHabit = new Habit(title, reason, 0);
+        newHabit.forceUid(uid);
+        newHabit.setPrivacy(privateHabit);
+        newHabit.setStartDate(date);
+        newHabit.setSchedule(schedule);
+        newHabit.setEvents(events);
+        return newHabit;
+    }
+
+    public static void swapFirebaseHabitUid(Habit habit1, Habit habit2, OnHabitSwapCallback callback) {
+        Member user = MainActivity.getUser();
+        String username = user.getMemberName();
+        long uid1 = habit1.getUidLong();
+        long uid2 = habit2.getUidLong();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Task<QuerySnapshot> querySnap1 = db.collection("Members").document(username)
+                .collection("Habits").whereEqualTo("ID", uid1).get();
+
+        querySnap1.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<DocumentSnapshot> docs = task.getResult().getDocuments();
+                DocumentReference habitRef1 = docs.get(0).getReference();
+
+                Task<QuerySnapshot> querySnap2 = db.collection("Members").document(username)
+                        .collection("Habits").whereEqualTo("ID", uid2).get();
+
+                querySnap2.addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        List<DocumentSnapshot> docs = task.getResult().getDocuments();
+                        DocumentReference habitRef2 = docs.get(0).getReference();
+                        habitRef1.update("ID", uid2);
+                        habitRef2.update("ID", uid1);
+                        callback.onHabitSwapComplete(true);
+                    }
+                });
+
+            }
+        });
+
+
+    }
+
+    public static void swapHabits(Habit habit1, Habit habit2, OverviewActivity inst) {
+        swapFirebaseHabitUid(habit1, habit2, new OnHabitSwapCallback() {
+            @Override
+            public void onHabitSwapComplete(boolean suc) {
+                Log.d("debugInfoSwap", "before swap, habit1 uid: " + habit1.getUid() + ", habit2 uid: " + habit2.getUid());
+                int uid1 = habit1.getUid();
+                int uid2 = habit2.getUid();
+                habit1.forceUid(uid2);
+                habit2.forceUid(uid1);
+                Log.d("debugInfoSwap", "after swap, habit1 uid: " + habit1.getUid() + ", habit2 uid: " + habit2.getUid());
+                inst.refreshData();
+            }
+        });
+    }
+
+    interface OnHabitSwapCallback {
+        void onHabitSwapComplete(boolean suc);
+    }
 }

@@ -1,51 +1,28 @@
 package com.example.spacejuice;
 
-import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.location.Address;
-import android.location.Geocoder;
-import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.example.spacejuice.activity.AddHabitEventActivity;
-import com.example.spacejuice.activity.AllHabitsActivity;
 import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.MapsActivity;
-import com.example.spacejuice.activity.OverviewActivity;
-import com.example.spacejuice.activity.UploadImageActivity;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class HabitEventAdapter extends ArrayAdapter {
     private final ArrayList<HabitEvent> eventItems;
@@ -143,7 +120,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         } else {
             viewHolder.eventImage.setVisibility(View.VISIBLE);
             viewHolder.eventImage.setClickable(true);
-            viewHolder.eventDateText.setTextColor(R.attr.colorPrimary);
+            viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.Green));
         }
 
         String stringUri = eventItems.get(position).getImage();

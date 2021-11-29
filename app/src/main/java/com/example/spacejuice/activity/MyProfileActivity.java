@@ -140,7 +140,7 @@ public class MyProfileActivity extends AppCompatActivity{
             });
    public void retrieveData(){
        final LoadingDialog loadingDialog = new LoadingDialog(MyProfileActivity.this);
-       loadingDialog.startLoadingAlertDialog();
+       //loadingDialog.startLoadingAlertDialog();
        followController.getRequests(new LoginController.OnRequestCompleteCallback() {
            @Override
            public void onRequestComplete(boolean suc) {
@@ -169,7 +169,7 @@ public class MyProfileActivity extends AppCompatActivity{
            @Override
            public void onFollowingComplete(boolean suc) {
                followingCount.setText(String.valueOf(MainActivity.getUser().getFollow().getFollowings().size()));
-               loadingDialog.dismissDialog();
+               //loadingDialog.dismissDialog();
            }
        });
    }
