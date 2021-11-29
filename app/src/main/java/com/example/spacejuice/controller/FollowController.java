@@ -362,7 +362,7 @@ public class FollowController {
     }
 
     /**
-     * Finds list of habits
+     * Finds list of  public habits
      *
      * @param memberName
      * @param callback
@@ -440,6 +440,14 @@ public class FollowController {
             }
         });
     }
+
+    /**
+     * Inserting the Habits onto list and Loading the events
+     * @param querySnapshot
+     * @param memberName
+     * @param context
+     * @param callback
+     */
 
     public void loadEvents(QuerySnapshot querySnapshot, String memberName, Context context, final LoginController.OnLoadEventsCallback callback) {
         for (DocumentSnapshot document : querySnapshot.getDocuments()) {

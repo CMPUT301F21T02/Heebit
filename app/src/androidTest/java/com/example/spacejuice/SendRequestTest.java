@@ -1,5 +1,6 @@
 package com.example.spacejuice;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -43,6 +45,9 @@ public class SendRequestTest {
 
     }
 
+    /**
+     * Send Request from Obama Account
+     */
     @Test
     public void Test1SendRequest(){
         solo.clickOnButton("Log in");
@@ -59,6 +64,10 @@ public class SendRequestTest {
         solo.clickOnView(Button);
 
     }
+
+    /**
+     * Decline Request From Joe Account
+     */
     @Test
     public void Test2DeclineRequest(){
         solo.clickOnButton("Log in");
@@ -75,14 +84,21 @@ public class SendRequestTest {
 
         // Click Decline Button
         solo.sleep(1000);
-        FollowerRequestsActivity activity = (FollowerRequestsActivity) solo.getCurrentActivity();
-        final ListView listView = activity.followerList;
+        FollowerRequestsActivity followerRequestsActivity = (FollowerRequestsActivity) solo.getCurrentActivity();
+        final ListView listView = followerRequestsActivity.followerList;
         View view = listView.getAdapter().getView(0, null, listView);
         ImageButton declineButton = (ImageButton)view.findViewById(R.id.button_follower_deny);
         solo.clickOnView(declineButton);
 
-        solo.goBack();
+        ImageButton backButton = (ImageButton) solo.getView("backButtonFollowerRequests");
+        solo.clickOnView(backButton);
 
+        assertTrue(solo.waitForActivity("MyProfileActivity", 4000));
+
+        MyProfileActivity myProfileActivity = (MyProfileActivity) solo.getCurrentActivity();
+        TextView followersCount = myProfileActivity.followersCount;
+        String followersCountString = followersCount.getText().toString();
+        assertEquals("0", followersCountString);
 
     }
 

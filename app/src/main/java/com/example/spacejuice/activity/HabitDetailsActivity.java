@@ -355,7 +355,7 @@ This Activity is used to edit a habit
 
         ArrayList<HabitEvent> habitEventListItems = HabitController.getHabitEvents(habit);
 
-        HabitEventAdapter habitEventAdapter = new HabitEventAdapter(this, R.layout.habit_event_content, habitEventListItems);
+        HabitEventAdapter habitEventAdapter = new HabitEventAdapter(this, R.layout.habit_event_content, habitEventListItems, habit);
         Log.d("debugInfo", "habit event list updated");
         Log.d("debugInfo", "list size: " + habitEventListItems.size());
         this.habitEventList.setAdapter(habitEventAdapter);
