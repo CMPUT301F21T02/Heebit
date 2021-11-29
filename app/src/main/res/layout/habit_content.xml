@@ -9,67 +9,104 @@
     app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="16dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/clickable_habit_segment"
-            android:layout_width="0dp"
+            android:id="@+id/swap_habit_marker"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
+            android:orientation="horizontal"
+            android:visibility="invisible"
+            android:background="@color/Green"
+            android:weightSum="2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
             <LinearLayout
-                android:id="@+id/LL_Habit_Indicator"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/progress_40"
-                android:backgroundTint="@color/LightSteelBlue">
-
-                <TextView
-                    android:id="@+id/habit_content_habit_level"
-                    android:layout_width="41dp"
-                    android:layout_height="41dp"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingStart="2dp"
-                    android:paddingEnd="2dp"
-                    android:shadowColor="@color/DarkSlateGray"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="4"
-                    android:text="Lv10"
-                    android:textColor="@color/LightSalmon"
-                    android:textSize="13sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-
+                android:id="@+id/swap_spacer_left"
+                android:layout_width="0dp"
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
             <TextView
-                android:id="@+id/habit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="This is a test Habit"
-                android:textSize="20sp" />
+                android:text="((swapping))"
+                android:textColor="@color/LimeGreen"
+                android:layout_gravity="center_horizontal"/>
+            <LinearLayout
+                android:id="@+id/swap_spacer_right"
+                android:layout_width="0dp"
+                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
 
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/habitCheckBox"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical|right" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:id="@+id/clickable_habit_segment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/LL_Habit_Indicator"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/progress_40"
+                    android:backgroundTint="@color/LightSteelBlue">
+
+                    <TextView
+                        android:id="@+id/habit_content_habit_level"
+                        android:layout_width="41dp"
+                        android:layout_height="41dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp"
+                        android:shadowColor="@color/DarkSlateGray"
+                        android:shadowDx="3"
+                        android:shadowDy="3"
+                        android:shadowRadius="4"
+                        android:text="Lv10"
+                        android:textColor="@color/LightSalmon"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/habit_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="This is a test Habit"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/habitCheckBox"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|right" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

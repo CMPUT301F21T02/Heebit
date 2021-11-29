@@ -1,8 +1,6 @@
 package com.example.spacejuice;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,25 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.content.res.AppCompatResources;
 
-import com.example.spacejuice.activity.AddHabitEventActivity;
-import com.example.spacejuice.activity.AllHabitsActivity;
-import com.example.spacejuice.activity.EditHabitActivity;
 import com.example.spacejuice.activity.OverviewActivity;
 import com.example.spacejuice.controller.HabitController;
-import com.example.spacejuice.controller.HabitEventController;
 
 import java.util.ArrayList;
 
@@ -49,6 +37,7 @@ public class HabitListAdapter extends ArrayAdapter {
         TextView textView;
         TextView levelText;
         View ll_indicator;
+        View ll_swapping;
     }
 
     @Override
@@ -75,6 +64,7 @@ public class HabitListAdapter extends ArrayAdapter {
             viewHolder.ll_indicator = row.findViewById(R.id.LL_Habit_Indicator);
             viewHolder.textView = row.findViewById(R.id.habit_text);
             viewHolder.levelText = row.findViewById(R.id.habit_content_habit_level);
+            viewHolder.ll_swapping = row.findViewById(R.id.swap_habit_marker);
             row.setTag(viewHolder);
         } else { // If the viewHolder was already initialized
             viewHolder = (ViewHolder) row.getTag();
@@ -85,9 +75,15 @@ public class HabitListAdapter extends ArrayAdapter {
         viewHolder.textView.setText(items.get(position).getTitle());
         viewHolder.levelText.setText(items.get(position).getIndicator().getIndicatorText());
         viewHolder.textView.setClickable(false);
-        View.OnClickListener goToHabitDetails;
+        if (items.get(position).getSwapping()) {
+            viewHolder.ll_swapping.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.ll_swapping.setVisibility(View.INVISIBLE);
+        }
+        View.OnClickListener clickedOnHabit;
+        View.OnLongClickListener longClickedOnHabit;
 
-        goToHabitDetails = new View.OnClickListener() {
+        clickedOnHabit = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + items.get(position).getUid());
@@ -95,15 +91,40 @@ public class HabitListAdapter extends ArrayAdapter {
 
                 if (context.getClass() == OverviewActivity.class) {
                     OverviewActivity inst = (OverviewActivity) context;
-                    inst.launchHabitDetails(items.get(position).getUid());
-                } else if (context.getClass() == AllHabitsActivity.class) {
-                    AllHabitsActivity inst = (AllHabitsActivity) context;
-                    inst.launchHabitDetails(items.get(position).getUid());
+                    Habit longClickedHabit = inst.getLongClickedHabit();
+                    if (longClickedHabit == null) {
+                        inst.launchHabitDetails(items.get(position).getUid());
+                    } else {
+                        if (longClickedHabit == items.get(position)) {
+                            // if the longclicked habit was clicked on
+                            longClickedHabit.setSwapping(false);
+
+                            inst.launchHabitDetails(items.get(position).getUid());
+                        } else {
+                            longClickedHabit.setSwapping(false);
+                            HabitController.swapHabits(longClickedHabit, items.get(position), inst);
+
+                        }
+
+                    }
                 }
             }
         };
 
-        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(goToHabitDetails);
+        longClickedOnHabit = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Log.d("debugInfo", "habit was long clicked");
+                if (context.getClass() == OverviewActivity.class) {
+                    OverviewActivity inst = (OverviewActivity) context;
+                    inst.setLongClickedHabit(items.get(position)); }
+                return true;
+
+            }
+        };
+
+        row.findViewById(R.id.clickable_habit_segment).setOnClickListener(clickedOnHabit);
+        row.findViewById(R.id.clickable_habit_segment).setOnLongClickListener(longClickedOnHabit);
 
 
         if (items.get(position).isToday()) {

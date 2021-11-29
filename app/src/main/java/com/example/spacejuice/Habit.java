@@ -27,6 +27,7 @@ public class Habit implements Serializable {
     private Date startDate;
     private Schedule schedule;
     private Boolean privateHabit = false;
+    private Boolean swapping = false; // if this habit is currently being swapped
     private int uid; // unique identifier for habit
     private ArrayList<HabitEvent> events;
 
@@ -49,6 +50,8 @@ public class Habit implements Serializable {
         this.events = new ArrayList<HabitEvent>();
         this.uid = -1;
     }
+
+
 
     /**
      * Set schedule for the habit
@@ -273,4 +276,8 @@ public class Habit implements Serializable {
     public void setPrivacy(Boolean bool) {
         this.privateHabit = bool;
     }
+
+    public boolean getSwapping() { return this.swapping; }
+
+    public void setSwapping(boolean bool) { this.swapping = bool; }
 }

@@ -39,7 +39,9 @@ public class OverviewActivity extends AppCompatActivity {
     Button admin_button;
     ArrayList<Habit> habitListItems;
     ArrayList<Habit> today_habit_items;
+    ArrayList<Habit> filtered_habit_items;
     TextView adminText;
+    int longClickedPosition; // position of the habit that was longclicked
     /*
     This Activity is used my main page which shows an overlay of today's habits
     and various menus
@@ -86,6 +88,12 @@ public class OverviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 filterToday = !filterToday;
+                if (filterToday) {
+                    // all filtered items should lose swapping status
+                    for (Habit habit : filtered_habit_items) {
+                        habit.setSwapping(false);
+                    }
+                }
                 refreshData();
             }
         });
@@ -97,6 +105,11 @@ public class OverviewActivity extends AppCompatActivity {
         add_habit_imagebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Habit longClicked = getLongClickedHabit();
+                if (longClicked != null) {
+                    getLongClickedHabit().setSwapping(false);
+                }
+                refreshData();
                 launchAddHabit();
             }
         });
@@ -106,7 +119,12 @@ public class OverviewActivity extends AppCompatActivity {
         profile_imagebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Habit longClicked = getLongClickedHabit();
+                if (longClicked != null) {
+                    getLongClickedHabit().setSwapping(false);
+                }
                 Intent intent = new Intent(OverviewActivity.this, MyProfileActivity.class);
+                refreshData();
                 startActivity(intent);
             }
         });
@@ -114,16 +132,16 @@ public class OverviewActivity extends AppCompatActivity {
         admin_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Habit longClicked = getLongClickedHabit();
+                if (longClicked != null) {
+                    getLongClickedHabit().setSwapping(false);
+                }
                 Intent intent = new Intent(OverviewActivity.this, AdminMenuActivity.class);
                 startActivity(intent);
             }
         });
     }
 
-    public void openAllHabitsActivity() {
-        Intent intent = new Intent(this, AllHabitsActivity.class);
-        startActivity(intent);
-    }
 
     public void launchAddHabit() {
         Intent intent = new Intent(OverviewActivity.this, AddHabitActivity.class);
@@ -144,9 +162,12 @@ public class OverviewActivity extends AppCompatActivity {
 
     public void populateTodayItems() {
         today_habit_items = new ArrayList<>();
+        filtered_habit_items = new ArrayList<>();
         for (int i = 0; i < habitListItems.size(); i += 1) {
             if (habitListItems.get(i).isToday()) {
                 today_habit_items.add(habitListItems.get(i));
+            } else {
+                filtered_habit_items.add(habitListItems.get(i));
             }
         }
         Log.d("debugInfo", "today's habits populated");
@@ -156,6 +177,7 @@ public class OverviewActivity extends AppCompatActivity {
     public void refreshData() {
         /* updates the list of Habits */
         habitListItems = HabitController.getHabitListItems();
+        MainActivity.getUser().sortHabits();
         if (MainActivity.getUser().isAdmin()) {
             Calendar fakeDay = TimeController.getCurrentTime();
             String dayOfWeek = TimeController.getDayOfWeek(fakeDay);
@@ -181,5 +203,28 @@ public class OverviewActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public Habit getLongClickedHabit() {
+        int size = habitListItems.size();
+        if (size == 0) {
+            return null;
+        }
+        for (int i = 0; i <= size - 1; i++) {
+            if (habitListItems.get(i).getSwapping()) {
+                return habitListItems.get(i);
+            }
+        }
+        return null;
+    }
+
+    public void setLongClickedHabit(Habit habit) {
+        Habit oldLongClickedHabit = getLongClickedHabit();
+        if (oldLongClickedHabit != null) {
+            Log.d("debugInfo", "old long clicked habit not found");
+            oldLongClickedHabit.setSwapping(false);
+        }
+        habit.setSwapping(true);
+        refreshData();
     }
 }

@@ -291,7 +291,7 @@ public class HabitEventController {
         if (updateFirebase) {
             addHabitEvent(habit, missedEvent);
         } else {
-            addHabitEventLocal(habit, missedEvent);
+            //addHabitEventLocal(habit, missedEvent);
         }
     }
 

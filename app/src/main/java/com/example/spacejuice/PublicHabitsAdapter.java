@@ -36,13 +36,14 @@ public class PublicHabitsAdapter extends ArrayAdapter<Habit> {
         TextView name = view.findViewById(R.id.habit_textPHC);
         TextView level = view.findViewById(R.id.habit_content_habit_levelPHC);
         name.setText(string);
+        HabitController.calculateScore(habits.get(position));
         level.setBackground(AppCompatResources.getDrawable(context, habits.get(position).getIndicator().getImage()));
         level.setText(habits.get(position).getIndicator().getIndicatorText());
         name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Habit habit = habits.get(position);
-                Log.d("debugInfo", "success streak for " + habit.getTitle() + " is " + HabitController.getHabitStreak(habit));
+                Log.d("debugInfo", "habit UID is " + habit.getUid() + "  habit xp is " + habit.getIndicator().getXp());
             }
         });
         return view;
