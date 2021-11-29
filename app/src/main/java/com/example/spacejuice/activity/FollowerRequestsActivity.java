@@ -28,7 +28,7 @@ public class FollowerRequestsActivity extends AppCompatActivity {
    This Activity is used to display all my pending incoming follow requests
     */
    private ImageButton back_button;
-   private ListView followerList;
+   public ListView followerList;
    private FollowRequestAdapter followRequestAdapter;
    private ArrayList<Member> requestingMembers;
    private FollowController followController;
