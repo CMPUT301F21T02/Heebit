@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import android.app.Activity;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -19,7 +20,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class MainActivityTest {
+public class HabitTests {
 
     private Solo solo;
 
@@ -31,12 +32,13 @@ public class MainActivityTest {
     @Before
     public void setUp(){
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
+        solo.clickOnButton("Log in");
+        assertTrue(solo.waitForActivity(LoginActivity.class));
+        solo.enterText((EditText) solo.getView(R.id.userName), "Obama");
+        solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "Murica22");
+        solo.clickOnButton("Login");
+        solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
 
-//        solo.clickOnButton("Log in");
-//        assertTrue(solo.waitForActivity(LoginActivity.class));
-//        solo.enterText((EditText) solo.getView(R.id.userName), "Josh4");
-//        solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "12345");
-//        solo.clickOnButton("Login");
     }
 
     @Test
@@ -45,28 +47,21 @@ public class MainActivityTest {
 
     }
 
-    @Test
-    public void login() {
-        solo.clickOnButton("Log in");
-        assertTrue(solo.waitForActivity(LoginActivity.class));
-        solo.enterText((EditText) solo.getView(R.id.userName), "Obama");
-        solo.enterText((EditText) solo.getView(R.id.editTextTextPassword), "Murica22");
-        solo.clickOnButton("Login");
-        solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
-    }
-
-
 
     @Test
     public void addHabitTest() {
-        login();
-        solo.clickOnButton(R.id.add_habit_imagebutton);
+        solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
+        ImageButton image1 = (ImageButton) solo.getView("add_habit_imagebutton");
+        solo.clickOnView(image1);
+        // solo.clickOnImageButton(1);
         solo.assertCurrentActivity("Wrong activity", AddHabitActivity.class);
     }
 
     @After
-    public void tearDown() throws Exception{
+    public void tearDown() throws Exception {
         solo.finishOpenedActivities();
     }
+
+
 
 }
