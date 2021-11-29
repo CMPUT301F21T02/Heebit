@@ -280,4 +280,8 @@ public class Habit implements Serializable {
     public boolean getSwapping() { return this.swapping; }
 
     public void setSwapping(boolean bool) { this.swapping = bool; }
+
+    public void deleteEvent(HabitEvent event){
+        events.remove(event);
+    }
 }
