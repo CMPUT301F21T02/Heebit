@@ -88,7 +88,7 @@ public class HabitEventTest {
 
     }
 
-        @Test
+    @Test
     public void editHabitEventText(){
         // edit text
         assertTrue(solo.waitForActivity(OverviewActivity.class));
@@ -116,19 +116,14 @@ public class HabitEventTest {
         solo.clickOnView(view2);
 
         solo.assertCurrentActivity("Wrong activity", HabitDetailsActivity.class);
-//        solo.clickOnButton("Add GPS");
-//        solo.assertCurrentActivity("Wrong activity", MapsActivity.class);
-//        solo.clickOnButton("Add");
 
-//        assertTrue(solo.waitForActivity(AddHabitEventActivity.class));
         solo.enterText((EditText) solo.getView(R.id.edit_editText), "Good job!!");
         solo.sleep(1000);
         solo.clickOnButton("Confirm");
-        solo.sleep(1000);
-        solo.clickOnButton("Publish");
+        //assertTrue(solo.waitForActivity(AddHabitEventActivity.class));
 
 
-        }
+    }
     @After
     public void tearDown() throws Exception {
         solo.finishOpenedActivities();
