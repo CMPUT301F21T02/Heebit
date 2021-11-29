@@ -83,7 +83,7 @@ This Activity is used to edit a habit
     private Habit habit;
     private TextView reason;
     private TextView level;
-    private ListView habitEventList;
+    public ListView habitEventList;
     private HabitEventAdapter habitEventAdapter;
     CollectionReference collectionReference;
     private ArrayList<HabitEvent> habitEventArrayList;
