@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.spacejuice.activity.HabitDetailsActivity;
 import com.example.spacejuice.activity.MapsActivity;
+import com.example.spacejuice.controller.HabitEventController;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -27,11 +28,14 @@ import java.util.Date;
 public class HabitEventAdapter extends ArrayAdapter {
     private final ArrayList<HabitEvent> eventItems;
     private final Context context;
+    private final Habit habit;
 
-    public HabitEventAdapter(Context context, int layout, ArrayList<HabitEvent> items) {
+    public HabitEventAdapter(Context context, int layout, ArrayList<HabitEvent> items, Habit habit) {
         super(context, layout);
         this.context = context;
         this.eventItems = items;
+        this.habit = habit;
+
     }
 
     //ViewHolder contains elements for our list item layout.. and is an inner class
@@ -43,6 +47,7 @@ public class HabitEventAdapter extends ArrayAdapter {
         ImageView eventImage;
         TextView eventLocation;
         ImageView gpsIcon;
+        ImageView deleteIcon;
     }
 
     @Override
@@ -69,6 +74,7 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventImage = row.findViewById(R.id.eventImage);
             viewHolder.eventLocation = row.findViewById(R.id.location_text);
             viewHolder.gpsIcon = row.findViewById(R.id.location_icon);
+            viewHolder.deleteIcon = row.findViewById(R.id.event_delete);
             row.setTag(viewHolder);
         } else { // If the viewHolder was already initialized
             viewHolder = (ViewHolder) row.getTag();
@@ -117,10 +123,18 @@ public class HabitEventAdapter extends ArrayAdapter {
             viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.DarkGray));
             viewHolder.gpsIcon.setVisibility(View.INVISIBLE);
             viewHolder.gpsIcon.setClickable(false);
+            viewHolder.deleteIcon.setVisibility(View.INVISIBLE);
+            viewHolder.deleteIcon.setClickable(false);
+            viewHolder.eventDescription.setVisibility(View.INVISIBLE);
+            viewHolder.eventDescription.setClickable(false);
         } else {
+            viewHolder.deleteIcon.setVisibility(View.VISIBLE);
+            viewHolder.deleteIcon.setClickable(true);
             viewHolder.eventImage.setVisibility(View.VISIBLE);
             viewHolder.eventImage.setClickable(true);
             viewHolder.eventDateText.setTextColor(ContextCompat.getColor(context, R.color.Green));
+            viewHolder.eventDescription.setVisibility(View.VISIBLE);
+            viewHolder.eventDescription.setClickable(true);
         }
 
         String stringUri = eventItems.get(position).getImage();
@@ -150,6 +164,20 @@ public class HabitEventAdapter extends ArrayAdapter {
                 Log.d("debugInfo", "clicked on item (" + position + ") giving Uid: " + eventItems.get(position).getUid());
                 HabitDetailsActivity inst = (HabitDetailsActivity) context;
                 inst.launchEventDetails(eventItems.get(position),stringUri);
+            }
+        });
+
+        viewHolder.deleteIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HabitEvent event = eventItems.get(position);
+                event.setDescription("");
+                event.setLocation(0.00, 0.00);
+                event.setImage(null);
+                event.setDone(false);
+                HabitEventController.DeleteHabitEvent(habit, event);
+                ((HabitDetailsActivity) context).refreshData();
+
             }
         });
 
