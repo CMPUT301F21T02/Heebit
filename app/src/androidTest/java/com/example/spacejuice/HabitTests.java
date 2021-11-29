@@ -41,6 +41,9 @@ public class HabitTests {
             new ActivityTestRule<>(MainActivity.class, true, true);
 
 
+    /**
+     * Sets up the Tests before run
+     */
     @Before
     public void setUp(){
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
@@ -54,7 +57,9 @@ public class HabitTests {
 
     }
 
-
+    /**
+     * Adds habit with incorrect text and confirms
+     */
     @Test
     public void Test1_addHabitTest() {
         solo.assertCurrentActivity("Wrong activity", OverviewActivity.class);
@@ -89,6 +94,9 @@ public class HabitTests {
         solo.clickOnButton("CONFIRM");
     }
 
+    /**
+     * Edits and corrects the incorrect speeches word
+     */
     @Test
     public void Test2_editHabitTest() {
 //        TextView habit_text_view = (TextView) solo.getView("overview_habit_text");
@@ -102,6 +110,11 @@ public class HabitTests {
         solo.assertCurrentActivity("Wrong activity", HabitDetailsActivity.class);
     }
 
+    /**
+     * Attempts to delete the habit, selects No on AlertDialog and then attempts
+     * again and selects Yes on AlertDialog
+     * Should clear all habits now so that test can be rerun with ease
+     */
     @Test
     public void Test3_deleteHabitTest() {
         solo.clickInList(0);
