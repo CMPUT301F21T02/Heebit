@@ -487,9 +487,7 @@ public class HabitController {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<DocumentSnapshot> docs = task.getResult().getDocuments();
-                DocumentReference habitRef = docs.get(0).getReference();
-                habitRef.update("ID", uid2);
-
+                DocumentReference habitRef1 = docs.get(0).getReference();
 
                 Task<QuerySnapshot> querySnap2 = db.collection("Members").document(username)
                         .collection("Habits").whereEqualTo("ID", uid2).get();
@@ -498,8 +496,9 @@ public class HabitController {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         List<DocumentSnapshot> docs = task.getResult().getDocuments();
-                        DocumentReference habitRef = docs.get(0).getReference();
-                        habitRef.update("ID", uid1);
+                        DocumentReference habitRef2 = docs.get(0).getReference();
+                        habitRef1.update("ID", uid2);
+                        habitRef2.update("ID", uid1);
                         callback.onHabitSwapComplete(true);
                     }
                 });

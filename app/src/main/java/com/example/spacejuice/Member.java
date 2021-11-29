@@ -188,7 +188,7 @@ public class Member {
                     while (habitUid < (habitListItems.get(i)).getUid() && i > 0) {
                         i--;
                     }
-                    habitList.add(habit);
+                    habitList.add(i, habit);
                 }
             }
             setHabitListItems(habitList);
