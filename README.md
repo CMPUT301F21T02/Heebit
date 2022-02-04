@@ -1,4 +1,4 @@
-# SpaceJuice
+# Heebit
 An app that tracks your habits growth
 
 You can find all the document in wiki
